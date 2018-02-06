@@ -95,42 +95,45 @@
     <None Include=".vs\ProjectSettings.json" />
     <None Include=".vs\slnx.sqlite" />
     <None Include=".vs\VSWorkspaceState.json" />
-    <None Include="App.config" />
-    <None Include="packages.config" />
+    <None Include="SampleDBs\Geocaches" />
+    <None Include="SampleDBs\Ratingprofiles" />
+    <None Include="SampleDBs\Routingprofiles" />
+    <None Include="Sourcecode\App.config" />
+    <None Include="Sourcecode\packages.config" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomCode.cs" />
-    <Compile Include="Database.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Sourcecode\CustomCode.cs" />
+    <Compile Include="Sourcecode\Database.cs" />
+    <Compile Include="Sourcecode\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
+    <Compile Include="Sourcecode\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Geocache.cs" />
-    <Compile Include="NewRatingprofileWindow.cs">
+    <Compile Include="Sourcecode\Geocache.cs" />
+    <Compile Include="Sourcecode\NewRatingprofileWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NewRatingprofileWindow.Designer.cs">
+    <Compile Include="Sourcecode\NewRatingprofileWindow.Designer.cs">
       <DependentUpon>NewRatingprofileWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Ratingprofile.cs" />
-    <Compile Include="Routingprofil.cs" />
-    <Compile Include="SelectRatingprofile.Designer.cs" />
-    <Compile Include="SelectRatingprofileWindow.cs">
+    <Compile Include="Sourcecode\Program.cs" />
+    <Compile Include="Sourcecode\Ratingprofile.cs" />
+    <Compile Include="Sourcecode\Routingprofil.cs" />
+    <Compile Include="Sourcecode\SelectRatingprofile.Designer.cs" />
+    <Compile Include="Sourcecode\SelectRatingprofileWindow.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form1.resx">
+    <EmbeddedResource Include="Sourcecode\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NewRatingprofileWindow.resx">
+    <EmbeddedResource Include="Sourcecode\NewRatingprofileWindow.resx">
       <DependentUpon>NewRatingprofileWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SelectRatingprofile.resx" />
+    <EmbeddedResource Include="Sourcecode\SelectRatingprofile.resx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".git\objects\info\" />
