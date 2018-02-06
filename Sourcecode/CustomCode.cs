@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tourenplaner
+namespace GeocachingTourPlanner
 {
 	/// <summary>
 	/// By Standard you can't serialize a KeyValuePair
@@ -36,23 +36,35 @@ namespace Tourenplaner
 	/// <typeparam name="T"></typeparam>
 	public class SortableBindingList<T> : BindingList<T>
 	{
+		//fields
 		private bool isSorting;
+		private bool isSorted;
+		private ISortComparer<T> sortComparer;
+		private ListSortDirection sortDirection;
+		private PropertyDescriptor sortProperty;
 
 		/// <summary>
 		/// Raised when the list is sorted.
 		/// </summary>
 		public event EventHandler Sorted;
 
-		public SortableBindingList()
-			: this(null) { }
+		//Constructors
+		public SortableBindingList(){ }
 
 		public SortableBindingList(IEnumerable<T> contents)
-			: this(contents, null) { }
+		{
+			if(contents != null)
+			{
+				AddList(contents);
+			}
+				
+			SortComparer = new GenericSortComparer<T>();
+		}
 
 		public SortableBindingList(IEnumerable<T> contents, ISortComparer<T> comparer)
 		{
 			if (contents != null)
-				AddRange(contents);
+				AddList(contents);
 
 			if (comparer == null)
 				SortComparer = new GenericSortComparer<T>();
@@ -60,8 +72,7 @@ namespace Tourenplaner
 				SortComparer = comparer;
 		}
 
-		#region Properties
-		private ISortComparer<T> sortComparer;
+		//Properties
 		public ISortComparer<T> SortComparer
 		{
 			get { return sortComparer; }
@@ -72,8 +83,7 @@ namespace Tourenplaner
 				sortComparer = value;
 			}
 		}
-
-		private bool isSorted;
+		
 		protected override bool IsSortedCore
 		{
 			get { return isSorted; }
@@ -84,33 +94,32 @@ namespace Tourenplaner
 			get { return true; }
 		}
 
-		private ListSortDirection sortDirection;
 		protected override ListSortDirection SortDirectionCore
 		{
 			get { return sortDirection; }
 		}
 
-		private PropertyDescriptor sortProperty;
 		protected override PropertyDescriptor SortPropertyCore
 		{
 			get { return sortProperty; }
 		}
-		#endregion
 
-		protected override void ApplySortCore(PropertyDescriptor prop, ListSortDirection direction)
+
+		//Methods
+		protected override void ApplySortCore(PropertyDescriptor property, ListSortDirection direction)
 		{
-			if (prop == null)
+			if (property == null)
 				return;
 
 			isSorting = true;
 			sortDirection = direction;
-			sortProperty = prop;
-			this.SortComparer.SortProperty = prop;
-			this.SortComparer.SortDirection = direction;
-			((List<T>)this.Items).Sort(this.SortComparer);
-			isSorted = true;
+			sortProperty = property;
+			SortComparer.SortProperty = property;
+			SortComparer.SortDirection = direction;
+			((List<T>)Items).Sort(SortComparer);
 			isSorting = false;
-			this.OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, 0));
+			isSorted = true;
+			OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, 0));
 			OnSorted(null, new EventArgs());
 		}
 
@@ -135,21 +144,21 @@ namespace Tourenplaner
 		{
 			base.InsertItem(index, item);
 			if (!isSorting)
-				this.ApplySortCore(this.SortPropertyCore, this.SortDirectionCore);
+				ApplySortCore(SortPropertyCore, SortDirectionCore);
 		}
 
 		protected override void SetItem(int index, T item)
 		{
 			base.SetItem(index, item);
 			if (!isSorting)
-				this.ApplySortCore(this.SortPropertyCore, this.SortDirectionCore);
+				ApplySortCore(SortPropertyCore, SortDirectionCore);
 		}
 
 		protected override void RemoveItem(int index)
 		{
 			base.RemoveItem(index);
 			if (!isSorting)
-				this.ApplySortCore(this.SortPropertyCore, this.SortDirectionCore);
+				ApplySortCore(SortPropertyCore, SortDirectionCore);
 		}
 
 		protected override void ClearItems()
@@ -157,49 +166,48 @@ namespace Tourenplaner
 			base.ClearItems();
 		}
 
-		public void AddRange(IEnumerable<T> items)
+		public void AddList(IEnumerable<T> items)
 		{
 			if (items != null)
 				foreach (T item in items)
-					this.Items.Add(item);
+					Items.Add(item);
 		}
 	}
+
 	public class GenericSortComparer<T> : ISortComparer<T>
 	{
-		public GenericSortComparer()
-		{
-		}
-
-		public GenericSortComparer(string sortProperty, ListSortDirection sortDirection)
-			: this(TypeDescriptor.GetProperties(typeof(T)).Find(sortProperty, true), sortDirection)
-		{
-		}
-
-		public GenericSortComparer(PropertyDescriptor sortProperty, ListSortDirection sortDirection)
-		{
-			this.SortDirection = sortDirection;
-			this.SortProperty = sortProperty;
-		}
-
+		//Properties
 		public PropertyDescriptor SortProperty { get; set; }
 		public ListSortDirection SortDirection { get; set; }
 
-		public int Compare(T x, T y)
+		//Constructors
+		public GenericSortComparer(){}
+
+		public GenericSortComparer(string sortProperty, ListSortDirection sortDirection) : this(TypeDescriptor.GetProperties(typeof(T)).Find(sortProperty, true), sortDirection) {}
+
+		public GenericSortComparer(PropertyDescriptor sortProperty, ListSortDirection sortDirection)
 		{
-			if (this.SortProperty == null)
+			SortDirection = sortDirection;
+			SortProperty = sortProperty;
+		}
+
+		public int Compare(T a, T b)
+		{
+			if (SortProperty == null)
 				return 0;
 
-			IComparable obj1 = this.SortProperty.GetValue(x) as IComparable;
-			IComparable obj2 = this.SortProperty.GetValue(y) as IComparable;
-			if (obj1 == null || obj2 == null)
+			IComparable a_comparable = SortProperty.GetValue(a) as IComparable;
+			IComparable b_comparable = SortProperty.GetValue(b) as IComparable;
+			if (a_comparable == null || b_comparable == null)
 				return 0;
 
-			if (this.SortDirection == ListSortDirection.Ascending)
-				return (obj1.CompareTo(obj2));
+			if (SortDirection == ListSortDirection.Ascending)
+				return (a_comparable.CompareTo(b_comparable));
 			else
-				return (obj2.CompareTo(obj1));
+				return (b_comparable.CompareTo(a_comparable));
 		}
 	}
+
 	public interface ISortComparer<T> : IComparer<T>
 	{
 		PropertyDescriptor SortProperty { get; set; }

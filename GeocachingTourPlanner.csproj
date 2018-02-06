@@ -48,10 +48,10 @@
     <RootNamespace>GeocachingTourPlanner</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GMap.NET.Core">
+    <Reference Include="GMap.NET.Core, Version=1.7.5.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
       <HintPath>packages\GMap.NET.WindowsForms.1.7.5\lib\net40\GMap.NET.Core.dll</HintPath>
     </Reference>
-    <Reference Include="GMap.NET.WindowsForms">
+    <Reference Include="GMap.NET.WindowsForms, Version=1.7.5.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
       <HintPath>packages\GMap.NET.WindowsForms.1.7.5\lib\net40\GMap.NET.WindowsForms.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -95,6 +95,7 @@
     <None Include=".vs\ProjectSettings.json" />
     <None Include=".vs\slnx.sqlite" />
     <None Include=".vs\VSWorkspaceState.json" />
+    <None Include="packages.config" />
     <None Include="SampleDBs\Geocaches" />
     <None Include="SampleDBs\Ratingprofiles" />
     <None Include="SampleDBs\Routingprofiles" />
@@ -121,9 +122,11 @@
     <Compile Include="Sourcecode\Program.cs" />
     <Compile Include="Sourcecode\Ratingprofile.cs" />
     <Compile Include="Sourcecode\Routingprofil.cs" />
-    <Compile Include="Sourcecode\SelectRatingprofile.Designer.cs" />
-    <Compile Include="Sourcecode\SelectRatingprofileWindow.cs">
+    <Compile Include="Sourcecode\RunRating.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sourcecode\RunRating.Designer.cs">
+      <DependentUpon>RunRating.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -133,7 +136,9 @@
     <EmbeddedResource Include="Sourcecode\NewRatingprofileWindow.resx">
       <DependentUpon>NewRatingprofileWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Sourcecode\SelectRatingprofile.resx" />
+    <EmbeddedResource Include="Sourcecode\RunRating.resx">
+      <DependentUpon>RunRating.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".git\objects\info\" />

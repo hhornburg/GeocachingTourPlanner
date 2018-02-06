@@ -1,4 +1,4 @@
-﻿namespace Tourenplaner
+﻿namespace GeocachingTourPlanner
 {
     partial class NeuesBewertungsProfilFenster
     {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GMap.NET;
 
-namespace Tourenplaner
+namespace GeocachingTourPlanner
 {
     public class Database
     {

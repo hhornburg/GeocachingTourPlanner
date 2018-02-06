@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Tourenplaner
+namespace GeocachingTourPlanner
 {
     public partial class NeuesBewertungsProfilFenster : Form
     {

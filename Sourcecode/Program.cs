@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
-namespace Tourenplaner
+namespace GeocachingTourPlanner
 {
 	static class Program
     {

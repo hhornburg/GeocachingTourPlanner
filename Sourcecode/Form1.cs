@@ -14,7 +14,7 @@ using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 using GMap.NET.MapProviders;
 
-namespace Tourenplaner
+namespace GeocachingTourPlanner
 {
     public partial class Form1 : Form
     {
@@ -147,12 +147,12 @@ namespace Tourenplaner
 
 		private void geocachesBewertenToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			BewertungsprofilAuswählen Fenster = new BewertungsprofilAuswählen();
+			RunRating Window = new RunRating();
 			foreach (Ratingprofile BP in Program.Ratingprofiles)
 			{
-				Fenster.ProfilCombobox.Items.Add(BP.Name);
+				Window.RatingProfilesCombobox.Items.Add(BP.Name);
 			}
-			Fenster.ShowDialog();
+			Window.ShowDialog();
 		}
 
 		private void Karte_Load(object sender, EventArgs e)

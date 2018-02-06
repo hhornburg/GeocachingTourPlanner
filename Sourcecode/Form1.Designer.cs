@@ -1,4 +1,4 @@
-﻿namespace Tourenplaner
+﻿namespace GeocachingTourPlanner
 {
     partial class Form1
     {
@@ -43,6 +43,10 @@
 			this.RoutingprofilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.NewRoutingprofileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+			this.setGeocachedatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.setRoutingprofiledatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.setRatingprofiledatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.Tabcontainer = new System.Windows.Forms.TabControl();
 			this.GeocachesTab = new System.Windows.Forms.TabPage();
 			this.GeocacheTable = new System.Windows.Forms.DataGridView();
@@ -52,10 +56,6 @@
 			this.BestGeocachesCheckbox = new System.Windows.Forms.CheckBox();
 			this.WorstGeocachesCheckbox = new System.Windows.Forms.CheckBox();
 			this.Map = new GMap.NET.WindowsForms.GMapControl();
-			this.setGeocachedatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.setRoutingprofiledatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.setRatingprofiledatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
 			this.menuStrip1.SuspendLayout();
 			this.Tabcontainer.SuspendLayout();
 			this.GeocachesTab.SuspendLayout();
@@ -181,6 +181,32 @@
 			this.NewRoutingprofileToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
 			this.NewRoutingprofileToolStripMenuItem.Text = "New Profile";
 			// 
+			// toolStripSeparator3
+			// 
+			this.toolStripSeparator3.Name = "toolStripSeparator3";
+			this.toolStripSeparator3.Size = new System.Drawing.Size(213, 6);
+			// 
+			// setGeocachedatabaseToolStripMenuItem
+			// 
+			this.setGeocachedatabaseToolStripMenuItem.Name = "setGeocachedatabaseToolStripMenuItem";
+			this.setGeocachedatabaseToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+			this.setGeocachedatabaseToolStripMenuItem.Text = "Set Geocachedatabase";
+			this.setGeocachedatabaseToolStripMenuItem.Click += new System.EventHandler(this.setGeocachedatabaseToolStripMenuItem_Click);
+			// 
+			// setRoutingprofiledatabaseToolStripMenuItem
+			// 
+			this.setRoutingprofiledatabaseToolStripMenuItem.Name = "setRoutingprofiledatabaseToolStripMenuItem";
+			this.setRoutingprofiledatabaseToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+			this.setRoutingprofiledatabaseToolStripMenuItem.Text = "Set Routingprofiledatabase";
+			this.setRoutingprofiledatabaseToolStripMenuItem.Click += new System.EventHandler(this.setRoutingprofiledatabaseToolStripMenuItem_Click);
+			// 
+			// setRatingprofiledatabaseToolStripMenuItem
+			// 
+			this.setRatingprofiledatabaseToolStripMenuItem.Name = "setRatingprofiledatabaseToolStripMenuItem";
+			this.setRatingprofiledatabaseToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+			this.setRatingprofiledatabaseToolStripMenuItem.Text = "Set Ratingprofiledatabase";
+			this.setRatingprofiledatabaseToolStripMenuItem.Click += new System.EventHandler(this.setRatingprofiledatabaseToolStripMenuItem_Click);
+			// 
 			// Tabcontainer
 			// 
 			this.Tabcontainer.Controls.Add(this.GeocachesTab);
@@ -223,7 +249,7 @@
 			this.MapTab.Padding = new System.Windows.Forms.Padding(3);
 			this.MapTab.Size = new System.Drawing.Size(1154, 392);
 			this.MapTab.TabIndex = 1;
-			this.MapTab.Text = "Karte";
+			this.MapTab.Text = "Map";
 			this.MapTab.UseVisualStyleBackColor = true;
 			// 
 			// MapTab_SideMenu
@@ -241,7 +267,7 @@
 			this.MapTab_SideMenu.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.MapTab_SideMenu.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.MapTab_SideMenu.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.MapTab_SideMenu.Size = new System.Drawing.Size(166, 386);
+			this.MapTab_SideMenu.Size = new System.Drawing.Size(156, 386);
 			this.MapTab_SideMenu.TabIndex = 1;
 			// 
 			// MediumGeocachesCheckbox
@@ -251,9 +277,9 @@
 			this.MediumGeocachesCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.MediumGeocachesCheckbox.Location = new System.Drawing.Point(3, 26);
 			this.MediumGeocachesCheckbox.Name = "MediumGeocachesCheckbox";
-			this.MediumGeocachesCheckbox.Size = new System.Drawing.Size(147, 17);
+			this.MediumGeocachesCheckbox.Size = new System.Drawing.Size(150, 17);
 			this.MediumGeocachesCheckbox.TabIndex = 0;
-			this.MediumGeocachesCheckbox.Text = "Zeige mittlere Geocaches";
+			this.MediumGeocachesCheckbox.Text = "Show medium Geocaches";
 			this.MediumGeocachesCheckbox.UseVisualStyleBackColor = true;
 			this.MediumGeocachesCheckbox.CheckedChanged += new System.EventHandler(this.MittlereBox_CheckedChanged);
 			// 
@@ -264,9 +290,9 @@
 			this.BestGeocachesCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.BestGeocachesCheckbox.Location = new System.Drawing.Point(3, 3);
 			this.BestGeocachesCheckbox.Name = "BestGeocachesCheckbox";
-			this.BestGeocachesCheckbox.Size = new System.Drawing.Size(140, 17);
+			this.BestGeocachesCheckbox.Size = new System.Drawing.Size(134, 17);
 			this.BestGeocachesCheckbox.TabIndex = 1;
-			this.BestGeocachesCheckbox.Text = "Zeige beste Geocaches";
+			this.BestGeocachesCheckbox.Text = "Show best Geocaches";
 			this.BestGeocachesCheckbox.UseVisualStyleBackColor = true;
 			this.BestGeocachesCheckbox.CheckedChanged += new System.EventHandler(this.BesteBox_CheckedChanged);
 			// 
@@ -277,9 +303,9 @@
 			this.WorstGeocachesCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.WorstGeocachesCheckbox.Location = new System.Drawing.Point(3, 49);
 			this.WorstGeocachesCheckbox.Name = "WorstGeocachesCheckbox";
-			this.WorstGeocachesCheckbox.Size = new System.Drawing.Size(160, 17);
+			this.WorstGeocachesCheckbox.Size = new System.Drawing.Size(139, 17);
 			this.WorstGeocachesCheckbox.TabIndex = 2;
-			this.WorstGeocachesCheckbox.Text = "Zeige schlechte Geocaches";
+			this.WorstGeocachesCheckbox.Text = "Show worst Geocaches";
 			this.WorstGeocachesCheckbox.UseVisualStyleBackColor = true;
 			this.WorstGeocachesCheckbox.CheckedChanged += new System.EventHandler(this.SchlechteBox_CheckedChanged);
 			// 
@@ -311,32 +337,6 @@
 			this.Map.Zoom = 0D;
 			this.Map.Load += new System.EventHandler(this.Karte_Load);
 			// 
-			// setGeocachedatabaseToolStripMenuItem
-			// 
-			this.setGeocachedatabaseToolStripMenuItem.Name = "setGeocachedatabaseToolStripMenuItem";
-			this.setGeocachedatabaseToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-			this.setGeocachedatabaseToolStripMenuItem.Text = "Set Geocachedatabase";
-			this.setGeocachedatabaseToolStripMenuItem.Click += new System.EventHandler(this.setGeocachedatabaseToolStripMenuItem_Click);
-			// 
-			// setRoutingprofiledatabaseToolStripMenuItem
-			// 
-			this.setRoutingprofiledatabaseToolStripMenuItem.Name = "setRoutingprofiledatabaseToolStripMenuItem";
-			this.setRoutingprofiledatabaseToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-			this.setRoutingprofiledatabaseToolStripMenuItem.Text = "Set Routingprofiledatabase";
-			this.setRoutingprofiledatabaseToolStripMenuItem.Click += new System.EventHandler(this.setRoutingprofiledatabaseToolStripMenuItem_Click);
-			// 
-			// setRatingprofiledatabaseToolStripMenuItem
-			// 
-			this.setRatingprofiledatabaseToolStripMenuItem.Name = "setRatingprofiledatabaseToolStripMenuItem";
-			this.setRatingprofiledatabaseToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-			this.setRatingprofiledatabaseToolStripMenuItem.Text = "Set Ratingprofiledatabase";
-			this.setRatingprofiledatabaseToolStripMenuItem.Click += new System.EventHandler(this.setRatingprofiledatabaseToolStripMenuItem_Click);
-			// 
-			// toolStripSeparator3
-			// 
-			this.toolStripSeparator3.Name = "toolStripSeparator3";
-			this.toolStripSeparator3.Size = new System.Drawing.Size(213, 6);
-			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -346,7 +346,7 @@
 			this.Controls.Add(this.menuStrip1);
 			this.MainMenuStrip = this.menuStrip1;
 			this.Name = "Form1";
-			this.Text = "Geocaching Tourenplaner";
+			this.Text = "GeocachingTourPlanner";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
