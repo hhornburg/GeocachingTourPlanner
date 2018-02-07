@@ -20,7 +20,7 @@ namespace GeocachingTourPlanner
         public GeocacheSize Size { get; set; }
         public float Rating { get; set; }
 
-        public void Bewerten(Ratingprofile Profil)
+        public void Rate(Ratingprofile Profil)
         {
             Rating = 0;
             Rating += (Profil.TypeRatings.Where(x=>x.Key==Type).First().Value * Profil.TypePriority);

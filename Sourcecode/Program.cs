@@ -122,7 +122,7 @@ namespace GeocachingTourPlanner
 
         private static void Menuitem_Click(object sender, EventArgs e)
         {
-            new NeuesBewertungsProfilFenster(Ratingprofiles.First(x=>x.Name==sender.ToString())).Show();
+            new NewRatingProfileWindow(Ratingprofiles.First(x=>x.Name==sender.ToString())).Show();
         }
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace GeocachingTourPlanner
 			{
 				if (DB.LastRatingDB_Filepath == null)
 				{
-					DB.LastRatingDB_Filepath = "Bewertungsprofile";
+					DB.LastRatingDB_Filepath = "Ratingprofiles";
 				}
 
 				TextWriter BewertungsprofileWriter;

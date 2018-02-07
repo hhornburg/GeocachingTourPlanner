@@ -1,6 +1,6 @@
 ﻿namespace GeocachingTourPlanner
 {
-    partial class NeuesBewertungsProfilFenster
+    partial class NewRatingProfileWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -181,7 +181,7 @@
 			this.AbbrechenKnopf.Name = "AbbrechenKnopf";
 			this.AbbrechenKnopf.Size = new System.Drawing.Size(147, 30);
 			this.AbbrechenKnopf.TabIndex = 0;
-			this.AbbrechenKnopf.Text = "Abbrechen";
+			this.AbbrechenKnopf.Text = "Cancel";
 			this.AbbrechenKnopf.UseVisualStyleBackColor = true;
 			this.AbbrechenKnopf.Click += new System.EventHandler(this.AbbrechenKnopf_Click);
 			// 
@@ -193,7 +193,7 @@
 			this.ErstellenKnopf.Name = "ErstellenKnopf";
 			this.ErstellenKnopf.Size = new System.Drawing.Size(145, 30);
 			this.ErstellenKnopf.TabIndex = 1;
-			this.ErstellenKnopf.Text = "Profil Speichern";
+			this.ErstellenKnopf.Text = "Save profile";
 			this.ErstellenKnopf.UseVisualStyleBackColor = true;
 			this.ErstellenKnopf.Click += new System.EventHandler(this.ErstellenKnopf_Click);
 			// 
@@ -206,7 +206,7 @@
 			this.label19.Name = "label19";
 			this.label19.Size = new System.Drawing.Size(145, 30);
 			this.label19.TabIndex = 2;
-			this.label19.Text = "Speichern unter";
+			this.label19.Text = "Save as";
 			this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// NameWert
@@ -252,7 +252,7 @@
 			this.groupBox6.Size = new System.Drawing.Size(372, 44);
 			this.groupBox6.TabIndex = 5;
 			this.groupBox6.TabStop = false;
-			this.groupBox6.Text = "Alter";
+			this.groupBox6.Text = "Age";
 			// 
 			// tableLayoutPanel8
 			// 
@@ -294,8 +294,8 @@
 			this.AlterWert.Dock = System.Windows.Forms.DockStyle.Left;
 			this.AlterWert.FormattingEnabled = true;
 			this.AlterWert.Items.AddRange(new object[] {
-            "mit x multiplizieren",
-            "quadrieren und durch x teilen"});
+            "multiply with",
+            "square and divide by"});
 			this.AlterWert.Location = new System.Drawing.Point(3, 3);
 			this.AlterWert.Name = "AlterWert";
 			this.AlterWert.Size = new System.Drawing.Size(282, 21);
@@ -337,7 +337,7 @@
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size(287, 19);
 			this.label15.TabIndex = 0;
-			this.label15.Text = "Minuspunkte für ein Needs Maitenance Flag";
+			this.label15.Text = "Points substracted for a Needs maintenance attribute";
 			// 
 			// NMFlagWert
 			// 
@@ -357,7 +357,7 @@
 			this.TWertungGroupbox.Size = new System.Drawing.Size(373, 181);
 			this.TWertungGroupbox.TabIndex = 3;
 			this.TWertungGroupbox.TabStop = false;
-			this.TWertungGroupbox.Text = "T-Wertung";
+			this.TWertungGroupbox.Text = "T-Rating";
 			// 
 			// tableLayoutPanel5
 			// 
@@ -398,7 +398,7 @@
 			this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanel5.Size = new System.Drawing.Size(295, 162);
+			this.tableLayoutPanel5.Size = new System.Drawing.Size(291, 162);
 			this.tableLayoutPanel5.TabIndex = 1;
 			// 
 			// T3Wert
@@ -416,7 +416,7 @@
             "7",
             "8",
             "9"});
-			this.T3Wert.Location = new System.Drawing.Point(51, 138);
+			this.T3Wert.Location = new System.Drawing.Point(47, 138);
 			this.T3Wert.Name = "T3Wert";
 			this.T3Wert.Size = new System.Drawing.Size(100, 21);
 			this.T3Wert.TabIndex = 22;
@@ -436,7 +436,7 @@
             "7",
             "8",
             "9"});
-			this.T1Wert.Location = new System.Drawing.Point(192, 111);
+			this.T1Wert.Location = new System.Drawing.Point(188, 111);
 			this.T1Wert.Name = "T1Wert";
 			this.T1Wert.Size = new System.Drawing.Size(100, 21);
 			this.T1Wert.TabIndex = 21;
@@ -456,7 +456,7 @@
             "7",
             "8",
             "9"});
-			this.T35Wert.Location = new System.Drawing.Point(51, 111);
+			this.T35Wert.Location = new System.Drawing.Point(47, 111);
 			this.T35Wert.Name = "T35Wert";
 			this.T35Wert.Size = new System.Drawing.Size(100, 21);
 			this.T35Wert.TabIndex = 20;
@@ -476,7 +476,7 @@
             "7",
             "8",
             "9"});
-			this.T15Wert.Location = new System.Drawing.Point(192, 84);
+			this.T15Wert.Location = new System.Drawing.Point(188, 84);
 			this.T15Wert.Name = "T15Wert";
 			this.T15Wert.Size = new System.Drawing.Size(100, 21);
 			this.T15Wert.TabIndex = 19;
@@ -496,7 +496,7 @@
             "7",
             "8",
             "9"});
-			this.T4Wert.Location = new System.Drawing.Point(51, 84);
+			this.T4Wert.Location = new System.Drawing.Point(47, 84);
 			this.T4Wert.Name = "T4Wert";
 			this.T4Wert.Size = new System.Drawing.Size(100, 21);
 			this.T4Wert.TabIndex = 18;
@@ -516,7 +516,7 @@
             "7",
             "8",
             "9"});
-			this.T2Wert.Location = new System.Drawing.Point(192, 57);
+			this.T2Wert.Location = new System.Drawing.Point(188, 57);
 			this.T2Wert.Name = "T2Wert";
 			this.T2Wert.Size = new System.Drawing.Size(100, 21);
 			this.T2Wert.TabIndex = 17;
@@ -536,7 +536,7 @@
             "7",
             "8",
             "9"});
-			this.T45Wert.Location = new System.Drawing.Point(51, 57);
+			this.T45Wert.Location = new System.Drawing.Point(47, 57);
 			this.T45Wert.Name = "T45Wert";
 			this.T45Wert.Size = new System.Drawing.Size(100, 21);
 			this.T45Wert.TabIndex = 16;
@@ -556,7 +556,7 @@
             "7",
             "8",
             "9"});
-			this.T25Wert.Location = new System.Drawing.Point(192, 30);
+			this.T25Wert.Location = new System.Drawing.Point(188, 30);
 			this.T25Wert.Name = "T25Wert";
 			this.T25Wert.Size = new System.Drawing.Size(100, 21);
 			this.T25Wert.TabIndex = 15;
@@ -576,7 +576,7 @@
             "7",
             "8",
             "9"});
-			this.T5Wert.Location = new System.Drawing.Point(51, 30);
+			this.T5Wert.Location = new System.Drawing.Point(47, 30);
 			this.T5Wert.Name = "T5Wert";
 			this.T5Wert.Size = new System.Drawing.Size(100, 21);
 			this.T5Wert.TabIndex = 14;
@@ -588,9 +588,9 @@
 			this.label31.Location = new System.Drawing.Point(3, 3);
 			this.label31.Margin = new System.Windows.Forms.Padding(3);
 			this.label31.Name = "label31";
-			this.label31.Size = new System.Drawing.Size(42, 21);
+			this.label31.Size = new System.Drawing.Size(38, 21);
 			this.label31.TabIndex = 5;
-			this.label31.Text = "Priorität";
+			this.label31.Text = "Priority";
 			// 
 			// label32
 			// 
@@ -599,7 +599,7 @@
 			this.label32.Location = new System.Drawing.Point(3, 57);
 			this.label32.Margin = new System.Windows.Forms.Padding(3);
 			this.label32.Name = "label32";
-			this.label32.Size = new System.Drawing.Size(42, 21);
+			this.label32.Size = new System.Drawing.Size(38, 21);
 			this.label32.TabIndex = 0;
 			this.label32.Text = "T45";
 			// 
@@ -610,7 +610,7 @@
 			this.label33.Location = new System.Drawing.Point(3, 84);
 			this.label33.Margin = new System.Windows.Forms.Padding(3);
 			this.label33.Name = "label33";
-			this.label33.Size = new System.Drawing.Size(42, 21);
+			this.label33.Size = new System.Drawing.Size(38, 21);
 			this.label33.TabIndex = 1;
 			this.label33.Text = "T4";
 			// 
@@ -621,7 +621,7 @@
 			this.label34.Location = new System.Drawing.Point(3, 111);
 			this.label34.Margin = new System.Windows.Forms.Padding(3);
 			this.label34.Name = "label34";
-			this.label34.Size = new System.Drawing.Size(42, 21);
+			this.label34.Size = new System.Drawing.Size(38, 21);
 			this.label34.TabIndex = 2;
 			this.label34.Text = "T3.5";
 			// 
@@ -632,7 +632,7 @@
 			this.label35.Location = new System.Drawing.Point(3, 138);
 			this.label35.Margin = new System.Windows.Forms.Padding(3);
 			this.label35.Name = "label35";
-			this.label35.Size = new System.Drawing.Size(42, 21);
+			this.label35.Size = new System.Drawing.Size(38, 21);
 			this.label35.TabIndex = 3;
 			this.label35.Text = "T3";
 			// 
@@ -643,7 +643,7 @@
 			this.label36.Location = new System.Drawing.Point(3, 30);
 			this.label36.Margin = new System.Windows.Forms.Padding(3);
 			this.label36.Name = "label36";
-			this.label36.Size = new System.Drawing.Size(42, 21);
+			this.label36.Size = new System.Drawing.Size(38, 21);
 			this.label36.TabIndex = 4;
 			this.label36.Text = "T5";
 			// 
@@ -651,7 +651,7 @@
 			// 
 			this.label37.AutoSize = true;
 			this.label37.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label37.Location = new System.Drawing.Point(157, 30);
+			this.label37.Location = new System.Drawing.Point(153, 30);
 			this.label37.Margin = new System.Windows.Forms.Padding(3);
 			this.label37.Name = "label37";
 			this.label37.Size = new System.Drawing.Size(29, 21);
@@ -662,7 +662,7 @@
 			// 
 			this.label38.AutoSize = true;
 			this.label38.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label38.Location = new System.Drawing.Point(157, 57);
+			this.label38.Location = new System.Drawing.Point(153, 57);
 			this.label38.Margin = new System.Windows.Forms.Padding(3);
 			this.label38.Name = "label38";
 			this.label38.Size = new System.Drawing.Size(29, 21);
@@ -673,7 +673,7 @@
 			// 
 			this.label39.AutoSize = true;
 			this.label39.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label39.Location = new System.Drawing.Point(157, 84);
+			this.label39.Location = new System.Drawing.Point(153, 84);
 			this.label39.Margin = new System.Windows.Forms.Padding(3);
 			this.label39.Name = "label39";
 			this.label39.Size = new System.Drawing.Size(29, 21);
@@ -684,7 +684,7 @@
 			// 
 			this.label40.AutoSize = true;
 			this.label40.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label40.Location = new System.Drawing.Point(157, 111);
+			this.label40.Location = new System.Drawing.Point(153, 111);
 			this.label40.Margin = new System.Windows.Forms.Padding(3);
 			this.label40.Name = "label40";
 			this.label40.Size = new System.Drawing.Size(29, 21);
@@ -706,7 +706,7 @@
             "7",
             "8",
             "9"});
-			this.TPrioritätenWert.Location = new System.Drawing.Point(51, 3);
+			this.TPrioritätenWert.Location = new System.Drawing.Point(47, 3);
 			this.TPrioritätenWert.Name = "TPrioritätenWert";
 			this.TPrioritätenWert.Size = new System.Drawing.Size(100, 21);
 			this.TPrioritätenWert.TabIndex = 11;
@@ -721,7 +721,7 @@
 			this.DWertungGroupBox.Size = new System.Drawing.Size(372, 181);
 			this.DWertungGroupBox.TabIndex = 2;
 			this.DWertungGroupBox.TabStop = false;
-			this.DWertungGroupBox.Text = "D-Wertung";
+			this.DWertungGroupBox.Text = "D-Rating";
 			// 
 			// tableLayoutPanel4
 			// 
@@ -780,7 +780,7 @@
             "7",
             "8",
             "9"});
-			this.D3Wert.Location = new System.Drawing.Point(51, 138);
+			this.D3Wert.Location = new System.Drawing.Point(47, 138);
 			this.D3Wert.Name = "D3Wert";
 			this.D3Wert.Size = new System.Drawing.Size(100, 21);
 			this.D3Wert.TabIndex = 22;
@@ -800,7 +800,7 @@
             "7",
             "8",
             "9"});
-			this.D1Wert.Location = new System.Drawing.Point(193, 111);
+			this.D1Wert.Location = new System.Drawing.Point(189, 111);
 			this.D1Wert.Name = "D1Wert";
 			this.D1Wert.Size = new System.Drawing.Size(100, 21);
 			this.D1Wert.TabIndex = 21;
@@ -820,7 +820,7 @@
             "7",
             "8",
             "9"});
-			this.D35Wert.Location = new System.Drawing.Point(51, 111);
+			this.D35Wert.Location = new System.Drawing.Point(47, 111);
 			this.D35Wert.Name = "D35Wert";
 			this.D35Wert.Size = new System.Drawing.Size(100, 21);
 			this.D35Wert.TabIndex = 20;
@@ -840,7 +840,7 @@
             "7",
             "8",
             "9"});
-			this.D15Wert.Location = new System.Drawing.Point(193, 84);
+			this.D15Wert.Location = new System.Drawing.Point(189, 84);
 			this.D15Wert.Name = "D15Wert";
 			this.D15Wert.Size = new System.Drawing.Size(100, 21);
 			this.D15Wert.TabIndex = 19;
@@ -860,7 +860,7 @@
             "7",
             "8",
             "9"});
-			this.D4Wert.Location = new System.Drawing.Point(51, 84);
+			this.D4Wert.Location = new System.Drawing.Point(47, 84);
 			this.D4Wert.Name = "D4Wert";
 			this.D4Wert.Size = new System.Drawing.Size(100, 21);
 			this.D4Wert.TabIndex = 18;
@@ -880,7 +880,7 @@
             "7",
             "8",
             "9"});
-			this.D2Wert.Location = new System.Drawing.Point(193, 57);
+			this.D2Wert.Location = new System.Drawing.Point(189, 57);
 			this.D2Wert.Name = "D2Wert";
 			this.D2Wert.Size = new System.Drawing.Size(100, 21);
 			this.D2Wert.TabIndex = 17;
@@ -900,7 +900,7 @@
             "7",
             "8",
             "9"});
-			this.D45Wert.Location = new System.Drawing.Point(51, 57);
+			this.D45Wert.Location = new System.Drawing.Point(47, 57);
 			this.D45Wert.Name = "D45Wert";
 			this.D45Wert.Size = new System.Drawing.Size(100, 21);
 			this.D45Wert.TabIndex = 16;
@@ -920,7 +920,7 @@
             "7",
             "8",
             "9"});
-			this.D25Wert.Location = new System.Drawing.Point(193, 30);
+			this.D25Wert.Location = new System.Drawing.Point(189, 30);
 			this.D25Wert.Name = "D25Wert";
 			this.D25Wert.Size = new System.Drawing.Size(100, 21);
 			this.D25Wert.TabIndex = 15;
@@ -940,7 +940,7 @@
             "7",
             "8",
             "9"});
-			this.D5Wert.Location = new System.Drawing.Point(51, 30);
+			this.D5Wert.Location = new System.Drawing.Point(47, 30);
 			this.D5Wert.Name = "D5Wert";
 			this.D5Wert.Size = new System.Drawing.Size(100, 21);
 			this.D5Wert.TabIndex = 14;
@@ -952,9 +952,9 @@
 			this.label21.Location = new System.Drawing.Point(3, 3);
 			this.label21.Margin = new System.Windows.Forms.Padding(3);
 			this.label21.Name = "label21";
-			this.label21.Size = new System.Drawing.Size(42, 21);
+			this.label21.Size = new System.Drawing.Size(38, 21);
 			this.label21.TabIndex = 5;
-			this.label21.Text = "Priorität";
+			this.label21.Text = "Priority";
 			// 
 			// label22
 			// 
@@ -963,7 +963,7 @@
 			this.label22.Location = new System.Drawing.Point(3, 57);
 			this.label22.Margin = new System.Windows.Forms.Padding(3);
 			this.label22.Name = "label22";
-			this.label22.Size = new System.Drawing.Size(42, 21);
+			this.label22.Size = new System.Drawing.Size(38, 21);
 			this.label22.TabIndex = 0;
 			this.label22.Text = "D4.5";
 			// 
@@ -974,7 +974,7 @@
 			this.label23.Location = new System.Drawing.Point(3, 84);
 			this.label23.Margin = new System.Windows.Forms.Padding(3);
 			this.label23.Name = "label23";
-			this.label23.Size = new System.Drawing.Size(42, 21);
+			this.label23.Size = new System.Drawing.Size(38, 21);
 			this.label23.TabIndex = 1;
 			this.label23.Text = "D4";
 			// 
@@ -985,7 +985,7 @@
 			this.label24.Location = new System.Drawing.Point(3, 111);
 			this.label24.Margin = new System.Windows.Forms.Padding(3);
 			this.label24.Name = "label24";
-			this.label24.Size = new System.Drawing.Size(42, 21);
+			this.label24.Size = new System.Drawing.Size(38, 21);
 			this.label24.TabIndex = 2;
 			this.label24.Text = "D3.5";
 			// 
@@ -996,7 +996,7 @@
 			this.label25.Location = new System.Drawing.Point(3, 138);
 			this.label25.Margin = new System.Windows.Forms.Padding(3);
 			this.label25.Name = "label25";
-			this.label25.Size = new System.Drawing.Size(42, 21);
+			this.label25.Size = new System.Drawing.Size(38, 21);
 			this.label25.TabIndex = 3;
 			this.label25.Text = "D3";
 			// 
@@ -1007,7 +1007,7 @@
 			this.label26.Location = new System.Drawing.Point(3, 30);
 			this.label26.Margin = new System.Windows.Forms.Padding(3);
 			this.label26.Name = "label26";
-			this.label26.Size = new System.Drawing.Size(42, 21);
+			this.label26.Size = new System.Drawing.Size(38, 21);
 			this.label26.TabIndex = 4;
 			this.label26.Text = "D5";
 			// 
@@ -1015,7 +1015,7 @@
 			// 
 			this.label27.AutoSize = true;
 			this.label27.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label27.Location = new System.Drawing.Point(157, 30);
+			this.label27.Location = new System.Drawing.Point(153, 30);
 			this.label27.Margin = new System.Windows.Forms.Padding(3);
 			this.label27.Name = "label27";
 			this.label27.Size = new System.Drawing.Size(30, 21);
@@ -1026,7 +1026,7 @@
 			// 
 			this.label28.AutoSize = true;
 			this.label28.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label28.Location = new System.Drawing.Point(157, 57);
+			this.label28.Location = new System.Drawing.Point(153, 57);
 			this.label28.Margin = new System.Windows.Forms.Padding(3);
 			this.label28.Name = "label28";
 			this.label28.Size = new System.Drawing.Size(30, 21);
@@ -1037,7 +1037,7 @@
 			// 
 			this.label29.AutoSize = true;
 			this.label29.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label29.Location = new System.Drawing.Point(157, 84);
+			this.label29.Location = new System.Drawing.Point(153, 84);
 			this.label29.Margin = new System.Windows.Forms.Padding(3);
 			this.label29.Name = "label29";
 			this.label29.Size = new System.Drawing.Size(30, 21);
@@ -1048,7 +1048,7 @@
 			// 
 			this.label30.AutoSize = true;
 			this.label30.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label30.Location = new System.Drawing.Point(157, 111);
+			this.label30.Location = new System.Drawing.Point(153, 111);
 			this.label30.Margin = new System.Windows.Forms.Padding(3);
 			this.label30.Name = "label30";
 			this.label30.Size = new System.Drawing.Size(30, 21);
@@ -1070,7 +1070,7 @@
             "7",
             "8",
             "9"});
-			this.DPrioritätenWert.Location = new System.Drawing.Point(51, 3);
+			this.DPrioritätenWert.Location = new System.Drawing.Point(47, 3);
 			this.DPrioritätenWert.Name = "DPrioritätenWert";
 			this.DPrioritätenWert.Size = new System.Drawing.Size(100, 21);
 			this.DPrioritätenWert.TabIndex = 11;
@@ -1086,7 +1086,7 @@
 			this.GeocachegrößeGroupBox.Size = new System.Drawing.Size(373, 181);
 			this.GeocachegrößeGroupBox.TabIndex = 1;
 			this.GeocachegrößeGroupBox.TabStop = false;
-			this.GeocachegrößeGroupBox.Text = "Geocachegröße";
+			this.GeocachegrößeGroupBox.Text = "Geocachesize";
 			// 
 			// tableLayoutPanel3
 			// 
@@ -1231,7 +1231,7 @@
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(44, 21);
 			this.label7.TabIndex = 5;
-			this.label7.Text = "Priorität";
+			this.label7.Text = "Priority";
 			// 
 			// label12
 			// 
@@ -1319,7 +1319,7 @@
 			this.GeocachetypGroupBox.Size = new System.Drawing.Size(372, 181);
 			this.GeocachetypGroupBox.TabIndex = 0;
 			this.GeocachetypGroupBox.TabStop = false;
-			this.GeocachetypGroupBox.Text = "Geocachetyp";
+			this.GeocachetypGroupBox.Text = "Geocachetype";
 			// 
 			// tableLayoutPanel2
 			// 
@@ -1552,7 +1552,7 @@
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(56, 21);
 			this.label6.TabIndex = 5;
-			this.label6.Text = "Priorität";
+			this.label6.Text = "Priority";
 			// 
 			// label1
 			// 
@@ -1683,9 +1683,9 @@
 			this.label14.Name = "label14";
 			this.label14.Size = new System.Drawing.Size(751, 26);
 			this.label14.TabIndex = 6;
-			this.label14.Text = "Es können überall von 0-9 Punkte vergeben werden. Bei jedem Geocache wird dann de" +
-    "r zutreffende Wert mit der Priorität der Kategorie multipliziert und dann alles " +
-    "addiert.";
+			this.label14.Text = "You can rate everything from 0-9 Points. For each Geocache the selected value get" +
+    "s multiplied with the selected priority of the category and in the end everythin" +
+    "g gets added.";
 			// 
 			// NeuesBewertungsProfilFenster
 			// 
@@ -1695,7 +1695,7 @@
 			this.ClientSize = new System.Drawing.Size(757, 492);
 			this.Controls.Add(this.panel1);
 			this.Name = "NeuesBewertungsProfilFenster";
-			this.Text = "Neues Bewertungsprofil";
+			this.Text = "New Ratingprofile";
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
 			this.tableLayoutPanel7.ResumeLayout(false);

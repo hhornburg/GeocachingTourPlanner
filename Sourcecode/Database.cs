@@ -9,12 +9,12 @@ using GMap.NET;
 
 namespace GeocachingTourPlanner
 {
-    public class Database
-    {
+	public class Database
+	{
 		/// <summary>
 		/// Initialisierer für das Serialisieren
 		/// </summary>
-        public Database() { }
+		public Database() { }
 
 		/// <summary>
 		/// Letzer Speicherrt der in einem Dateimangaer benutzt wurde
@@ -23,11 +23,12 @@ namespace GeocachingTourPlanner
 
 		//DB Spezifisch
 		public string LastGeocachingDB_Filepath { get; set; }
-        public string LastRatingDB_Filepath { get; set; }
-        public string LastRoutingDB_Filepath { get; set; }
+		public string LastRatingDB_Filepath { get; set; }
+		public string LastRoutingDB_Filepath { get; set; }
 
-		//Kartenspezifisch
-		public PointLatLng LetzteKartenposition { get; set; }
+		//Mapspecific
+		public double LastMapZoom { get; set;}
+		public PointLatLng LastMapPosition { get; set; }
 		/// <summary>
 		/// Minimale Bewertung die ein Geocache in der Aktuellen Liste erreicht. Wird zum Erstellen der Farbcodierung benutzt
 		/// </summary>

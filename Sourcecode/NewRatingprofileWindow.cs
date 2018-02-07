@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace GeocachingTourPlanner
 {
-    public partial class NeuesBewertungsProfilFenster : Form
+    public partial class NewRatingProfileWindow : Form
     {
-        public NeuesBewertungsProfilFenster()
+        public NewRatingProfileWindow()
         {
             InitializeComponent();
         }
 
-        public NeuesBewertungsProfilFenster(Ratingprofile bewertungsprofil)
+        public NewRatingProfileWindow(Ratingprofile bewertungsprofil)
         {
             InitializeComponent();
 			try

@@ -29,10 +29,10 @@ namespace GeocachingTourPlanner
 				Ratingprofile bewertungsprofil = Program.Ratingprofiles.First(x => x.Name == RatingProfilesCombobox.SelectedItem.ToString());
 				foreach (Geocache GC in Program.Geocaches)
 				{
-					GC.Bewerten(bewertungsprofil);
+					GC.Rate(bewertungsprofil);
 				}
 				Program.Geocaches.OrderByDescending(x => x.Rating);
-				Program.MainWindow.GeocacheTable.Sort(Program.MainWindow.GeocacheTable.Columns["Bewertung"], ListSortDirection.Descending);
+				Program.MainWindow.GeocacheTable.Sort(Program.MainWindow.GeocacheTable.Columns["Rating"], ListSortDirection.Descending);
 				Program.DB.MaximalRating = Program.Geocaches[0].Rating;//Da sortierte Liste
 				Program.DB.MinimalRating = Program.Geocaches[Program.Geocaches.Count - 1].Rating;
 				Program.Backup(Program.Geocaches);

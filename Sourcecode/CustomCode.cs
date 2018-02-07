@@ -37,7 +37,7 @@ namespace GeocachingTourPlanner
 	public class SortableBindingList<T> : BindingList<T>
 	{
 		//fields
-		private bool isSorting;
+		private bool SortingInProgress;
 		private bool isSorted;
 		private ISortComparer<T> sortComparer;
 		private ListSortDirection sortDirection;
@@ -49,7 +49,10 @@ namespace GeocachingTourPlanner
 		public event EventHandler Sorted;
 
 		//Constructors
-		public SortableBindingList(){ }
+		public SortableBindingList()
+		{
+			SortComparer = new GenericSortComparer<T>();
+		}
 
 		public SortableBindingList(IEnumerable<T> contents)
 		{
@@ -78,9 +81,14 @@ namespace GeocachingTourPlanner
 			get { return sortComparer; }
 			set
 			{
-				if (value == null)
+				if (value != null)
+				{
+					sortComparer = value;
+				}
+				else
+				{
 					throw new ArgumentNullException("SortComparer", "Value cannot be null.");
-				sortComparer = value;
+				}
 			}
 		}
 		
@@ -108,19 +116,19 @@ namespace GeocachingTourPlanner
 		//Methods
 		protected override void ApplySortCore(PropertyDescriptor property, ListSortDirection direction)
 		{
-			if (property == null)
-				return;
-
-			isSorting = true;
-			sortDirection = direction;
-			sortProperty = property;
-			SortComparer.SortProperty = property;
-			SortComparer.SortDirection = direction;
-			((List<T>)Items).Sort(SortComparer);
-			isSorting = false;
-			isSorted = true;
-			OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, 0));
-			OnSorted(null, new EventArgs());
+			if (property != null)
+			{
+				SortingInProgress = true;
+				sortDirection = direction;
+				sortProperty = property;
+				SortComparer.SortProperty = property;
+				SortComparer.SortDirection = direction;
+				((List<T>)Items).Sort(SortComparer);
+				SortingInProgress = false;
+				isSorted = true;
+				OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, 0));
+				OnSortingDone(null, new EventArgs());
+			}		
 		}
 
 		protected override void RemoveSortCore()
@@ -130,11 +138,11 @@ namespace GeocachingTourPlanner
 
 		protected override void OnListChanged(ListChangedEventArgs e)
 		{
-			if (!isSorting)
+			if (!SortingInProgress)
 				base.OnListChanged(e);
 		}
 
-		protected virtual void OnSorted(object sender, EventArgs e)
+		protected virtual void OnSortingDone(object sender, EventArgs e)
 		{
 			if (Sorted != null)
 				Sorted(sender, e);
@@ -143,21 +151,21 @@ namespace GeocachingTourPlanner
 		protected override void InsertItem(int index, T item)
 		{
 			base.InsertItem(index, item);
-			if (!isSorting)
+			if (!SortingInProgress)
 				ApplySortCore(SortPropertyCore, SortDirectionCore);
 		}
 
 		protected override void SetItem(int index, T item)
 		{
 			base.SetItem(index, item);
-			if (!isSorting)
+			if (!SortingInProgress)
 				ApplySortCore(SortPropertyCore, SortDirectionCore);
 		}
 
 		protected override void RemoveItem(int index)
 		{
 			base.RemoveItem(index);
-			if (!isSorting)
+			if (!SortingInProgress)
 				ApplySortCore(SortPropertyCore, SortDirectionCore);
 		}
 
@@ -193,18 +201,23 @@ namespace GeocachingTourPlanner
 
 		public int Compare(T a, T b)
 		{
-			if (SortProperty == null)
-				return 0;
+			if (SortProperty != null)
+			{
+				IComparable a_comparable = SortProperty.GetValue(a) as IComparable;
+				IComparable b_comparable = SortProperty.GetValue(b) as IComparable;
+				if (a_comparable == null || b_comparable == null)
+					return 0;
 
-			IComparable a_comparable = SortProperty.GetValue(a) as IComparable;
-			IComparable b_comparable = SortProperty.GetValue(b) as IComparable;
-			if (a_comparable == null || b_comparable == null)
-				return 0;
-
-			if (SortDirection == ListSortDirection.Ascending)
-				return (a_comparable.CompareTo(b_comparable));
+				if (SortDirection == ListSortDirection.Ascending)
+					return (a_comparable.CompareTo(b_comparable));
+				else
+					return (b_comparable.CompareTo(a_comparable));
+			}
 			else
-				return (b_comparable.CompareTo(a_comparable));
+			{
+				return 0;
+			}
+			
 		}
 	}
 

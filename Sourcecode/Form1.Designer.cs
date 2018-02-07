@@ -88,14 +88,14 @@
 			// ImportToolStripMenuItem
 			// 
 			this.ImportToolStripMenuItem.Name = "ImportToolStripMenuItem";
-			this.ImportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.ImportToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
 			this.ImportToolStripMenuItem.Text = "Import";
 			this.ImportToolStripMenuItem.Click += new System.EventHandler(this.importierenToolStripMenuItem_Click);
 			// 
 			// ExportToolStripMenuItem
 			// 
 			this.ExportToolStripMenuItem.Name = "ExportToolStripMenuItem";
-			this.ExportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.ExportToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
 			this.ExportToolStripMenuItem.Text = "Export";
 			// 
 			// RunToolStripMenuItem
@@ -159,7 +159,7 @@
 			this.NewRatingprofileToolStripMenuItem.Name = "NewRatingprofileToolStripMenuItem";
 			this.NewRatingprofileToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
 			this.NewRatingprofileToolStripMenuItem.Text = "New Profile";
-			this.NewRatingprofileToolStripMenuItem.Click += new System.EventHandler(this.neuesProfilToolStripMenuItem1_Click);
+			this.NewRatingprofileToolStripMenuItem.Click += new System.EventHandler(this.NewRatingprofileToolStripMenuItem_Click);
 			// 
 			// RoutingprofilesToolStripMenuItem
 			// 
@@ -335,7 +335,9 @@
 			this.Map.Size = new System.Drawing.Size(1148, 386);
 			this.Map.TabIndex = 0;
 			this.Map.Zoom = 0D;
-			this.Map.Load += new System.EventHandler(this.Karte_Load);
+			this.Map.OnMapDrag += new GMap.NET.MapDrag(this.Map_OnMapDrag);
+			this.Map.OnMapZoomChanged += new GMap.NET.MapZoomChanged(this.Map_OnMapZoomChanged);
+			this.Map.Enter += new System.EventHandler(this.Map_Enter);
 			// 
 			// Form1
 			// 

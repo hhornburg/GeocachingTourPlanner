@@ -31,6 +31,7 @@ namespace GeocachingTourPlanner
 			RestoreDirectory = true
 		};
 
+		#region MenuItems
 		private void importierenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string GPXDatei;
@@ -140,9 +141,9 @@ namespace GeocachingTourPlanner
             }
         }
 		
-        private void neuesProfilToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void NewRatingprofileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new NeuesBewertungsProfilFenster().Show();
+            new NewRatingProfileWindow().Show();
         }
 
 		private void geocachesBewertenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -155,23 +156,53 @@ namespace GeocachingTourPlanner
 			Window.ShowDialog();
 		}
 
-		private void Karte_Load(object sender, EventArgs e)
+		private void setGeocachedatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				Program.DB.LastUsedFilepath = StandardFileDialog.FileName;
+				Program.DB.LastGeocachingDB_Filepath = StandardFileDialog.FileName;
+				Program.ReadGeocaches();
+			}
+		}
+
+		private void setRoutingprofiledatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				Program.DB.LastUsedFilepath = StandardFileDialog.FileName;
+				Program.DB.LastRoutingDB_Filepath = StandardFileDialog.FileName;
+				Program.ReadRoutingprofiles();
+			}
+		}
+
+		private void setRatingprofiledatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				Program.DB.LastUsedFilepath = StandardFileDialog.FileName;
+				Program.DB.LastRatingDB_Filepath = StandardFileDialog.FileName;
+				Program.ReadRatingprofiles();
+			}
+		}
+
+		#endregion
+
+		#region Map
+		/// <summary>
+		/// Updates Map
+		/// </summary>
+		private void LoadMap()
 		{
 			Map.MapProvider = OpenCycleLandscapeMapProvider.Instance;
 			GMaps.Instance.Mode = AccessMode.ServerOnly;
 			//Remove Cross in the middle of the Map
 			Map.ShowCenter = false;
-			Map.Zoom = 10;
 
-			if (Program.DB.LetzteKartenposition != null)
+			if (Map.Overlays.Count != 0)
 			{
-				Map.Position = Program.DB.LetzteKartenposition;
+				Map.Overlays.Clear();
 			}
-			else
-			{
-				Map.Position = new PointLatLng(49.0, 8.5);
-			}
-
 			GMapOverlay TopOverlay = new GMapOverlay("TopOverlay");
 			GMapOverlay MediumOverlay = new GMapOverlay("MediumOverlay");
 			GMapOverlay LowOverlay = new GMapOverlay("LowOverlay");
@@ -181,7 +212,7 @@ namespace GeocachingTourPlanner
 				//Three Categories => Thirds of the Point range
 				if (GC.Rating > (Program.DB.MinimalRating) + 0.66 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
 				{
-					GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon),GMarkerGoogleType.green_small);
+					GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.green_small);
 					TopOverlay.Markers.Add(GCMarker);
 				}
 				else if (GC.Rating > (Program.DB.MinimalRating) + 0.33 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
@@ -200,8 +231,28 @@ namespace GeocachingTourPlanner
 			Map.Overlays.Add(LowOverlay);
 			Map.Overlays.Add(MediumOverlay);
 			Map.Overlays.Add(TopOverlay);
+
+			//Set Views
+			if (Program.DB.LastMapZoom != 0)
+			{
+				Map.Zoom = Program.DB.LastMapZoom;
+			}
+			else
+			{
+				Map.Zoom = 10;
+				Program.DB.LastMapZoom =10;
+			}
+			if (Program.DB.LastMapPosition != null)
+			{
+				Map.Position = Program.DB.LastMapPosition;
+			}
+			else
+			{
+				Map.Position = new PointLatLng(49.0, 8.5);
+				Program.DB.LastMapPosition = new PointLatLng(49.0, 8.5);
+			}
 		}
-		
+
 		private void BesteBox_CheckedChanged(object sender, EventArgs e)
 		{
 			if (BestGeocachesCheckbox.Checked)
@@ -237,35 +288,22 @@ namespace GeocachingTourPlanner
 				Map.Overlays.First(x => x.Id == "LowOverlay").IsVisibile = false;
 			}
 		}
-
-		private void setGeocachedatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+		
+		private void Map_OnMapDrag()
 		{
-			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
-			{
-				Program.DB.LastUsedFilepath = StandardFileDialog.FileName;
-				Program.DB.LastGeocachingDB_Filepath = StandardFileDialog.FileName;
-				Program.ReadGeocaches();
-			}
+			Program.DB.LastMapPosition = Map.Position;
 		}
 
-		private void setRoutingprofiledatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+		private void Map_Enter(object sender, EventArgs e)
 		{
-			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
-			{
-				Program.DB.LastUsedFilepath = StandardFileDialog.FileName;
-				Program.DB.LastRoutingDB_Filepath = StandardFileDialog.FileName;
-				Program.ReadRoutingprofiles();
-			}
+			LoadMap();
 		}
 
-		private void setRatingprofiledatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+		private void Map_OnMapZoomChanged()
 		{
-			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
-			{
-				Program.DB.LastUsedFilepath = StandardFileDialog.FileName;
-				Program.DB.LastRatingDB_Filepath = StandardFileDialog.FileName;
-				Program.ReadRatingprofiles();
-			}
+			Program.DB.LastMapZoom = Map.Zoom;
 		}
+		#endregion
+
 	}
 }
