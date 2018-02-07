@@ -11,3 +11,5 @@ A tool to plan tours to Geocaches based on your own rating system
 ## Current Features:
 * Rate Geocaches based on your own rating profiles
 * Display the rated Geocaches with colourcode on the map
+
+More info in the [wiki](https://github.com/pingurus/GeocachingTourPlanner/wiki)
