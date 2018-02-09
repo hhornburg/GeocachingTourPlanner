@@ -104,6 +104,12 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Sourcecode\AcceptLicenseWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sourcecode\AcceptLicenseWindow.Designer.cs">
+      <DependentUpon>AcceptLicenseWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Sourcecode\CustomCode.cs" />
     <Compile Include="Sourcecode\Database.cs" />
     <Compile Include="Sourcecode\Form1.cs">

@@ -42,26 +42,29 @@ namespace GeocachingTourPlanner
 
 			//Initialisierungen:
 			//DB
-			StreamReader DBReader = null;
-			try
-            {
-                DBReader = new StreamReader(Database_Filepath);
-                DB = (Database)DBSerializer.Deserialize(DBReader);         
-            }
-            catch (FileNotFoundException)
-            {
-                MessageBox.Show("No Database available!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Couldn't import Database", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-			finally
+			if (File.Exists(Database_Filepath))//Thus it is not the first start of the program
 			{
-				if (DBReader != null)
+				StreamReader DBReader = null;
+				try
 				{
-					DBReader.Close();
+					DBReader = new StreamReader(Database_Filepath);
+					DB = (Database)DBSerializer.Deserialize(DBReader);
 				}
+				catch (Exception)
+				{
+					MessageBox.Show("Couldn't import Database", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				finally
+				{
+					if (DBReader != null)
+					{
+						DBReader.Close();
+					}
+				}
+			}
+			else
+			{
+
 			}
 
 			//Load Ratingprofiles from the File specified in the Database
