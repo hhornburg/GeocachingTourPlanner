@@ -64,7 +64,12 @@ namespace GeocachingTourPlanner
 			}
 			else
 			{
-
+				AcceptLicenseWindow licenseWindow = new AcceptLicenseWindow();
+				licenseWindow.Show();
+				if (!licenseWindow.AcceptedLicense)
+				{
+					MainWindow.Close();
+				}
 			}
 
 			//Load Ratingprofiles from the File specified in the Database

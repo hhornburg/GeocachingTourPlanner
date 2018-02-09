@@ -136,6 +136,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Sourcecode\AcceptLicenseWindow.resx">
+      <DependentUpon>AcceptLicenseWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Sourcecode\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
