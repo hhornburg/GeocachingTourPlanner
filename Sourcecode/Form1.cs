@@ -158,30 +158,24 @@ namespace GeocachingTourPlanner
 
 		private void setGeocachedatabaseToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
+			if (Program.DB.SetDatabaseFilepath(Program.DB.GeocacheDB_Filepath))
 			{
-				Program.DB.LastUsedFilepath = StandardFileDialog.FileName;
-				Program.DB.LastGeocachingDB_Filepath = StandardFileDialog.FileName;
 				Program.ReadGeocaches();
 			}
 		}
 
 		private void setRoutingprofiledatabaseToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
+			if (Program.DB.SetDatabaseFilepath(Program.DB.RoutingDB_Filepath))
 			{
-				Program.DB.LastUsedFilepath = StandardFileDialog.FileName;
-				Program.DB.LastRoutingDB_Filepath = StandardFileDialog.FileName;
 				Program.ReadRoutingprofiles();
 			}
 		}
 
 		private void setRatingprofiledatabaseToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
+			if (Program.DB.SetDatabaseFilepath(Program.DB.RatingDB_Filepath))
 			{
-				Program.DB.LastUsedFilepath = StandardFileDialog.FileName;
-				Program.DB.LastRatingDB_Filepath = StandardFileDialog.FileName;
 				Program.ReadRatingprofiles();
 			}
 		}
