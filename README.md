@@ -12,4 +12,9 @@ A tool to plan tours to Geocaches based on your own rating system
 * Rate Geocaches based on your own rating profiles
 * Display the rated Geocaches with colourcode on the map
 
+## Quick start guide
+* Download a release, unzip it to any new folder
+* To have something to work on in the beginning, add the files from the SampleDB folder to your folder
+* Start the .exe file
+
 More info in the [wiki](https://github.com/pingurus/GeocachingTourPlanner/wiki)
