@@ -42,25 +42,33 @@ namespace GeocachingTourPlanner
 
 			//Initialisierungen:
 			//DB
-			StreamReader DBReader = null;
-			try
-            {
-                DBReader = new StreamReader(Database_Filepath);
-                DB = (Database)DBSerializer.Deserialize(DBReader);         
-            }
-            catch (FileNotFoundException)
-            {
-                MessageBox.Show("No Database available!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Couldn't import Database", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-			finally
+			if (File.Exists(Database_Filepath))//Thus it is not the first start of the program
 			{
-				if (DBReader != null)
+				StreamReader DBReader = null;
+				try
 				{
-					DBReader.Close();
+					DBReader = new StreamReader(Database_Filepath);
+					DB = (Database)DBSerializer.Deserialize(DBReader);
+				}
+				catch (Exception)
+				{
+					MessageBox.Show("Couldn't import Database", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				finally
+				{
+					if (DBReader != null)
+					{
+						DBReader.Close();
+					}
+				}
+			}
+			else
+			{
+				AcceptLicenseWindow licenseWindow = new AcceptLicenseWindow();
+				licenseWindow.ShowDialog();
+				if (!licenseWindow.AcceptedLicense)
+				{
+					MainWindow.Close();
 				}
 			}
 
@@ -134,14 +142,14 @@ namespace GeocachingTourPlanner
             //Aus Performancegrnden nicht alles
             if (ExtraBackup == Geocaches)
             {
-                if (DB.LastGeocachingDB_Filepath == null)
+                if (DB.GeocacheDB_Filepath == null)
                 {
-                    DB.LastGeocachingDB_Filepath = "Geocaches";
+                    DB.GeocacheDB_Filepath = "Geocaches";
                 }
                 TextWriter GeocachesWriter;
 				try
 				{
-					GeocachesWriter = new StreamWriter(DB.LastGeocachingDB_Filepath);
+					GeocachesWriter = new StreamWriter(DB.GeocacheDB_Filepath);
 					GeocachesSerializer.Serialize(GeocachesWriter, Geocaches);
 				}
 				catch
@@ -157,14 +165,14 @@ namespace GeocachingTourPlanner
 
 			else if (ExtraBackup == Routingprofiles)
 			{
-				if (DB.LastRoutingDB_Filepath == null)
+				if (DB.RoutingDB_Filepath == null)
 				{
-					DB.LastRoutingDB_Filepath = "Routingprofile";
+					DB.RoutingDB_Filepath = "Routingprofile";
 				}
 				TextWriter RoutingprofileWriter;
 				try
 				{
-					RoutingprofileWriter = new StreamWriter(DB.LastRoutingDB_Filepath);
+					RoutingprofileWriter = new StreamWriter(DB.RoutingDB_Filepath);
 					RoutingprofilesSerializer.Serialize(RoutingprofileWriter, Routingprofiles);
 				}
 				catch (IOException)
@@ -178,15 +186,15 @@ namespace GeocachingTourPlanner
 			}
 			else if (ExtraBackup == Ratingprofiles)
 			{
-				if (DB.LastRatingDB_Filepath == null)
+				if (DB.RatingDB_Filepath == null)
 				{
-					DB.LastRatingDB_Filepath = "Ratingprofiles";
+					DB.RatingDB_Filepath = "Ratingprofiles";
 				}
 
 				TextWriter BewertungsprofileWriter;
 				try
 				{
-					BewertungsprofileWriter = new StreamWriter(DB.LastRatingDB_Filepath);
+					BewertungsprofileWriter = new StreamWriter(DB.RatingDB_Filepath);
 					RatingprofilesSerializer.Serialize(BewertungsprofileWriter, Ratingprofiles);
 				}
 				catch (IOException)
@@ -220,76 +228,85 @@ namespace GeocachingTourPlanner
 		{
 			Routingprofiles.Clear();
 			StreamReader RPReader = null;
-			try
+			if (DB.CheckDatabaseFilepath(DB.RoutingDB_Filepath,"Routingdatabase"))//returns true if the user has set a valid database
 			{
-				RPReader = new StreamReader(DB.LastRoutingDB_Filepath);
-				Routingprofiles = (SortableBindingList<Routingprofile>)RoutingprofilesSerializer.Deserialize(RPReader);
-				RPReader.Close();
-			}
-			catch (Exception)
-			{
-				MessageBox.Show("No valid Routingdatabase found!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-			}
-			finally
-			{
-				if (RPReader != null)
+				try
 				{
+					RPReader = new StreamReader(DB.RoutingDB_Filepath);
+					Routingprofiles = (SortableBindingList<Routingprofile>)RoutingprofilesSerializer.Deserialize(RPReader);
 					RPReader.Close();
 				}
+				catch (Exception)
+				{
+					MessageBox.Show("Error in Routingdatabase!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				finally
+				{
+					if (RPReader != null)
+					{
+						RPReader.Close();
+					}
+				}
 			}
+			
 		}
 
 		public static void ReadRatingprofiles()
 		{
 			Ratingprofiles.Clear();
-			
 			StreamReader BPReader = null;
-			try
+			if (DB.CheckDatabaseFilepath(DB.RatingDB_Filepath, "Ratingdatabase"))//returns true if the user has set a valid database
 			{
-				BPReader = new StreamReader(DB.LastRatingDB_Filepath);
-				Ratingprofiles = (SortableBindingList<Ratingprofile>)RatingprofilesSerializer.Deserialize(BPReader);
-				BPReader.Close();
-
-			}
-			catch (Exception)
-			{
-				MessageBox.Show("No valid Ratingdatabases found!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-				Ratingprofiles.ListChanged += new ListChangedEventHandler(Ratingprofiles_ListChanged);
-			}
-			finally
-			{
-				if (BPReader != null)
+				try
 				{
+					BPReader = new StreamReader(DB.RatingDB_Filepath);
+					Ratingprofiles = (SortableBindingList<Ratingprofile>)RatingprofilesSerializer.Deserialize(BPReader);
 					BPReader.Close();
-				}
-			}
 
-			//To make them show up in the menu
-			Ratingprofiles.ListChanged += new ListChangedEventHandler(Ratingprofiles_ListChanged);
-			Ratingprofiles.ResetBindings();
-			Backup(Ratingprofiles);
+				}
+				catch (Exception)
+				{
+					MessageBox.Show("No valid Ratingdatabases found!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+					Ratingprofiles.ListChanged += new ListChangedEventHandler(Ratingprofiles_ListChanged);
+				}
+				finally
+				{
+					if (BPReader != null)
+					{
+						BPReader.Close();
+					}
+				}
+
+				//To make them show up in the menu
+				Ratingprofiles.ListChanged += new ListChangedEventHandler(Ratingprofiles_ListChanged);
+				Ratingprofiles.ResetBindings();
+				Backup(Ratingprofiles);
+			}
 		}
 
 		public static void ReadGeocaches()
 		{
 			Geocaches.Clear();
-
 			StreamReader GCReader = null;
-			try
-			{
-				GCReader = new StreamReader(DB.LastGeocachingDB_Filepath);
-				Geocaches = (SortableBindingList<Geocache>)GeocachesSerializer.Deserialize(GCReader);
-			}
 
-			catch (Exception)
+			if (DB.CheckDatabaseFilepath(DB.GeocacheDB_Filepath, "Geocachedatabase"))//returns true if the user has set a valid database
 			{
-				MessageBox.Show("No valid Geocachedatabase found!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-			}
-			finally
-			{
-				if (GCReader != null)
+				try
 				{
-					GCReader.Close();
+					GCReader = new StreamReader(DB.GeocacheDB_Filepath);
+					Geocaches = (SortableBindingList<Geocache>)GeocachesSerializer.Deserialize(GCReader);
+				}
+
+				catch (Exception)
+				{
+					MessageBox.Show("No valid Geocachedatabase found!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				}
+				finally
+				{
+					if (GCReader != null)
+					{
+						GCReader.Close();
+					}
 				}
 			}
 		}
