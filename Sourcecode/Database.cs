@@ -15,7 +15,12 @@ namespace GeocachingTourPlanner
 		/// <summary>
 		/// Initialisierer für das Serialisieren
 		/// </summary>
-		public Database() { }
+		public Database()
+		{
+			GeocacheDB_Filepath = "Geocaches";
+			RatingDB_Filepath = "Ratingprofiles";
+			RoutingDB_Filepath = "Routingprofiles";
+		}
 
 		/// <summary>
 		/// Letzer Speicherrt der in einem Dateimangaer benutzt wurde
