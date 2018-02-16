@@ -14,7 +14,7 @@ namespace GeocachingTourPlanner
         public string Name { get; set; }
         public float DRating { get; set; }
         public float TRating { get; set; }
-        public DateTime HidingDate { get; set; }
+        public DateTime DateHidden { get; set; }
         public bool NeedsMaintenance { get; set; }
         public GeocacheType Type { get; set; }
         public GeocacheSize Size { get; set; }
@@ -29,11 +29,11 @@ namespace GeocachingTourPlanner
             Rating += (Profil.TRatings.Where(x =>x.Key==TRating).First().Value * Profil.TPriority);
             if (Profil.Yearmode)
             {
-                Rating += (Profil.Yearfactor * (DateTime.Now.Year - HidingDate.Year));
+                Rating += (Profil.Yearfactor * (DateTime.Now.Year - DateHidden.Year));
             }
             else
             {
-                Rating += ((DateTime.Now.Year - HidingDate.Year) * (DateTime.Now.Year - HidingDate.Year)/Profil.Yearfactor);
+                Rating += ((DateTime.Now.Year - DateHidden.Year) * (DateTime.Now.Year - DateHidden.Year)/Profil.Yearfactor);
             }
             
             if (NeedsMaintenance)

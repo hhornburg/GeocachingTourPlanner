@@ -78,6 +78,7 @@ namespace GeocachingTourPlanner
 			ReadGeocaches();
 			//Routingprofile
 			ReadRoutingprofiles();
+			Backup(null);//so settings get saved in the DB
 
             //Tabelleneinstellungen
             MainWindow.GeocacheTable.DataSource = Geocaches;
@@ -266,7 +267,7 @@ namespace GeocachingTourPlanner
 				}
 				catch (Exception)
 				{
-					MessageBox.Show("No valid Ratingdatabases found!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+					MessageBox.Show("Error in Ratingdatabases!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					Ratingprofiles.ListChanged += new ListChangedEventHandler(Ratingprofiles_ListChanged);
 				}
 				finally
@@ -295,11 +296,16 @@ namespace GeocachingTourPlanner
 				{
 					GCReader = new StreamReader(DB.GeocacheDB_Filepath);
 					Geocaches = (SortableBindingList<Geocache>)GeocachesSerializer.Deserialize(GCReader);
+
+					//So the MinimalRating and MaximalRating property get set and the map displays it correctly (fixes issue #4)
+					Geocaches.OrderByDescending(x => x.Rating);
+					DB.MaximalRating = Geocaches[0].Rating;//Possible since list is sorted
+					DB.MinimalRating = Geocaches[Geocaches.Count - 1].Rating;
 				}
 
 				catch (Exception)
 				{
-					MessageBox.Show("No valid Geocachedatabase found!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+					MessageBox.Show("Error in Geocachedatabase!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 				finally
 				{
