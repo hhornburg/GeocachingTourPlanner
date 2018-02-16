@@ -73,7 +73,7 @@ namespace GeocachingTourPlanner
                         geocache.DRating = float.Parse(CacheDetails.Element(groundspeak + "difficulty").Value.ToString(), CultureInfo.InvariantCulture);
                         geocache.TRating = float.Parse(CacheDetails.Element(groundspeak + "terrain").Value.ToString(), CultureInfo.InvariantCulture);
                         geocache.NeedsMaintenance = CacheDetails.Element(groundspeak + "attributes").Elements().ToList().Exists(x => x.FirstAttribute.Value == 42.ToString());
-                        geocache.HidingDate = DateTime.Parse(elem.Element(gpx + "time").Value.ToString());
+                        geocache.DateHidden = DateTime.Parse(elem.Element(gpx + "time").Value.ToString());
                         switch (elem.Element(gpx + "type").Value)
                         {
                             case "Geocache|Unknown Cache":
@@ -219,7 +219,9 @@ namespace GeocachingTourPlanner
 					GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.red_small);
 					LowOverlay.Markers.Add(GCMarker);
 				}
-				GCMarker.ToolTipText = GC.GCCODE + "\n" + GC.Name + "\n" + GC.Type + "(" + GC.HidingDate.Date.ToString().Remove(10) + ")\nD-Wertung: " + GC.DRating + "\nT-Wertung: " + GC.TRating + "\nBewertung: " + GC.Rating;
+
+				GCMarker.ToolTipText = GC.GCCODE + "\n" + GC.Name + "\n" + GC.Type + "(" + GC.DateHidden.Date.ToString().Remove(10) + ")\nD-Wertung: " + GC.DRating + "\nT-Wertung: " + GC.TRating + "\nBewertung: " + GC.Rating;
+				GCMarker.Tag = GC.GCCODE;
 			}
 
 			Map.Overlays.Add(LowOverlay);
@@ -227,24 +229,20 @@ namespace GeocachingTourPlanner
 			Map.Overlays.Add(TopOverlay);
 
 			//Set Views
-			if (Program.DB.LastMapZoom != 0)
+			if (Program.DB.LastMapZoom == 0)
 			{
-				Map.Zoom = Program.DB.LastMapZoom;
+
+				Program.DB.LastMapZoom = 5;
 			}
-			else
+			Map.Zoom = Program.DB.LastMapZoom;
+			
+			if (Program.DB.LastMapPosition.IsEmpty)//Equals that the user hasn't seen the map before (fixes #2)
 			{
-				Map.Zoom = 10;
-				Program.DB.LastMapZoom =10;
-			}
-			if (Program.DB.LastMapPosition != null)
-			{
-				Map.Position = Program.DB.LastMapPosition;
-			}
-			else
-			{
-				Map.Position = new PointLatLng(49.0, 8.5);
 				Program.DB.LastMapPosition = new PointLatLng(49.0, 8.5);
 			}
+			Map.Position = new PointLatLng(49.0, 8.5);
+				
+			
 		}
 
 		private void BesteBox_CheckedChanged(object sender, EventArgs e)
@@ -299,5 +297,14 @@ namespace GeocachingTourPlanner
 		}
 		#endregion
 
+		private void Map_Load(object sender, EventArgs e)//Called at the first time the tab gets clicked. This way the user doesn't see an empty map
+		{
+			LoadMap();
+		}
+
+		private void Map_OnMarkerClick(GMapMarker item, MouseEventArgs e)
+		{
+			System.Diagnostics.Process.Start("https://www.coord.info/"+item.Tag);
+		}
 	}
 }

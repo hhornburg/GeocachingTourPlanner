@@ -55,9 +55,10 @@
 			// Cancel_Button
 			// 
 			this.Cancel_Button.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.Cancel_Button.Location = new System.Drawing.Point(566, 3);
+			this.Cancel_Button.Location = new System.Drawing.Point(563, 0);
+			this.Cancel_Button.Margin = new System.Windows.Forms.Padding(0);
 			this.Cancel_Button.Name = "Cancel_Button";
-			this.Cancel_Button.Size = new System.Drawing.Size(94, 19);
+			this.Cancel_Button.Size = new System.Drawing.Size(100, 25);
 			this.Cancel_Button.TabIndex = 0;
 			this.Cancel_Button.Text = "Cancel";
 			this.Cancel_Button.UseVisualStyleBackColor = true;
@@ -66,9 +67,10 @@
 			// Accept_Button
 			// 
 			this.Accept_Button.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.Accept_Button.Location = new System.Drawing.Point(466, 3);
+			this.Accept_Button.Location = new System.Drawing.Point(463, 0);
+			this.Accept_Button.Margin = new System.Windows.Forms.Padding(0);
 			this.Accept_Button.Name = "Accept_Button";
-			this.Accept_Button.Size = new System.Drawing.Size(94, 19);
+			this.Accept_Button.Size = new System.Drawing.Size(100, 25);
 			this.Accept_Button.TabIndex = 1;
 			this.Accept_Button.Text = "I Accept";
 			this.Accept_Button.UseVisualStyleBackColor = true;
@@ -93,7 +95,7 @@
 			this.Controls.Add(this.richTextBox1);
 			this.Controls.Add(this.tableLayoutPanel1);
 			this.Name = "AcceptLicenseWindow";
-			this.Text = "AcceptLicenseWindow";
+			this.Text = "License";
 			this.tableLayoutPanel1.ResumeLayout(false);
 			this.ResumeLayout(false);
 
