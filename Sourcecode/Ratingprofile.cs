@@ -8,7 +8,7 @@ namespace GeocachingTourPlanner
 {
     public class Ratingprofile
     {
-        public string Name;
+        public string Name { get; set; }
         public List<KeyValuePair<GeocacheType, int>> TypeRatings { get; set;}
         public int TypePriority { get; set; }
         public List<KeyValuePair<GeocacheSize, int>> SizeRatings { get; set;}
