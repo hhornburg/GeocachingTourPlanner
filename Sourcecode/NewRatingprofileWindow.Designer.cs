@@ -183,7 +183,7 @@
 			this.CancelNewProfileButton.TabIndex = 0;
 			this.CancelNewProfileButton.Text = "Cancel";
 			this.CancelNewProfileButton.UseVisualStyleBackColor = true;
-			this.CancelNewProfileButton.Click += new System.EventHandler(this.AbbrechenKnopf_Click);
+			this.CancelNewProfileButton.Click += new System.EventHandler(this.CancelNewProfileButton_Click);
 			// 
 			// CreateButton
 			// 
@@ -195,7 +195,7 @@
 			this.CreateButton.TabIndex = 1;
 			this.CreateButton.Text = "Save profile";
 			this.CreateButton.UseVisualStyleBackColor = true;
-			this.CreateButton.Click += new System.EventHandler(this.ErstellenKnopf_Click);
+			this.CreateButton.Click += new System.EventHandler(this.CreateButton_Click);
 			// 
 			// label19
 			// 

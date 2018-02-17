@@ -22,7 +22,7 @@ namespace GeocachingTourPlanner
             InitializeComponent();
 			try
 			{
-				Text = "Profil bearbeiten";
+				Text = "Edit Profile";
 				//Name des Profils
 				NameValue.Text = RatingprofileToEdit.Name;
 
@@ -95,12 +95,12 @@ namespace GeocachingTourPlanner
 		}
             
 
-        private void AbbrechenKnopf_Click(object sender, EventArgs e)
+        private void CancelNewProfileButton_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void ErstellenKnopf_Click(object sender, EventArgs e)
+        private void CreateButton_Click(object sender, EventArgs e)
         {
             Ratingprofile Profil = new Ratingprofile();
             if (NameValue.Text == null)
