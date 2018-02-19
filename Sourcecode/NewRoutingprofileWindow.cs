@@ -31,7 +31,7 @@ namespace GeocachingTourPlanner
 			TimePerGeocache.Text = RoutingProfileToEdit.TimePerGeocache.ToString();
 
 			//Profile
-			VehicleValue.Text = RoutingProfileToEdit.ItineroProfile.Name;
+			/*VehicleValue.Text = RoutingProfileToEdit.ItineroProfile.Name;
 			switch (RoutingProfileToEdit.ItineroProfile.Metric)
 			{
 				case Itinero.Profiles.ProfileMetric.DistanceInMeters:
@@ -42,7 +42,7 @@ namespace GeocachingTourPlanner
 				case Itinero.Profiles.ProfileMetric.TimeInSeconds:
 					ModeValue.SelectedText = "Time";
 					break;
-			}
+			}*/
 		}
 
 		private void CancelNewProfileButton_Click(object sender, EventArgs e)
@@ -68,8 +68,9 @@ namespace GeocachingTourPlanner
 				Profile.MaxTime = int.Parse(MaxTime.Text);
 				Profile.PenaltyPerExtra10min = int.Parse(PenaltyPerExtra10min.Text);
 				Profile.TimePerGeocache = int.Parse(TimePerGeocache.Text);
-
+				/*
 				Profile.ItineroProfile = Itinero.Profiles.Profile.GetRegistered(VehicleValue.Text);
+				*/
 			}
 			catch (NullReferenceException)
 			{

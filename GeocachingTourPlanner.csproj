@@ -119,10 +119,10 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NewRoutingprofileWindow.cs">
+    <Compile Include="Sourcecode\NewRoutingprofileWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NewRoutingprofileWindow.Designer.cs">
+    <Compile Include="Sourcecode\NewRoutingprofileWindow.Designer.cs">
       <DependentUpon>NewRoutingprofileWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Sourcecode\AcceptLicenseWindow.cs">
@@ -157,7 +157,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="NewRoutingprofileWindow.resx">
+    <EmbeddedResource Include="Sourcecode\NewRoutingprofileWindow.resx">
       <DependentUpon>NewRoutingprofileWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sourcecode\AcceptLicenseWindow.resx">
