@@ -281,7 +281,7 @@
 			this.MediumGeocachesCheckbox.TabIndex = 0;
 			this.MediumGeocachesCheckbox.Text = "Show medium Geocaches";
 			this.MediumGeocachesCheckbox.UseVisualStyleBackColor = true;
-			this.MediumGeocachesCheckbox.CheckedChanged += new System.EventHandler(this.MittlereBox_CheckedChanged);
+			this.MediumGeocachesCheckbox.CheckedChanged += new System.EventHandler(this.MediumCheckbox_CheckedChanged);
 			// 
 			// BestGeocachesCheckbox
 			// 
@@ -294,7 +294,7 @@
 			this.BestGeocachesCheckbox.TabIndex = 1;
 			this.BestGeocachesCheckbox.Text = "Show best Geocaches";
 			this.BestGeocachesCheckbox.UseVisualStyleBackColor = true;
-			this.BestGeocachesCheckbox.CheckedChanged += new System.EventHandler(this.BesteBox_CheckedChanged);
+			this.BestGeocachesCheckbox.CheckedChanged += new System.EventHandler(this.BestCheckbox_CheckedChanged);
 			// 
 			// WorstGeocachesCheckbox
 			// 
@@ -307,7 +307,7 @@
 			this.WorstGeocachesCheckbox.TabIndex = 2;
 			this.WorstGeocachesCheckbox.Text = "Show worst Geocaches";
 			this.WorstGeocachesCheckbox.UseVisualStyleBackColor = true;
-			this.WorstGeocachesCheckbox.CheckedChanged += new System.EventHandler(this.SchlechteBox_CheckedChanged);
+			this.WorstGeocachesCheckbox.CheckedChanged += new System.EventHandler(this.WorstCheckbox_CheckedChanged);
 			// 
 			// Map
 			// 
