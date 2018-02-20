@@ -228,6 +228,11 @@ namespace GeocachingTourPlanner
 			Map.Overlays.Add(MediumOverlay);
 			Map.Overlays.Add(TopOverlay);
 
+			//Not that clean, but makes sure that the checked states are equal to the visibility
+			BestCheckbox_CheckedChanged(null, null);
+			MediumCheckbox_CheckedChanged(null, null);
+			WorstCheckbox_CheckedChanged(null, null);
+
 			//Set Views
 			if (Program.DB.LastMapZoom == 0)
 			{
@@ -245,7 +250,7 @@ namespace GeocachingTourPlanner
 			
 		}
 
-		private void BesteBox_CheckedChanged(object sender, EventArgs e)
+		private void BestCheckbox_CheckedChanged(object sender, EventArgs e)
 		{
 			if (BestGeocachesCheckbox.Checked)
 			{
@@ -257,7 +262,7 @@ namespace GeocachingTourPlanner
 			}
 		}
 
-		private void MittlereBox_CheckedChanged(object sender, EventArgs e)
+		private void MediumCheckbox_CheckedChanged(object sender, EventArgs e)
 		{
 			if (MediumGeocachesCheckbox.Checked)
 			{
@@ -269,7 +274,7 @@ namespace GeocachingTourPlanner
 			}
 		}
 
-		private void SchlechteBox_CheckedChanged(object sender, EventArgs e)
+		private void WorstCheckbox_CheckedChanged(object sender, EventArgs e)
 		{
 			if (WorstGeocachesCheckbox.Checked)
 			{
