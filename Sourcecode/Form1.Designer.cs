@@ -173,13 +173,14 @@
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(132, 6);
+			this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
 			// 
 			// NewRoutingprofileToolStripMenuItem
 			// 
 			this.NewRoutingprofileToolStripMenuItem.Name = "NewRoutingprofileToolStripMenuItem";
-			this.NewRoutingprofileToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+			this.NewRoutingprofileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.NewRoutingprofileToolStripMenuItem.Text = "New Profile";
+			this.NewRoutingprofileToolStripMenuItem.Click += new System.EventHandler(this.NewRoutingprofileToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator3
 			// 

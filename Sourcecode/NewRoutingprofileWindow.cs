@@ -84,9 +84,10 @@ namespace GeocachingTourPlanner
 				Program.Routingprofiles.Remove(BP);
 			}
 			Program.Routingprofiles.Add(Profile);
+			//The Dropdownmenu is updated via an event handler
 			if (Program.Backup(Program.Routingprofiles))
 			{
-				Close();
+				Close();//Only close window if backup was successfull
 			}
 		}
 

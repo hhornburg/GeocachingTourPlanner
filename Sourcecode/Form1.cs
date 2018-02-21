@@ -146,6 +146,12 @@ namespace GeocachingTourPlanner
             new NewRatingProfileWindow().Show();
         }
 
+
+		private void NewRoutingprofileToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			new NewRoutingprofileWindow().Show();
+		}
+
 		private void geocachesBewertenToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			RunRating Window = new RunRating();
@@ -300,7 +306,7 @@ namespace GeocachingTourPlanner
 		{
 			Program.DB.LastMapZoom = Map.Zoom;
 		}
-		#endregion
+	
 
 		private void Map_Load(object sender, EventArgs e)//Called at the first time the tab gets clicked. This way the user doesn't see an empty map
 		{
@@ -311,5 +317,7 @@ namespace GeocachingTourPlanner
 		{
 			System.Diagnostics.Process.Start("https://www.coord.info/"+item.Tag);
 		}
+		#endregion
+
 	}
 }

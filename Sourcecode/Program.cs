@@ -95,50 +95,86 @@ namespace GeocachingTourPlanner
 
 			Application.Run(MainWindow);
         }
-		
+
 
 		/// <summary>
-		/// Zum Erstellen des Menüs
+		/// Keeps the Dropdownmenu updated
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
 		private static void Ratingprofiles_ListChanged(object sender, ListChangedEventArgs e)
-        {
-            if (e.ListChangedType == ListChangedType.ItemAdded)
-            {
-                ToolStripMenuItem Menuitem = new ToolStripMenuItem();
-                Menuitem.Text = Ratingprofiles[e.NewIndex].ToString();
-                Menuitem.Click += Menuitem_Click;
-                MainWindow.RatingprofilesToolStripMenuItem.DropDownItems.Insert(0,Menuitem);
-            }
-            else if (e.ListChangedType == ListChangedType.Reset)
-            {
-                
-                foreach(Ratingprofile bp in Ratingprofiles)
-                {
-                    MainWindow.RatingprofilesToolStripMenuItem.DropDownItems.Clear();
-                    ToolStripMenuItem Menuitem = new ToolStripMenuItem();
-                    Menuitem.Text = bp.ToString();
-                    Menuitem.Click += new EventHandler(Menuitem_Click);
-                    MainWindow.RatingprofilesToolStripMenuItem.DropDownItems.Insert(0, Menuitem);
-                }
-                MainWindow.RatingprofilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                MainWindow.toolStripSeparator2,
-                MainWindow.NewRatingprofileToolStripMenuItem});
-            }
-            
-        }
+		{
+			if (e.ListChangedType == ListChangedType.ItemAdded)
+			{
+				ToolStripMenuItem Menuitem = new ToolStripMenuItem();
+				Menuitem.Text = Ratingprofiles[e.NewIndex].ToString();
+				Menuitem.Click += Ratingprofile_Click;
+				MainWindow.RatingprofilesToolStripMenuItem.DropDownItems.Insert(0, Menuitem);
+			}
+			else if (e.ListChangedType == ListChangedType.Reset)
+			{
 
-        private static void Menuitem_Click(object sender, EventArgs e)
+				foreach (Ratingprofile bp in Ratingprofiles)
+				{
+					MainWindow.RatingprofilesToolStripMenuItem.DropDownItems.Clear();
+					ToolStripMenuItem Menuitem = new ToolStripMenuItem();
+					Menuitem.Text = bp.ToString();
+					Menuitem.Click += new EventHandler(Ratingprofile_Click);
+					MainWindow.RatingprofilesToolStripMenuItem.DropDownItems.Insert(0, Menuitem);
+				}
+				MainWindow.RatingprofilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+				MainWindow.toolStripSeparator2,
+				MainWindow.NewRatingprofileToolStripMenuItem});
+			}
+
+		}
+		/// <summary>
+		/// keeps the dropdownmenu updated
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private static void Routingprofiles_ListChanged(object sender, ListChangedEventArgs e)
+		{
+			if (e.ListChangedType == ListChangedType.ItemAdded)
+			{
+				ToolStripMenuItem Menuitem = new ToolStripMenuItem();
+				Menuitem.Text = Routingprofiles[e.NewIndex].ToString();
+				Menuitem.Click += Routingprofile_Click;
+				MainWindow.RoutingprofilesToolStripMenuItem.DropDownItems.Insert(0, Menuitem);
+			}
+			else if (e.ListChangedType == ListChangedType.Reset)
+			{
+
+				foreach (Routingprofile profile in Routingprofiles)
+				{
+					MainWindow.RoutingprofilesToolStripMenuItem.DropDownItems.Clear();
+					ToolStripMenuItem Menuitem = new ToolStripMenuItem();
+					Menuitem.Text = profile.ToString();
+					Menuitem.Click += new EventHandler(Routingprofile_Click);
+					MainWindow.RoutingprofilesToolStripMenuItem.DropDownItems.Insert(0, Menuitem);
+				}
+				MainWindow.RoutingprofilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+				MainWindow.toolStripSeparator2,
+				MainWindow.NewRatingprofileToolStripMenuItem});
+			}
+
+		}
+
+		private static void Ratingprofile_Click(object sender, EventArgs e)
         {
             new NewRatingProfileWindow(Ratingprofiles.First(x=>x.Name==sender.ToString())).Show();
         }
 
-        /// <summary>
-        /// The main Database gets saved anyways specify which otherList should be saved alongside
-        /// </summary>
-        /// <param name="ExtraBackup"></param>
-        public static bool Backup(object ExtraBackup)
+		private static void Routingprofile_Click(object sender, EventArgs e)
+		{
+			new NewRoutingprofileWindow(Routingprofiles.First(x => x.Name == sender.ToString())).Show();
+		}
+
+		/// <summary>
+		/// The main Database gets saved anyways specify which otherList should be saved alongside. Returns true on success
+		/// </summary>
+		/// <param name="ExtraBackup"></param>
+		public static bool Backup(object ExtraBackup)
         {
             //Aus Performancegrnden nicht alles
             if (ExtraBackup == Geocaches)
@@ -147,19 +183,24 @@ namespace GeocachingTourPlanner
                 {
                     DB.GeocacheDB_Filepath = "Geocaches";
                 }
-                TextWriter GeocachesWriter;
+                TextWriter GeocachesWriter = null;
 				try
 				{
 					GeocachesWriter = new StreamWriter(DB.GeocacheDB_Filepath);
 					GeocachesSerializer.Serialize(GeocachesWriter, Geocaches);
+					return true;
 				}
 				catch
 				{
-					MessageBox.Show("Fileerror. Is the Geocaches Database used by another program?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return false;
+					MessageBox.Show("Fileerror. Is the Geocaches Database used by another program?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					return false;
 				}
-				if (GeocachesWriter != null)
+				finally
 				{
-					GeocachesWriter.Close();
+					if (GeocachesWriter != null)
+					{
+						GeocachesWriter.Close();
+					}
 				}
 				
 			}
@@ -170,7 +211,7 @@ namespace GeocachingTourPlanner
 				{
 					DB.RoutingDB_Filepath = "Routingprofile";
 				}
-				TextWriter RoutingprofileWriter;
+				TextWriter RoutingprofileWriter = null;
 				try
 				{
 					RoutingprofileWriter = new StreamWriter(DB.RoutingDB_Filepath);
@@ -178,13 +219,18 @@ namespace GeocachingTourPlanner
 				}
 				catch (IOException)
 				{
-					MessageBox.Show("Fileerror. Is the Routingprofiles Database used by another program?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return false;
+					MessageBox.Show("Fileerror. Is the Routingprofiles Database used by another program?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					return false;
 				}
-				if (RoutingprofileWriter != null)
+				finally
 				{
-					RoutingprofileWriter.Close();
+					if (RoutingprofileWriter != null)
+					{
+						RoutingprofileWriter.Close();
+					}
 				}
 			}
+
 			else if (ExtraBackup == Ratingprofiles)
 			{
 				if (DB.RatingDB_Filepath == null)
@@ -192,20 +238,25 @@ namespace GeocachingTourPlanner
 					DB.RatingDB_Filepath = "Ratingprofiles";
 				}
 
-				TextWriter BewertungsprofileWriter;
+				TextWriter BewertungsprofileWriter=null;
 				try
 				{
 					BewertungsprofileWriter = new StreamWriter(DB.RatingDB_Filepath);
 					RatingprofilesSerializer.Serialize(BewertungsprofileWriter, Ratingprofiles);
+					return true;
 				}
 				catch (IOException)
 				{
 					MessageBox.Show("Fileerror. Is the Ratingprofiles Database used by another program?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					return false;
 				}
-				if (BewertungsprofileWriter != null)
+				finally
 				{
-					BewertungsprofileWriter.Close();
+
+					if (BewertungsprofileWriter != null)
+					{
+						BewertungsprofileWriter.Close();
+					}
 				}
 			}
             
@@ -249,7 +300,12 @@ namespace GeocachingTourPlanner
 					}
 				}
 			}
-			
+
+			//To make them show up in the menu
+			Routingprofiles.ListChanged += new ListChangedEventHandler(Routingprofiles_ListChanged);
+			Routingprofiles.ResetBindings();
+			Backup(Routingprofiles);
+
 		}
 
 		public static void ReadRatingprofiles()

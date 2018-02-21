@@ -183,14 +183,15 @@ namespace GeocachingTourPlanner
             }
 
             //Eintragen des neuen Profils
-            foreach(Ratingprofile BP in Program.Ratingprofiles.Where(x => x.Name == Profil.Name).ToList())
+            foreach(Ratingprofile BP in Program.Ratingprofiles.Where(x => x.Name == Profil.Name).ToList())//Make sure only one profile with a name exists
 			{
 				Program.Ratingprofiles.Remove(BP);
 			}
             Program.Ratingprofiles.Add(Profil);
+			//The Dropdownmenu gets updated through an event handler
 			if (Program.Backup(Program.Ratingprofiles))
 			{
-				Close();
+				Close(); // only close the window if the backup was successful.
 			}
         }
 
