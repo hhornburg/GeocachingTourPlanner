@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,6 +30,7 @@ namespace GeocachingTourPlanner
 
 	}
 
+	#region SortableBindingList
 	/// <summary>
 	/// Bindinglist is not sortable. This code makes sorting possible
 	/// </summary>
@@ -225,5 +227,63 @@ namespace GeocachingTourPlanner
 	{
 		PropertyDescriptor SortProperty { get; set; }
 		ListSortDirection SortDirection { get; set; }
+	}
+	#endregion
+	
+	[Serializable()]
+	public class SerializableItineroProfile : ISerializable
+	{
+		public Itinero.Profiles.Profile profile { get; set; }
+
+		/// <summary>
+		/// returns true if profile was found
+		/// </summary>
+		/// <param name="vehicle"></param>
+		/// <returns></returns>
+		public SerializableItineroProfile(string vehicle, string metric)
+		{
+			profile = FindProfile(vehicle, metric);
+		}
+
+		//Deserialization constructor.
+		public SerializableItineroProfile(SerializationInfo info, StreamingContext ctxt)
+		{
+			//Get the values from info and assign them to the appropriate properties
+			string vehicle = (string)info.GetValue("Vehicle", typeof(string));
+			string metric = (string)info.GetValue("Metric", typeof(string));
+
+			profile=FindProfile(vehicle, metric);
+		}
+
+		//Serialization function.
+		public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+		{
+			info.AddValue("Vehicle", profile.Name);
+			info.AddValue("Metric", profile.Metric);
+		}
+
+		private Itinero.Profiles.Profile FindProfile(string vehicle, string metric)
+		{
+			Itinero.Profiles.Vehicle vehicleobject = null;
+			switch (vehicle)
+			{
+				case "Car":
+					vehicleobject = Itinero.Osm.Vehicles.Vehicle.Car;
+					break;
+				default:
+					return null;
+			}
+
+			switch (metric)
+			{
+				case "Distance":
+					return vehicleobject.Shortest();
+				case "Time":
+					return vehicleobject.Fastest();
+				default:
+					return null;
+			}
+
+		}
 	}
 }
