@@ -27,6 +27,6 @@ namespace GeocachingTourPlanner
 		public int PenaltyPerExtra10min { get; set; }
 		public int TimePerGeocache { get; set; }
 
-		//public Itinero.Profiles.Profile ItineroProfile { get; set; }
+		public SerializableItineroProfile ItineroProfile { get; set; }
 	}
 }

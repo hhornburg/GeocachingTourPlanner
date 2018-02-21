@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace GeocachingTourPlanner
 {
@@ -233,6 +234,7 @@ namespace GeocachingTourPlanner
 	[Serializable()]
 	public class SerializableItineroProfile : ISerializable
 	{
+		[XmlIgnore]
 		public Itinero.Profiles.Profile profile { get; set; }
 
 		/// <summary>
@@ -243,6 +245,11 @@ namespace GeocachingTourPlanner
 		public SerializableItineroProfile(string vehicle, string metric)
 		{
 			profile = FindProfile(vehicle, metric);
+		}
+
+		public SerializableItineroProfile()
+		{
+			profile = null;
 		}
 
 		//Deserialization constructor.
