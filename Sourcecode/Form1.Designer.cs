@@ -38,10 +38,10 @@
 			this.RateGeocachesCreateRouteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.SettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.RatingprofilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+			this.toolStripSeparatorRating = new System.Windows.Forms.ToolStripSeparator();
 			this.NewRatingprofileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.RoutingprofilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.toolStripSeparatorRouting = new System.Windows.Forms.ToolStripSeparator();
 			this.NewRoutingprofileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
 			this.setGeocachedatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -143,37 +143,37 @@
 			// RatingprofilesToolStripMenuItem
 			// 
 			this.RatingprofilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripSeparator2,
+            this.toolStripSeparatorRating,
             this.NewRatingprofileToolStripMenuItem});
 			this.RatingprofilesToolStripMenuItem.Name = "RatingprofilesToolStripMenuItem";
 			this.RatingprofilesToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
 			this.RatingprofilesToolStripMenuItem.Text = "Ratingprofiles";
 			// 
-			// toolStripSeparator2
+			// toolStripSeparatorRating
 			// 
-			this.toolStripSeparator2.Name = "toolStripSeparator2";
-			this.toolStripSeparator2.Size = new System.Drawing.Size(132, 6);
+			this.toolStripSeparatorRating.Name = "toolStripSeparatorRating";
+			this.toolStripSeparatorRating.Size = new System.Drawing.Size(149, 6);
 			// 
 			// NewRatingprofileToolStripMenuItem
 			// 
 			this.NewRatingprofileToolStripMenuItem.Name = "NewRatingprofileToolStripMenuItem";
-			this.NewRatingprofileToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+			this.NewRatingprofileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.NewRatingprofileToolStripMenuItem.Text = "New Profile";
 			this.NewRatingprofileToolStripMenuItem.Click += new System.EventHandler(this.NewRatingprofileToolStripMenuItem_Click);
 			// 
 			// RoutingprofilesToolStripMenuItem
 			// 
 			this.RoutingprofilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripSeparator1,
+            this.toolStripSeparatorRouting,
             this.NewRoutingprofileToolStripMenuItem});
 			this.RoutingprofilesToolStripMenuItem.Name = "RoutingprofilesToolStripMenuItem";
 			this.RoutingprofilesToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
 			this.RoutingprofilesToolStripMenuItem.Text = "Routingprofiles";
 			// 
-			// toolStripSeparator1
+			// toolStripSeparatorRouting
 			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+			this.toolStripSeparatorRouting.Name = "toolStripSeparatorRouting";
+			this.toolStripSeparatorRouting.Size = new System.Drawing.Size(149, 6);
 			// 
 			// NewRoutingprofileToolStripMenuItem
 			// 
@@ -378,15 +378,13 @@
         private System.Windows.Forms.ToolStripMenuItem CreateRouteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem RateGeocachesCreateRouteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SettingsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem NewRoutingprofileToolStripMenuItem;
         private System.Windows.Forms.TabControl Tabcontainer;
         private System.Windows.Forms.TabPage GeocachesTab;
         private System.Windows.Forms.TabPage MapTab;
         public System.Windows.Forms.DataGridView GeocacheTable;
         public System.Windows.Forms.ToolStripMenuItem RatingprofilesToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem RoutingprofilesToolStripMenuItem;
-        public System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        public System.Windows.Forms.ToolStripSeparator toolStripSeparatorRating;
         public System.Windows.Forms.ToolStripMenuItem NewRatingprofileToolStripMenuItem;
 		private System.Windows.Forms.TableLayoutPanel MapTab_SideMenu;
 		private System.Windows.Forms.CheckBox MediumGeocachesCheckbox;
@@ -397,6 +395,8 @@
 		private System.Windows.Forms.ToolStripMenuItem setGeocachedatabaseToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem setRoutingprofiledatabaseToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem setRatingprofiledatabaseToolStripMenuItem;
+		public System.Windows.Forms.ToolStripMenuItem NewRoutingprofileToolStripMenuItem;
+		public System.Windows.Forms.ToolStripSeparator toolStripSeparatorRouting;
 	}
 }
 

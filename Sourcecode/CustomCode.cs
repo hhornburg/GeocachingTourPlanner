@@ -234,6 +234,9 @@ namespace GeocachingTourPlanner
 	[Serializable()]
 	public class SerializableItineroProfile : ISerializable
 	{
+		/// <summary>
+		/// The underlying Profile
+		/// </summary>
 		[XmlIgnore]
 		public Itinero.Profiles.Profile profile { get; set; }
 

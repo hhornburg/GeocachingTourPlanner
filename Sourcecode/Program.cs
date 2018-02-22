@@ -78,7 +78,7 @@ namespace GeocachingTourPlanner
 			ReadGeocaches();
 			//Routingprofile
 			ReadRoutingprofiles();
-			Backup(null);//so settings get saved in the DB
+			Backup(null);//so settings get saved in the DB. Nothing else, as it just came from the file
 
             //Tabelleneinstellungen
             MainWindow.GeocacheTable.DataSource = Geocaches;
@@ -96,7 +96,7 @@ namespace GeocachingTourPlanner
 			Application.Run(MainWindow);
         }
 
-
+		#region Rating/RoutingprofileList
 		/// <summary>
 		/// Keeps the Dropdownmenu updated
 		/// </summary>
@@ -123,7 +123,7 @@ namespace GeocachingTourPlanner
 					MainWindow.RatingprofilesToolStripMenuItem.DropDownItems.Insert(0, Menuitem);
 				}
 				MainWindow.RatingprofilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-				MainWindow.toolStripSeparator2,
+				MainWindow.toolStripSeparatorRating,
 				MainWindow.NewRatingprofileToolStripMenuItem});
 			}
 
@@ -154,8 +154,8 @@ namespace GeocachingTourPlanner
 					MainWindow.RoutingprofilesToolStripMenuItem.DropDownItems.Insert(0, Menuitem);
 				}
 				MainWindow.RoutingprofilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-				MainWindow.toolStripSeparator2,
-				MainWindow.NewRatingprofileToolStripMenuItem});
+				MainWindow.toolStripSeparatorRouting,
+				MainWindow.NewRoutingprofileToolStripMenuItem});
 			}
 
 		}
@@ -169,6 +169,7 @@ namespace GeocachingTourPlanner
 		{
 			new NewRoutingprofileWindow(Routingprofiles.First(x => x.Name == sender.ToString())).Show();
 		}
+		#endregion
 
 		/// <summary>
 		/// The main Database gets saved anyways specify which otherList should be saved alongside. Returns true on success
@@ -274,8 +275,9 @@ namespace GeocachingTourPlanner
 			}
             DBWriter.Close();
 			return true;
-        }        
-        
+        }
+
+		#region ReadingDatabases
 		public static void ReadRoutingprofiles()
 		{
 			Routingprofiles.Clear();
@@ -370,7 +372,9 @@ namespace GeocachingTourPlanner
 						GCReader.Close();
 					}
 				}
+				Geocaches.ResetBindings();
 			}
 		}
+		#endregion
 	}
 }

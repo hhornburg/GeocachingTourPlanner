@@ -18,31 +18,38 @@ namespace GeocachingTourPlanner
 
 		public NewRoutingprofileWindow(Routingprofile RoutingProfileToEdit)
 		{
-			InitializeComponent();
-			NameValue.Text = RoutingProfileToEdit.Name;
-
-			//Distance
-			MaxDistance.Text = RoutingProfileToEdit.MaxDistance.ToString();
-			PenaltyPerExtraKM.Text = RoutingProfileToEdit.PenaltyPerExtraKM.ToString();
-
-			//Time
-			MaxTime.Text = RoutingProfileToEdit.MaxTime.ToString();
-			PenaltyPerExtraKM.Text = RoutingProfileToEdit.PenaltyPerExtra10min.ToString();
-			TimePerGeocache.Text = RoutingProfileToEdit.TimePerGeocache.ToString();
-
-			//Profile
-			/*VehicleValue.Text = RoutingProfileToEdit.ItineroProfile.Name;
-			switch (RoutingProfileToEdit.ItineroProfile.Metric)
+			try
 			{
-				case Itinero.Profiles.ProfileMetric.DistanceInMeters:
+				InitializeComponent();
+				NameValue.Text = RoutingProfileToEdit.Name;
 
-					ModeValue.Text = "Distance";
-					break;
+				//Distance
+				MaxDistance.Text = RoutingProfileToEdit.MaxDistance.ToString();
+				PenaltyPerExtraKM.Text = RoutingProfileToEdit.PenaltyPerExtraKM.ToString();
 
-				case Itinero.Profiles.ProfileMetric.TimeInSeconds:
-					ModeValue.SelectedText = "Time";
-					break;
-			}*/
+				//Time
+				MaxTime.Text = RoutingProfileToEdit.MaxTime.ToString();
+				PenaltyPerExtraKM.Text = RoutingProfileToEdit.PenaltyPerExtra10min.ToString();
+				TimePerGeocache.Text = RoutingProfileToEdit.TimePerGeocache.ToString();
+
+				//Profile
+				VehicleValue.Text = RoutingProfileToEdit.ItineroProfile.profile.Name;
+				switch (RoutingProfileToEdit.ItineroProfile.profile.Metric)
+				{
+					case Itinero.Profiles.ProfileMetric.DistanceInMeters:
+
+						ModeValue.Text = "Distance";
+						break;
+
+					case Itinero.Profiles.ProfileMetric.TimeInSeconds:
+						ModeValue.SelectedText = "Time";
+						break;
+				}
+			}
+			catch (NullReferenceException)
+			{
+				MessageBox.Show("Couldn't load the complete profile.", "Warning");
+			}
 		}
 
 		private void CancelNewProfileButton_Click(object sender, EventArgs e)
@@ -68,13 +75,18 @@ namespace GeocachingTourPlanner
 				Profile.MaxTime = int.Parse(MaxTime.Text);
 				Profile.PenaltyPerExtra10min = int.Parse(PenaltyPerExtra10min.Text);
 				Profile.TimePerGeocache = int.Parse(TimePerGeocache.Text);
-				/*
-				Profile.ItineroProfile = Itinero.Profiles.Profile.GetRegistered(VehicleValue.Text);
-				*/
+				
+				Profile.ItineroProfile = new SerializableItineroProfile(VehicleValue.Text,ModeValue.Text);
+				
 			}
 			catch (NullReferenceException)
 			{
 				MessageBox.Show("Please fill all fields");
+				return;
+			}
+			catch (FormatException)
+			{
+				MessageBox.Show("Some fields are filled with incompatible values","Error");
 				return;
 			}
 
