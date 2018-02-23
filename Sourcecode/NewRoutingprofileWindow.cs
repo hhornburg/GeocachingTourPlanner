@@ -29,20 +29,32 @@ namespace GeocachingTourPlanner
 
 				//Time
 				MaxTime.Text = RoutingProfileToEdit.MaxTime.ToString();
-				PenaltyPerExtraKM.Text = RoutingProfileToEdit.PenaltyPerExtra10min.ToString();
+				PenaltyPerExtra10min.Text = RoutingProfileToEdit.PenaltyPerExtra10min.ToString();
 				TimePerGeocache.Text = RoutingProfileToEdit.TimePerGeocache.ToString();
 
 				//Profile
-				VehicleValue.Text = RoutingProfileToEdit.ItineroProfile.profile.Name;
+
+				//VehicleValue.Text = RoutingProfileToEdit.ItineroProfile.profile.FullName.Remove(RoutingProfileToEdit.ItineroProfile.profile.FullName.IndexOf("."));//gets the parent of the profile (thus the vehicle)
+				//ModeValue.SelectedText = RoutingProfileToEdit.ItineroProfile.profile.Name;//Gives the metric
+				//Workaround Issue #161 @ Itinero
+				if (RoutingProfileToEdit.ItineroProfile.profile.FullName.Contains("."))
+				{
+					VehicleValue.Text = RoutingProfileToEdit.ItineroProfile.profile.FullName.Remove(RoutingProfileToEdit.ItineroProfile.profile.FullName.IndexOf("."));//gets the parent of the profile (thus the vehicle)
+
+				}
+				else
+				{
+					VehicleValue.Text = RoutingProfileToEdit.ItineroProfile.profile.FullName;
+				}
 				switch (RoutingProfileToEdit.ItineroProfile.profile.Metric)
 				{
 					case Itinero.Profiles.ProfileMetric.DistanceInMeters:
 
-						ModeValue.Text = "Distance";
+						ModeValue.Text = "Shortest";
 						break;
 
 					case Itinero.Profiles.ProfileMetric.TimeInSeconds:
-						ModeValue.SelectedText = "Time";
+						ModeValue.Text = "Fastest";
 						break;
 				}
 			}
@@ -77,16 +89,20 @@ namespace GeocachingTourPlanner
 				Profile.TimePerGeocache = int.Parse(TimePerGeocache.Text);
 				
 				Profile.ItineroProfile = new SerializableItineroProfile(VehicleValue.Text,ModeValue.Text);
-				
+				if (Profile.ItineroProfile.profile == null)
+				{
+					MessageBox.Show("Please select valid Values for the Vehicle and Mode", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					return;
+				}
 			}
 			catch (NullReferenceException)
 			{
-				MessageBox.Show("Please fill all fields");
+				MessageBox.Show("Please fill all fields", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
 			catch (FormatException)
 			{
-				MessageBox.Show("Some fields are filled with incompatible values","Error");
+				MessageBox.Show("Some fields are filled with incompatible values","Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
 

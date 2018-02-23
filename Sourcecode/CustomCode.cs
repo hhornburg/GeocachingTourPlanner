@@ -5,6 +5,8 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Schema;
 using System.Xml.Serialization;
 
 namespace GeocachingTourPlanner
@@ -232,13 +234,14 @@ namespace GeocachingTourPlanner
 	#endregion
 	
 	[Serializable()]
-	public class SerializableItineroProfile : ISerializable
+	public class SerializableItineroProfile : IXmlSerializable
 	{
 		/// <summary>
 		/// The underlying Profile
 		/// </summary>
 		[XmlIgnore]
 		public Itinero.Profiles.Profile profile { get; set; }
+
 
 		/// <summary>
 		/// returns true if profile was found
@@ -255,29 +258,54 @@ namespace GeocachingTourPlanner
 			profile = null;
 		}
 
-		//Deserialization constructor.
-		public SerializableItineroProfile(SerializationInfo info, StreamingContext ctxt)
+		#region XML
+		public XmlSchema GetSchema() { return null; }
+		public void ReadXml(XmlReader Reader)
 		{
-			//Get the values from info and assign them to the appropriate properties
-			string vehicle = (string)info.GetValue("Vehicle", typeof(string));
-			string metric = (string)info.GetValue("Metric", typeof(string));
+			string vehicle = Reader.GetAttribute("Vehicle");
+			string metric = Reader.GetAttribute("Metric");
 
-			profile=FindProfile(vehicle, metric);
+			profile = FindProfile(vehicle, metric);
 		}
 
 		//Serialization function.
-		public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+		public void WriteXml(XmlWriter writer)
 		{
-			info.AddValue("Vehicle", profile.Name);
-			info.AddValue("Metric", profile.Metric);
+			if (profile != null)
+			{
+				//Workaround for Issue #161 at Itinero
+				if (profile.FullName.Contains("."))
+				{
+					writer.WriteAttributeString("Vehicle", profile.FullName.Remove(profile.FullName.IndexOf(".")));//gets the parent of the profile (thus the vehicle)
+
+				}
+				else
+				{
+					writer.WriteAttributeString("Vehicle", profile.FullName);//gets the parent of the profile (thus the vehicle)
+				}
+				switch (profile.Metric)
+				{
+					case Itinero.Profiles.ProfileMetric.DistanceInMeters:
+
+						writer.WriteAttributeString("Metric", "Shortest");
+						break;
+
+					case Itinero.Profiles.ProfileMetric.TimeInSeconds:
+						writer.WriteAttributeString("Metric", "Fastest");
+
+						break;
+				}
+				//writer.WriteAttributeString("Metric", profile.Name);
+			}
 		}
+		#endregion
 
 		private Itinero.Profiles.Profile FindProfile(string vehicle, string metric)
 		{
 			Itinero.Profiles.Vehicle vehicleobject = null;
-			switch (vehicle)
+			switch (vehicle.ToLower())
 			{
-				case "Car":
+				case "car":
 					vehicleobject = Itinero.Osm.Vehicles.Vehicle.Car;
 					break;
 				default:
@@ -286,9 +314,9 @@ namespace GeocachingTourPlanner
 
 			switch (metric)
 			{
-				case "Distance":
+				case "Shortest":
 					return vehicleobject.Shortest();
-				case "Time":
+				case "Fastest":
 					return vehicleobject.Fastest();
 				default:
 					return null;
