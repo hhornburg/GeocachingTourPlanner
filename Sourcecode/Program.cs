@@ -104,30 +104,19 @@ namespace GeocachingTourPlanner
 		/// <param name="e"></param>
 		private static void Ratingprofiles_ListChanged(object sender, ListChangedEventArgs e)
 		{
-			if (e.ListChangedType == ListChangedType.ItemAdded)
+			foreach (Ratingprofile bp in Ratingprofiles)
 			{
+				MainWindow.RatingprofilesToolStripMenuItem.DropDownItems.Clear();
 				ToolStripMenuItem Menuitem = new ToolStripMenuItem();
-				Menuitem.Text = Ratingprofiles[e.NewIndex].ToString();
-				Menuitem.Click += Ratingprofile_Click;
+				Menuitem.Text = bp.ToString();
+				Menuitem.Click += new EventHandler(Ratingprofile_Click);
 				MainWindow.RatingprofilesToolStripMenuItem.DropDownItems.Insert(0, Menuitem);
 			}
-			else if (e.ListChangedType == ListChangedType.Reset)
-			{
-
-				foreach (Ratingprofile bp in Ratingprofiles)
-				{
-					MainWindow.RatingprofilesToolStripMenuItem.DropDownItems.Clear();
-					ToolStripMenuItem Menuitem = new ToolStripMenuItem();
-					Menuitem.Text = bp.ToString();
-					Menuitem.Click += new EventHandler(Ratingprofile_Click);
-					MainWindow.RatingprofilesToolStripMenuItem.DropDownItems.Insert(0, Menuitem);
-				}
-				MainWindow.RatingprofilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-				MainWindow.toolStripSeparatorRating,
-				MainWindow.NewRatingprofileToolStripMenuItem});
-			}
-
+			MainWindow.RatingprofilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			MainWindow.toolStripSeparatorRating,
+			MainWindow.NewRatingprofileToolStripMenuItem});
 		}
+
 		/// <summary>
 		/// keeps the dropdownmenu updated
 		/// </summary>
@@ -135,29 +124,17 @@ namespace GeocachingTourPlanner
 		/// <param name="e"></param>
 		private static void Routingprofiles_ListChanged(object sender, ListChangedEventArgs e)
 		{
-			if (e.ListChangedType == ListChangedType.ItemAdded)
+			foreach (Routingprofile profile in Routingprofiles)
 			{
+				MainWindow.RoutingprofilesToolStripMenuItem.DropDownItems.Clear();
 				ToolStripMenuItem Menuitem = new ToolStripMenuItem();
-				Menuitem.Text = Routingprofiles[e.NewIndex].ToString();
-				Menuitem.Click += Routingprofile_Click;
+				Menuitem.Text = profile.ToString();
+				Menuitem.Click += new EventHandler(Routingprofile_Click);
 				MainWindow.RoutingprofilesToolStripMenuItem.DropDownItems.Insert(0, Menuitem);
 			}
-			else if (e.ListChangedType == ListChangedType.Reset)
-			{
-
-				foreach (Routingprofile profile in Routingprofiles)
-				{
-					MainWindow.RoutingprofilesToolStripMenuItem.DropDownItems.Clear();
-					ToolStripMenuItem Menuitem = new ToolStripMenuItem();
-					Menuitem.Text = profile.ToString();
-					Menuitem.Click += new EventHandler(Routingprofile_Click);
-					MainWindow.RoutingprofilesToolStripMenuItem.DropDownItems.Insert(0, Menuitem);
-				}
-				MainWindow.RoutingprofilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-				MainWindow.toolStripSeparatorRouting,
-				MainWindow.NewRoutingprofileToolStripMenuItem});
-			}
-
+			MainWindow.RoutingprofilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			MainWindow.toolStripSeparatorRouting,
+			MainWindow.NewRoutingprofileToolStripMenuItem});
 		}
 
 		private static void Ratingprofile_Click(object sender, EventArgs e)
