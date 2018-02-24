@@ -1,4 +1,6 @@
-﻿namespace GeocachingTourPlanner
+﻿using System.Windows.Forms;
+
+namespace GeocachingTourPlanner
 {
 	partial class RunRouting
 	{
@@ -112,7 +114,8 @@
 			this.ProfilesCombobox.Name = "ProfilesCombobox";
 			this.ProfilesCombobox.Size = new System.Drawing.Size(327, 21);
 			this.ProfilesCombobox.TabIndex = 3;
-			this.ProfilesCombobox.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
+			this.ProfilesCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
+			this.ProfilesCombobox.SelectedIndexChanged += new System.EventHandler(this.ProfilesCombobox_SelectedIndexChanged);
 			// 
 			// TargetCombobox
 			// 
@@ -122,6 +125,7 @@
 			this.TargetCombobox.Name = "TargetCombobox";
 			this.TargetCombobox.Size = new System.Drawing.Size(327, 21);
 			this.TargetCombobox.TabIndex = 5;
+			this.TargetCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
 			this.TargetCombobox.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
 			// 
 			// tableLayoutPanel3
