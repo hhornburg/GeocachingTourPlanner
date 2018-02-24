@@ -132,9 +132,10 @@ namespace GeocachingTourPlanner
 						return;
 					}
 				}
+				
 				Router router = new Router(Program.RouterDB);
-
-				//Make the Points whch the route should pass
+				
+				//Make the Points which the route should pass
 				List<RouterPoint> PointsOnRoute = new List<RouterPoint>();
 				try
 				{
@@ -150,36 +151,48 @@ namespace GeocachingTourPlanner
 					PointsOnRoute.Add(router.Resolve(SelectedProfile.ItineroProfile.profile, GC.lat, GC.lon));
 				}
 				PointsOnRoute.Add(router.Resolve(SelectedProfile.ItineroProfile.profile, StartLat, StartLon));//As start is currently also the End
-				//Calculate Route
-				CurrentRoute = router.Calculate(SelectedProfile.ItineroProfile.profile, PointsOnRoute.ToArray());
+				try
+				{
+					//Calculate Route
+					CurrentRoute = router.Calculate(SelectedProfile.ItineroProfile.profile, PointsOnRoute.ToArray());
+				}
+				catch (Itinero.Exceptions.RouteNotFoundException)
+				{
+					//Route creation error, Itinero intern problem
+					GeocachesOnRoute.RemoveAt(GeocachesOnRoute.Count-1);//As the last geocache hasn't been fitted into the Route. From List of Geocaches in Range should remain, as this one is causing trouble.
+					//Effectively, this causes it to take the current route. As far as seen until now, not a too big problem.
+				}
 
 				//Calculate Points of Route
 				RoutePoints = 0;
-				foreach(Geocache GC in GeocachesOnRoute)
+				foreach (Geocache GC in GeocachesOnRoute)
 				{
 					RoutePoints += GC.Rating;
 				}
-				if (CurrentRoute.TotalDistance/1000 > SelectedProfile.MaxDistance)
+				if (CurrentRoute.TotalDistance / 1000 > SelectedProfile.MaxDistance)
 				{
-					RoutePoints -= (CurrentRoute.TotalDistance/1000 - SelectedProfile.MaxDistance) * SelectedProfile.PenaltyPerExtraKM;
+					RoutePoints -= (CurrentRoute.TotalDistance / 1000 - SelectedProfile.MaxDistance) * SelectedProfile.PenaltyPerExtraKM;
 				}
-				if (CurrentRoute.TotalTime/60 + GeocachesOnRoute.Count*SelectedProfile.TimePerGeocache > SelectedProfile.MaxTime)
+				if (CurrentRoute.TotalTime / 60 + GeocachesOnRoute.Count * SelectedProfile.TimePerGeocache > SelectedProfile.MaxTime)
 				{
-					RoutePoints -= (CurrentRoute.TotalTime/60 - SelectedProfile.MaxTime) * SelectedProfile.PenaltyPerExtra10min / 10;
+					RoutePoints -= (CurrentRoute.TotalTime / 60 - SelectedProfile.MaxTime) * SelectedProfile.PenaltyPerExtra10min / 10;
 				}
-				
 			} while (LastRoutePoints < RoutePoints);
 
 			List<PointLatLng> GMAPRoute = new List<PointLatLng>();
+			
 			foreach(Coordinate COO in CurrentRoute.Shape)
 			{
 				GMAPRoute.Add(new PointLatLng(COO.Latitude, COO.Longitude));
 			}
+			
 
 			GMapOverlay RouteOverlay = new GMapOverlay("Route");
 			RouteOverlay.Routes.Add(new GMapRoute(GMAPRoute,"Route"));
 			Program.MainWindow.Map.Overlays.Add(RouteOverlay);
 			Close();
+			
+			
 		}
 
 		private void CancelRatingButton_Click(object sender, EventArgs e)
@@ -205,11 +218,31 @@ namespace GeocachingTourPlanner
 			Map.Position = Program.DB.LastMapPosition;
 		}
 
+		bool Mapdragging = false;
 		private void Map_OnMapDrag()
 		{
-			StartLat = (float)Map.Position.Lat;
-			StartLon = (float)Map.Position.Lng;
-			SetBestGeocachesInReach();
+			Mapdragging = true;
+		}
+
+		private void Map_OnMapZoomChanged()
+		{
+			if (StartLat != Map.Position.Lat)
+			{
+				StartLat = (float)Map.Position.Lat;
+				StartLon = (float)Map.Position.Lng;
+				SetBestGeocachesInReach();
+			}
+		}
+
+		private void Map_MouseUp(object sender, MouseEventArgs e)
+		{
+			if (Mapdragging)//So calculation only kicks in if dragging is over
+			{
+				StartLat = (float)Map.Position.Lat;
+				StartLon = (float)Map.Position.Lng;
+				SetBestGeocachesInReach();
+				Mapdragging = false;
+			}
 		}
 
 		private void Dropdown_SelectedIndexChanged(object sender, EventArgs e)
@@ -228,13 +261,11 @@ namespace GeocachingTourPlanner
 		/// </summary>
 		private void SetBestGeocachesInReach()
 		{
-			if (StartLon == 0)//They change together
+			if (StartLon == 0|| SelectedProfile == null)//Coordinates change together
 			{
-				TargetCombobox.Items.Clear();
-				TargetCombobox.Text = "Select starting point first";
 				return;
 			}
-
+			
 			List<Geocache> PossibleGeocaches = new List<Geocache>();
 			foreach (Geocache GC in Program.Geocaches)
 			{
@@ -272,6 +303,8 @@ namespace GeocachingTourPlanner
 			double distance = Math.Sqrt(Math.Abs(lat1 - lat2) * Math.Abs(lat1 - lat2) + Math.Abs(lon1 - lon2) * Math.Abs(lon1 - lon2)) * 40030 / 360;
 			return distance;
 		}
+
+
 
 		#endregion
 
