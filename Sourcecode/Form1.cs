@@ -42,6 +42,7 @@ namespace GeocachingTourPlanner
 
 			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
 			{
+				MessageBox.Show("This might take a while, depending on how big your pbf file is.\n How about getting yourself a coffee?");
 				using (var stream = new FileInfo(StandardFileDialog.FileName).OpenRead())
 				{
 					Program.RouterDB.LoadOsmData(stream, new Itinero.Profiles.Vehicle[] { Itinero.Osm.Vehicles.Vehicle.Bicycle, Itinero.Osm.Vehicles.Vehicle.Car, Itinero.Osm.Vehicles.Vehicle.Pedestrian });
