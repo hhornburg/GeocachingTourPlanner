@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Itinero;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -28,10 +29,14 @@ namespace GeocachingTourPlanner
         public static SortableBindingList<Geocache> Geocaches = new SortableBindingList<Geocache>();
         static XmlSerializer GeocachesSerializer = new XmlSerializer(typeof(SortableBindingList<Geocache>));
 
-        /// <summary>
-        /// Main entrypoint
-        /// </summary>
-        public static Form1 MainWindow;
+		//load RouterDB
+		public static RouterDb RouterDB = new RouterDb();
+		
+
+/// <summary>
+/// Main entrypoint
+/// </summary>
+public static Form1 MainWindow;
 
         [STAThread]
         static void Main()
@@ -72,6 +77,14 @@ namespace GeocachingTourPlanner
 				}
 			}
 
+			if (DB.RouterDB_Filepath != null)
+			{
+				using (var stream = new FileInfo(DB.RouterDB_Filepath).OpenRead())
+				{
+					RouterDB = RouterDb.Deserialize(stream);
+				}
+			}
+			
 			//Load Ratingprofiles from the File specified in the Database
 			ReadRatingprofiles();
 			//Geocaches

@@ -113,12 +113,20 @@
     <None Include="packages.config" />
     <None Include="SampleDBs\Geocaches" />
     <None Include="SampleDBs\Ratingprofiles" />
-    <None Include="SampleDBs\Routingprofiles" />
+    <None Include="SampleDBs\Routingprofiles">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Sourcecode\App.config" />
     <None Include="Sourcecode\packages.config" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Sourcecode\RunRouting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sourcecode\RunRouting.Designer.cs">
+      <DependentUpon>RunRouting.cs</DependentUpon>
+    </Compile>
     <Compile Include="Sourcecode\NewRoutingprofileWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,6 +165,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Sourcecode\RunRouting.resx">
+      <DependentUpon>RunRouting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Sourcecode\NewRoutingprofileWindow.resx">
       <DependentUpon>NewRoutingprofileWindow.cs</DependentUpon>
     </EmbeddedResource>

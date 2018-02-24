@@ -31,6 +31,7 @@ namespace GeocachingTourPlanner
 		public string GeocacheDB_Filepath { get; set; }
 		public string RatingDB_Filepath { get; set; }
 		public string RoutingDB_Filepath { get; set; }
+		public string RouterDB_Filepath { get; set; }
 
 		//Mapspecific
 		public double LastMapZoom { get; set;}
@@ -100,6 +101,11 @@ namespace GeocachingTourPlanner
 				else if (DatabaseFilepath.Equals(RoutingDB_Filepath))
 				{
 					RoutingDB_Filepath = StandardFileDialog.FileName;
+					return true; //since databasefilepath has been set;
+				}
+				else if (DatabaseFilepath.Equals(RouterDB_Filepath))
+				{
+					RouterDB_Filepath = StandardFileDialog.FileName;
 					return true; //since databasefilepath has been set;
 				}
 			}

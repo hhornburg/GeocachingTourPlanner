@@ -14,6 +14,10 @@ namespace GeocachingTourPlanner
 		public RunRating()
 		{
 			InitializeComponent();
+			foreach (Ratingprofile BP in Program.Ratingprofiles)
+			{
+				RatingProfilesCombobox.Items.Add(BP.Name);
+			}
 		}
 
 		private void StartRatingButton_Click(object sender, EventArgs e)

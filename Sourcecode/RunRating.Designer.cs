@@ -118,9 +118,9 @@
 		#endregion
 
 		private System.Windows.Forms.TableLayoutPanel RoutingprofileFormTable;
-		public System.Windows.Forms.ComboBox RatingProfilesCombobox;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
 		private System.Windows.Forms.Button CancelRatingButton;
 		private System.Windows.Forms.Button StartRatingButton;
+		private System.Windows.Forms.ComboBox RatingProfilesCombobox;
 	}
 }

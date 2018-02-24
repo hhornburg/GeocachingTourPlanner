@@ -31,6 +31,8 @@
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ImportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.geocachesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.oSMDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ExportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.RunToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.RateGeocachesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,6 +58,7 @@
 			this.BestGeocachesCheckbox = new System.Windows.Forms.CheckBox();
 			this.WorstGeocachesCheckbox = new System.Windows.Forms.CheckBox();
 			this.Map = new GMap.NET.WindowsForms.GMapControl();
+			this.setRouterDBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.Tabcontainer.SuspendLayout();
 			this.GeocachesTab.SuspendLayout();
@@ -87,15 +90,31 @@
 			// 
 			// ImportToolStripMenuItem
 			// 
+			this.ImportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.geocachesToolStripMenuItem,
+            this.oSMDataToolStripMenuItem});
 			this.ImportToolStripMenuItem.Name = "ImportToolStripMenuItem";
-			this.ImportToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+			this.ImportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.ImportToolStripMenuItem.Text = "Import";
-			this.ImportToolStripMenuItem.Click += new System.EventHandler(this.importierenToolStripMenuItem_Click);
+			// 
+			// geocachesToolStripMenuItem
+			// 
+			this.geocachesToolStripMenuItem.Name = "geocachesToolStripMenuItem";
+			this.geocachesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.geocachesToolStripMenuItem.Text = "Geocaches";
+			this.geocachesToolStripMenuItem.Click += new System.EventHandler(this.LoadGeocachesToolStripMenuItem_Click);
+			// 
+			// oSMDataToolStripMenuItem
+			// 
+			this.oSMDataToolStripMenuItem.Name = "oSMDataToolStripMenuItem";
+			this.oSMDataToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.oSMDataToolStripMenuItem.Text = "OSM Data";
+			this.oSMDataToolStripMenuItem.Click += new System.EventHandler(this.OSMDataToolStripMenuItem_Click);
 			// 
 			// ExportToolStripMenuItem
 			// 
 			this.ExportToolStripMenuItem.Name = "ExportToolStripMenuItem";
-			this.ExportToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+			this.ExportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.ExportToolStripMenuItem.Text = "Export";
 			// 
 			// RunToolStripMenuItem
@@ -113,13 +132,14 @@
 			this.RateGeocachesToolStripMenuItem.Name = "RateGeocachesToolStripMenuItem";
 			this.RateGeocachesToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
 			this.RateGeocachesToolStripMenuItem.Text = "Rate geocaches";
-			this.RateGeocachesToolStripMenuItem.Click += new System.EventHandler(this.geocachesBewertenToolStripMenuItem_Click);
+			this.RateGeocachesToolStripMenuItem.Click += new System.EventHandler(this.RateGeocachesToolStripMenuItem_Click);
 			// 
 			// CreateRouteToolStripMenuItem
 			// 
 			this.CreateRouteToolStripMenuItem.Name = "CreateRouteToolStripMenuItem";
 			this.CreateRouteToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
 			this.CreateRouteToolStripMenuItem.Text = "Create Route";
+			this.CreateRouteToolStripMenuItem.Click += new System.EventHandler(this.CreateRouteToolStripMenuItem_Click);
 			// 
 			// RateGeocachesCreateRouteToolStripMenuItem
 			// 
@@ -135,7 +155,8 @@
             this.toolStripSeparator3,
             this.setGeocachedatabaseToolStripMenuItem,
             this.setRoutingprofiledatabaseToolStripMenuItem,
-            this.setRatingprofiledatabaseToolStripMenuItem});
+            this.setRatingprofiledatabaseToolStripMenuItem,
+            this.setRouterDBToolStripMenuItem});
 			this.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem";
 			this.SettingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
 			this.SettingsToolStripMenuItem.Text = "Settings";
@@ -152,12 +173,12 @@
 			// toolStripSeparatorRating
 			// 
 			this.toolStripSeparatorRating.Name = "toolStripSeparatorRating";
-			this.toolStripSeparatorRating.Size = new System.Drawing.Size(149, 6);
+			this.toolStripSeparatorRating.Size = new System.Drawing.Size(132, 6);
 			// 
 			// NewRatingprofileToolStripMenuItem
 			// 
 			this.NewRatingprofileToolStripMenuItem.Name = "NewRatingprofileToolStripMenuItem";
-			this.NewRatingprofileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.NewRatingprofileToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
 			this.NewRatingprofileToolStripMenuItem.Text = "New Profile";
 			this.NewRatingprofileToolStripMenuItem.Click += new System.EventHandler(this.NewRatingprofileToolStripMenuItem_Click);
 			// 
@@ -173,12 +194,12 @@
 			// toolStripSeparatorRouting
 			// 
 			this.toolStripSeparatorRouting.Name = "toolStripSeparatorRouting";
-			this.toolStripSeparatorRouting.Size = new System.Drawing.Size(149, 6);
+			this.toolStripSeparatorRouting.Size = new System.Drawing.Size(132, 6);
 			// 
 			// NewRoutingprofileToolStripMenuItem
 			// 
 			this.NewRoutingprofileToolStripMenuItem.Name = "NewRoutingprofileToolStripMenuItem";
-			this.NewRoutingprofileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.NewRoutingprofileToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
 			this.NewRoutingprofileToolStripMenuItem.Text = "New Profile";
 			this.NewRoutingprofileToolStripMenuItem.Click += new System.EventHandler(this.NewRoutingprofileToolStripMenuItem_Click);
 			// 
@@ -342,6 +363,13 @@
 			this.Map.Load += new System.EventHandler(this.Map_Load);
 			this.Map.Enter += new System.EventHandler(this.Map_Enter);
 			// 
+			// setRouterDBToolStripMenuItem
+			// 
+			this.setRouterDBToolStripMenuItem.Name = "setRouterDBToolStripMenuItem";
+			this.setRouterDBToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+			this.setRouterDBToolStripMenuItem.Text = "Set RouterDB";
+			this.setRouterDBToolStripMenuItem.Click += new System.EventHandler(this.setRouterDBToolStripMenuItem_Click);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -397,6 +425,9 @@
 		private System.Windows.Forms.ToolStripMenuItem setRatingprofiledatabaseToolStripMenuItem;
 		public System.Windows.Forms.ToolStripMenuItem NewRoutingprofileToolStripMenuItem;
 		public System.Windows.Forms.ToolStripSeparator toolStripSeparatorRouting;
+		private System.Windows.Forms.ToolStripMenuItem geocachesToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem oSMDataToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem setRouterDBToolStripMenuItem;
 	}
 }
 
