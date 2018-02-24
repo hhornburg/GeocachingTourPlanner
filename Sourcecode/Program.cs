@@ -95,59 +95,7 @@ namespace GeocachingTourPlanner
 
 			Application.Run(MainWindow);
         }
-
-		#region Rating/RoutingprofileList
-		/// <summary>
-		/// Keeps the Dropdownmenu updated
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private static void Ratingprofiles_ListChanged(object sender, ListChangedEventArgs e)
-		{
-			foreach (Ratingprofile bp in Ratingprofiles)
-			{
-				MainWindow.RatingprofilesToolStripMenuItem.DropDownItems.Clear();
-				ToolStripMenuItem Menuitem = new ToolStripMenuItem();
-				Menuitem.Text = bp.ToString();
-				Menuitem.Click += new EventHandler(Ratingprofile_Click);
-				MainWindow.RatingprofilesToolStripMenuItem.DropDownItems.Insert(0, Menuitem);
-			}
-			MainWindow.RatingprofilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			MainWindow.toolStripSeparatorRating,
-			MainWindow.NewRatingprofileToolStripMenuItem});
-		}
-
-		/// <summary>
-		/// keeps the dropdownmenu updated
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private static void Routingprofiles_ListChanged(object sender, ListChangedEventArgs e)
-		{
-			foreach (Routingprofile profile in Routingprofiles)
-			{
-				MainWindow.RoutingprofilesToolStripMenuItem.DropDownItems.Clear();
-				ToolStripMenuItem Menuitem = new ToolStripMenuItem();
-				Menuitem.Text = profile.ToString();
-				Menuitem.Click += new EventHandler(Routingprofile_Click);
-				MainWindow.RoutingprofilesToolStripMenuItem.DropDownItems.Insert(0, Menuitem);
-			}
-			MainWindow.RoutingprofilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			MainWindow.toolStripSeparatorRouting,
-			MainWindow.NewRoutingprofileToolStripMenuItem});
-		}
-
-		private static void Ratingprofile_Click(object sender, EventArgs e)
-        {
-            new NewRatingProfileWindow(Ratingprofiles.First(x=>x.Name==sender.ToString())).Show();
-        }
-
-		private static void Routingprofile_Click(object sender, EventArgs e)
-		{
-			new NewRoutingprofileWindow(Routingprofiles.First(x => x.Name == sender.ToString())).Show();
-		}
-		#endregion
-
+		
 		/// <summary>
 		/// The main Database gets saved anyways specify which otherList should be saved alongside. Returns true on success
 		/// </summary>
@@ -281,7 +229,7 @@ namespace GeocachingTourPlanner
 			}
 
 			//To make them show up in the menu
-			Routingprofiles.ListChanged += new ListChangedEventHandler(Routingprofiles_ListChanged);
+			Routingprofiles.ListChanged += new ListChangedEventHandler(MainWindow.Routingprofiles_ListChanged);
 			Routingprofiles.ResetBindings();
 			Backup(Routingprofiles);
 
@@ -303,7 +251,7 @@ namespace GeocachingTourPlanner
 				catch (Exception)
 				{
 					MessageBox.Show("Error in Ratingdatabases!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					Ratingprofiles.ListChanged += new ListChangedEventHandler(Ratingprofiles_ListChanged);
+					Ratingprofiles.ListChanged += new ListChangedEventHandler(MainWindow.Ratingprofiles_ListChanged);
 				}
 				finally
 				{
@@ -314,7 +262,7 @@ namespace GeocachingTourPlanner
 				}
 
 				//To make them show up in the menu
-				Ratingprofiles.ListChanged += new ListChangedEventHandler(Ratingprofiles_ListChanged);
+				Ratingprofiles.ListChanged += new ListChangedEventHandler(MainWindow.Ratingprofiles_ListChanged);
 				Ratingprofiles.ResetBindings();
 				Backup(Ratingprofiles);
 			}
