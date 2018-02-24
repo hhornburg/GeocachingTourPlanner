@@ -432,6 +432,6 @@ namespace GeocachingTourPlanner
 		}
 
 		#endregion
-
+		
 	}
 }

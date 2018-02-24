@@ -9,4 +9,13 @@
     <TimePerGeocache>5</TimePerGeocache>
     <ItineroProfile Vehicle="car" Metric="Fastest" />
   </Routingprofile>
+  <Routingprofile>
+    <Name>Pedestrian</Name>
+    <MaxDistance>10</MaxDistance>
+    <PenaltyPerExtraKM>100</PenaltyPerExtraKM>
+    <MaxTime>240</MaxTime>
+    <PenaltyPerExtra10min>100</PenaltyPerExtra10min>
+    <TimePerGeocache>5</TimePerGeocache>
+    <ItineroProfile Vehicle="pedestrian" Metric="Shortest" />
+  </Routingprofile>
 </ArrayOfRoutingprofile>
