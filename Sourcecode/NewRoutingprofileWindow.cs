@@ -36,6 +36,7 @@ namespace GeocachingTourPlanner
 
 				//VehicleValue.Text = RoutingProfileToEdit.ItineroProfile.profile.FullName.Remove(RoutingProfileToEdit.ItineroProfile.profile.FullName.IndexOf("."));//gets the parent of the profile (thus the vehicle)
 				//ModeValue.SelectedText = RoutingProfileToEdit.ItineroProfile.profile.Name;//Gives the metric
+
 				//Workaround Issue #161 @ Itinero
 				if (RoutingProfileToEdit.ItineroProfile.profile.FullName.Contains("."))
 				{

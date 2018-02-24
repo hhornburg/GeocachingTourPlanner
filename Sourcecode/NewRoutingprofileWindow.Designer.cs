@@ -341,8 +341,8 @@
 			this.VehicleValue.FormattingEnabled = true;
 			this.VehicleValue.Items.AddRange(new object[] {
             "Car",
-            "Bike",
-            "Foot"});
+            "Bicycle",
+            "Pedestrian"});
 			this.VehicleValue.Location = new System.Drawing.Point(161, 3);
 			this.VehicleValue.Name = "VehicleValue";
 			this.VehicleValue.Size = new System.Drawing.Size(152, 21);

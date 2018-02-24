@@ -308,6 +308,12 @@ namespace GeocachingTourPlanner
 				case "car":
 					vehicleobject = Itinero.Osm.Vehicles.Vehicle.Car;
 					break;
+				case "pedestrian":
+					vehicleobject = Itinero.Osm.Vehicles.Vehicle.Pedestrian;
+					break;
+				case "bicycle":
+					vehicleobject = Itinero.Osm.Vehicles.Vehicle.Bicycle;
+					break;
 				default:
 					return null;
 			}
