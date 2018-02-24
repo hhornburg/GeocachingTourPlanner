@@ -13,152 +13,195 @@ using GMap.NET;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 using GMap.NET.MapProviders;
+using Itinero;
+using System.IO;
+using Itinero.IO.Osm;
 
 namespace GeocachingTourPlanner
 {
-    public partial class Form1 : Form
-    {
-        public Form1()
-        {
-            InitializeComponent();
-        }
-
-		OpenFileDialog StandardFileDialog = new OpenFileDialog
+	public partial class Form1 : Form
+	{
+		public Form1()
 		{
-			InitialDirectory = Program.DB.LastUsedFilepath,
-			Filter = "gpx files (*.gpx)|*.gpx|All files (*.*)|*.*",
-			FilterIndex = 2,
-			RestoreDirectory = true
-		};
+			InitializeComponent();
+		}
+
+
 
 		#region MenuItems
-		private void importierenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string GPXDatei;
-            
-            if (StandardFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                DialogResult Importmodus = MessageBox.Show("Should the loaded Geocaches be kept?", "Import", MessageBoxButtons.YesNoCancel);
-                if ( Importmodus==DialogResult.Yes)
-                {
-                    //Do nothing
-                }
-				else if (Importmodus == DialogResult.No)
-                {
-                    Program.Geocaches.Clear();
-                }
-                else
-                {
-                    return;
-                }
 
-                try
-                {
-                    GPXDatei = StandardFileDialog.FileName;
-                    Program.DB.LastUsedFilepath = StandardFileDialog.FileName;
-                    XElement RootElement = XElement.Load(GPXDatei);
-
-                    XNamespace gpx = "http://www.topografix.com/GPX/1/0"; //default namespace
-                    XNamespace groundspeak = "http://www.groundspeak.com/cache/1/0/1";
-
-                    foreach (XElement elem in RootElement.Elements(gpx + "wpt"))
-                    {
-                        Geocache geocache = new Geocache { };
-
-                        geocache.lat = float.Parse(elem.FirstAttribute.ToString().Replace("\"", "").Replace("lat=", ""), CultureInfo.InvariantCulture);
-                        geocache.lon = float.Parse(elem.LastAttribute.ToString().Replace("\"", "").Replace("lon=", ""), CultureInfo.InvariantCulture);
-                        geocache.GCCODE = (string)elem.Element(gpx + "name").Value;
-                        geocache.Name = (string)elem.Element(gpx + "urlname").Value;
-                        XElement CacheDetails = elem.Element(groundspeak + "cache");
-                        geocache.DRating = float.Parse(CacheDetails.Element(groundspeak + "difficulty").Value.ToString(), CultureInfo.InvariantCulture);
-                        geocache.TRating = float.Parse(CacheDetails.Element(groundspeak + "terrain").Value.ToString(), CultureInfo.InvariantCulture);
-                        geocache.NeedsMaintenance = CacheDetails.Element(groundspeak + "attributes").Elements().ToList().Exists(x => x.FirstAttribute.Value == 42.ToString());
-                        geocache.DateHidden = DateTime.Parse(elem.Element(gpx + "time").Value.ToString());
-                        switch (elem.Element(gpx + "type").Value)
-                        {
-                            case "Geocache|Unknown Cache":
-                                geocache.Type = GeocacheType.Mystery;
-                                break;
-                            case "Geocache|Traditional Cache":
-                                geocache.Type = GeocacheType.Traditional;
-                                break;
-                            case "Geocache|Multi-cache":
-                                geocache.Type = GeocacheType.Multi;
-                                break;
-                            case "Geocache|Virtual Cache":
-                                geocache.Type = GeocacheType.Virtual;
-                                break;
-                            case "Geocache|Wherigo Cache":
-                                geocache.Type = GeocacheType.Wherigo;
-                                break;
-                            case "Geocache|Webcam Cache":
-                                geocache.Type = GeocacheType.Webcam;
-                                break;
-                            case "Geocache|Letterbox Hybrid":
-                                geocache.Type = GeocacheType.Letterbox;
-                                break;
-                            case "Geocache|Earthcache":
-                                geocache.Type = GeocacheType.EarthCache;
-                                break;
-                            default:
-                                geocache.Type = GeocacheType.Other;
-                                break;
-                        }
-                        switch (CacheDetails.Element(groundspeak + "container").Value)
-                        {
-                            case "Large":
-                                geocache.Size = GeocacheSize.Large;
-                                break;
-                            case "Regular":
-                                geocache.Size = GeocacheSize.Regular;
-                                break;
-                            case "Small":
-                                geocache.Size = GeocacheSize.Small;
-                                break;
-                            case "Micro":
-                                geocache.Size = GeocacheSize.Micro;
-                                break;
-                            default:
-                                geocache.Size = GeocacheSize.Other;
-                                break;
-                        }
-                        if (!Program.Geocaches.Any(x => x.GCCODE == geocache.GCCODE))
-                        {
-                            Program.Geocaches.Add(geocache);
-                        }
-                        else
-                        {
-                            //Nothing in the moment, would be good if it would update the Geocaches
-                        }
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
-                }
-                Program.Backup(Program.Geocaches);
-            }
-        }
-		
-        private void NewRatingprofileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new NewRatingProfileWindow().Show();
-        }
-
-		private void geocachesBewertenToolStripMenuItem_Click(object sender, EventArgs e)
+		private void OSMDataToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			RunRating Window = new RunRating();
-			foreach (Ratingprofile BP in Program.Ratingprofiles)
+			OpenFileDialog StandardFileDialog = new OpenFileDialog
 			{
-				Window.RatingProfilesCombobox.Items.Add(BP.Name);
+				InitialDirectory = Program.DB.LastUsedFilepath,
+				Filter = "pbf files (*.pbf)|*.pbf|All files (*.*)|*.*",
+				FilterIndex = 2,
+				RestoreDirectory = true
+			};
+
+			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				MessageBox.Show("This might take a while, depending on how big your pbf file is.\n How about getting yourself a coffee?");
+				using (var stream = new FileInfo(StandardFileDialog.FileName).OpenRead())
+				{
+					Program.RouterDB.LoadOsmData(stream, new Itinero.Profiles.Vehicle[] { Itinero.Osm.Vehicles.Vehicle.Bicycle, Itinero.Osm.Vehicles.Vehicle.Car, Itinero.Osm.Vehicles.Vehicle.Pedestrian });
+				}
+
+				// write the routerdb to disk.
+				if (Program.DB.RouterDB_Filepath == null)
+				{
+					Program.DB.RouterDB_Filepath = "OSM.routerdb";
+				}
+				using (var stream = new FileInfo(Program.DB.RouterDB_Filepath).Open(FileMode.Create))
+				{
+					Program.RouterDB.Serialize(stream);
+				}
+
+				Program.Backup(null);
 			}
-			Window.ShowDialog();
+		}
+
+		private void LoadGeocachesToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			string GPXDatei;
+			OpenFileDialog StandardFileDialog = new OpenFileDialog
+			{
+				InitialDirectory = Program.DB.LastUsedFilepath,
+				Filter = "gpx files (*.gpx)|*.gpx|All files (*.*)|*.*",
+				FilterIndex = 2,
+				RestoreDirectory = true
+			};
+
+			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				DialogResult Importmodus = MessageBox.Show("Should the loaded Geocaches be kept?", "Import", MessageBoxButtons.YesNoCancel);
+				if (Importmodus == DialogResult.Yes)
+				{
+					//Do nothing
+				}
+				else if (Importmodus == DialogResult.No)
+				{
+					Program.Geocaches.Clear();
+				}
+				else
+				{
+					return;
+				}
+
+				try
+				{
+					GPXDatei = StandardFileDialog.FileName;
+					Program.DB.LastUsedFilepath = StandardFileDialog.FileName;
+					XElement RootElement = XElement.Load(GPXDatei);
+
+					XNamespace gpx = "http://www.topografix.com/GPX/1/0"; //default namespace
+					XNamespace groundspeak = "http://www.groundspeak.com/cache/1/0/1";
+
+					foreach (XElement elem in RootElement.Elements(gpx + "wpt"))
+					{
+						Geocache geocache = new Geocache { };
+
+						geocache.lat = float.Parse(elem.FirstAttribute.ToString().Replace("\"", "").Replace("lat=", ""), CultureInfo.InvariantCulture);
+						geocache.lon = float.Parse(elem.LastAttribute.ToString().Replace("\"", "").Replace("lon=", ""), CultureInfo.InvariantCulture);
+						geocache.GCCODE = (string)elem.Element(gpx + "name").Value;
+						geocache.Name = (string)elem.Element(gpx + "urlname").Value;
+						XElement CacheDetails = elem.Element(groundspeak + "cache");
+						geocache.DRating = float.Parse(CacheDetails.Element(groundspeak + "difficulty").Value.ToString(), CultureInfo.InvariantCulture);
+						geocache.TRating = float.Parse(CacheDetails.Element(groundspeak + "terrain").Value.ToString(), CultureInfo.InvariantCulture);
+						geocache.NeedsMaintenance = CacheDetails.Element(groundspeak + "attributes").Elements().ToList().Exists(x => x.FirstAttribute.Value == 42.ToString());
+						geocache.DateHidden = DateTime.Parse(elem.Element(gpx + "time").Value.ToString());
+						switch (elem.Element(gpx + "type").Value)
+						{
+							case "Geocache|Unknown Cache":
+								geocache.Type = GeocacheType.Mystery;
+								break;
+							case "Geocache|Traditional Cache":
+								geocache.Type = GeocacheType.Traditional;
+								break;
+							case "Geocache|Multi-cache":
+								geocache.Type = GeocacheType.Multi;
+								break;
+							case "Geocache|Virtual Cache":
+								geocache.Type = GeocacheType.Virtual;
+								break;
+							case "Geocache|Wherigo Cache":
+								geocache.Type = GeocacheType.Wherigo;
+								break;
+							case "Geocache|Webcam Cache":
+								geocache.Type = GeocacheType.Webcam;
+								break;
+							case "Geocache|Letterbox Hybrid":
+								geocache.Type = GeocacheType.Letterbox;
+								break;
+							case "Geocache|Earthcache":
+								geocache.Type = GeocacheType.EarthCache;
+								break;
+							default:
+								geocache.Type = GeocacheType.Other;
+								break;
+						}
+						switch (CacheDetails.Element(groundspeak + "container").Value)
+						{
+							case "Large":
+								geocache.Size = GeocacheSize.Large;
+								break;
+							case "Regular":
+								geocache.Size = GeocacheSize.Regular;
+								break;
+							case "Small":
+								geocache.Size = GeocacheSize.Small;
+								break;
+							case "Micro":
+								geocache.Size = GeocacheSize.Micro;
+								break;
+							default:
+								geocache.Size = GeocacheSize.Other;
+								break;
+						}
+						if (!Program.Geocaches.Any(x => x.GCCODE == geocache.GCCODE))
+						{
+							Program.Geocaches.Add(geocache);
+						}
+						else
+						{
+							//Nothing in the moment, would be good if it would update the Geocaches
+						}
+					}
+
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+				}
+				Program.Backup(Program.Geocaches);
+			}
+		}
+
+		private void NewRatingprofileToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			new NewRatingProfileWindow().Show();
+		}
+
+
+		private void NewRoutingprofileToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			new NewRoutingprofileWindow().Show();
+		}
+
+		private void RateGeocachesToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			new RunRating().Show();
+		}
+
+		private void CreateRouteToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			new RunRouting().Show();
 		}
 
 		private void setGeocachedatabaseToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			if (Program.DB.SetDatabaseFilepath(Program.DB.GeocacheDB_Filepath))
+			if (Program.DB.SetDatabaseFilepath(Database.Databases.Geocaches))
 			{
 				Program.ReadGeocaches();
 			}
@@ -166,7 +209,7 @@ namespace GeocachingTourPlanner
 
 		private void setRoutingprofiledatabaseToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			if (Program.DB.SetDatabaseFilepath(Program.DB.RoutingDB_Filepath))
+			if (Program.DB.SetDatabaseFilepath(Database.Databases.Routingprofiles))
 			{
 				Program.ReadRoutingprofiles();
 			}
@@ -174,12 +217,76 @@ namespace GeocachingTourPlanner
 
 		private void setRatingprofiledatabaseToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			if (Program.DB.SetDatabaseFilepath(Program.DB.RatingDB_Filepath))
+			if (Program.DB.SetDatabaseFilepath(Database.Databases.Ratingprofiles))
 			{
 				Program.ReadRatingprofiles();
 			}
 		}
 
+
+		private void setRouterDBToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (Program.DB.SetDatabaseFilepath(Database.Databases.RouterDB))
+			{
+				using (var stream = new FileInfo(Program.DB.RouterDB_Filepath).OpenRead())
+				{
+					Program.RouterDB = RouterDb.Deserialize(stream);
+				}
+				Program.Backup(null);
+			}
+		}
+
+		#region Update of Rating/RoutingprofileList
+		/// <summary>
+		/// Keeps the Dropdownmenu updated
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		public void Ratingprofiles_ListChanged(object sender, ListChangedEventArgs e)
+		{
+			foreach (Ratingprofile bp in Program.Ratingprofiles)
+			{
+				RatingprofilesToolStripMenuItem.DropDownItems.Clear();
+				ToolStripMenuItem Menuitem = new ToolStripMenuItem();
+				Menuitem.Text = bp.ToString();
+				Menuitem.Click += new EventHandler(Ratingprofile_Click);
+				RatingprofilesToolStripMenuItem.DropDownItems.Insert(0, Menuitem);
+			}
+			RatingprofilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			toolStripSeparatorRating,
+			NewRatingprofileToolStripMenuItem});
+		}
+
+		/// <summary>
+		/// keeps the dropdownmenu updated
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		public void Routingprofiles_ListChanged(object sender, ListChangedEventArgs e)
+		{
+			foreach (Routingprofile profile in Program.Routingprofiles)
+			{
+				RoutingprofilesToolStripMenuItem.DropDownItems.Clear();
+				ToolStripMenuItem Menuitem = new ToolStripMenuItem();
+				Menuitem.Text = profile.ToString();
+				Menuitem.Click += new EventHandler(Routingprofile_Click);
+				RoutingprofilesToolStripMenuItem.DropDownItems.Insert(0, Menuitem);
+			}
+			RoutingprofilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			toolStripSeparatorRouting,
+			NewRoutingprofileToolStripMenuItem});
+		}
+
+		private void Ratingprofile_Click(object sender, EventArgs e)
+		{
+			new NewRatingProfileWindow(Program.Ratingprofiles.First(x => x.Name == sender.ToString())).Show();
+		}
+
+		private void Routingprofile_Click(object sender, EventArgs e)
+		{
+			new NewRoutingprofileWindow(Program.Routingprofiles.First(x => x.Name == sender.ToString())).Show();
+		}
+		#endregion
 		#endregion
 
 		#region Map
@@ -193,10 +300,21 @@ namespace GeocachingTourPlanner
 			//Remove Cross in the middle of the Map
 			Map.ShowCenter = false;
 
-			if (Map.Overlays.Count != 0)
+			//Remove all geocache (and only the geocache!) overlays
+			if(Map.Overlays.Where(x => x.Id == "TopOverlay").Count() > 0)
 			{
-				Map.Overlays.Clear();
+				Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "TopOverlay"));
 			}
+			if (Map.Overlays.Where(x => x.Id == "MediumOverlay").Count() > 0)
+			{
+				Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "MediumOverlay"));
+			}
+			if (Map.Overlays.Where(x => x.Id == "LowOverlay").Count() > 0)
+			{
+				Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "LowOverlay"));
+			}
+
+			//recreate them
 			GMapOverlay TopOverlay = new GMapOverlay("TopOverlay");
 			GMapOverlay MediumOverlay = new GMapOverlay("MediumOverlay");
 			GMapOverlay LowOverlay = new GMapOverlay("LowOverlay");
@@ -236,18 +354,17 @@ namespace GeocachingTourPlanner
 			//Set Views
 			if (Program.DB.LastMapZoom == 0)
 			{
-
 				Program.DB.LastMapZoom = 5;
 			}
 			Map.Zoom = Program.DB.LastMapZoom;
-			
+
 			if (Program.DB.LastMapPosition.IsEmpty)//Equals that the user hasn't seen the map before (fixes #2)
 			{
 				Program.DB.LastMapPosition = new PointLatLng(49.0, 8.5);
 			}
-			Map.Position = new PointLatLng(49.0, 8.5);
-				
-			
+			Map.Position = Program.DB.LastMapPosition;
+
+
 		}
 
 		private void BestCheckbox_CheckedChanged(object sender, EventArgs e)
@@ -285,10 +402,11 @@ namespace GeocachingTourPlanner
 				Map.Overlays.First(x => x.Id == "LowOverlay").IsVisibile = false;
 			}
 		}
-		
+
 		private void Map_OnMapDrag()
 		{
 			Program.DB.LastMapPosition = Map.Position;
+			Program.Backup(null);
 		}
 
 		private void Map_Enter(object sender, EventArgs e)
@@ -299,8 +417,9 @@ namespace GeocachingTourPlanner
 		private void Map_OnMapZoomChanged()
 		{
 			Program.DB.LastMapZoom = Map.Zoom;
+			Program.Backup(null);
 		}
-		#endregion
+
 
 		private void Map_Load(object sender, EventArgs e)//Called at the first time the tab gets clicked. This way the user doesn't see an empty map
 		{
@@ -309,7 +428,10 @@ namespace GeocachingTourPlanner
 
 		private void Map_OnMarkerClick(GMapMarker item, MouseEventArgs e)
 		{
-			System.Diagnostics.Process.Start("https://www.coord.info/"+item.Tag);
+			System.Diagnostics.Process.Start("https://www.coord.info/" + item.Tag);
 		}
+
+		#endregion
+
 	}
 }

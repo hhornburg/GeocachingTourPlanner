@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Itinero;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -28,10 +29,14 @@ namespace GeocachingTourPlanner
         public static SortableBindingList<Geocache> Geocaches = new SortableBindingList<Geocache>();
         static XmlSerializer GeocachesSerializer = new XmlSerializer(typeof(SortableBindingList<Geocache>));
 
-        /// <summary>
-        /// Main entrypoint
-        /// </summary>
-        public static Form1 MainWindow;
+		//load RouterDB
+		public static RouterDb RouterDB = new RouterDb();
+		
+
+/// <summary>
+/// Main entrypoint
+/// </summary>
+public static Form1 MainWindow;
 
         [STAThread]
         static void Main()
@@ -72,13 +77,21 @@ namespace GeocachingTourPlanner
 				}
 			}
 
+			if (DB.RouterDB_Filepath != null)
+			{
+				using (var stream = new FileInfo(DB.RouterDB_Filepath).OpenRead())
+				{
+				 RouterDB = RouterDb.Deserialize(stream);
+				}
+			}
+			
 			//Load Ratingprofiles from the File specified in the Database
 			ReadRatingprofiles();
 			//Geocaches
 			ReadGeocaches();
 			//Routingprofile
 			ReadRoutingprofiles();
-			Backup(null);//so settings get saved in the DB
+			Backup(null);//so settings get saved in the DB. Nothing else, as it just came from the file
 
             //Tabelleneinstellungen
             MainWindow.GeocacheTable.DataSource = Geocaches;
@@ -96,49 +109,11 @@ namespace GeocachingTourPlanner
 			Application.Run(MainWindow);
         }
 		
-
 		/// <summary>
-		/// Zum Erstellen des Menüs
+		/// The main Database gets saved anyways specify which otherList should be saved alongside. Returns true on success
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private static void Ratingprofiles_ListChanged(object sender, ListChangedEventArgs e)
-        {
-            if (e.ListChangedType == ListChangedType.ItemAdded)
-            {
-                ToolStripMenuItem Menuitem = new ToolStripMenuItem();
-                Menuitem.Text = Ratingprofiles[e.NewIndex].ToString();
-                Menuitem.Click += Menuitem_Click;
-                MainWindow.RatingprofilesToolStripMenuItem.DropDownItems.Insert(0,Menuitem);
-            }
-            else if (e.ListChangedType == ListChangedType.Reset)
-            {
-                
-                foreach(Ratingprofile bp in Ratingprofiles)
-                {
-                    MainWindow.RatingprofilesToolStripMenuItem.DropDownItems.Clear();
-                    ToolStripMenuItem Menuitem = new ToolStripMenuItem();
-                    Menuitem.Text = bp.ToString();
-                    Menuitem.Click += new EventHandler(Menuitem_Click);
-                    MainWindow.RatingprofilesToolStripMenuItem.DropDownItems.Insert(0, Menuitem);
-                }
-                MainWindow.RatingprofilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                MainWindow.toolStripSeparator2,
-                MainWindow.NewRatingprofileToolStripMenuItem});
-            }
-            
-        }
-
-        private static void Menuitem_Click(object sender, EventArgs e)
-        {
-            new NewRatingProfileWindow(Ratingprofiles.First(x=>x.Name==sender.ToString())).Show();
-        }
-
-        /// <summary>
-        /// The main Database gets saved anyways specify which otherList should be saved alongside
-        /// </summary>
-        /// <param name="ExtraBackup"></param>
-        public static bool Backup(object ExtraBackup)
+		/// <param name="ExtraBackup"></param>
+		public static bool Backup(object ExtraBackup)
         {
             //Aus Performancegrnden nicht alles
             if (ExtraBackup == Geocaches)
@@ -147,65 +122,80 @@ namespace GeocachingTourPlanner
                 {
                     DB.GeocacheDB_Filepath = "Geocaches";
                 }
-                TextWriter GeocachesWriter;
+                TextWriter GeocachesWriter = null;
 				try
 				{
 					GeocachesWriter = new StreamWriter(DB.GeocacheDB_Filepath);
 					GeocachesSerializer.Serialize(GeocachesWriter, Geocaches);
+					return true;
 				}
 				catch
 				{
-					MessageBox.Show("Fileerror. Is the Geocaches Database used by another program?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return false;
+					MessageBox.Show("Fileerror. Is the Geocaches Database used by another program?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					return false;
 				}
-				if (GeocachesWriter != null)
+				finally
 				{
-					GeocachesWriter.Close();
+					if (GeocachesWriter != null)
+					{
+						GeocachesWriter.Close();
+					}
 				}
 				
 			}
 
 			else if (ExtraBackup == Routingprofiles)
 			{
-				if (DB.RoutingDB_Filepath == null)
+				if (DB.RoutingprofileDB_Filepath == null)
 				{
-					DB.RoutingDB_Filepath = "Routingprofile";
+					DB.RoutingprofileDB_Filepath = "Routingprofile";
 				}
-				TextWriter RoutingprofileWriter;
+				TextWriter RoutingprofileWriter = null;
 				try
 				{
-					RoutingprofileWriter = new StreamWriter(DB.RoutingDB_Filepath);
+					RoutingprofileWriter = new StreamWriter(DB.RoutingprofileDB_Filepath);
 					RoutingprofilesSerializer.Serialize(RoutingprofileWriter, Routingprofiles);
 				}
 				catch (IOException)
 				{
-					MessageBox.Show("Fileerror. Is the Routingprofiles Database used by another program?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return false;
+					MessageBox.Show("Fileerror. Is the Routingprofiles Database used by another program?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					return false;
 				}
-				if (RoutingprofileWriter != null)
+				finally
 				{
-					RoutingprofileWriter.Close();
+					if (RoutingprofileWriter != null)
+					{
+						RoutingprofileWriter.Close();
+					}
 				}
 			}
+
 			else if (ExtraBackup == Ratingprofiles)
 			{
-				if (DB.RatingDB_Filepath == null)
+				if (DB.RatingprofileDB_Filepath == null)
 				{
-					DB.RatingDB_Filepath = "Ratingprofiles";
+					DB.RatingprofileDB_Filepath = "Ratingprofiles";
 				}
 
-				TextWriter BewertungsprofileWriter;
+				TextWriter BewertungsprofileWriter=null;
 				try
 				{
-					BewertungsprofileWriter = new StreamWriter(DB.RatingDB_Filepath);
+					BewertungsprofileWriter = new StreamWriter(DB.RatingprofileDB_Filepath);
 					RatingprofilesSerializer.Serialize(BewertungsprofileWriter, Ratingprofiles);
+					return true;
 				}
 				catch (IOException)
 				{
 					MessageBox.Show("Fileerror. Is the Ratingprofiles Database used by another program?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					return false;
 				}
-				if (BewertungsprofileWriter != null)
+				finally
 				{
-					BewertungsprofileWriter.Close();
+
+					if (BewertungsprofileWriter != null)
+					{
+						BewertungsprofileWriter.Close();
+					}
 				}
 			}
             
@@ -223,17 +213,18 @@ namespace GeocachingTourPlanner
 			}
             DBWriter.Close();
 			return true;
-        }        
-        
+        }
+
+		#region ReadingDatabases
 		public static void ReadRoutingprofiles()
 		{
 			Routingprofiles.Clear();
 			StreamReader RPReader = null;
-			if (DB.CheckDatabaseFilepath(DB.RoutingDB_Filepath,"Routingdatabase"))//returns true if the user has set a valid database
+			if (DB.CheckDatabaseFilepath(Database.Databases.Routingprofiles))//returns true if the user has set a valid database
 			{
 				try
 				{
-					RPReader = new StreamReader(DB.RoutingDB_Filepath);
+					RPReader = new StreamReader(DB.RoutingprofileDB_Filepath);
 					Routingprofiles = (SortableBindingList<Routingprofile>)RoutingprofilesSerializer.Deserialize(RPReader);
 					RPReader.Close();
 				}
@@ -249,18 +240,23 @@ namespace GeocachingTourPlanner
 					}
 				}
 			}
-			
+
+			//To make them show up in the menu
+			Routingprofiles.ListChanged += new ListChangedEventHandler(MainWindow.Routingprofiles_ListChanged);
+			Routingprofiles.ResetBindings();
+			Backup(Routingprofiles);
+
 		}
 
 		public static void ReadRatingprofiles()
 		{
 			Ratingprofiles.Clear();
 			StreamReader BPReader = null;
-			if (DB.CheckDatabaseFilepath(DB.RatingDB_Filepath, "Ratingdatabase"))//returns true if the user has set a valid database
+			if (DB.CheckDatabaseFilepath(Database.Databases.Ratingprofiles))//returns true if the user has set a valid database
 			{
 				try
 				{
-					BPReader = new StreamReader(DB.RatingDB_Filepath);
+					BPReader = new StreamReader(DB.RatingprofileDB_Filepath);
 					Ratingprofiles = (SortableBindingList<Ratingprofile>)RatingprofilesSerializer.Deserialize(BPReader);
 					BPReader.Close();
 
@@ -268,7 +264,7 @@ namespace GeocachingTourPlanner
 				catch (Exception)
 				{
 					MessageBox.Show("Error in Ratingdatabases!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					Ratingprofiles.ListChanged += new ListChangedEventHandler(Ratingprofiles_ListChanged);
+					Ratingprofiles.ListChanged += new ListChangedEventHandler(MainWindow.Ratingprofiles_ListChanged);
 				}
 				finally
 				{
@@ -279,7 +275,7 @@ namespace GeocachingTourPlanner
 				}
 
 				//To make them show up in the menu
-				Ratingprofiles.ListChanged += new ListChangedEventHandler(Ratingprofiles_ListChanged);
+				Ratingprofiles.ListChanged += new ListChangedEventHandler(MainWindow.Ratingprofiles_ListChanged);
 				Ratingprofiles.ResetBindings();
 				Backup(Ratingprofiles);
 			}
@@ -290,7 +286,7 @@ namespace GeocachingTourPlanner
 			Geocaches.Clear();
 			StreamReader GCReader = null;
 
-			if (DB.CheckDatabaseFilepath(DB.GeocacheDB_Filepath, "Geocachedatabase"))//returns true if the user has set a valid database
+			if (DB.CheckDatabaseFilepath(Database.Databases.Geocaches))//returns true if the user has set a valid database
 			{
 				try
 				{
@@ -314,7 +310,9 @@ namespace GeocachingTourPlanner
 						GCReader.Close();
 					}
 				}
+				Geocaches.ResetBindings();
 			}
 		}
+		#endregion
 	}
 }

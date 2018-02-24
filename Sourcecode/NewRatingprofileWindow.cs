@@ -17,154 +17,154 @@ namespace GeocachingTourPlanner
             InitializeComponent();
         }
 
-        public NewRatingProfileWindow(Ratingprofile bewertungsprofil)
+        public NewRatingProfileWindow(Ratingprofile RatingprofileToEdit)
         {
             InitializeComponent();
 			try
 			{
-				Text = "Profil bearbeiten";
+				Text = "Edit Profile";
 				//Name des Profils
-				NameWert.Text = bewertungsprofil.Name;
+				NameValue.Text = RatingprofileToEdit.Name;
 
 				//Prioritäten
-				TypPrioritätenWert.SelectedItem = TypPrioritätenWert.Items[TypPrioritätenWert.Items.IndexOf(bewertungsprofil.TypePriority.ToString())];
-				GrößenPrioritätWert.SelectedItem = GrößenPrioritätWert.Items[TypPrioritätenWert.Items.IndexOf(bewertungsprofil.SizePriority.ToString())];
-				DPrioritätenWert.SelectedItem = DPrioritätenWert.Items[TypPrioritätenWert.Items.IndexOf(bewertungsprofil.DPriority.ToString())];
-				TPrioritätenWert.SelectedItem = TPrioritätenWert.Items[TypPrioritätenWert.Items.IndexOf(bewertungsprofil.TPriority.ToString())];
+				TypePriorityvalue.SelectedItem = TypePriorityvalue.Items[TypePriorityvalue.Items.IndexOf(RatingprofileToEdit.TypePriority.ToString())];
+				GrößenPrioritätValue.SelectedItem = GrößenPrioritätValue.Items[TypePriorityvalue.Items.IndexOf(RatingprofileToEdit.SizePriority.ToString())];
+				DPrioritätenValue.SelectedItem = DPrioritätenValue.Items[TypePriorityvalue.Items.IndexOf(RatingprofileToEdit.DPriority.ToString())];
+				TPrioritätenValue.SelectedItem = TPrioritätenValue.Items[TypePriorityvalue.Items.IndexOf(RatingprofileToEdit.TPriority.ToString())];
 
-				//Typenwertungen
-				TraditionalWert.SelectedItem = TraditionalWert.Items[TraditionalWert.Items.IndexOf(bewertungsprofil.TypeRatings.First(x => x.Key == GeocacheType.Traditional).Value.ToString())];
-				EarthcacheWert.SelectedItem = EarthcacheWert.Items[EarthcacheWert.Items.IndexOf(bewertungsprofil.TypeRatings.First(x => x.Key == GeocacheType.EarthCache).Value.ToString())];
-				MultiWert.SelectedItem = MultiWert.Items[MultiWert.Items.IndexOf(bewertungsprofil.TypeRatings.First(x => x.Key == GeocacheType.Multi).Value.ToString())];
-				MysteryWert.SelectedItem = MysteryWert.Items[MysteryWert.Items.IndexOf(bewertungsprofil.TypeRatings.First(x => x.Key == GeocacheType.Mystery).Value.ToString())];
-				LetterboxWert.SelectedItem = LetterboxWert.Items[LetterboxWert.Items.IndexOf(bewertungsprofil.TypeRatings.First(x => x.Key == GeocacheType.Letterbox).Value.ToString())];
-				VirtualWert.SelectedItem = VirtualWert.Items[VirtualWert.Items.IndexOf(bewertungsprofil.TypeRatings.First(x => x.Key == GeocacheType.Virtual).Value.ToString())];
-				OtherTypWert.SelectedItem = OtherTypWert.Items[OtherTypWert.Items.IndexOf(bewertungsprofil.TypeRatings.First(x => x.Key == GeocacheType.Other).Value.ToString())];
-				WebcamWert.SelectedItem = WebcamWert.Items[WebcamWert.Items.IndexOf(bewertungsprofil.TypeRatings.First(x => x.Key == GeocacheType.Webcam).Value.ToString())];
-				WherigoWert.SelectedItem = WherigoWert.Items[WherigoWert.Items.IndexOf(bewertungsprofil.TypeRatings.First(x => x.Key == GeocacheType.Wherigo).Value.ToString())];
+				//TypenValueungen
+				Traditionalvalue.SelectedItem = Traditionalvalue.Items[Traditionalvalue.Items.IndexOf(RatingprofileToEdit.TypeRatings.First(x => x.Key == GeocacheType.Traditional).Value.ToString())];
+				EarthcacheValue.SelectedItem = EarthcacheValue.Items[EarthcacheValue.Items.IndexOf(RatingprofileToEdit.TypeRatings.First(x => x.Key == GeocacheType.EarthCache).Value.ToString())];
+				Multivalue.SelectedItem = Multivalue.Items[Multivalue.Items.IndexOf(RatingprofileToEdit.TypeRatings.First(x => x.Key == GeocacheType.Multi).Value.ToString())];
+				MysteryValue.SelectedItem = MysteryValue.Items[MysteryValue.Items.IndexOf(RatingprofileToEdit.TypeRatings.First(x => x.Key == GeocacheType.Mystery).Value.ToString())];
+				LetterboxValue.SelectedItem = LetterboxValue.Items[LetterboxValue.Items.IndexOf(RatingprofileToEdit.TypeRatings.First(x => x.Key == GeocacheType.Letterbox).Value.ToString())];
+				VirtualValue.SelectedItem = VirtualValue.Items[VirtualValue.Items.IndexOf(RatingprofileToEdit.TypeRatings.First(x => x.Key == GeocacheType.Virtual).Value.ToString())];
+				OtherTypeValue.SelectedItem = OtherTypeValue.Items[OtherTypeValue.Items.IndexOf(RatingprofileToEdit.TypeRatings.First(x => x.Key == GeocacheType.Other).Value.ToString())];
+				WebcamValue.SelectedItem = WebcamValue.Items[WebcamValue.Items.IndexOf(RatingprofileToEdit.TypeRatings.First(x => x.Key == GeocacheType.Webcam).Value.ToString())];
+				WherigoValue.SelectedItem = WherigoValue.Items[WherigoValue.Items.IndexOf(RatingprofileToEdit.TypeRatings.First(x => x.Key == GeocacheType.Wherigo).Value.ToString())];
 
 				//Größe
-				LargeWert.SelectedItem = LargeWert.Items[LargeWert.Items.IndexOf(bewertungsprofil.SizeRatings.First(x => x.Key == GeocacheSize.Large).Value.ToString())];
-				RegularWert.SelectedItem = RegularWert.Items[RegularWert.Items.IndexOf(bewertungsprofil.SizeRatings.First(x => x.Key == GeocacheSize.Regular).Value.ToString())];
-				SmallWert.SelectedItem = SmallWert.Items[SmallWert.Items.IndexOf(bewertungsprofil.SizeRatings.First(x => x.Key == GeocacheSize.Small).Value.ToString())];
-				MicroWert.SelectedItem = MicroWert.Items[MicroWert.Items.IndexOf(bewertungsprofil.SizeRatings.First(x => x.Key == GeocacheSize.Micro).Value.ToString())];
-				OtherGrößeWert.SelectedItem = OtherGrößeWert.Items[OtherGrößeWert.Items.IndexOf(bewertungsprofil.SizeRatings.First(x => x.Key == GeocacheSize.Other).Value.ToString())];
+				LargeValue.SelectedItem = LargeValue.Items[LargeValue.Items.IndexOf(RatingprofileToEdit.SizeRatings.First(x => x.Key == GeocacheSize.Large).Value.ToString())];
+				RegularValue.SelectedItem = RegularValue.Items[RegularValue.Items.IndexOf(RatingprofileToEdit.SizeRatings.First(x => x.Key == GeocacheSize.Regular).Value.ToString())];
+				SmallValue.SelectedItem = SmallValue.Items[SmallValue.Items.IndexOf(RatingprofileToEdit.SizeRatings.First(x => x.Key == GeocacheSize.Small).Value.ToString())];
+				MicroValue.SelectedItem = MicroValue.Items[MicroValue.Items.IndexOf(RatingprofileToEdit.SizeRatings.First(x => x.Key == GeocacheSize.Micro).Value.ToString())];
+				OtherGrößeValue.SelectedItem = OtherGrößeValue.Items[OtherGrößeValue.Items.IndexOf(RatingprofileToEdit.SizeRatings.First(x => x.Key == GeocacheSize.Other).Value.ToString())];
 
 				//D
-				D1Wert.SelectedItem = D1Wert.Items[D1Wert.Items.IndexOf(bewertungsprofil.DRatings.First(x => x.Key == 1).Value.ToString())];
-				D15Wert.SelectedItem = D15Wert.Items[D15Wert.Items.IndexOf(bewertungsprofil.DRatings.First(x => x.Key == 1.5).Value.ToString())];
-				D2Wert.SelectedItem = D2Wert.Items[D2Wert.Items.IndexOf(bewertungsprofil.DRatings.First(x => x.Key == 2).Value.ToString())];
-				D25Wert.SelectedItem = D25Wert.Items[D25Wert.Items.IndexOf(bewertungsprofil.DRatings.First(x => x.Key == 2.5).Value.ToString())];
-				D3Wert.SelectedItem = D3Wert.Items[D3Wert.Items.IndexOf(bewertungsprofil.DRatings.First(x => x.Key == 3).Value.ToString())];
-				D35Wert.SelectedItem = D35Wert.Items[D35Wert.Items.IndexOf(bewertungsprofil.DRatings.First(x => x.Key == 3.5).Value.ToString())];
-				D4Wert.SelectedItem = D4Wert.Items[D4Wert.Items.IndexOf(bewertungsprofil.DRatings.First(x => x.Key == 4).Value.ToString())];
-				D45Wert.SelectedItem = D45Wert.Items[D45Wert.Items.IndexOf(bewertungsprofil.DRatings.First(x => x.Key == 4.5).Value.ToString())];
-				D5Wert.SelectedItem = D5Wert.Items[D5Wert.Items.IndexOf(bewertungsprofil.DRatings.First(x => x.Key == 5).Value.ToString())];
+				D1Value.SelectedItem = D1Value.Items[D1Value.Items.IndexOf(RatingprofileToEdit.DRatings.First(x => x.Key == 1).Value.ToString())];
+				D15Value.SelectedItem = D15Value.Items[D15Value.Items.IndexOf(RatingprofileToEdit.DRatings.First(x => x.Key == 1.5).Value.ToString())];
+				D2Value.SelectedItem = D2Value.Items[D2Value.Items.IndexOf(RatingprofileToEdit.DRatings.First(x => x.Key == 2).Value.ToString())];
+				D25Value.SelectedItem = D25Value.Items[D25Value.Items.IndexOf(RatingprofileToEdit.DRatings.First(x => x.Key == 2.5).Value.ToString())];
+				D3Value.SelectedItem = D3Value.Items[D3Value.Items.IndexOf(RatingprofileToEdit.DRatings.First(x => x.Key == 3).Value.ToString())];
+				D35Value.SelectedItem = D35Value.Items[D35Value.Items.IndexOf(RatingprofileToEdit.DRatings.First(x => x.Key == 3.5).Value.ToString())];
+				D4Value.SelectedItem = D4Value.Items[D4Value.Items.IndexOf(RatingprofileToEdit.DRatings.First(x => x.Key == 4).Value.ToString())];
+				D45Value.SelectedItem = D45Value.Items[D45Value.Items.IndexOf(RatingprofileToEdit.DRatings.First(x => x.Key == 4.5).Value.ToString())];
+				D5Value.SelectedItem = D5Value.Items[D5Value.Items.IndexOf(RatingprofileToEdit.DRatings.First(x => x.Key == 5).Value.ToString())];
 
 				//T
-				T1Wert.SelectedItem = T1Wert.Items[T1Wert.Items.IndexOf(bewertungsprofil.DRatings.First(x => x.Key == 1).Value.ToString())];
-				T15Wert.SelectedItem = T15Wert.Items[T15Wert.Items.IndexOf(bewertungsprofil.DRatings.First(x => x.Key == 1.5).Value.ToString())];
-				T2Wert.SelectedItem = T2Wert.Items[T2Wert.Items.IndexOf(bewertungsprofil.DRatings.First(x => x.Key == 2).Value.ToString())];
-				T25Wert.SelectedItem = T25Wert.Items[T25Wert.Items.IndexOf(bewertungsprofil.DRatings.First(x => x.Key == 2.5).Value.ToString())];
-				T3Wert.SelectedItem = T3Wert.Items[T3Wert.Items.IndexOf(bewertungsprofil.DRatings.First(x => x.Key == 3).Value.ToString())];
-				T35Wert.SelectedItem = T35Wert.Items[T35Wert.Items.IndexOf(bewertungsprofil.DRatings.First(x => x.Key == 3.5).Value.ToString())];
-				T4Wert.SelectedItem = T4Wert.Items[T4Wert.Items.IndexOf(bewertungsprofil.DRatings.First(x => x.Key == 4).Value.ToString())];
-				T45Wert.SelectedItem = T45Wert.Items[T45Wert.Items.IndexOf(bewertungsprofil.DRatings.First(x => x.Key == 4.5).Value.ToString())];
-				T5Wert.SelectedItem = T5Wert.Items[T5Wert.Items.IndexOf(bewertungsprofil.DRatings.First(x => x.Key == 5).Value.ToString())];
+				T1Value.SelectedItem = T1Value.Items[T1Value.Items.IndexOf(RatingprofileToEdit.DRatings.First(x => x.Key == 1).Value.ToString())];
+				T15Value.SelectedItem = T15Value.Items[T15Value.Items.IndexOf(RatingprofileToEdit.DRatings.First(x => x.Key == 1.5).Value.ToString())];
+				T2Value.SelectedItem = T2Value.Items[T2Value.Items.IndexOf(RatingprofileToEdit.DRatings.First(x => x.Key == 2).Value.ToString())];
+				T25Value.SelectedItem = T25Value.Items[T25Value.Items.IndexOf(RatingprofileToEdit.DRatings.First(x => x.Key == 2.5).Value.ToString())];
+				T3Value.SelectedItem = T3Value.Items[T3Value.Items.IndexOf(RatingprofileToEdit.DRatings.First(x => x.Key == 3).Value.ToString())];
+				T35Value.SelectedItem = T35Value.Items[T35Value.Items.IndexOf(RatingprofileToEdit.DRatings.First(x => x.Key == 3.5).Value.ToString())];
+				T4Value.SelectedItem = T4Value.Items[T4Value.Items.IndexOf(RatingprofileToEdit.DRatings.First(x => x.Key == 4).Value.ToString())];
+				T45Value.SelectedItem = T45Value.Items[T45Value.Items.IndexOf(RatingprofileToEdit.DRatings.First(x => x.Key == 4.5).Value.ToString())];
+				T5Value.SelectedItem = T5Value.Items[T5Value.Items.IndexOf(RatingprofileToEdit.DRatings.First(x => x.Key == 5).Value.ToString())];
 
 				//Sonstige
-				NMFlagWert.Text = bewertungsprofil.NMPenalty.ToString();
-				if (bewertungsprofil.Yearmode == true)
+				NMFlagValue.Text = RatingprofileToEdit.NMPenalty.ToString();
+				if (RatingprofileToEdit.Yearmode == true)
 				{
-					AlterWert.SelectedItem = AlterWert.Items[0];
+					AgeValue.SelectedItem = AgeValue.Items[0];
 				}
 				else
 				{
-					AlterWert.SelectedItem = AlterWert.Items[1];
+					AgeValue.SelectedItem = AgeValue.Items[1];
 				}
-				AlterZahlWert.SelectedItem = AlterZahlWert.Items[AlterZahlWert.Items.IndexOf(bewertungsprofil.Yearfactor.ToString())];
+				AlterZahlValue.SelectedItem = AlterZahlValue.Items[AlterZahlValue.Items.IndexOf(RatingprofileToEdit.Yearfactor.ToString())];
 			}
 			catch (Exception)
 			{
 				DialogResult aw = MessageBox.Show("Es scheint einen Fehler in der Datei zu diesem Profil zu geben. Wollen sie es Löschen?", "Fehler", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
 				if (aw == DialogResult.Yes)
 				{
-					Program.Ratingprofiles.Remove(bewertungsprofil);
+					Program.Ratingprofiles.Remove(RatingprofileToEdit);
 				}
 			}
 		}
             
 
-        private void AbbrechenKnopf_Click(object sender, EventArgs e)
+        private void CancelNewProfileButton_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void ErstellenKnopf_Click(object sender, EventArgs e)
+        private void CreateButton_Click(object sender, EventArgs e)
         {
             Ratingprofile Profil = new Ratingprofile();
-            if (NameWert.Text == null)
+            if (NameValue.Text == null)
             {
                 MessageBox.Show("Bitte Namen festlegen");
                 return;
             }
             try
             {
-                Profil.Name = NameWert.Text;
-                Profil.TypePriority = int.Parse(TypPrioritätenWert.SelectedItem.ToString());
+                Profil.Name = NameValue.Text;
+                Profil.TypePriority = int.Parse(TypePriorityvalue.Text);
                 Profil.TypeRatings = new List<KeyValuePair<GeocacheType, int>>();
-                Profil.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.EarthCache, int.Parse(EarthcacheWert.SelectedItem.ToString())));
-                Profil.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Letterbox, int.Parse(LetterboxWert.SelectedItem.ToString())));
-                Profil.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Multi, int.Parse(MultiWert.SelectedItem.ToString())));
-                Profil.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Mystery, int.Parse(MysteryWert.SelectedItem.ToString())));
-                Profil.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Other, int.Parse(OtherTypWert.SelectedItem.ToString())));
-                Profil.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Traditional, int.Parse(TraditionalWert.SelectedItem.ToString())));
-                Profil.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Virtual, int.Parse(VirtualWert.SelectedItem.ToString())));
-                Profil.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Webcam, int.Parse(WebcamWert.SelectedItem.ToString())));
-                Profil.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Wherigo, int.Parse(WherigoWert.SelectedItem.ToString())));
+                Profil.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.EarthCache, int.Parse(EarthcacheValue.Text)));
+                Profil.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Letterbox, int.Parse(LetterboxValue.Text)));
+                Profil.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Multi, int.Parse(Multivalue.Text)));
+                Profil.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Mystery, int.Parse(MysteryValue.Text)));
+                Profil.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Other, int.Parse(OtherTypeValue.Text)));
+                Profil.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Traditional, int.Parse(Traditionalvalue.Text)));
+                Profil.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Virtual, int.Parse(VirtualValue.Text)));
+                Profil.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Webcam, int.Parse(WebcamValue.Text)));
+                Profil.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Wherigo, int.Parse(WherigoValue.Text)));
 
-                Profil.SizePriority = int.Parse(GrößenPrioritätWert.SelectedItem.ToString());
+                Profil.SizePriority = int.Parse(GrößenPrioritätValue.Text);
                 Profil.SizeRatings = new List<KeyValuePair<GeocacheSize, int>>();
-                Profil.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Large, int.Parse(LargeWert.SelectedItem.ToString())));
-                Profil.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Micro, int.Parse(MicroWert.SelectedItem.ToString())));
-                Profil.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Other, int.Parse(OtherGrößeWert.SelectedItem.ToString())));
-                Profil.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Regular, int.Parse(RegularWert.SelectedItem.ToString())));
-                Profil.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Small, int.Parse(SmallWert.SelectedItem.ToString())));
+                Profil.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Large, int.Parse(LargeValue.Text)));
+                Profil.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Micro, int.Parse(MicroValue.Text)));
+                Profil.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Other, int.Parse(OtherGrößeValue.Text)));
+                Profil.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Regular, int.Parse(RegularValue.Text)));
+                Profil.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Small, int.Parse(SmallValue.Text)));
 
-                Profil.DPriority = int.Parse(DPrioritätenWert.SelectedItem.ToString());
+                Profil.DPriority = int.Parse(DPrioritätenValue.Text);
                 Profil.DRatings = new List<KeyValuePair<float, int>>();
-                Profil.DRatings.Add(new KeyValuePair<float, int>(1f, int.Parse(D1Wert.SelectedItem.ToString())));
-                Profil.DRatings.Add(new KeyValuePair<float, int>(1.5f, int.Parse(D15Wert.SelectedItem.ToString())));
-                Profil.DRatings.Add(new KeyValuePair<float, int>(2f, int.Parse(D2Wert.SelectedItem.ToString())));
-                Profil.DRatings.Add(new KeyValuePair<float, int>(2.5f, int.Parse(D25Wert.SelectedItem.ToString())));
-                Profil.DRatings.Add(new KeyValuePair<float, int>(3f, int.Parse(D3Wert.SelectedItem.ToString())));
-                Profil.DRatings.Add(new KeyValuePair<float, int>(3.5f, int.Parse(D35Wert.SelectedItem.ToString())));
-                Profil.DRatings.Add(new KeyValuePair<float, int>(4f, int.Parse(D4Wert.SelectedItem.ToString())));
-                Profil.DRatings.Add(new KeyValuePair<float, int>(4.5f, int.Parse(D45Wert.SelectedItem.ToString())));
-                Profil.DRatings.Add(new KeyValuePair<float, int>(5f, int.Parse(D5Wert.SelectedItem.ToString())));
+                Profil.DRatings.Add(new KeyValuePair<float, int>(1f, int.Parse(D1Value.Text)));
+                Profil.DRatings.Add(new KeyValuePair<float, int>(1.5f, int.Parse(D15Value.Text)));
+                Profil.DRatings.Add(new KeyValuePair<float, int>(2f, int.Parse(D2Value.Text)));
+                Profil.DRatings.Add(new KeyValuePair<float, int>(2.5f, int.Parse(D25Value.Text)));
+                Profil.DRatings.Add(new KeyValuePair<float, int>(3f, int.Parse(D3Value.Text)));
+                Profil.DRatings.Add(new KeyValuePair<float, int>(3.5f, int.Parse(D35Value.Text)));
+                Profil.DRatings.Add(new KeyValuePair<float, int>(4f, int.Parse(D4Value.Text)));
+                Profil.DRatings.Add(new KeyValuePair<float, int>(4.5f, int.Parse(D45Value.Text)));
+                Profil.DRatings.Add(new KeyValuePair<float, int>(5f, int.Parse(D5Value.Text)));
 
-                Profil.TPriority = int.Parse(TPrioritätenWert.SelectedItem.ToString());
+                Profil.TPriority = int.Parse(TPrioritätenValue.Text);
                 Profil.TRatings = new List<KeyValuePair<float, int>>();
-                Profil.TRatings.Add(new KeyValuePair<float, int>(1f, int.Parse(T1Wert.SelectedItem.ToString())));
-                Profil.TRatings.Add(new KeyValuePair<float, int>(1.5f, int.Parse(T15Wert.SelectedItem.ToString())));
-                Profil.TRatings.Add(new KeyValuePair<float, int>(2f, int.Parse(T2Wert.SelectedItem.ToString())));
-                Profil.TRatings.Add(new KeyValuePair<float, int>(2.5f, int.Parse(T25Wert.SelectedItem.ToString())));
-                Profil.TRatings.Add(new KeyValuePair<float, int>(3f, int.Parse(T3Wert.SelectedItem.ToString())));
-                Profil.TRatings.Add(new KeyValuePair<float, int>(3.5f, int.Parse(T35Wert.SelectedItem.ToString())));
-                Profil.TRatings.Add(new KeyValuePair<float, int>(4f, int.Parse(T4Wert.SelectedItem.ToString())));
-                Profil.TRatings.Add(new KeyValuePair<float, int>(4.5f, int.Parse(T45Wert.SelectedItem.ToString())));
-                Profil.TRatings.Add(new KeyValuePair<float, int>(5f, int.Parse(T5Wert.SelectedItem.ToString())));
+                Profil.TRatings.Add(new KeyValuePair<float, int>(1f, int.Parse(T1Value.Text)));
+                Profil.TRatings.Add(new KeyValuePair<float, int>(1.5f, int.Parse(T15Value.Text)));
+                Profil.TRatings.Add(new KeyValuePair<float, int>(2f, int.Parse(T2Value.Text)));
+                Profil.TRatings.Add(new KeyValuePair<float, int>(2.5f, int.Parse(T25Value.Text)));
+                Profil.TRatings.Add(new KeyValuePair<float, int>(3f, int.Parse(T3Value.Text)));
+                Profil.TRatings.Add(new KeyValuePair<float, int>(3.5f, int.Parse(T35Value.Text)));
+                Profil.TRatings.Add(new KeyValuePair<float, int>(4f, int.Parse(T4Value.Text)));
+                Profil.TRatings.Add(new KeyValuePair<float, int>(4.5f, int.Parse(T45Value.Text)));
+                Profil.TRatings.Add(new KeyValuePair<float, int>(5f, int.Parse(T5Value.Text)));
 
-                if(!int.TryParse(NMFlagWert.Text.Replace("-",""),out int wert))
+                if(!int.TryParse(NMFlagValue.Text.Replace("-",""),out int Value))
                 {
-                    MessageBox.Show("Bitte nur positive Zahlen in das Feld mit den Strafpunkten für Needs Maintenance eingeben");
+                    MessageBox.Show("Please write only positive whole numbers into the field with the NMPenalty");
                 }
                 else
                 {
-                    Profil.NMPenalty = wert;
+                    Profil.NMPenalty = Value;
                 }
              
-                if(AlterWert.SelectedItem.ToString()== "mit x multiplizieren")
+                if(AgeValue.SelectedItem.ToString()== "multiply with")
                 {
                     Profil.Yearmode = true;
                 }
@@ -173,26 +173,31 @@ namespace GeocachingTourPlanner
                     Profil.Yearmode = false;
                 }
 
-                Profil.Yearfactor = int.Parse(AlterZahlWert.SelectedItem.ToString());
+                Profil.Yearfactor = int.Parse(AlterZahlValue.Text);
 
             }
             catch (NullReferenceException)
             {
-                MessageBox.Show("Bitte alle Felder ausfüllen");
+                MessageBox.Show("Please fill all fields");
                 return;
             }
 
             //Eintragen des neuen Profils
-            foreach(Ratingprofile BP in Program.Ratingprofiles.Where(x => x.Name == Profil.Name).ToList())
+            foreach(Ratingprofile BP in Program.Ratingprofiles.Where(x => x.Name == Profil.Name).ToList())//Make sure only one profile with a name exists
 			{
 				Program.Ratingprofiles.Remove(BP);
 			}
             Program.Ratingprofiles.Add(Profil);
+			//The Dropdownmenu gets updated through an event handler
 			if (Program.Backup(Program.Ratingprofiles))
 			{
-				Close();
+				Close(); // only close the window if the backup was successful.
 			}
         }
-		
+
+		private void Dropdown_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			((ComboBox)sender).Text = ((ComboBox)sender).SelectedItem.ToString();//So I can just check the text and it doesn't matter whether the user typed it or selected it
+		}
 	}
 }

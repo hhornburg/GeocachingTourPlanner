@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfRatingprofile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+<ArrayOfRoutingprofile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Routingprofile>
+    <Name>Car</Name>
+    <MaxDistance>50</MaxDistance>
+    <PenaltyPerExtraKM>100</PenaltyPerExtraKM>
+    <MaxTime>120</MaxTime>
+    <PenaltyPerExtra10min>100</PenaltyPerExtra10min>
+    <TimePerGeocache>5</TimePerGeocache>
+    <ItineroProfile Vehicle="car" Metric="Fastest" />
+  </Routingprofile>
+</ArrayOfRoutingprofile>

@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace GeocachingTourPlanner
 {
@@ -29,6 +33,7 @@ namespace GeocachingTourPlanner
 
 	}
 
+	#region SortableBindingList
 	/// <summary>
 	/// Bindinglist is not sortable. This code makes sorting possible
 	/// </summary>
@@ -225,5 +230,104 @@ namespace GeocachingTourPlanner
 	{
 		PropertyDescriptor SortProperty { get; set; }
 		ListSortDirection SortDirection { get; set; }
+	}
+	#endregion
+	
+	[Serializable()]
+	public class SerializableItineroProfile : IXmlSerializable
+	{
+		/// <summary>
+		/// The underlying Profile
+		/// </summary>
+		[XmlIgnore]
+		public Itinero.Profiles.Profile profile { get; set; }
+
+
+		/// <summary>
+		/// returns true if profile was found
+		/// </summary>
+		/// <param name="vehicle"></param>
+		/// <returns></returns>
+		public SerializableItineroProfile(string vehicle, string metric)
+		{
+			profile = FindProfile(vehicle, metric);
+		}
+
+		public SerializableItineroProfile()
+		{
+			profile = null;
+		}
+
+		#region XML
+		public XmlSchema GetSchema() { return null; }
+		public void ReadXml(XmlReader Reader)
+		{
+			string vehicle = Reader.GetAttribute("Vehicle");
+			string metric = Reader.GetAttribute("Metric");
+
+			profile = FindProfile(vehicle, metric);
+		}
+
+		//Serialization function.
+		public void WriteXml(XmlWriter writer)
+		{
+			if (profile != null)
+			{
+				//Workaround for Issue #161 at Itinero
+				if (profile.FullName.Contains("."))
+				{
+					writer.WriteAttributeString("Vehicle", profile.FullName.Remove(profile.FullName.IndexOf(".")));//gets the parent of the profile (thus the vehicle)
+
+				}
+				else
+				{
+					writer.WriteAttributeString("Vehicle", profile.FullName);//gets the parent of the profile (thus the vehicle)
+				}
+				switch (profile.Metric)
+				{
+					case Itinero.Profiles.ProfileMetric.DistanceInMeters:
+
+						writer.WriteAttributeString("Metric", "Shortest");
+						break;
+
+					case Itinero.Profiles.ProfileMetric.TimeInSeconds:
+						writer.WriteAttributeString("Metric", "Fastest");
+
+						break;
+				}
+				//writer.WriteAttributeString("Metric", profile.Name);
+			}
+		}
+		#endregion
+
+		private Itinero.Profiles.Profile FindProfile(string vehicle, string metric)
+		{
+			Itinero.Profiles.Vehicle vehicleobject = null;
+			switch (vehicle.ToLower())
+			{
+				case "car":
+					vehicleobject = Itinero.Osm.Vehicles.Vehicle.Car;
+					break;
+				case "pedestrian":
+					vehicleobject = Itinero.Osm.Vehicles.Vehicle.Pedestrian;
+					break;
+				case "bicycle":
+					vehicleobject = Itinero.Osm.Vehicles.Vehicle.Bicycle;
+					break;
+				default:
+					return null;
+			}
+
+			switch (metric)
+			{
+				case "Shortest":
+					return vehicleobject.Shortest();
+				case "Fastest":
+					return vehicleobject.Fastest();
+				default:
+					return null;
+			}
+
+		}
 	}
 }

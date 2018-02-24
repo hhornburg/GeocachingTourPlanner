@@ -18,8 +18,8 @@ namespace GeocachingTourPlanner
 		public Database()
 		{
 			GeocacheDB_Filepath = "Geocaches";
-			RatingDB_Filepath = "Ratingprofiles";
-			RoutingDB_Filepath = "Routingprofiles";
+			RatingprofileDB_Filepath = "Ratingprofiles";
+			RoutingprofileDB_Filepath = "Routingprofiles";
 		}
 
 		/// <summary>
@@ -29,8 +29,9 @@ namespace GeocachingTourPlanner
 
 		//DB Spezifisch
 		public string GeocacheDB_Filepath { get; set; }
-		public string RatingDB_Filepath { get; set; }
-		public string RoutingDB_Filepath { get; set; }
+		public string RatingprofileDB_Filepath { get; set; }
+		public string RoutingprofileDB_Filepath { get; set; }
+		public string RouterDB_Filepath { get; set; }
 
 		//Mapspecific
 		public double LastMapZoom { get; set;}
@@ -50,13 +51,29 @@ namespace GeocachingTourPlanner
 		/// </summary>
 		/// <param name="DatabaseFilepath"></param>
 		/// <param name="DatabaseName"></param>
-		public bool CheckDatabaseFilepath(string DatabaseFilepath, string DatabaseName)
+		public bool CheckDatabaseFilepath(Databases DatabaseName)
 		{
+			string DatabaseFilepath=null;
+			switch (DatabaseName)
+			{
+				case Databases.Geocaches:
+					DatabaseFilepath = GeocacheDB_Filepath;
+						break;
+				case Databases.Ratingprofiles:
+					DatabaseFilepath = RatingprofileDB_Filepath;
+					break;
+				case Databases.Routingprofiles:
+					DatabaseFilepath = RoutingprofileDB_Filepath;
+					break;
+				case Databases.RouterDB:
+					DatabaseFilepath = RouterDB_Filepath;
+					break;
+			}
 			if(DatabaseFilepath == null || !File.Exists(DatabaseFilepath))//"||" So it doesn't run into exception if it is null
 			{
 				if(MessageBox.Show("No " + DatabaseName + " found. Do you want to select a file?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
 				{
-					if (SetDatabaseFilepath(DatabaseFilepath))
+					if (SetDatabaseFilepath(DatabaseName))
 					{
 						return true;
 					}
@@ -73,9 +90,9 @@ namespace GeocachingTourPlanner
 		/// <summary>
 		/// Displays a fledialog to set the filepath of the specified database. returns true on success
 		/// </summary>
-		/// <param name="DatabaseFilepath"></param>
+		/// <param name="DatabaseName"></param>
 		/// <returns></returns>
-		public bool SetDatabaseFilepath(string DatabaseFilepath)
+		public bool SetDatabaseFilepath(Databases DatabaseName)
 		{
 			OpenFileDialog StandardFileDialog = new OpenFileDialog()
 			{
@@ -87,24 +104,37 @@ namespace GeocachingTourPlanner
 			{
 				LastUsedFilepath = StandardFileDialog.FileName;
 
-				if (DatabaseFilepath.Equals(GeocacheDB_Filepath))
+				if (DatabaseName==Databases.Geocaches)
 				{
 					GeocacheDB_Filepath = StandardFileDialog.FileName;
 					return true; //since databasefilepath has been set;
 				}
-				else if (DatabaseFilepath.Equals(RatingDB_Filepath))
+				else if (DatabaseName==Databases.Ratingprofiles)
 				{
-					RatingDB_Filepath = StandardFileDialog.FileName;
+					RatingprofileDB_Filepath = StandardFileDialog.FileName;
 					return true; //since databasefilepath has been set;
 				}
-				else if (DatabaseFilepath.Equals(RoutingDB_Filepath))
+				else if (DatabaseName==Databases.Routingprofiles)
 				{
-					RoutingDB_Filepath = StandardFileDialog.FileName;
+					RoutingprofileDB_Filepath = StandardFileDialog.FileName;
+					return true; //since databasefilepath has been set;
+				}
+				else if (DatabaseName==Databases.RouterDB)
+				{
+					RouterDB_Filepath = StandardFileDialog.FileName;
 					return true; //since databasefilepath has been set;
 				}
 			}
 
 			return false;//Since Databasefilepath hasn't been set
+		}
+
+		public enum Databases
+		{
+			Geocaches,
+			Ratingprofiles,
+			Routingprofiles,
+			RouterDB
 		}
 		#endregion
 	}
