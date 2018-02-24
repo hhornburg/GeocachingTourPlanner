@@ -146,14 +146,14 @@ public static Form1 MainWindow;
 
 			else if (ExtraBackup == Routingprofiles)
 			{
-				if (DB.RoutingDB_Filepath == null)
+				if (DB.RoutingprofileDB_Filepath == null)
 				{
-					DB.RoutingDB_Filepath = "Routingprofile";
+					DB.RoutingprofileDB_Filepath = "Routingprofile";
 				}
 				TextWriter RoutingprofileWriter = null;
 				try
 				{
-					RoutingprofileWriter = new StreamWriter(DB.RoutingDB_Filepath);
+					RoutingprofileWriter = new StreamWriter(DB.RoutingprofileDB_Filepath);
 					RoutingprofilesSerializer.Serialize(RoutingprofileWriter, Routingprofiles);
 				}
 				catch (IOException)
@@ -172,15 +172,15 @@ public static Form1 MainWindow;
 
 			else if (ExtraBackup == Ratingprofiles)
 			{
-				if (DB.RatingDB_Filepath == null)
+				if (DB.RatingprofileDB_Filepath == null)
 				{
-					DB.RatingDB_Filepath = "Ratingprofiles";
+					DB.RatingprofileDB_Filepath = "Ratingprofiles";
 				}
 
 				TextWriter BewertungsprofileWriter=null;
 				try
 				{
-					BewertungsprofileWriter = new StreamWriter(DB.RatingDB_Filepath);
+					BewertungsprofileWriter = new StreamWriter(DB.RatingprofileDB_Filepath);
 					RatingprofilesSerializer.Serialize(BewertungsprofileWriter, Ratingprofiles);
 					return true;
 				}
@@ -220,11 +220,11 @@ public static Form1 MainWindow;
 		{
 			Routingprofiles.Clear();
 			StreamReader RPReader = null;
-			if (DB.CheckDatabaseFilepath(DB.RoutingDB_Filepath,"Routingdatabase"))//returns true if the user has set a valid database
+			if (DB.CheckDatabaseFilepath(Database.Databases.Routingprofiles))//returns true if the user has set a valid database
 			{
 				try
 				{
-					RPReader = new StreamReader(DB.RoutingDB_Filepath);
+					RPReader = new StreamReader(DB.RoutingprofileDB_Filepath);
 					Routingprofiles = (SortableBindingList<Routingprofile>)RoutingprofilesSerializer.Deserialize(RPReader);
 					RPReader.Close();
 				}
@@ -252,11 +252,11 @@ public static Form1 MainWindow;
 		{
 			Ratingprofiles.Clear();
 			StreamReader BPReader = null;
-			if (DB.CheckDatabaseFilepath(DB.RatingDB_Filepath, "Ratingdatabase"))//returns true if the user has set a valid database
+			if (DB.CheckDatabaseFilepath(Database.Databases.Ratingprofiles))//returns true if the user has set a valid database
 			{
 				try
 				{
-					BPReader = new StreamReader(DB.RatingDB_Filepath);
+					BPReader = new StreamReader(DB.RatingprofileDB_Filepath);
 					Ratingprofiles = (SortableBindingList<Ratingprofile>)RatingprofilesSerializer.Deserialize(BPReader);
 					BPReader.Close();
 
@@ -286,7 +286,7 @@ public static Form1 MainWindow;
 			Geocaches.Clear();
 			StreamReader GCReader = null;
 
-			if (DB.CheckDatabaseFilepath(DB.GeocacheDB_Filepath, "Geocachedatabase"))//returns true if the user has set a valid database
+			if (DB.CheckDatabaseFilepath(Database.Databases.Geocaches))//returns true if the user has set a valid database
 			{
 				try
 				{
