@@ -231,6 +231,7 @@ namespace GeocachingTourPlanner
 				{
 					Program.RouterDB = RouterDb.Deserialize(stream);
 				}
+				Program.Backup(null);
 			}
 		}
 
@@ -298,10 +299,21 @@ namespace GeocachingTourPlanner
 			//Remove Cross in the middle of the Map
 			Map.ShowCenter = false;
 
-			if (Map.Overlays.Count != 0)
+			//Remove all geocache (and only the geocache!) overlays
+			if(Map.Overlays.Where(x => x.Id == "TopOverlay").Count() > 0)
 			{
-				Map.Overlays.Clear();
+				Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "TopOverlay"));
 			}
+			if (Map.Overlays.Where(x => x.Id == "MediumOverlay").Count() > 0)
+			{
+				Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "MediumOverlay"));
+			}
+			if (Map.Overlays.Where(x => x.Id == "LowOverlay").Count() > 0)
+			{
+				Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "LowOverlay"));
+			}
+
+			//recreate them
 			GMapOverlay TopOverlay = new GMapOverlay("TopOverlay");
 			GMapOverlay MediumOverlay = new GMapOverlay("MediumOverlay");
 			GMapOverlay LowOverlay = new GMapOverlay("LowOverlay");

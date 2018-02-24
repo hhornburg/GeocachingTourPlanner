@@ -17,8 +17,8 @@ namespace GeocachingTourPlanner
 {
 	public partial class RunRouting : Form
 	{
-		private double StartLat=0;
-		private double StartLon=0;
+		private float StartLat=0;
+		private float StartLon=0;
 		private Routingprofile  SelectedProfile;
 		private List<Geocache> GeocachesOnRoute = new List<Geocache>();
 		private float RoutePoints = 0;
@@ -77,7 +77,7 @@ namespace GeocachingTourPlanner
 				{
 					if (CurrentRoute != null)
 					{
-						if (ApproxDistance(GC.lat, GC.lon, StartLat, StartLon) < (SelectedProfile.MaxDistance - CurrentRoute.TotalDistance))
+						if (ApproxDistance(GC.lat, GC.lon, StartLat, StartLon) < (SelectedProfile.MaxDistance - CurrentRoute.TotalDistance/1000))
 						{
 							GeocachesInRange.Add(GC);
 							NotAddedGeocaches.Remove(GC);
@@ -92,9 +92,9 @@ namespace GeocachingTourPlanner
 						}
 					}
 				}
-				foreach(Geocache RoutePoint in new List<Geocache>(NotAddedGeocaches))
+				foreach(Geocache RoutePoint in GeocachesOnRoute)
 				{
-					foreach (Geocache GC in NotAddedGeocaches)
+					foreach (Geocache GC in new List<Geocache>(NotAddedGeocaches))
 					{
 						if (CurrentRoute != null)
 						{
@@ -117,6 +117,7 @@ namespace GeocachingTourPlanner
 
 				GeocachesInRange.OrderByDescending(x => x.Rating);
 				GeocachesOnRoute.Add(GeocachesInRange[0]);
+				GeocachesInRange.RemoveAt(0);
 
 				if (Program.RouterDB.IsEmpty)
 				{
@@ -134,23 +135,37 @@ namespace GeocachingTourPlanner
 					}
 				}
 				Router router = new Router(Program.RouterDB);
+
+				//Make the Points whch the route should pass
 				List<RouterPoint> PointsOnRoute = new List<RouterPoint>();
-				foreach(Geocache GC in GeocachesOnRoute)
+				try
+				{
+					PointsOnRoute.Add(router.Resolve(SelectedProfile.ItineroProfile.profile, StartLat, StartLon));
+				}
+				catch (Itinero.Exceptions.ResolveFailedException)
+				{
+					MessageBox.Show("Please select a Startingpoint close to a road");
+					return;
+				}
+				foreach (Geocache GC in GeocachesOnRoute)
 				{
 					PointsOnRoute.Add(router.Resolve(SelectedProfile.ItineroProfile.profile, GC.lat, GC.lon));
 				}
+				PointsOnRoute.Add(router.Resolve(SelectedProfile.ItineroProfile.profile, StartLat, StartLon));//As start is currently also the End
+				//Calculate Route
 				CurrentRoute = router.Calculate(SelectedProfile.ItineroProfile.profile, PointsOnRoute.ToArray());
-				
+
 				//Calculate Points of Route
+				RoutePoints = 0;
 				foreach(Geocache GC in GeocachesOnRoute)
 				{
 					RoutePoints += GC.Rating;
 				}
-				if (CurrentRoute.TotalDistance > SelectedProfile.MaxDistance)
+				if (CurrentRoute.TotalDistance/1000 > SelectedProfile.MaxDistance)
 				{
 					RoutePoints -= (CurrentRoute.TotalDistance/1000 - SelectedProfile.MaxDistance) * SelectedProfile.PenaltyPerExtraKM;
 				}
-				if (CurrentRoute.TotalTime + GeocachesOnRoute.Count*SelectedProfile.TimePerGeocache > SelectedProfile.MaxTime)
+				if (CurrentRoute.TotalTime/60 + GeocachesOnRoute.Count*SelectedProfile.TimePerGeocache > SelectedProfile.MaxTime)
 				{
 					RoutePoints -= (CurrentRoute.TotalTime/60 - SelectedProfile.MaxTime) * SelectedProfile.PenaltyPerExtra10min / 10;
 				}
@@ -166,6 +181,7 @@ namespace GeocachingTourPlanner
 			GMapOverlay RouteOverlay = new GMapOverlay("Route");
 			RouteOverlay.Routes.Add(new GMapRoute(GMAPRoute,"Route"));
 			Program.MainWindow.Map.Overlays.Add(RouteOverlay);
+			Close();
 		}
 
 		private void CancelRatingButton_Click(object sender, EventArgs e)
@@ -193,8 +209,8 @@ namespace GeocachingTourPlanner
 
 		private void Map_OnMapDrag()
 		{
-			StartLat = Map.Position.Lat;
-			StartLon = Map.Position.Lng;
+			StartLat = (float)Map.Position.Lat;
+			StartLon = (float)Map.Position.Lng;
 		}
 
 		private void Dropdown_SelectedIndexChanged(object sender, EventArgs e)
@@ -214,7 +230,8 @@ namespace GeocachingTourPlanner
 		private double ApproxDistance(double lat1, double lon1, double lat2, double lon2)
 		{
 			//Approximation for short distances
-			return Math.Sqrt(Math.Abs(lat1 - lat2) * Math.Abs(lat1 - lat2) + Math.Abs(lon1 - lon2) * Math.Abs(lon1 - lon2))* 40030/360;
+			double distance = Math.Sqrt(Math.Abs(lat1 - lat2) * Math.Abs(lat1 - lat2) + Math.Abs(lon1 - lon2) * Math.Abs(lon1 - lon2)) * 40030 / 360;
+			return distance;
 		}
 		#endregion
 

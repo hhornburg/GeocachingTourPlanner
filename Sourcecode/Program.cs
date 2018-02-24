@@ -81,7 +81,7 @@ public static Form1 MainWindow;
 			{
 				using (var stream = new FileInfo(DB.RouterDB_Filepath).OpenRead())
 				{
-					RouterDB = RouterDb.Deserialize(stream);
+				 RouterDB = RouterDb.Deserialize(stream);
 				}
 			}
 			
