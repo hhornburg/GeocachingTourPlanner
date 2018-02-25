@@ -30,7 +30,7 @@ namespace GeocachingTourPlanner
 
 		#region MenuItems
 
-		private void OSMDataToolStripMenuItem_Click(object sender, EventArgs e)
+		private void ImportOSMDataButton_Click(object sender, EventArgs e)
 		{
 			OpenFileDialog StandardFileDialog = new OpenFileDialog
 			{
@@ -62,7 +62,7 @@ namespace GeocachingTourPlanner
 			}
 		}
 
-		private void LoadGeocachesToolStripMenuItem_Click(object sender, EventArgs e)
+		private void ImportGeocachesButton_Click(object sender, EventArgs e)
 		{
 			string GPXDatei;
 			OpenFileDialog StandardFileDialog = new OpenFileDialog
@@ -177,29 +177,18 @@ namespace GeocachingTourPlanner
 				Program.Backup(Program.Geocaches);
 			}
 		}
-
-		private void NewRatingprofileToolStripMenuItem_Click(object sender, EventArgs e)
+		
+		private void RateGeocachesButtonClick(object sender, EventArgs e)
 		{
-			new NewRatingProfileWindow().Show();
+			//PRIORITY tranyplant the code from the window here
 		}
 
-
-		private void NewRoutingprofileToolStripMenuItem_Click(object sender, EventArgs e)
+		private void CreateRouteButtonClick(object sender, EventArgs e)
 		{
-			new NewRoutingprofileWindow().Show();
+			//PRIORITY tranyplant the code from the window here
 		}
 
-		private void RateGeocachesToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			new RunRating().Show();
-		}
-
-		private void CreateRouteToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			new RunRouting().Show();
-		}
-
-		private void setGeocachedatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+		private void setGeocachedatabaseButton_Click(object sender, EventArgs e)
 		{
 			if (Program.DB.SetDatabaseFilepath(Database.Databases.Geocaches))
 			{
@@ -207,7 +196,7 @@ namespace GeocachingTourPlanner
 			}
 		}
 
-		private void setRoutingprofiledatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+		private void setRoutingprofiledatabaseButton_Click(object sender, EventArgs e)
 		{
 			if (Program.DB.SetDatabaseFilepath(Database.Databases.Routingprofiles))
 			{
@@ -215,7 +204,7 @@ namespace GeocachingTourPlanner
 			}
 		}
 
-		private void setRatingprofiledatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+		private void setRatingprofiledatabaseButton_Click(object sender, EventArgs e)
 		{
 			if (Program.DB.SetDatabaseFilepath(Database.Databases.Ratingprofiles))
 			{
@@ -223,8 +212,7 @@ namespace GeocachingTourPlanner
 			}
 		}
 
-
-		private void setRouterDBToolStripMenuItem_Click(object sender, EventArgs e)
+		private void setRouterDBButton_Click(object sender, EventArgs e)
 		{
 			if (Program.DB.SetDatabaseFilepath(Database.Databases.RouterDB))
 			{
@@ -253,6 +241,7 @@ namespace GeocachingTourPlanner
 				Menuitem.Click += new EventHandler(Ratingprofile_Click);
 				SelectedRoutingprofileCombobox.Items.Add(Menuitem);
 			}
+			RatingprofilesStateLabel.Text = Program.Ratingprofiles.Count.ToString();
 		}
 
 		/// <summary>
@@ -271,16 +260,17 @@ namespace GeocachingTourPlanner
 				Menuitem.Click += new EventHandler(Routingprofile_Click);
 				SelectedRoutingprofileCombobox.Items.Add(Menuitem);
 			}
+			RoutingprofilesStateLabel.Text = Program.Routingprofiles.Count.ToString();
 		}
 
 		private void Ratingprofile_Click(object sender, EventArgs e)
 		{
-			new NewRatingProfileWindow(Program.Ratingprofiles.First(x => x.Name == sender.ToString())).Show();
+			//PRIORITY Fill window
 		}
 
 		private void Routingprofile_Click(object sender, EventArgs e)
 		{
-			new NewRoutingprofileWindow(Program.Routingprofiles.First(x => x.Name == sender.ToString())).Show();
+			//PRIORITY Fill window
 		}
 		#endregion
 		#endregion
@@ -454,10 +444,6 @@ namespace GeocachingTourPlanner
 		}
 
 		#endregion
-
-		private void Dropdown_SelectedIndexChanged(object sender, EventArgs e)
-		{
-
-		}
+		
 	}
 }
