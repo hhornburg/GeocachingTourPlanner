@@ -104,7 +104,8 @@ public static Form1 MainWindow;
             MainWindow.GeocacheTable.Columns["DRating"].DisplayIndex = 6;
             MainWindow.GeocacheTable.Columns["TRating"].DisplayIndex = 7;
             MainWindow.GeocacheTable.Columns["Rating"].DisplayIndex = MainWindow.GeocacheTable.ColumnCount-1;
-			//
+			//Map
+			MainWindow.Map.DisableFocusOnMouseEnter = true;//So Windows put in foreground stay in foreground
 
 			Application.Run(MainWindow);
         }

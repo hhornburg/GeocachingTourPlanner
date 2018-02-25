@@ -1,6 +1,7 @@
 ﻿using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
+using GMap.NET.WindowsForms.Markers;
 using Itinero;
 using Itinero.LocalGeo;
 using System;
@@ -199,11 +200,37 @@ namespace GeocachingTourPlanner
 			{
 				GMAPRoute.Add(new PointLatLng(COO.Latitude, COO.Longitude));
 			}
-			
 
-			GMapOverlay RouteOverlay = new GMapOverlay("Route");
-			RouteOverlay.Routes.Add(new GMapRoute(GMAPRoute,"Route"));
+			string Routetag = SelectedProfile.Name + " Route " + (SelectedProfile.RoutesOfthisType + 1);
+			SelectedProfile.RoutesOfthisType++;
+
+			GMapOverlay RouteOverlay = new GMapOverlay(Routetag);
+			RouteOverlay.Routes.Add(new GMapRoute(GMAPRoute, Routetag));
+			foreach (Geocache GC in GeocachesOnRoute)
+			{
+				GMapMarker GCMarker = null;
+				//Three Categories => Thirds of the Point range
+				if (GC.Rating > (Program.DB.MinimalRating) + 0.66 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
+				{
+					GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.green_small);
+					RouteOverlay.Markers.Add(GCMarker);
+				}
+				else if (GC.Rating > (Program.DB.MinimalRating) + 0.33 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
+				{
+					GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.yellow_small);
+					RouteOverlay.Markers.Add(GCMarker);
+				}
+				else
+				{
+					GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.red_small);
+					RouteOverlay.Markers.Add(GCMarker);
+				}
+
+				GCMarker.ToolTipText = GC.GCCODE + "\n" + GC.Name + "\n" + GC.Type + "(" + GC.DateHidden.Date.ToString().Remove(10) + ")\nD-Wertung: " + GC.DRating + "\nT-Wertung: " + GC.TRating + "\nBewertung: " + GC.Rating;
+				GCMarker.Tag = GC.GCCODE;
+			}
 			Program.MainWindow.Map.Overlays.Add(RouteOverlay);
+			Program.MainWindow.newRouteControlElement(Routetag);
 			Close();
 			
 			

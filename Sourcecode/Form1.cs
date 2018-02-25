@@ -403,6 +403,32 @@ namespace GeocachingTourPlanner
 			}
 		}
 
+		public void newRouteControlElement(string OverlayTag)
+		{
+			CheckBox RouteControl = new CheckBox();
+			RouteControl.Text = OverlayTag;
+			RouteControl.AutoSize = true;
+			RouteControl.Checked = true;
+			RouteControl.CheckedChanged += new System.EventHandler(RouteControlElement_CheckedChanged);
+
+			MapTab_SideMenu.RowCount++;
+			MapTab_SideMenu.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+			MapTab_SideMenu.Controls.Add(RouteControl,0,MapTab_SideMenu.RowCount);
+			RouteControl.Show();
+		}
+
+		private void RouteControlElement_CheckedChanged(object sender, EventArgs e)
+		{
+			if (((CheckBox)sender).Checked)
+			{
+				Map.Overlays.First(x => x.Id == ((CheckBox)sender).Text).IsVisibile = true;
+			}
+			else
+			{
+				Map.Overlays.First(x => x.Id == ((CheckBox)sender).Text).IsVisibile = false;
+			}
+		}
+
 		private void Map_OnMapDrag()
 		{
 			Program.DB.LastMapPosition = Map.Position;
