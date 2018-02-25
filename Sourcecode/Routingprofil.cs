@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace GeocachingTourPlanner
 {
@@ -28,5 +29,8 @@ namespace GeocachingTourPlanner
 		public int TimePerGeocache { get; set; }
 
 		public SerializableItineroProfile ItineroProfile { get; set; }
+
+		[XmlIgnore]
+		public int RoutesOfthisType = 0;
 	}
 }

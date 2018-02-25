@@ -364,7 +364,6 @@
 			this.Map.Size = new System.Drawing.Size(1148, 386);
 			this.Map.TabIndex = 0;
 			this.Map.Zoom = 0D;
-			this.Map.DisableFocusOnMouseEnter = true;
 			this.Map.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.Map_OnMarkerClick);
 			this.Map.OnMapDrag += new GMap.NET.MapDrag(this.Map_OnMapDrag);
 			this.Map.OnMapZoomChanged += new GMap.NET.MapZoomChanged(this.Map_OnMapZoomChanged);
@@ -415,7 +414,6 @@
         public System.Windows.Forms.ToolStripMenuItem RoutingprofilesToolStripMenuItem;
         public System.Windows.Forms.ToolStripSeparator toolStripSeparatorRating;
         public System.Windows.Forms.ToolStripMenuItem NewRatingprofileToolStripMenuItem;
-		private System.Windows.Forms.TableLayoutPanel MapTab_SideMenu;
 		private System.Windows.Forms.CheckBox MediumGeocachesCheckbox;
 		private System.Windows.Forms.CheckBox BestGeocachesCheckbox;
 		private System.Windows.Forms.CheckBox WorstGeocachesCheckbox;
@@ -429,6 +427,7 @@
 		private System.Windows.Forms.ToolStripMenuItem geocachesToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem oSMDataToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem setRouterDBToolStripMenuItem;
+		public System.Windows.Forms.TableLayoutPanel MapTab_SideMenu;
 	}
 }
 
