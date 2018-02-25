@@ -33,6 +33,24 @@ namespace GeocachingTourPlanner
 
 	}
 
+	public class KeyValueTriple<K, V1,V2>
+	{
+		public K Key { get; set; }
+		public V1 Value1 { get; set; }
+		public V2 Value2 { get; set; }
+		public KeyValueTriple()
+		{
+
+		}
+		public KeyValueTriple(K Key, V1 Value1,V2 Value2)
+		{
+			this.Key = Key;
+			this.Value1 = Value1;
+			this.Value2 = Value2;
+		}
+
+	}
+
 	#region SortableBindingList
 	/// <summary>
 	/// Bindinglist is not sortable. This code makes sorting possible
