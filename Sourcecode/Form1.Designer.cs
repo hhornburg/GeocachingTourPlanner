@@ -49,6 +49,7 @@
 			this.setGeocachedatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.setRoutingprofiledatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.setRatingprofiledatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.setRouterDBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.Tabcontainer = new System.Windows.Forms.TabControl();
 			this.GeocachesTab = new System.Windows.Forms.TabPage();
 			this.GeocacheTable = new System.Windows.Forms.DataGridView();
@@ -58,7 +59,6 @@
 			this.BestGeocachesCheckbox = new System.Windows.Forms.CheckBox();
 			this.WorstGeocachesCheckbox = new System.Windows.Forms.CheckBox();
 			this.Map = new GMap.NET.WindowsForms.GMapControl();
-			this.setRouterDBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.Tabcontainer.SuspendLayout();
 			this.GeocachesTab.SuspendLayout();
@@ -94,27 +94,27 @@
             this.geocachesToolStripMenuItem,
             this.oSMDataToolStripMenuItem});
 			this.ImportToolStripMenuItem.Name = "ImportToolStripMenuItem";
-			this.ImportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.ImportToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
 			this.ImportToolStripMenuItem.Text = "Import";
 			// 
 			// geocachesToolStripMenuItem
 			// 
 			this.geocachesToolStripMenuItem.Name = "geocachesToolStripMenuItem";
-			this.geocachesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.geocachesToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
 			this.geocachesToolStripMenuItem.Text = "Geocaches";
 			this.geocachesToolStripMenuItem.Click += new System.EventHandler(this.LoadGeocachesToolStripMenuItem_Click);
 			// 
 			// oSMDataToolStripMenuItem
 			// 
 			this.oSMDataToolStripMenuItem.Name = "oSMDataToolStripMenuItem";
-			this.oSMDataToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.oSMDataToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
 			this.oSMDataToolStripMenuItem.Text = "OSM Data";
 			this.oSMDataToolStripMenuItem.Click += new System.EventHandler(this.OSMDataToolStripMenuItem_Click);
 			// 
 			// ExportToolStripMenuItem
 			// 
 			this.ExportToolStripMenuItem.Name = "ExportToolStripMenuItem";
-			this.ExportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.ExportToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
 			this.ExportToolStripMenuItem.Text = "Export";
 			// 
 			// RunToolStripMenuItem
@@ -228,6 +228,13 @@
 			this.setRatingprofiledatabaseToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
 			this.setRatingprofiledatabaseToolStripMenuItem.Text = "Set Ratingprofiledatabase";
 			this.setRatingprofiledatabaseToolStripMenuItem.Click += new System.EventHandler(this.setRatingprofiledatabaseToolStripMenuItem_Click);
+			// 
+			// setRouterDBToolStripMenuItem
+			// 
+			this.setRouterDBToolStripMenuItem.Name = "setRouterDBToolStripMenuItem";
+			this.setRouterDBToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+			this.setRouterDBToolStripMenuItem.Text = "Set RouterDB";
+			this.setRouterDBToolStripMenuItem.Click += new System.EventHandler(this.setRouterDBToolStripMenuItem_Click);
 			// 
 			// Tabcontainer
 			// 
@@ -357,18 +364,12 @@
 			this.Map.Size = new System.Drawing.Size(1148, 386);
 			this.Map.TabIndex = 0;
 			this.Map.Zoom = 0D;
+			this.Map.DisableFocusOnMouseEnter = true;
 			this.Map.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.Map_OnMarkerClick);
 			this.Map.OnMapDrag += new GMap.NET.MapDrag(this.Map_OnMapDrag);
 			this.Map.OnMapZoomChanged += new GMap.NET.MapZoomChanged(this.Map_OnMapZoomChanged);
 			this.Map.Load += new System.EventHandler(this.Map_Load);
 			this.Map.Enter += new System.EventHandler(this.Map_Enter);
-			// 
-			// setRouterDBToolStripMenuItem
-			// 
-			this.setRouterDBToolStripMenuItem.Name = "setRouterDBToolStripMenuItem";
-			this.setRouterDBToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-			this.setRouterDBToolStripMenuItem.Text = "Set RouterDB";
-			this.setRouterDBToolStripMenuItem.Click += new System.EventHandler(this.setRouterDBToolStripMenuItem_Click);
 			// 
 			// Form1
 			// 

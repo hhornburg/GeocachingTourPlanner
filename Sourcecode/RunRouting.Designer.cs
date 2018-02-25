@@ -1,4 +1,6 @@
-﻿namespace GeocachingTourPlanner
+﻿using System.Windows.Forms;
+
+namespace GeocachingTourPlanner
 {
 	partial class RunRouting
 	{
@@ -107,16 +109,18 @@
 			// ProfilesCombobox
 			// 
 			this.ProfilesCombobox.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.ProfilesCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.ProfilesCombobox.FormattingEnabled = true;
 			this.ProfilesCombobox.Location = new System.Drawing.Point(3, 28);
 			this.ProfilesCombobox.Name = "ProfilesCombobox";
 			this.ProfilesCombobox.Size = new System.Drawing.Size(327, 21);
 			this.ProfilesCombobox.TabIndex = 3;
-			this.ProfilesCombobox.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
+			this.ProfilesCombobox.SelectedIndexChanged += new System.EventHandler(this.ProfilesCombobox_SelectedIndexChanged);
 			// 
 			// TargetCombobox
 			// 
 			this.TargetCombobox.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TargetCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.TargetCombobox.FormattingEnabled = true;
 			this.TargetCombobox.Location = new System.Drawing.Point(3, 78);
 			this.TargetCombobox.Name = "TargetCombobox";
@@ -166,7 +170,9 @@
 			this.Map.TabIndex = 1;
 			this.Map.Zoom = 0D;
 			this.Map.OnMapDrag += new GMap.NET.MapDrag(this.Map_OnMapDrag);
+			this.Map.OnMapZoomChanged += new GMap.NET.MapZoomChanged(this.Map_OnMapZoomChanged);
 			this.Map.Load += new System.EventHandler(this.Map_Load);
+			this.Map.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Map_MouseUp);
 			// 
 			// label2
 			// 
