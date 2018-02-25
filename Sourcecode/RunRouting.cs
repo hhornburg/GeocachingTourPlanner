@@ -77,7 +77,7 @@ namespace GeocachingTourPlanner
 				{
 					if (CurrentRoute != null)
 					{
-						if (ApproxDistance(GC.lat, GC.lon, StartLat, StartLon) < (SelectedProfile.MaxDistance - CurrentRoute.TotalDistance/1000))
+						if (ApproxDistance(GC.lat, GC.lon, StartLat, StartLon) <= (SelectedProfile.MaxDistance - CurrentRoute.TotalDistance/1000)/2)//As you have to geet there and back again
 						{
 							GeocachesInRange.Add(GC);
 							NotAddedGeocaches.Remove(GC);
@@ -85,7 +85,7 @@ namespace GeocachingTourPlanner
 					}
 					else
 					{
-						if (ApproxDistance(GC.lat, GC.lon, StartLat, StartLon) < (SelectedProfile.MaxDistance))
+						if (ApproxDistance(GC.lat, GC.lon, StartLat, StartLon) <= (SelectedProfile.MaxDistance)/2)//As you have to geet there and back again
 						{
 							GeocachesInRange.Add(GC);
 							NotAddedGeocaches.Remove(GC);
@@ -98,7 +98,7 @@ namespace GeocachingTourPlanner
 					{
 						if (CurrentRoute != null)
 						{
-							if (ApproxDistance(GC.lat, GC.lon, StartLat, StartLon) < (SelectedProfile.MaxDistance - CurrentRoute.TotalDistance/1000))
+							if (ApproxDistance(GC.lat, GC.lon, StartLat, StartLon) < (SelectedProfile.MaxDistance - CurrentRoute.TotalDistance/1000)/2)
 							{
 								GeocachesInRange.Add(GC);
 								NotAddedGeocaches.Remove(GC);
@@ -106,7 +106,7 @@ namespace GeocachingTourPlanner
 						}
 						else
 						{
-							if (ApproxDistance(GC.lat, GC.lon, RoutePoint.lat, RoutePoint.lon) < (SelectedProfile.MaxDistance))
+							if (ApproxDistance(GC.lat, GC.lon, RoutePoint.lat, RoutePoint.lon) < (SelectedProfile.MaxDistance)/2)
 							{
 								GeocachesInRange.Add(GC);
 								NotAddedGeocaches.Remove(GC);
@@ -170,7 +170,7 @@ namespace GeocachingTourPlanner
 					RoutePoints -= (CurrentRoute.TotalTime/60 - SelectedProfile.MaxTime) * SelectedProfile.PenaltyPerExtra10min / 10;
 				}
 				
-			} while (LastRoutePoints < RoutePoints);
+			} while (LastRoutePoints <= RoutePoints);
 
 			List<PointLatLng> GMAPRoute = new List<PointLatLng>();
 			foreach(Coordinate COO in CurrentRoute.Shape)
