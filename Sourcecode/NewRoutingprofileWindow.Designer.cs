@@ -50,10 +50,10 @@
 			this.PenaltyPerExtraKM = new System.Windows.Forms.TextBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+			this.VehicleValue = new System.Windows.Forms.ComboBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.ModeValue = new System.Windows.Forms.ComboBox();
 			this.label2 = new System.Windows.Forms.Label();
-			this.VehicleValue = new System.Windows.Forms.ComboBox();
 			this.tableLayoutPanel7.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -335,6 +335,20 @@
 			this.tableLayoutPanel2.Size = new System.Drawing.Size(632, 25);
 			this.tableLayoutPanel2.TabIndex = 0;
 			// 
+			// VehicleValue
+			// 
+			this.VehicleValue.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.VehicleValue.FormattingEnabled = true;
+			this.VehicleValue.Items.AddRange(new object[] {
+            "Car",
+            "Bicycle",
+            "Pedestrian"});
+			this.VehicleValue.Location = new System.Drawing.Point(161, 3);
+			this.VehicleValue.Name = "VehicleValue";
+			this.VehicleValue.Size = new System.Drawing.Size(152, 21);
+			this.VehicleValue.TabIndex = 0;
+			this.VehicleValue.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
+			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
@@ -369,20 +383,6 @@
 			this.label2.Size = new System.Drawing.Size(152, 19);
 			this.label2.TabIndex = 3;
 			this.label2.Text = "Mode";
-			// 
-			// VehicleValue
-			// 
-			this.VehicleValue.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.VehicleValue.FormattingEnabled = true;
-			this.VehicleValue.Items.AddRange(new object[] {
-            "Car",
-            "Bicycle",
-            "Pedestrian"});
-			this.VehicleValue.Location = new System.Drawing.Point(161, 3);
-			this.VehicleValue.Name = "VehicleValue";
-			this.VehicleValue.Size = new System.Drawing.Size(152, 21);
-			this.VehicleValue.TabIndex = 0;
-			this.VehicleValue.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
 			// 
 			// NewRoutingprofileWindow
 			// 

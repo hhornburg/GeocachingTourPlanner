@@ -244,17 +244,15 @@ namespace GeocachingTourPlanner
 		/// <param name="e"></param>
 		public void Ratingprofiles_ListChanged(object sender, ListChangedEventArgs e)
 		{
+			SelectedRoutingprofileCombobox.Items.Clear();
 			foreach (Ratingprofile bp in Program.Ratingprofiles)
 			{
-				RatingprofilesToolStripMenuItem.DropDownItems.Clear();
+				
 				ToolStripMenuItem Menuitem = new ToolStripMenuItem();
 				Menuitem.Text = bp.ToString();
 				Menuitem.Click += new EventHandler(Ratingprofile_Click);
-				RatingprofilesToolStripMenuItem.DropDownItems.Insert(0, Menuitem);
+				SelectedRoutingprofileCombobox.Items.Add(Menuitem);
 			}
-			RatingprofilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			toolStripSeparatorRating,
-			NewRatingprofileToolStripMenuItem});
 		}
 
 		/// <summary>
@@ -264,17 +262,15 @@ namespace GeocachingTourPlanner
 		/// <param name="e"></param>
 		public void Routingprofiles_ListChanged(object sender, ListChangedEventArgs e)
 		{
+			SelectedRoutingprofileCombobox.Items.Clear();
+
 			foreach (Routingprofile profile in Program.Routingprofiles)
 			{
-				RoutingprofilesToolStripMenuItem.DropDownItems.Clear();
 				ToolStripMenuItem Menuitem = new ToolStripMenuItem();
 				Menuitem.Text = profile.ToString();
 				Menuitem.Click += new EventHandler(Routingprofile_Click);
-				RoutingprofilesToolStripMenuItem.DropDownItems.Insert(0, Menuitem);
+				SelectedRoutingprofileCombobox.Items.Add(Menuitem);
 			}
-			RoutingprofilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			toolStripSeparatorRouting,
-			NewRoutingprofileToolStripMenuItem});
 		}
 
 		private void Ratingprofile_Click(object sender, EventArgs e)
@@ -458,6 +454,10 @@ namespace GeocachingTourPlanner
 		}
 
 		#endregion
-		
+
+		private void Dropdown_SelectedIndexChanged(object sender, EventArgs e)
+		{
+
+		}
 	}
 }
