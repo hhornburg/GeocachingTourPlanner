@@ -114,7 +114,10 @@ namespace GeocachingTourPlanner
 						}
 					}
 				}
-
+				if (GeocachesInRange.Count == 0)
+				{
+					break;
+				}
 				GeocachesInRange.OrderByDescending(x => x.Rating);
 				GeocachesOnRoute.Add(GeocachesInRange[0]);
 				GeocachesInRange.RemoveAt(0);
@@ -170,7 +173,7 @@ namespace GeocachingTourPlanner
 					RoutePoints -= (CurrentRoute.TotalTime/60 - SelectedProfile.MaxTime) * SelectedProfile.PenaltyPerExtra10min / 10;
 				}
 				
-			} while (LastRoutePoints <= RoutePoints);
+			} while (GeocachesInRange.Count>0 && LastRoutePoints <= RoutePoints);
 
 			List<PointLatLng> GMAPRoute = new List<PointLatLng>();
 			foreach(Coordinate COO in CurrentRoute.Shape)
