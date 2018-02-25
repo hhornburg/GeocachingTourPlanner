@@ -194,6 +194,10 @@ namespace GeocachingTourPlanner
 				}
 			} while (GeocachesInRange.Count>0 && LastRoutePoints <= RoutePoints);
 
+			//Name of the route which will be used for all further referencing
+			string Routetag = SelectedProfile.Name + " Route " + (SelectedProfile.RoutesOfthisType + 1);
+
+			Program.Routes.Add(new KeyValueTriple<string, Route,List<Geocache>>(Routetag,CurrentRoute,GeocachesOnRoute));
 			List<PointLatLng> GMAPRoute = new List<PointLatLng>();
 			
 			foreach(Coordinate COO in CurrentRoute.Shape)
@@ -201,7 +205,7 @@ namespace GeocachingTourPlanner
 				GMAPRoute.Add(new PointLatLng(COO.Latitude, COO.Longitude));
 			}
 
-			string Routetag = SelectedProfile.Name + " Route " + (SelectedProfile.RoutesOfthisType + 1);
+			
 			SelectedProfile.RoutesOfthisType++;
 
 			GMapOverlay RouteOverlay = new GMapOverlay(Routetag);

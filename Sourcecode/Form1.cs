@@ -16,6 +16,8 @@ using GMap.NET.MapProviders;
 using Itinero;
 using System.IO;
 using Itinero.IO.Osm;
+using System.Xml;
+using Itinero.LocalGeo;
 
 namespace GeocachingTourPlanner
 {
@@ -37,7 +39,8 @@ namespace GeocachingTourPlanner
 				InitialDirectory = Program.DB.LastUsedFilepath,
 				Filter = "pbf files (*.pbf)|*.pbf|All files (*.*)|*.*",
 				FilterIndex = 2,
-				RestoreDirectory = true
+				RestoreDirectory = true,
+				Title = "Import OSM Data"
 			};
 
 			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
@@ -70,7 +73,8 @@ namespace GeocachingTourPlanner
 				InitialDirectory = Program.DB.LastUsedFilepath,
 				Filter = "gpx files (*.gpx)|*.gpx|All files (*.*)|*.*",
 				FilterIndex = 2,
-				RestoreDirectory = true
+				RestoreDirectory = true,
+				Title="Import geocaches"
 			};
 
 			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
@@ -178,6 +182,109 @@ namespace GeocachingTourPlanner
 			}
 		}
 		
+
+		private void Export_Click(object sender, EventArgs e)
+		{
+			SaveFileDialog StandardFileDialog = new SaveFileDialog
+			{
+				InitialDirectory = Program.DB.LastUsedFilepath,
+				Filter = "gpx files (*.gpx)|*.gpx|All files (*.*)|*.*",
+				FilterIndex = 1,
+				RestoreDirectory = true,
+				Title = "Export route as track"
+			};
+			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
+			{
+
+				KeyValueTriple<string, Route, List<Geocache>> RouteToSeialize = Program.Routes.First(x => x.Key == ((ToolStripMenuItem)sender).Text);
+
+				XmlDocument GPX = new XmlDocument();
+
+				XmlDeclaration xmldecl = GPX.CreateXmlDeclaration("1.0", "UTF-8", null);
+
+				XmlNode root = GPX.CreateElement("gpx");
+				GPX.AppendChild(root);
+
+				XmlAttribute xmlns = GPX.CreateAttribute("xmlns");
+				xmlns.Value = "http://www.topografix.com/GPX/1/1";
+				root.Attributes.Append(xmlns);
+
+				XmlAttribute version = GPX.CreateAttribute("version");
+				version.Value = "1.1";
+				root.Attributes.Append(version);
+
+				XmlAttribute creator = GPX.CreateAttribute("creator");
+				creator.Value = "GeocachingTourPlanner";
+				root.Attributes.Append(creator);
+
+				foreach (Geocache GC in RouteToSeialize.Value2)
+				{
+					XmlElement wpt = GPX.CreateElement("wpt");
+					//Coordinates
+					XmlAttribute latitude = GPX.CreateAttribute("lat");
+					latitude.Value = GC.lat.ToString(CultureInfo.InvariantCulture);
+					XmlAttribute longitude = GPX.CreateAttribute("lon");
+					longitude.Value = GC.lon.ToString(CultureInfo.InvariantCulture);
+					wpt.Attributes.Append(latitude);
+					wpt.Attributes.Append(longitude);
+
+					//Name
+					XmlElement gcname = GPX.CreateElement("name");
+					gcname.InnerText = GC.Name;
+					wpt.AppendChild(gcname);
+					//link
+					XmlElement link = GPX.CreateElement("link");
+					XmlAttribute linkattribute = GPX.CreateAttribute("href");
+					linkattribute.Value = "https://www.coord.info/" + GC.GCCODE;
+					link.Attributes.Append(linkattribute);
+					wpt.AppendChild(link);
+
+					root.AppendChild(wpt);
+				}
+
+				XmlNode track = GPX.CreateElement("trk");
+				root.AppendChild(track);
+
+				//Name of track
+				XmlNode name = GPX.CreateElement("name");
+				name.InnerText = RouteToSeialize.Key;
+				track.AppendChild(name);
+
+				XmlNode tracksegment = GPX.CreateElement("trkseg");
+				foreach (Coordinate COO in RouteToSeialize.Value1.Shape)
+				{
+					XmlNode trackpoint = GPX.CreateElement("trkpt");
+
+					//Coordinates
+					XmlAttribute latitude = GPX.CreateAttribute("lat");
+					latitude.Value = COO.Latitude.ToString(CultureInfo.InvariantCulture);
+					XmlAttribute longitude = GPX.CreateAttribute("lon");
+					longitude.Value = COO.Longitude.ToString(CultureInfo.InvariantCulture);
+
+					trackpoint.Attributes.Append(latitude);
+					trackpoint.Attributes.Append(longitude);
+					tracksegment.AppendChild(trackpoint);
+				}
+				track.AppendChild(tracksegment);
+
+				GPX.InsertBefore(xmldecl, root);
+				GPX.Save(StandardFileDialog.FileName);
+			}
+		}
+
+		public void Routes_ListChanged(object sender, ListChangedEventArgs e)
+		{
+			ExportToolStripMenuItem.DropDownItems.Clear();
+
+			foreach (KeyValueTriple<string,Route,List<Geocache>> KVT in Program.Routes)
+			{
+				ToolStripMenuItem Menuitem = new ToolStripMenuItem();
+				Menuitem.Text = KVT.Key;
+				Menuitem.Click += new EventHandler(Export_Click);
+				ExportToolStripMenuItem.DropDownItems.Insert(0, Menuitem);
+			}
+		}
+
 		private void RateGeocachesButtonClick(object sender, EventArgs e)
 		{
 			//PRIORITY tranyplant the code from the window here
@@ -235,7 +342,7 @@ namespace GeocachingTourPlanner
 			SelectedRoutingprofileCombobox.Items.Clear();
 			foreach (Ratingprofile bp in Program.Ratingprofiles)
 			{
-				
+
 				ToolStripMenuItem Menuitem = new ToolStripMenuItem();
 				Menuitem.Text = bp.ToString();
 				Menuitem.Click += new EventHandler(Ratingprofile_Click);
@@ -353,6 +460,8 @@ namespace GeocachingTourPlanner
 
 		}
 
+		#region Geocachecheckboxes
+
 		private void BestCheckbox_CheckedChanged(object sender, EventArgs e)
 		{
 			if (BestGeocachesCheckbox.Checked)
@@ -389,6 +498,9 @@ namespace GeocachingTourPlanner
 			}
 		}
 
+		#endregion
+
+		#region Routes
 		public void newRouteControlElement(string OverlayTag)
 		{
 			CheckBox RouteControl = new CheckBox();
@@ -414,7 +526,9 @@ namespace GeocachingTourPlanner
 				Map.Overlays.First(x => x.Id == ((CheckBox)sender).Text).IsVisibile = false;
 			}
 		}
+		#endregion
 
+		#region MapUIEvents
 		private void Map_OnMapDrag()
 		{
 			Program.DB.LastMapPosition = Map.Position;
@@ -442,8 +556,10 @@ namespace GeocachingTourPlanner
 		{
 			System.Diagnostics.Process.Start("https://www.coord.info/" + item.Tag);
 		}
+		#endregion
 
 		#endregion
+
 		
 	}
 }

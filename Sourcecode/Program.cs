@@ -29,14 +29,14 @@ namespace GeocachingTourPlanner
         public static SortableBindingList<Geocache> Geocaches = new SortableBindingList<Geocache>();
         static XmlSerializer GeocachesSerializer = new XmlSerializer(typeof(SortableBindingList<Geocache>));
 
-		//load RouterDB
+		// Itinero
 		public static RouterDb RouterDB = new RouterDb();
+		public static BindingList<KeyValueTriple<string, Route, List<Geocache>>> Routes = new BindingList<KeyValueTriple<string, Route, List<Geocache>>>();
 		
-
-/// <summary>
-/// Main entrypoint
-/// </summary>
-public static Form1 MainWindow;
+	/// <summary>
+	/// Main entrypoint
+	/// </summary>
+	public static Form1 MainWindow;
 
         [STAThread]
         static void Main()
@@ -84,6 +84,7 @@ public static Form1 MainWindow;
 				 RouterDB = RouterDb.Deserialize(stream);
 				}
 			}
+			Routes.ListChanged += new ListChangedEventHandler(MainWindow.Routes_ListChanged);
 			
 			//Load Ratingprofiles from the File specified in the Database
 			ReadRatingprofiles();

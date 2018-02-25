@@ -243,6 +243,7 @@
 			this.UpmostTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.UpmostTableLayoutPanel.Size = new System.Drawing.Size(1388, 576);
 			this.UpmostTableLayoutPanel.TabIndex = 2;
+
 			// 
 			// Tabcontainer
 			// 
@@ -2723,6 +2724,12 @@
 			this.Settings.TabIndex = 3;
 			this.Settings.Text = "Settings";
 			this.Settings.UseVisualStyleBackColor = true;
+			// 
+			// noRoutesCreatedYetToolStripMenuItem
+			// 
+			this.noRoutesCreatedYetToolStripMenuItem.Name = "noRoutesCreatedYetToolStripMenuItem";
+			this.noRoutesCreatedYetToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+			this.noRoutesCreatedYetToolStripMenuItem.Text = "No Routes created yet";
 			// 
 			// Form1
 			// 
