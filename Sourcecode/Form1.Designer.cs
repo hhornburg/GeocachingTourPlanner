@@ -59,6 +59,7 @@
 			this.BestGeocachesCheckbox = new System.Windows.Forms.CheckBox();
 			this.WorstGeocachesCheckbox = new System.Windows.Forms.CheckBox();
 			this.Map = new GMap.NET.WindowsForms.GMapControl();
+			this.noRoutesCreatedYetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.Tabcontainer.SuspendLayout();
 			this.GeocachesTab.SuspendLayout();
@@ -113,9 +114,11 @@
 			// 
 			// ExportToolStripMenuItem
 			// 
+			this.ExportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.noRoutesCreatedYetToolStripMenuItem});
 			this.ExportToolStripMenuItem.Name = "ExportToolStripMenuItem";
-			this.ExportToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
-			this.ExportToolStripMenuItem.Text = "Export";
+			this.ExportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.ExportToolStripMenuItem.Text = "Export routes";
 			// 
 			// RunToolStripMenuItem
 			// 
@@ -370,6 +373,12 @@
 			this.Map.Load += new System.EventHandler(this.Map_Load);
 			this.Map.Enter += new System.EventHandler(this.Map_Enter);
 			// 
+			// noRoutesCreatedYetToolStripMenuItem
+			// 
+			this.noRoutesCreatedYetToolStripMenuItem.Name = "noRoutesCreatedYetToolStripMenuItem";
+			this.noRoutesCreatedYetToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+			this.noRoutesCreatedYetToolStripMenuItem.Text = "No Routes created yet";
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -428,6 +437,7 @@
 		private System.Windows.Forms.ToolStripMenuItem oSMDataToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem setRouterDBToolStripMenuItem;
 		public System.Windows.Forms.TableLayoutPanel MapTab_SideMenu;
+		private System.Windows.Forms.ToolStripMenuItem noRoutesCreatedYetToolStripMenuItem;
 	}
 }
 
