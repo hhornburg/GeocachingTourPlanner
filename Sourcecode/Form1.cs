@@ -181,8 +181,10 @@ namespace GeocachingTourPlanner
 				Program.Backup(Program.Geocaches);
 			}
 		}
-		
 
+
+		//PRIORITY get back export
+		/*
 		private void Export_Click(object sender, EventArgs e)
 		{
 			SaveFileDialog StandardFileDialog = new SaveFileDialog
@@ -284,7 +286,7 @@ namespace GeocachingTourPlanner
 				ExportToolStripMenuItem.DropDownItems.Insert(0, Menuitem);
 			}
 		}
-
+		*/
 		private void RateGeocachesButtonClick(object sender, EventArgs e)
 		{
 			//PRIORITY tranyplant the code from the window here

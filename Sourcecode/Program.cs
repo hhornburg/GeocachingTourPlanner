@@ -84,7 +84,8 @@ namespace GeocachingTourPlanner
 				 RouterDB = RouterDb.Deserialize(stream);
 				}
 			}
-			Routes.ListChanged += new ListChangedEventHandler(MainWindow.Routes_ListChanged);
+			//PRIORITY Get back routing
+			//Routes.ListChanged += new ListChangedEventHandler(MainWindow.Routes_ListChanged);
 			
 			//Load Ratingprofiles from the File specified in the Database
 			ReadRatingprofiles();
