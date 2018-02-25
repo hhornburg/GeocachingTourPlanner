@@ -112,73 +112,84 @@ namespace GeocachingTourPlanner
 						}
 					}
 				}
-				if (GeocachesInRange.Count == 0)
-				{
-					break;
-				}
-				GeocachesInRange.OrderByDescending(x => x.Rating);
-				GeocachesOnRoute.Add(GeocachesInRange[0]);
-				GeocachesInRange.RemoveAt(0);
 
-				if (Program.RouterDB.IsEmpty)
+				if (GeocachesInRange.Count != 0)
 				{
-					if (Program.DB.RouterDB_Filepath != null)
+					GeocachesInRange.OrderByDescending(x => x.Rating);
+					GeocachesOnRoute.Add(GeocachesInRange[0]);
+					GeocachesInRange.RemoveAt(0);
+
+					if (Program.RouterDB.IsEmpty)
 					{
-						using (var stream = new FileInfo(Program.DB.RouterDB_Filepath).OpenRead())
+						if (Program.DB.RouterDB_Filepath != null)
 						{
-							Program.RouterDB = RouterDb.Deserialize(stream);
+							using (var stream = new FileInfo(Program.DB.RouterDB_Filepath).OpenRead())
+							{
+								Program.RouterDB = RouterDb.Deserialize(stream);
+							}
+						}
+						else
+						{
+							MessageBox.Show("Import or set RouterDB before creating route!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+							return;
 						}
 					}
-					else
+
+					Router router = new Router(Program.RouterDB);
+
+					//Make the Points which the route should pass
+					List<RouterPoint> PointsOnRoute = new List<RouterPoint>();
+					try
 					{
-						MessageBox.Show("Import or set RouterDB before creating route!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						PointsOnRoute.Add(router.Resolve(SelectedProfile.ItineroProfile.profile, StartLat, StartLon));
+					}
+					catch (Itinero.Exceptions.ResolveFailedException)
+					{
+						MessageBox.Show("Please select a Startingpoint close to a road");
 						return;
 					}
-				}
-				
-				Router router = new Router(Program.RouterDB);
-				
-				//Make the Points which the route should pass
-				List<RouterPoint> PointsOnRoute = new List<RouterPoint>();
-				try
-				{
-					PointsOnRoute.Add(router.Resolve(SelectedProfile.ItineroProfile.profile, StartLat, StartLon));
-				}
-				catch (Itinero.Exceptions.ResolveFailedException)
-				{
-					MessageBox.Show("Please select a Startingpoint close to a road");
-					return;
-				}
-				foreach (Geocache GC in GeocachesOnRoute)
-				{
-					PointsOnRoute.Add(router.Resolve(SelectedProfile.ItineroProfile.profile, GC.lat, GC.lon));
-				}
-				PointsOnRoute.Add(router.Resolve(SelectedProfile.ItineroProfile.profile, StartLat, StartLon));//As start is currently also the End
-				try
-				{
-					//Calculate Route
-					CurrentRoute = router.Calculate(SelectedProfile.ItineroProfile.profile, PointsOnRoute.ToArray());
-				}
-				catch (Itinero.Exceptions.RouteNotFoundException)
-				{
-					//Route creation error, Itinero intern problem
-					GeocachesOnRoute.RemoveAt(GeocachesOnRoute.Count-1);//As the last geocache hasn't been fitted into the Route. From List of Geocaches in Range should remain, as this one is causing trouble.
-					//Effectively, this causes it to take the current route. As far as seen until now, not a too big problem.
-				}
 
-				//Calculate Points of Route
-				RoutePoints = 0;
-				foreach (Geocache GC in GeocachesOnRoute)
-				{
-					RoutePoints += GC.Rating;
-				}
-				if (CurrentRoute.TotalDistance / 1000 > SelectedProfile.MaxDistance)
-				{
-					RoutePoints -= (CurrentRoute.TotalDistance / 1000 - SelectedProfile.MaxDistance) * SelectedProfile.PenaltyPerExtraKM;
-				}
-				if (CurrentRoute.TotalTime / 60 + GeocachesOnRoute.Count * SelectedProfile.TimePerGeocache > SelectedProfile.MaxTime)
-				{
-					RoutePoints -= (CurrentRoute.TotalTime / 60 - SelectedProfile.MaxTime) * SelectedProfile.PenaltyPerExtra10min / 10;
+					foreach (Geocache GC in new List<Geocache>(GeocachesOnRoute))
+					{
+						try
+						{
+							PointsOnRoute.Add(router.Resolve(SelectedProfile.ItineroProfile.profile, GC.lat, GC.lon));
+						}
+						catch (Itinero.Exceptions.ResolveFailedException)
+						{
+							GeocachesOnRoute.Remove(GC);//As it is not reachable
+						}
+					}
+
+
+					PointsOnRoute.Add(router.Resolve(SelectedProfile.ItineroProfile.profile, StartLat, StartLon));//As start is currently also the End
+
+					//Calculate Route
+					try
+					{
+						CurrentRoute = router.Calculate(SelectedProfile.ItineroProfile.profile, PointsOnRoute.ToArray());
+					}
+					catch (Itinero.Exceptions.RouteNotFoundException)
+					{
+						//Route creation error, Itinero intern problem
+						GeocachesOnRoute.RemoveAt(GeocachesOnRoute.Count - 1);//As the last geocache hasn't been fitted into the Route. From List of Geocaches in Range should remain, as this one is causing trouble.
+																			  //Effectively, this causes it to take the current route. As far as seen until now, not a too big problem.
+					}
+
+					//Calculate Points of Route
+					RoutePoints = 0;
+					foreach (Geocache GC in GeocachesOnRoute)
+					{
+						RoutePoints += GC.Rating;
+					}
+					if (CurrentRoute.TotalDistance / 1000 > SelectedProfile.MaxDistance)
+					{
+						RoutePoints -= (CurrentRoute.TotalDistance / 1000 - SelectedProfile.MaxDistance) * SelectedProfile.PenaltyPerExtraKM;
+					}
+					if (CurrentRoute.TotalTime / 60 + GeocachesOnRoute.Count * SelectedProfile.TimePerGeocache > SelectedProfile.MaxTime)
+					{
+						RoutePoints -= (CurrentRoute.TotalTime / 60 - SelectedProfile.MaxTime) * SelectedProfile.PenaltyPerExtra10min / 10;
+					}
 				}
 			} while (GeocachesInRange.Count>0 && LastRoutePoints <= RoutePoints);
 
