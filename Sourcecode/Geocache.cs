@@ -19,6 +19,7 @@ namespace GeocachingTourPlanner
         public GeocacheType Type { get; set; }
         public GeocacheSize Size { get; set; }
         public float Rating { get; set; }
+		public bool ForceInclude { get; set; }
 
         public void Rate(Ratingprofile Profil)
         {

@@ -95,20 +95,6 @@ namespace GeocachingTourPlanner
 			ReadRoutingprofiles();
 			Backup(null);//so settings get saved in the DB. Nothing else, as it just came from the file
 
-            //Tabelleneinstellungen
-            MainWindow.GeocacheTable.DataSource = Geocaches;
-            MainWindow.GeocacheTable.Columns["GCCODE"].DisplayIndex = 0;
-            MainWindow.GeocacheTable.Columns["Name"].DisplayIndex = 1;
-            MainWindow.GeocacheTable.Columns["lat"].DisplayIndex = 2;
-            MainWindow.GeocacheTable.Columns["lon"].DisplayIndex = 3;
-            MainWindow.GeocacheTable.Columns["Type"].DisplayIndex = 4;
-            MainWindow.GeocacheTable.Columns["Size"].DisplayIndex = 5;
-            MainWindow.GeocacheTable.Columns["DRating"].DisplayIndex = 6;
-            MainWindow.GeocacheTable.Columns["TRating"].DisplayIndex = 7;
-            MainWindow.GeocacheTable.Columns["Rating"].DisplayIndex = MainWindow.GeocacheTable.ColumnCount-1;
-			//Map
-			MainWindow.Map.DisableFocusOnMouseEnter = true;//So Windows put in foreground stay in foreground
-
 			Application.Run(MainWindow);
         }
 		
