@@ -735,7 +735,8 @@ namespace GeocachingTourPlanner
 				return;
 			}
 			#endregion
-
+			DateTime Starttime = DateTime.Now;
+			Log.Append("Current Time:" + Starttime);
 			Log.AppendLine("Profile: " + SelectedProfile.Name);
 
 			//Create Copy of Geocaches
@@ -860,7 +861,10 @@ namespace GeocachingTourPlanner
 				LastRoutePoints = RoutePoints;
 				//Remeber last Route
 				LastRoute = CurrentRoute;
-				
+
+
+				#region weak algorithm (commented out)
+				/*
 				if (CurrentRoute.Branches.Length == 0)
 				{
 					//happens if start- and endpoint is the same and no fixed geocaches added
@@ -874,6 +878,7 @@ namespace GeocachingTourPlanner
 						}
 					}
 				}
+
 				else
 				{
 					foreach (Branch Intersection in CurrentRoute.Branches)
@@ -889,6 +894,22 @@ namespace GeocachingTourPlanner
 						}
 					}
 				}
+				*/
+				#endregion
+
+				#region new Algortihm
+				for(int i = 0; i < CurrentRoute.Shape.Length; i += 50)//There are approximately 50 Shapepoints per km (guess based upon one route ;) ), so it checks every 1k. 
+				{
+					foreach (Geocache GC in new List<Geocache>(NotDecidedGeocaches))
+					{
+						if (Coordinate.DistanceEstimateInMeter(new Coordinate(GC.lat, GC.lon), CurrentRoute.Shape[i])/1000 < (SelectedProfile.MaxDistance - CurrentRoute.TotalDistance / 1000) / 2 + 1) //Plus 1k, as the algorithm only checks every km + buffer for length calculation errors
+						{
+							GeocachesInRange.Add(GC);
+							NotDecidedGeocaches.Remove(GC);
+						}
+					}
+				}
+				#endregion
 
 				Log.AppendLine("Currently " + GeocachesInRange.Count + " Geocaches in reach");
 
@@ -953,14 +974,18 @@ namespace GeocachingTourPlanner
 
 					if (LastRoutePoints > RoutePoints)
 					{
-						GeocachesOnRoute.Remove(LastAddedGeocache);//Thus the geocache made the route worse
-						CurrentRoute = LastRoute;//Reset the Route, but keep the Geocache that made it worse excluded
+						GeocachesOnRoute.Remove(LastAddedGeocache);//Thus the geocache that made the route worse
+						RoutePoints = LastRoutePoints;//Reset the Route to the iteration before, but keep the Geocache that made it worse excluded
+						CurrentRoute = LastRoute;
 						Log.AppendLine("Had to remove latest added geocache as made the number of points of the route less. GCCode:" + LastAddedGeocache.GCCODE);
 					}
 					Log.AppendLine("==========New Iteration==========");
 				}
 			} while (GeocachesInRange.Count > 0);
 			#endregion
+
+			Log.AppendLine("Time after last iteration:" + DateTime.Now);
+			Log.AppendLine("Routing took " + (DateTime.Now - Starttime).TotalSeconds + " seconds");
 
 			if (CurrentRoute != null)
 			{
@@ -1013,27 +1038,6 @@ namespace GeocachingTourPlanner
 				File.AppendAllText("Routerlog.txt", Log.ToString());
 			}
 		}
-
-
-		#region Helperfunctions for Routing
-		/// <summary>
-		/// Returns approximate distance in Km
-		/// </summary>
-		/// <param name="lat1"></param>
-		/// <param name="lon1"></param>
-		/// <param name="lat2"></param>
-		/// <param name="lon2"></param>
-		/// <returns></returns>
-		private double ApproxDistance(double lat1, double lon1, double lat2, double lon2)
-		{
-			//Approximation for short distances
-			double distance = Math.Sqrt(Math.Abs(lat1 - lat2) * Math.Abs(lat1 - lat2) + Math.Abs(lon1 - lon2) * Math.Abs(lon1 - lon2)) * 40030 / 360;
-			return distance;
-		}
-
-
-
-		#endregion
 
 		#region Geocachecheckboxes
 
@@ -1253,6 +1257,7 @@ namespace GeocachingTourPlanner
 
 		private void Map_OnMapZoomChanged()
 		{
+			Program.DB.LastMapPosition = Map.Position;//Since you can change position when zooming
 			Program.DB.LastMapZoom = Map.Zoom;
 			Program.Backup(null);
 		}
