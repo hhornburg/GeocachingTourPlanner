@@ -325,6 +325,7 @@
 			this.Map.Load += new System.EventHandler(this.Map_Load);
 			this.Map.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Map_Click);
 			this.Map.MouseEnter += new System.EventHandler(this.Map_Load);
+			this.Map.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Map_MouseUp);
 			// 
 			// MapTab_SideMenu
 			// 

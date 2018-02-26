@@ -18,6 +18,7 @@ using System.IO;
 using Itinero.IO.Osm;
 using System.Xml;
 using Itinero.LocalGeo;
+using static Itinero.Route;
 
 namespace GeocachingTourPlanner
 {
@@ -649,6 +650,10 @@ namespace GeocachingTourPlanner
 		private void CreateRouteButtonClick(object sender, EventArgs e)
 		{
 			Application.UseWaitCursor = true;
+			StringBuilder Log = new StringBuilder();
+			Log.Append("\n  ==========New Route Calculation========== \n");
+
+			#region get values
 			if (SelectedRoutingprofileCombobox.Text.Length == 0)
 			{
 				MessageBox.Show("No Routingprofile set.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -695,6 +700,7 @@ namespace GeocachingTourPlanner
 				{
 					EndLat = StartLat;
 					EndLon = StartLon;
+					EndpointTextbox.Text = EndLat.ToString(CultureInfo.InvariantCulture) + ";" + EndLon.ToString(CultureInfo.InvariantCulture);
 				}
 				else
 				{
@@ -728,9 +734,12 @@ namespace GeocachingTourPlanner
 				Application.UseWaitCursor = false;
 				return;
 			}
+			#endregion
+
+			Log.AppendLine("Profile: " + SelectedProfile.Name);
 
 			//Create Copy of Geocaches
-			List<Geocache> NotAddedGeocaches = new List<Geocache>();
+			List<Geocache> NotDecidedGeocaches = new List<Geocache>();
 			//The Caches not in range get kicked out at the beginning of every iteration
 			List<Geocache> GeocachesInRange = new List<Geocache>(Program.Geocaches);
 			if (GeocachesOnRoute.Count != 0)
@@ -741,97 +750,160 @@ namespace GeocachingTourPlanner
 				}
 			}
 
+
 			float RoutePoints = 0;
 			float LastRoutePoints = 0;
 			Route CurrentRoute = null;
+
+			#region create router
+			if (Program.RouterDB.IsEmpty)
+			{
+				if (Program.DB.RouterDB_Filepath != null)
+				{
+					using (var stream = new FileInfo(Program.DB.RouterDB_Filepath).OpenRead())
+					{
+						Program.RouterDB = RouterDb.Deserialize(stream);
+					}
+				}
+				else
+				{
+					MessageBox.Show("Import or set RouterDB before creating route!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					Application.UseWaitCursor = false;
+					return;
+				}
+			}
+
+			Router router = new Router(Program.RouterDB);
+			#endregion
+
+			#region Initial Calcutaion of Route
+			List<RouterPoint> PointsOnRoute = new List<RouterPoint>();
+			try
+			{
+				PointsOnRoute.Add(router.Resolve(SelectedProfile.ItineroProfile.profile, StartLat, StartLon));
+			}
+			catch (Itinero.Exceptions.ResolveFailedException)
+			{
+				MessageBox.Show("Please select a Startingpoint close to a road");
+				Application.UseWaitCursor = false;
+				return;
+			}
+
+			foreach (Geocache GC in new List<Geocache>(GeocachesOnRoute))
+			{
+				try
+				{
+					PointsOnRoute.Add(router.Resolve(SelectedProfile.ItineroProfile.profile, GC.lat, GC.lon));
+				}
+				catch (Itinero.Exceptions.ResolveFailedException)
+				{
+					MessageBox.Show("Had to remove one of your selected geocaches, as it is not reachable.");
+					GeocachesOnRoute.Remove(GC);//As it is not reachable
+				}
+			}
+
+			try
+			{
+				PointsOnRoute.Add(router.Resolve(SelectedProfile.ItineroProfile.profile, EndLat, EndLon));
+			}
+			catch (Itinero.Exceptions.ResolveFailedException)
+			{
+				MessageBox.Show("Please select an Endpoint close to a road");
+				Application.UseWaitCursor = false;
+				return;
+			}
+
+			//Calculate Route
+			try
+			{
+				CurrentRoute = router.Calculate(SelectedProfile.ItineroProfile.profile, PointsOnRoute.ToArray());
+			}
+			catch (Itinero.Exceptions.RouteNotFoundException)
+			{
+				MessageBox.Show("Can't calculate a route between the selected points and geocaches. Please change your selection");
+				Application.UseWaitCursor = false;
+				return;
+			}
+			
+			Log.AppendLine("Initial Route:" + CurrentRoute.TotalDistance / 1000 + "km, " + CurrentRoute.TotalTime / 60 + "min long.");
+
+			if (CurrentRoute.TotalDistance / 1000 > SelectedProfile.MaxDistance)
+			{
+				MessageBox.Show("The resulting route from your selected points and geocaches is longer than your max distance. Please change your selection. (It is " + CurrentRoute.TotalDistance / 1000 + " km long)");
+				Application.UseWaitCursor = false;
+				Log.AppendLine("Distance to long. Aborted.");
+				File.AppendAllText("Routerlog.txt", Log.ToString());
+				return;
+			}
+			if (CurrentRoute.TotalTime / 60 + GeocachesOnRoute.Count * SelectedProfile.TimePerGeocache > SelectedProfile.MaxTime)
+			{
+				MessageBox.Show("The resulting route from your selected points and geocaches takes longer than your max time. Please change your selection. (It would take " + CurrentRoute.TotalTime / 60 + " minutes to complete it)");
+				Application.UseWaitCursor = false;
+				Log.AppendLine("Time to long. Aborted.");
+				File.AppendAllText("Routerlog.txt", Log.ToString());
+				return;
+			}
+			#endregion
+
+			#region algorithm
+			Route LastRoute = CurrentRoute;
+
+			int iterationcounter=0;
 			do
 			{
+				iterationcounter++;
+
 				//Create Copy of Geocaches
-				NotAddedGeocaches = new List<Geocache>(GeocachesInRange);
+				NotDecidedGeocaches = new List<Geocache>(GeocachesInRange);
 				GeocachesInRange = new List<Geocache>();
 				//Remember Points of last route
 				LastRoutePoints = RoutePoints;
+				//Remeber last Route
+				LastRoute = CurrentRoute;
+				
+				if (CurrentRoute.Branches.Length == 0)
+				{
+					//happens if start- and endpoint is the same and no fixed geocaches added
+					Coordinate Coordinates = CurrentRoute.Shape[0];
+					foreach (Geocache GC in new List<Geocache>(NotDecidedGeocaches))
+					{
+						if (ApproxDistance(GC.lat, GC.lon, Coordinates.Latitude, Coordinates.Longitude) < (SelectedProfile.MaxDistance - CurrentRoute.TotalDistance / 1000) / 2 + 1) //So Geocaches close by get considered even if distance is already reached
+						{
+							GeocachesInRange.Add(GC);
+							NotDecidedGeocaches.Remove(GC);
+						}
+					}
+				}
+				else
+				{
+					foreach (Branch Intersection in CurrentRoute.Branches)
+					{
+						Coordinate Coordinates = CurrentRoute.Shape[Intersection.Shape];
+						foreach (Geocache GC in new List<Geocache>(NotDecidedGeocaches))
+						{
+							if (ApproxDistance(GC.lat, GC.lon, Coordinates.Latitude, Coordinates.Longitude) < (SelectedProfile.MaxDistance - CurrentRoute.TotalDistance / 1000) / 2 + 1) //So Geocaches close by get considered even if distance is already reached
+							{
+								GeocachesInRange.Add(GC);
+								NotDecidedGeocaches.Remove(GC);
+							}
+						}
+					}
+				}
 
-				//Remove all Geocaches out of reach of StartingPoint
-				foreach (Geocache GC in new List<Geocache>(NotAddedGeocaches))
-				{
-					if (CurrentRoute != null)
-					{
-						if (ApproxDistance(GC.lat, GC.lon, StartLat, StartLon) <= (SelectedProfile.MaxDistance - CurrentRoute.TotalDistance / 1000) / 2)//As you have to geet there and back again
-						{
-							GeocachesInRange.Add(GC);
-							NotAddedGeocaches.Remove(GC);
-						}
-					}
-					else
-					{
-						if (ApproxDistance(GC.lat, GC.lon, StartLat, StartLon) <= (SelectedProfile.MaxDistance) / 2)//As you have to geet there and back again
-						{
-							GeocachesInRange.Add(GC);
-							NotAddedGeocaches.Remove(GC);
-						}
-					}
-				}
-				foreach (Geocache RoutePoint in GeocachesOnRoute)
-				{
-					foreach (Geocache GC in new List<Geocache>(NotAddedGeocaches))
-					{
-						if (CurrentRoute != null)
-						{
-							if (ApproxDistance(GC.lat, GC.lon, StartLat, StartLon) < (SelectedProfile.MaxDistance - CurrentRoute.TotalDistance / 1000) / 2)
-							{
-								GeocachesInRange.Add(GC);
-								NotAddedGeocaches.Remove(GC);
-							}
-						}
-						else
-						{
-							if (ApproxDistance(GC.lat, GC.lon, RoutePoint.lat, RoutePoint.lon) < (SelectedProfile.MaxDistance) / 2)
-							{
-								GeocachesInRange.Add(GC);
-								NotAddedGeocaches.Remove(GC);
-							}
-						}
-					}
-				}
+				Log.AppendLine("Currently " + GeocachesInRange.Count + " Geocaches in reach");
 
 				if (GeocachesInRange.Count != 0)
 				{
 					GeocachesInRange.OrderByDescending(x => x.Rating);
+					Geocache LastAddedGeocache = GeocachesInRange[0];
 					GeocachesOnRoute.Add(GeocachesInRange[0]);
 					GeocachesInRange.RemoveAt(0);
-
-					if (Program.RouterDB.IsEmpty)
-					{
-						if (Program.DB.RouterDB_Filepath != null)
-						{
-							using (var stream = new FileInfo(Program.DB.RouterDB_Filepath).OpenRead())
-							{
-								Program.RouterDB = RouterDb.Deserialize(stream);
-							}
-						}
-						else
-						{
-							MessageBox.Show("Import or set RouterDB before creating route!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-							Application.UseWaitCursor = false;
-							return;
-						}
-					}
-
-					Router router = new Router(Program.RouterDB);
+					Log.AppendLine("Chose " + LastAddedGeocache.GCCODE);
 
 					//Add the Points which the route should pass
-					List<RouterPoint> PointsOnRoute = new List<RouterPoint>();
-					try
-					{
-						PointsOnRoute.Add(router.Resolve(SelectedProfile.ItineroProfile.profile, StartLat, StartLon));
-					}
-					catch (Itinero.Exceptions.ResolveFailedException)
-					{
-						MessageBox.Show("Please select a Startingpoint close to a road");
-						Application.UseWaitCursor = false;
-						return;
-					}
+					PointsOnRoute = new List<RouterPoint>();
+
+					PointsOnRoute.Add(router.Resolve(SelectedProfile.ItineroProfile.profile, StartLat, StartLon));
 
 					foreach (Geocache GC in new List<Geocache>(GeocachesOnRoute))
 					{
@@ -844,17 +916,9 @@ namespace GeocachingTourPlanner
 							GeocachesOnRoute.Remove(GC);//As it is not reachable
 						}
 					}
-
-					try
-					{
-						PointsOnRoute.Add(router.Resolve(SelectedProfile.ItineroProfile.profile, EndLat, EndLon));
-					}
-					catch (Itinero.Exceptions.ResolveFailedException)
-					{
-						MessageBox.Show("Please select an Endpoint close to a road");
-						Application.UseWaitCursor = false;
-						return;
-					}
+					
+					PointsOnRoute.Add(router.Resolve(SelectedProfile.ItineroProfile.profile, EndLat, EndLon));
+					
 
 					//Calculate Route
 					try
@@ -864,10 +928,13 @@ namespace GeocachingTourPlanner
 					catch (Itinero.Exceptions.RouteNotFoundException)
 					{
 						//Route creation error, Itinero intern problem
-						GeocachesOnRoute.RemoveAt(GeocachesOnRoute.Count - 1);//As the last geocache hasn't been fitted into the Route. From List of Geocaches in Range should remain, as this one is causing trouble.
-																			  //Effectively, this causes it to take the current route. As far as seen until now, not a too big problem.
+						GeocachesOnRoute.Remove(LastAddedGeocache); //Removal from List of Geocaches in Range should remain, as this one is causing trouble.
+																	//Effectively, this causes it to take the current route. As far as seen until now, not a too big problem.
+						Log.AppendLine("Had to remove latest added geocache as it rendered the route calculation impossible. GCCode:" + LastAddedGeocache.GCCODE);
 					}
 
+					Log.AppendLine("New Route calculated.\nLength (Max Length) in km:" + CurrentRoute.TotalDistance / 1000 + " (" + SelectedProfile.MaxDistance + ") \nTime (Max Time) in min: " + (CurrentRoute.TotalTime / 60 + GeocachesOnRoute.Count * SelectedProfile.TimePerGeocache) + " (" + SelectedProfile.MaxTime + ")\nGeocaches:" + GeocachesOnRoute.Count);
+					
 					//Calculate Points of Route
 					RoutePoints = 0;
 					foreach (Geocache GC in GeocachesOnRoute)
@@ -882,8 +949,18 @@ namespace GeocachingTourPlanner
 					{
 						RoutePoints -= (CurrentRoute.TotalTime / 60 - SelectedProfile.MaxTime) * SelectedProfile.PenaltyPerExtra10min / 10;
 					}
+					Log.AppendLine("New Points:" + RoutePoints + " Old Points:" + LastRoutePoints);
+
+					if (LastRoutePoints > RoutePoints)
+					{
+						GeocachesOnRoute.Remove(LastAddedGeocache);//Thus the geocache made the route worse
+						CurrentRoute = LastRoute;//Reset the Route, but keep the Geocache that made it worse excluded
+						Log.AppendLine("Had to remove latest added geocache as made the number of points of the route less. GCCode:" + LastAddedGeocache.GCCODE);
+					}
+					Log.AppendLine("==========New Iteration==========");
 				}
-			} while (GeocachesInRange.Count > 0 && LastRoutePoints <= RoutePoints);
+			} while (GeocachesInRange.Count > 0);
+			#endregion
 
 			if (CurrentRoute != null)
 			{
@@ -931,6 +1008,9 @@ namespace GeocachingTourPlanner
 				Map.Overlays.Add(RouteOverlay);
 				newRouteControlElement(Routetag);
 				Map_Load(null,null);
+
+				Log.AppendLine("Done after " + iterationcounter +" iterations");
+				File.AppendAllText("Routerlog.txt", Log.ToString());
 			}
 		}
 
@@ -1043,7 +1123,7 @@ namespace GeocachingTourPlanner
 		{
 			Program.Routes.Remove(Program.Routes.First(x => x.Key == OverlayTag));
 			Map.Overlays.Remove(Map.Overlays.First(x => x.Id == OverlayTag));
-			((Button)sender).Parent.Dispose();
+			((Button)sender).Parent.Parent.Dispose();//=The Groupbox
 		}
 
 		private void Export_Click(string OverlayTag)
@@ -1149,10 +1229,21 @@ namespace GeocachingTourPlanner
 		#endregion
 
 		#region MapUIEvents
+		bool Mapdragging = false;
+
 		private void Map_OnMapDrag()
 		{
-			Program.DB.LastMapPosition = Map.Position;
-			Program.Backup(null);
+			Mapdragging = true;
+		}
+
+		private void Map_MouseUp(object sender, MouseEventArgs e)
+		{
+			if (Mapdragging)//So calculation only kicks in if dragging is over
+			{
+				Program.DB.LastMapPosition = Map.Position;
+				Program.Backup(null);
+				Mapdragging = false;
+			}
 		}
 
 		private void Map_Enter(object sender, EventArgs e)
