@@ -43,6 +43,12 @@ namespace GeocachingTourPlanner
 
 			//Map
 			Map.DisableFocusOnMouseEnter = true;//So Windows put in foreground stay in foreground
+			Map.DragButton = MouseButtons.Left;
+
+			Map.MapProvider = OpenCycleLandscapeMapProvider.Instance;
+			GMaps.Instance.Mode = AccessMode.ServerOnly;
+			//Remove Cross in the middle of the Map
+			Map.ShowCenter = false;
 
 		}
 
@@ -652,11 +658,6 @@ namespace GeocachingTourPlanner
 		/// </summary>
 		private void LoadMap()
 		{
-			Map.MapProvider = OpenCycleLandscapeMapProvider.Instance;
-			GMaps.Instance.Mode = AccessMode.ServerOnly;
-			//Remove Cross in the middle of the Map
-			Map.ShowCenter = false;
-
 			//Remove all geocache (and only the geocache!) overlays
 			if (Map.Overlays.Where(x => x.Id == "TopOverlay").Count() > 0)
 			{
@@ -747,13 +748,16 @@ namespace GeocachingTourPlanner
 
 		private void CreateRouteButtonClick(object sender, EventArgs e)
 		{
+			Enabled = false;
 			if (SelectedRoutingprofileCombobox.Text.Length == 0)
 			{
 				MessageBox.Show("No Routingprofile set.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				Enabled = true;
 				return;
 			}
 
 			Routingprofile SelectedProfile = Program.Routingprofiles.First(x => x.Name == SelectedRoutingprofileCombobox.Text);
+
 			List<Geocache> GeocachesOnRoute = new List<Geocache>();
 			foreach (Geocache GC in Program.Geocaches.Where(x=>x.ForceInclude))
 			{
@@ -768,17 +772,20 @@ namespace GeocachingTourPlanner
 			if (StartpointTextbox.Text.Length == 0)
 			{
 				MessageBox.Show("No Startpoint set. Please type one in or select one with right click on the map", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				Enabled = true;
 				return;
 			}
 
 			if (!float.TryParse(StartpointTextbox.Text.Substring(0, StartpointTextbox.Text.IndexOf(";")), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture,out StartLat))
 			{
 				MessageBox.Show("Couldn't Parse Startcoordinates. Are thes separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				Enabled = true;
 				return;
 			}
 			if (!float.TryParse(StartpointTextbox.Text.Substring(StartpointTextbox.Text.IndexOf(";")+1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out StartLon))
 			{
 				MessageBox.Show("Couldn't Parse Startcoordinates. Are thes separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				Enabled = true;
 				return;
 			}
 
@@ -789,7 +796,11 @@ namespace GeocachingTourPlanner
 					FinalLat = StartLat;
 					FinalLon = StartLon;
 				}
-				else { return; }
+				else
+				{
+					Enabled = true;
+					return;
+				}
 			}
 			else
 			{
@@ -797,6 +808,7 @@ namespace GeocachingTourPlanner
 				{
 				
 					MessageBox.Show("Couldn't Parse Endcoordinates. Are thes separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					Enabled = true;
 					return;
 					
 				}
@@ -1003,6 +1015,8 @@ namespace GeocachingTourPlanner
 					GCMarker.ToolTipText = GC.GCCODE + "\n" + GC.Name + "\n" + GC.Type + "(" + GC.DateHidden.Date.ToString().Remove(10) + ")\nD-Wertung: " + GC.DRating + "\nT-Wertung: " + GC.TRating + "\nBewertung: " + GC.Rating;
 					GCMarker.Tag = GC.GCCODE;
 				}
+
+				Enabled = true;
 				Map.Overlays.Add(RouteOverlay);
 				newRouteControlElement(Routetag);
 				Map_Load(null,null);
@@ -1127,6 +1141,13 @@ namespace GeocachingTourPlanner
 			System.Diagnostics.Process.Start("https://www.coord.info/" + item.Tag);
 		}
 
+		private void Map_Click(object sender, EventArgs e)
+		{
+			if (((MouseEventArgs)e).Button == MouseButtons.Right)
+			{
+				
+			}
+		}
 		#endregion
 
 		#endregion

@@ -320,7 +320,10 @@
 			this.Map.Size = new System.Drawing.Size(762, 432);
 			this.Map.TabIndex = 2;
 			this.Map.Zoom = 0D;
+			this.Map.OnMapDrag += new GMap.NET.MapDrag(this.Map_OnMapDrag);
+			this.Map.OnMapZoomChanged += new GMap.NET.MapZoomChanged(this.Map_OnMapZoomChanged);
 			this.Map.Load += new System.EventHandler(this.Map_Load);
+			this.Map.Click += new System.EventHandler(this.Map_Click);
 			this.Map.MouseEnter += new System.EventHandler(this.Map_Load);
 			// 
 			// MapTab_SideMenu
@@ -351,6 +354,7 @@
 			this.MediumGeocachesCheckbox.TabIndex = 0;
 			this.MediumGeocachesCheckbox.Text = "Show medium Geocaches";
 			this.MediumGeocachesCheckbox.UseVisualStyleBackColor = true;
+			this.MediumGeocachesCheckbox.CheckedChanged += new System.EventHandler(this.MediumCheckbox_CheckedChanged);
 			// 
 			// BestGeocachesCheckbox
 			// 
@@ -363,6 +367,7 @@
 			this.BestGeocachesCheckbox.TabIndex = 1;
 			this.BestGeocachesCheckbox.Text = "Show best Geocaches";
 			this.BestGeocachesCheckbox.UseVisualStyleBackColor = true;
+			this.BestGeocachesCheckbox.CheckedChanged += new System.EventHandler(this.BestCheckbox_CheckedChanged);
 			// 
 			// WorstGeocachesCheckbox
 			// 
@@ -375,6 +380,7 @@
 			this.WorstGeocachesCheckbox.TabIndex = 2;
 			this.WorstGeocachesCheckbox.Text = "Show worst Geocaches";
 			this.WorstGeocachesCheckbox.UseVisualStyleBackColor = true;
+			this.WorstGeocachesCheckbox.CheckedChanged += new System.EventHandler(this.WorstCheckbox_CheckedChanged);
 			// 
 			// tableLayoutPanel10
 			// 
@@ -428,6 +434,8 @@
 			// 
 			// SelectedRoutingprofileCombobox
 			// 
+			this.SelectedRoutingprofileCombobox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+			this.SelectedRoutingprofileCombobox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
 			this.SelectedRoutingprofileCombobox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.SelectedRoutingprofileCombobox.FormattingEnabled = true;
 			this.SelectedRoutingprofileCombobox.Location = new System.Drawing.Point(312, 23);
@@ -438,6 +446,8 @@
 			// 
 			// RatingprofileCombobox
 			// 
+			this.RatingprofileCombobox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+			this.RatingprofileCombobox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
 			this.RatingprofileCombobox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.RatingprofileCombobox.FormattingEnabled = true;
 			this.RatingprofileCombobox.Location = new System.Drawing.Point(621, 23);
@@ -2661,6 +2671,8 @@
 			// VehicleCombobox
 			// 
 			this.VehicleCombobox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+			this.VehicleCombobox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+			this.VehicleCombobox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
 			this.VehicleCombobox.FormattingEnabled = true;
 			this.VehicleCombobox.Items.AddRange(new object[] {
             "Car",
@@ -2674,12 +2686,14 @@
 			// 
 			// MetricCombobox
 			// 
-			this.MetricCombobox.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.MetricCombobox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+			this.MetricCombobox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+			this.MetricCombobox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
 			this.MetricCombobox.FormattingEnabled = true;
 			this.MetricCombobox.Items.AddRange(new object[] {
             "Fastest",
             "Shortest"});
-			this.MetricCombobox.Location = new System.Drawing.Point(220, 3);
+			this.MetricCombobox.Location = new System.Drawing.Point(220, 5);
 			this.MetricCombobox.Name = "MetricCombobox";
 			this.MetricCombobox.Size = new System.Drawing.Size(145, 21);
 			this.MetricCombobox.TabIndex = 3;
