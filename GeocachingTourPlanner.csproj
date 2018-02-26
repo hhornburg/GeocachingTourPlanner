@@ -126,18 +126,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Sourcecode\RunRouting.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Sourcecode\RunRouting.Designer.cs">
-      <DependentUpon>RunRouting.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Sourcecode\NewRoutingprofileWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Sourcecode\NewRoutingprofileWindow.Designer.cs">
-      <DependentUpon>NewRoutingprofileWindow.cs</DependentUpon>
-    </Compile>
     <Compile Include="Sourcecode\AcceptLicenseWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,44 +141,20 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Sourcecode\Geocache.cs" />
-    <Compile Include="Sourcecode\NewRatingprofileWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Sourcecode\NewRatingprofileWindow.Designer.cs">
-      <DependentUpon>NewRatingprofileWindow.cs</DependentUpon>
-    </Compile>
     <Compile Include="Sourcecode\Program.cs" />
     <Compile Include="Sourcecode\Ratingprofile.cs" />
     <Compile Include="Sourcecode\Routingprofil.cs" />
-    <Compile Include="Sourcecode\RunRating.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Sourcecode\RunRating.Designer.cs">
-      <DependentUpon>RunRating.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Sourcecode\RunRouting.resx">
-      <DependentUpon>RunRouting.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Sourcecode\NewRoutingprofileWindow.resx">
-      <DependentUpon>NewRoutingprofileWindow.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Sourcecode\AcceptLicenseWindow.resx">
       <DependentUpon>AcceptLicenseWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sourcecode\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Sourcecode\NewRatingprofileWindow.resx">
-      <DependentUpon>NewRatingprofileWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Sourcecode\RunRating.resx">
-      <DependentUpon>RunRating.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

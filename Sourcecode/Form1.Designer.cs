@@ -41,7 +41,7 @@
 			this.RateGeocachesButton = new System.Windows.Forms.Button();
 			this.CreateRouteButton = new System.Windows.Forms.Button();
 			this.SelectedRoutingprofileCombobox = new System.Windows.Forms.ComboBox();
-			this.RatingprofileCombobox = new System.Windows.Forms.ComboBox();
+			this.SelectedRatingprofileCombobox = new System.Windows.Forms.ComboBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label41 = new System.Windows.Forms.Label();
 			this.label42 = new System.Windows.Forms.Label();
@@ -164,7 +164,7 @@
 			this.EditRatingprofileCombobox = new System.Windows.Forms.ComboBox();
 			this.SaveRatingprofileLayoutPanel17 = new System.Windows.Forms.TableLayoutPanel();
 			this.CancelNewProfileButton = new System.Windows.Forms.Button();
-			this.CreateButton = new System.Windows.Forms.Button();
+			this.CreateRatingprofileButton = new System.Windows.Forms.Button();
 			this.label54 = new System.Windows.Forms.Label();
 			this.RatingProfileName = new System.Windows.Forms.TextBox();
 			this.Routingprofiles = new System.Windows.Forms.TabPage();
@@ -323,7 +323,7 @@
 			this.Map.OnMapDrag += new GMap.NET.MapDrag(this.Map_OnMapDrag);
 			this.Map.OnMapZoomChanged += new GMap.NET.MapZoomChanged(this.Map_OnMapZoomChanged);
 			this.Map.Load += new System.EventHandler(this.Map_Load);
-			this.Map.Click += new System.EventHandler(this.Map_Click);
+			this.Map.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Map_Click);
 			this.Map.MouseEnter += new System.EventHandler(this.Map_Load);
 			// 
 			// MapTab_SideMenu
@@ -392,7 +392,7 @@
 			this.tableLayoutPanel10.Controls.Add(this.RateGeocachesButton, 2, 3);
 			this.tableLayoutPanel10.Controls.Add(this.CreateRouteButton, 1, 3);
 			this.tableLayoutPanel10.Controls.Add(this.SelectedRoutingprofileCombobox, 1, 1);
-			this.tableLayoutPanel10.Controls.Add(this.RatingprofileCombobox, 2, 1);
+			this.tableLayoutPanel10.Controls.Add(this.SelectedRatingprofileCombobox, 2, 1);
 			this.tableLayoutPanel10.Controls.Add(this.label1, 1, 0);
 			this.tableLayoutPanel10.Controls.Add(this.label41, 2, 0);
 			this.tableLayoutPanel10.Controls.Add(this.label42, 0, 0);
@@ -444,17 +444,17 @@
 			this.SelectedRoutingprofileCombobox.TabIndex = 2;
 			this.SelectedRoutingprofileCombobox.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
 			// 
-			// RatingprofileCombobox
+			// SelectedRatingprofileCombobox
 			// 
-			this.RatingprofileCombobox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.RatingprofileCombobox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.RatingprofileCombobox.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.RatingprofileCombobox.FormattingEnabled = true;
-			this.RatingprofileCombobox.Location = new System.Drawing.Point(621, 23);
-			this.RatingprofileCombobox.Name = "RatingprofileCombobox";
-			this.RatingprofileCombobox.Size = new System.Drawing.Size(338, 21);
-			this.RatingprofileCombobox.TabIndex = 3;
-			this.RatingprofileCombobox.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
+			this.SelectedRatingprofileCombobox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+			this.SelectedRatingprofileCombobox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+			this.SelectedRatingprofileCombobox.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.SelectedRatingprofileCombobox.FormattingEnabled = true;
+			this.SelectedRatingprofileCombobox.Location = new System.Drawing.Point(621, 23);
+			this.SelectedRatingprofileCombobox.Name = "SelectedRatingprofileCombobox";
+			this.SelectedRatingprofileCombobox.Size = new System.Drawing.Size(338, 21);
+			this.SelectedRatingprofileCombobox.TabIndex = 3;
+			this.SelectedRatingprofileCombobox.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
 			// 
 			// label1
 			// 
@@ -2464,7 +2464,7 @@
 			this.SaveRatingprofileLayoutPanel17.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
 			this.SaveRatingprofileLayoutPanel17.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
 			this.SaveRatingprofileLayoutPanel17.Controls.Add(this.CancelNewProfileButton, 3, 0);
-			this.SaveRatingprofileLayoutPanel17.Controls.Add(this.CreateButton, 2, 0);
+			this.SaveRatingprofileLayoutPanel17.Controls.Add(this.CreateRatingprofileButton, 2, 0);
 			this.SaveRatingprofileLayoutPanel17.Controls.Add(this.label54, 0, 0);
 			this.SaveRatingprofileLayoutPanel17.Controls.Add(this.RatingProfileName, 1, 0);
 			this.SaveRatingprofileLayoutPanel17.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -2487,16 +2487,17 @@
 			this.CancelNewProfileButton.Text = "Cancel";
 			this.CancelNewProfileButton.UseVisualStyleBackColor = true;
 			// 
-			// CreateButton
+			// CreateRatingprofileButton
 			// 
-			this.CreateButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.CreateButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.CreateButton.Location = new System.Drawing.Point(220, 3);
-			this.CreateButton.Name = "CreateButton";
-			this.CreateButton.Size = new System.Drawing.Size(75, 24);
-			this.CreateButton.TabIndex = 1;
-			this.CreateButton.Text = "Save profile";
-			this.CreateButton.UseVisualStyleBackColor = true;
+			this.CreateRatingprofileButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.CreateRatingprofileButton.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.CreateRatingprofileButton.Location = new System.Drawing.Point(220, 3);
+			this.CreateRatingprofileButton.Name = "CreateRatingprofileButton";
+			this.CreateRatingprofileButton.Size = new System.Drawing.Size(75, 24);
+			this.CreateRatingprofileButton.TabIndex = 1;
+			this.CreateRatingprofileButton.Text = "Save profile";
+			this.CreateRatingprofileButton.UseVisualStyleBackColor = true;
+			this.CreateRatingprofileButton.Click += new System.EventHandler(this.CreateRatingprofile);
 			// 
 			// label54
 			// 
@@ -2572,6 +2573,7 @@
 			this.button2.TabIndex = 1;
 			this.button2.Text = "Save profile";
 			this.button2.UseVisualStyleBackColor = true;
+			this.button2.Click += new System.EventHandler(this.CreateRoutingprofile);
 			// 
 			// label52
 			// 
@@ -3024,7 +3026,7 @@
 		private System.Windows.Forms.TabPage Settings;
 		private System.Windows.Forms.TableLayoutPanel SaveRatingprofileLayoutPanel17;
 		private System.Windows.Forms.Button CancelNewProfileButton;
-		private System.Windows.Forms.Button CreateButton;
+		private System.Windows.Forms.Button CreateRatingprofileButton;
 		private System.Windows.Forms.Label label54;
 		private System.Windows.Forms.TextBox RatingProfileName;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
@@ -3033,7 +3035,7 @@
 		private System.Windows.Forms.Button RateGeocachesButton;
 		private System.Windows.Forms.Button CreateRouteButton;
 		private System.Windows.Forms.ComboBox SelectedRoutingprofileCombobox;
-		private System.Windows.Forms.ComboBox RatingprofileCombobox;
+		private System.Windows.Forms.ComboBox SelectedRatingprofileCombobox;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label41;
 		private System.Windows.Forms.Label label42;

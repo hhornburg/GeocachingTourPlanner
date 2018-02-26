@@ -84,8 +84,6 @@ namespace GeocachingTourPlanner
 				 RouterDB = RouterDb.Deserialize(stream);
 				}
 			}
-			//PRIORITY Get back routing
-			//Routes.ListChanged += new ListChangedEventHandler(MainWindow.Routes_ListChanged);
 			
 			//Load Ratingprofiles from the File specified in the Database
 			ReadRatingprofiles();
@@ -94,6 +92,9 @@ namespace GeocachingTourPlanner
 			//Routingprofile
 			ReadRoutingprofiles();
 			Backup(null);//so settings get saved in the DB. Nothing else, as it just came from the file
+
+
+			MainWindow.GeocacheTable.DataSource = Program.Geocaches;
 
 			Application.Run(MainWindow);
         }
