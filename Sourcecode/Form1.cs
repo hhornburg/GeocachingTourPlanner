@@ -880,6 +880,18 @@ namespace GeocachingTourPlanner
 			RouteControl.Dock = DockStyle.Fill;
 			Table.Controls.Add(RouteControl, 0, 0);
 
+			Label Info = new Label();
+			List<Geocache> GeocachesOnRoute = Program.Routes.First(x => x.Key == OverlayTag).Value2;
+			int NumberOfGeocaches = GeocachesOnRoute.Count;
+			float SumOfPoints = 0;
+			foreach(Geocache GC in GeocachesOnRoute)
+			{
+				SumOfPoints += GC.Rating;
+			}
+			Info.Text = "Geocaches: " + NumberOfGeocaches + "\n Points: " + SumOfPoints;
+			Info.Dock = DockStyle.Fill;
+			Table.Controls.Add(Info, 1, 0);
+			
 			Button DeleteButton = new Button();
 			DeleteButton.Text = "Delete";
 			DeleteButton.Click += (sender, e) => DeleteButton_Click(sender, e, OverlayTag);

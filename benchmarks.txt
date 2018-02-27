@@ -1,0 +1,16 @@
+Benchamark: Killisfeldstraße Haltestelle: Car 50km shortest 
+	No Multithread, Every 25th Coordinate in Shapefile:
+		Done after 13 iterations
+		Routing took 108,2930621 seconds
+		Geocaches:8 1367 Points
+		49,67267 km 1192 Coordinates in Shapefile
+	No Multithread, Every 10th Coordinate in Shapefile:
+		Done after 8 iterations
+		Routing took 41,2283091 seconds
+		Geocaches:5 1059 Points
+		50,49094 km 1799 Coordinates in Shapefile
+	No Multithread, Every 25th Coordinate in Shapefile, Don't exclude Cache once it is used:
+		Done after 9 iterations
+		Routing took 42,0153518 seconds
+		Geocaches:7 1428 Points
+		50,10311 km 1978 Coordinates in Shapefile
