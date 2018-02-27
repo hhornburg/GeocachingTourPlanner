@@ -121,11 +121,6 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Sourcecode\AcceptLicenseWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,12 +139,9 @@
     <Compile Include="Sourcecode\Program.cs" />
     <Compile Include="Sourcecode\Ratingprofile.cs" />
     <Compile Include="Sourcecode\Routingprofil.cs" />
+    <Compile Include="Sourcecode\Tourplanning.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Sourcecode\AcceptLicenseWindow.resx">
       <DependentUpon>AcceptLicenseWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -161,6 +153,7 @@
     <Folder Include=".git\objects\info\" />
     <Folder Include=".git\objects\pack\" />
     <Folder Include=".git\refs\tags\" />
+    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

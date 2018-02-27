@@ -46,6 +46,9 @@ namespace GeocachingTourPlanner
 		/// </summary>
 		public float MaximalRating { get; set; }
 
+		public RouterMode RouterMode { get; set; }
+		public int EveryNthShapepoint { get; set; }
+
 		#region Methods
 		/// <summary>
 		/// checks if a DatabaseFilepath and the associated file exist. If it is not the case it asks wether the user wants to select a database file. Returns true if a file exists in the end.
@@ -129,14 +132,23 @@ namespace GeocachingTourPlanner
 
 			return false;//Since Databasefilepath hasn't been set
 		}
-
-		public enum Databases
-		{
-			Geocaches,
-			Ratingprofiles,
-			Routingprofiles,
-			RouterDB
-		}
 		#endregion
+
+		
+	}
+
+	public enum Databases
+	{
+		Geocaches,
+		Ratingprofiles,
+		Routingprofiles,
+		RouterDB
+	}
+
+	public enum RouterMode
+	{
+		On_the_go,
+		Some_thought,
+		Try_hard
 	}
 }
