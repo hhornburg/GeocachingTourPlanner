@@ -71,10 +71,10 @@ namespace GeocachingTourPlanner
 			CurrentRouteDistance = InitialRoute.TotalDistance;
 			CurrentRouteTime = InitialRoute.TotalTime;
 
-			#region Add Geocaches to Include
+			List<Geocache> GeocachesNotAlreadyUsed = new List<Geocache>(AllGeocaches);
 			for (int i = 0; i <= InitialRoute.Shape.Length; i += Program.DB.EveryNthShapepoint)
 			{
-				foreach (Geocache GC in AllGeocaches)
+				foreach (Geocache GC in GeocachesNotAlreadyUsed)
 				{
 					float Distance = Coordinate.DistanceEstimateInMeter(new Coordinate(GC.lat, GC.lon), InitialRoute.Shape[i]) / 1000;
 					if (Distance < (profile.MaxDistance - InitialRoute.TotalDistance / 1000) / 2)
@@ -86,12 +86,15 @@ namespace GeocachingTourPlanner
 							RouterPointOfGeocache = ResolveResult.Value;
 							InitialRouteGeocaches.Add(new KeyValueTriple<Geocache, float, RouterPoint>(GC, Distance, RouterPointOfGeocache));//Push the resoved location on
 						}
+						GeocachesNotAlreadyUsed.Remove(GC); //As it s either included into the Database or not reachable
 					}
 				}
 			}
 
 			RoutingData.Add(new KeyValuePair<Route, List<KeyValueTriple<Geocache, float, RouterPoint>>>(InitialRoute, InitialRouteGeocaches));
 
+
+			#region Add Geocaches User selected to Include
 			foreach (Geocache GeocacheToAdd in GeocachesToInclude)
 			{
 				int IndexOfRouteToInsertIn = -1;
