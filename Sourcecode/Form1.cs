@@ -734,28 +734,9 @@ namespace GeocachingTourPlanner
 			}
 			#endregion
 
-			#region create router
-			if (Program.RouterDB.IsEmpty)
-			{
-				if (Program.DB.RouterDB_Filepath != null)
-				{
-					using (var stream = new FileInfo(Program.DB.RouterDB_Filepath).OpenRead())
-					{
-						Program.RouterDB = RouterDb.Deserialize(stream);
-					}
-				}
-				else
-				{
-					MessageBox.Show("Import or set RouterDB before creating route!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					Application.UseWaitCursor = false;
-					return;
-				}
-			}
+					
 
-			Router router = new Router(Program.RouterDB);
-			#endregion
-
-			KeyValuePair<Route, List<Geocache>> Result = Tourplanning.GetRoute(router, SelectedProfile, Program.Geocaches.ToList(), new Coordinate(StartLat, StartLon), new Coordinate(EndLat, EndLon), GeocachesToInclude);
+			KeyValuePair<Route, List<Geocache>> Result = Tourplanning.GetRoute(SelectedProfile, Program.Geocaches.ToList(), new Coordinate(StartLat, StartLon), new Coordinate(EndLat, EndLon), GeocachesToInclude);
 
 
 			if (Result != null)

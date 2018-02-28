@@ -23,6 +23,15 @@ Benchamark: Killisfeldstraße Haltestelle: Car 50km shortest
 		
 		
 Same Route, Single vs Multicore:
-Single: Resolving took 26,604485 seconds
-		Routing took 38,2841001seconds
-		Inserting took 0,1950334seconds
+Single: 		Resolving took 26,604485 seconds
+				Routing took 38,2841001seconds
+				Inserting took 0,1950334seconds
+Multicore v_1:	Resolving took 16,6069411 seconds
+				Routing took 33,9258743seconds
+				Inserting took 0,0299624seconds
+Multicore v_2:	Resolving took 5,9773339 seconds
+				Routing took 34,7529567seconds
+				Inserting took 0,0599585seconds
+Multicore v_3:	Resolving took 5,4303039 seconds
+				Routing took 31,599754seconds
+				Inserting took 0,0149867seconds
