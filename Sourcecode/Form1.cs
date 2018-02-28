@@ -78,14 +78,19 @@ namespace GeocachingTourPlanner
 				}
 
 				// write the routerdb to disk.
+
 				if (Program.DB.RouterDB_Filepath == null)
 				{
 					Program.DB.RouterDB_Filepath = "OSM.routerdb";
 				}
-				using (var stream = new FileInfo(Program.DB.RouterDB_Filepath).Open(FileMode.Create))
+				Task Serialize = Task.Factory.StartNew(() =>
 				{
-					Program.RouterDB.Serialize(stream);
-				}
+					//just let it run in background
+					using (var stream = new FileInfo(Program.DB.RouterDB_Filepath).Open(FileMode.Create))
+					{
+						Program.RouterDB.Serialize(stream);
+					}
+				});
 
 				Program.Backup(null);
 			}
@@ -1135,5 +1140,88 @@ namespace GeocachingTourPlanner
 				EditRatingprofileCombobox.Text = SelectedRatingprofileCombobox.Text;
 			}
 		}
+
+		#region Settings
+		private void EveryNthPointTextBox_TextChanged(object sender, EventArgs e)
+		{
+			if(int.TryParse(EveryNthPointTextBox.Text,out int value)){
+				Program.DB.EveryNthShapepoint = value;
+				Program.Backup(null);
+			}
+			else if(EveryNthPointTextBox.Text.Length!=0)
+			{
+				MessageBox.Show("Enter valid integers only.");
+			}
+		}
+
+		private void DivisorTextBox_TextChanged(object sender, EventArgs e)
+		{
+			if (int.TryParse(DivisorTextBox.Text, out int value))
+			{
+				if (value == 0)
+				{
+					MessageBox.Show("Can't divide through 0");
+				}
+				else
+				{
+					Program.DB.Divisor = value;
+					Program.Backup(null);
+				}
+			}
+			else if(DivisorTextBox.Text.Length!=0)
+			{
+				MessageBox.Show("Enter valid integers only.");
+			}
+		}
+
+		private void ToleranceTextBox_TextChanged(object sender, EventArgs e)
+		{
+			if (int.TryParse(ToleranceTextBox.Text, out int value))
+			{
+				Program.DB.Tolerance = value;
+				Program.Backup(null);
+			}
+			else if (ToleranceTextBox.Text.Length != 0)
+			{
+				MessageBox.Show("Enter valid integers only.");
+			}
+			
+		}
+
+		private void RoutefindingWidth_Textbox_TextChanged(object sender, EventArgs e)
+		{
+			if (int.TryParse(RoutefindingWidth_Textbox.Text, out int value))
+			{
+				Program.DB.RoutefindingWidth = value;
+				Program.Backup(null);
+			}
+			else if (ToleranceTextBox.Text.Length != 0)
+			{
+				MessageBox.Show("Enter valid integers only.");
+			}
+		}
+
+		private void RouterModeCombobox_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			Program.DB.RouterMode =(RouterMode)RouterModeCombobox.SelectedIndex;//As they are in the correct order
+		}
+
+		public void UpdateSettingsTextBoxes()
+		{
+			if (Program.DB.Divisor == 0)
+			{
+				Program.DB.Divisor = 3;//Here agian, as this would be fatal.
+			}
+			EveryNthPointTextBox.Text = Program.DB.EveryNthShapepoint.ToString();
+			DivisorTextBox.Text = Program.DB.Divisor.ToString();
+			ToleranceTextBox.Text = Program.DB.Tolerance.ToString();
+			RoutefindingWidth_Textbox.Text = Program.DB.RoutefindingWidth.ToString();
+			RouterModeCombobox.SelectedIndex = (int)Program.DB.RouterMode;
+		}
+
+
+		#endregion
+
+		
 	}
 }

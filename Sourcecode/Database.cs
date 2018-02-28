@@ -48,6 +48,9 @@ namespace GeocachingTourPlanner
 
 		public RouterMode RouterMode { get; set; }
 		public int EveryNthShapepoint { get; set; }
+		public int Divisor { get; set; }
+		public int Tolerance { get; set; }
+		public int RoutefindingWidth { get; set; }
 
 		#region Methods
 		/// <summary>

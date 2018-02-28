@@ -79,7 +79,11 @@ namespace GeocachingTourPlanner
 				//Set default settings
 				DB.EveryNthShapepoint = 25;//Wild guess, should be approx every .5 km
 				DB.RouterMode = RouterMode.On_the_go;
+				DB.Tolerance = 500;
+				DB.Divisor = 4;
 			}
+
+			MainWindow.UpdateSettingsTextBoxes();
 
 			if (DB.RouterDB_Filepath != null)
 			{
@@ -105,6 +109,14 @@ namespace GeocachingTourPlanner
 			if (DB.RouterMode == 0)
 			{
 				DB.RouterMode = RouterMode.On_the_go;
+			}
+			if (DB.Divisor == 0)
+			{
+				DB.Divisor = 3;
+			}
+			if (DB.RoutefindingWidth == 0)
+			{
+				DB.RoutefindingWidth = 2;
 			}
 			#endregion
 			MainWindow.GeocacheTable.DataSource = Geocaches;
