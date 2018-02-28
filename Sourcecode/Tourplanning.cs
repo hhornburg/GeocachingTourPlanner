@@ -71,6 +71,7 @@ namespace GeocachingTourPlanner
 			CurrentRouteDistance = InitialRoute.TotalDistance;
 			CurrentRouteTime = InitialRoute.TotalTime;
 
+			DateTime ResolvingTime = DateTime.Now;
 			List<Geocache> GeocachesNotAlreadyUsed = new List<Geocache>(AllGeocaches);
 			for (int i = 0; i < InitialRoute.Shape.Length; i += Program.DB.EveryNthShapepoint)
 			{
@@ -92,6 +93,8 @@ namespace GeocachingTourPlanner
 					}
 				}
 			}
+
+			Log.AppendLine("Resolving took " + (DateTime.Now - ResolvingTime).TotalSeconds + " seconds");
 			
 			RoutingData.Add(new KeyValuePair<Route, List<KeyValueTriple<Geocache, float, RouterPoint>>>(InitialRoute, InitialRouteGeocaches));
 
@@ -188,6 +191,8 @@ namespace GeocachingTourPlanner
 
 			StringBuilder Log = new StringBuilder();
 			int iterationcounter = 0;
+			TimeSpan RouteCalculationTime = TimeSpan.Zero;
+			TimeSpan InsertingTime = TimeSpan.Zero;
 			Log.AppendLine("Entered CalculateRouteToEnd");
 
 			//Values
@@ -278,8 +283,11 @@ namespace GeocachingTourPlanner
 					GeocachesOnRoute.Add(GeocacheToAdd.Key);
 					RoutingData[IndexOfRouteToInsertIn].Value.RemoveAt(IndexOfGeocacheToInsert);// As it is no longer a new target
 
+					
 					Route NewPart1 = null;
+					DateTime RoutingStart = DateTime.Now;
 					Result<Route> Result1 = router.TryCalculate(profile.ItineroProfile.profile, router.Resolve(profile.ItineroProfile.profile, RouteToInsertIn.Shape[0]), GeocacheToAdd.Value2);
+					RouteCalculationTime += DateTime.Now- RoutingStart ;
 					if (Result1.IsError)
 					{
 						Log.AppendLine("Route calculation failed.");
@@ -296,7 +304,9 @@ namespace GeocachingTourPlanner
 						NewPart1 = Result1.Value;
 
 						Route NewPart2 = null;
+						DateTime RoutingStart2 = DateTime.Now;
 						Result<Route> Result2 = router.TryCalculate(profile.ItineroProfile.profile, GeocacheToAdd.Value2, router.Resolve(profile.ItineroProfile.profile, RouteToInsertIn.Shape[RouteToInsertIn.Shape.Length - 1]));
+						RouteCalculationTime += DateTime.Now-RoutingStart2;
 						if (Result2.IsError)
 						{
 							Log.AppendLine("Route calculation failed.");
@@ -338,7 +348,9 @@ namespace GeocachingTourPlanner
 
 							if (LastCurrentRoutePoints <= CurrentRoutePoints)
 							{
+								DateTime Startinsertg = DateTime.Now;
 								InsertRoute(profile, RoutingData, NewPart1, NewPart2, IndexOfRouteToInsertIn, CurrentRouteDistance);
+								InsertingTime += DateTime.Now- Startinsertg;
 							}
 							else
 							{
@@ -376,6 +388,8 @@ namespace GeocachingTourPlanner
 			}
 
 			Log.AppendLine("Done after " + iterationcounter + " iterations");
+			Log.AppendLine("Routing took " + RouteCalculationTime.TotalSeconds + "seconds");
+			Log.AppendLine("Inserting took " + InsertingTime.TotalSeconds + "seconds");
 
 			File.AppendAllText("Routerlog.txt", Log.ToString());
 
