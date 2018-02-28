@@ -72,28 +72,30 @@ namespace GeocachingTourPlanner
 			CurrentRouteDistance = InitialRoute.TotalDistance;
 			CurrentRouteTime = InitialRoute.TotalTime;
 
+			DateTime ResolvingTime = DateTime.Now;
 			List<Geocache> GeocachesNotAlreadyUsed = new List<Geocache>(AllGeocaches);
 			for (int i = 0; i < InitialRoute.Shape.Length; i += Program.DB.EveryNthShapepoint)
 			{
-				foreach (Geocache GC in new List<Geocache>(GeocachesNotAlreadyUsed))
-				{
-					float Distance = Coordinate.DistanceEstimateInMeter(new Coordinate(GC.lat, GC.lon), InitialRoute.Shape[i]);
+				Parallel.ForEach(new List<Geocache>(GeocachesNotAlreadyUsed), GC =>
+			   {
+				   float Distance = Coordinate.DistanceEstimateInMeter(new Coordinate(GC.lat, GC.lon), InitialRoute.Shape[i]);
 					//float Distance = MyDistance(new Coordinate(GC_KVT.Key.lat, GC_KVT.Key.lon), NewPart2.Shape[i]);//TODO Check which takes less processor time
-					if (Distance < (profile.MaxDistance *1000 - CurrentRouteDistance) / 2)
-					{
-						RouterPoint RouterPointOfGeocache = null;
-						Result<RouterPoint> ResolveResult = router.TryResolve(profile.ItineroProfile.profile, GC.lat, GC.lon);
-						if (!ResolveResult.IsError)
-						{
-							RouterPointOfGeocache = ResolveResult.Value;
+					if (Distance < (profile.MaxDistance * 1000 - CurrentRouteDistance) / 2)
+				   {
+					   RouterPoint RouterPointOfGeocache = null;
+					   Result<RouterPoint> ResolveResult = router.TryResolve(profile.ItineroProfile.profile, GC.lat, GC.lon);
+					   if (!ResolveResult.IsError)
+					   {
+						   RouterPointOfGeocache = ResolveResult.Value;
 							//TODO Currently it takes the first route it can snap the cache to. NOT optimal
 							InitialRouteGeocaches.Add(new KeyValueTriple<Geocache, float, RouterPoint>(GC, Distance, RouterPointOfGeocache));//Push the resoved location on
 						}
 						//GeocachesNotAlreadyUsed.Remove(GC); //As it s either included into the Database or not reachable
 					}
-				}
+			   });
 			}
-			
+			Log.AppendLine("Resolving took " + (DateTime.Now - ResolvingTime).TotalSeconds + " seconds");
+
 			RoutingData.Add(new KeyValuePair<Route, List<KeyValueTriple<Geocache, float, RouterPoint>>>(InitialRoute, InitialRouteGeocaches));
 
 
@@ -125,6 +127,7 @@ namespace GeocachingTourPlanner
 				}
 
 				IteratingDone:
+				//TODO Multithread
 				if (IndexOfGeocacheToAdd > 0)
 				{
 					Route NewPart1 = null;
@@ -189,6 +192,8 @@ namespace GeocachingTourPlanner
 
 			StringBuilder Log = new StringBuilder();
 			int iterationcounter = 0;
+			TimeSpan RouteCalculationTime = TimeSpan.Zero;
+			TimeSpan InsertingTime = TimeSpan.Zero;
 			Log.AppendLine("Entered CalculateRouteToEnd");
 
 			//Values
@@ -279,6 +284,7 @@ namespace GeocachingTourPlanner
 					GeocachesOnRoute.Add(GeocacheToAdd.Key);
 					RoutingData[IndexOfRouteToInsertIn].Value.RemoveAt(IndexOfGeocacheToInsert);// As it is no longer a new target
 
+					DateTime RoutingStart = DateTime.Now;
 					Route NewPart1 = null;
 					Task<bool> Calculate1 = Task<bool>.Factory.StartNew(() =>
 					{
@@ -310,6 +316,7 @@ namespace GeocachingTourPlanner
 					});
 
 					Task.WaitAll(Calculate1, Calculate2);
+					RouteCalculationTime += DateTime.Now - RoutingStart;
 
 					if (!(Calculate1.Result && Calculate2.Result))
 					{
@@ -350,7 +357,9 @@ namespace GeocachingTourPlanner
 
 						if (LastCurrentRoutePoints <= CurrentRoutePoints)
 						{
+							DateTime Startinsertg = DateTime.Now;
 							InsertIntoRoute(profile, RoutingData, NewPart1, NewPart2, IndexOfRouteToInsertIn, CurrentRouteDistance);
+							InsertingTime += DateTime.Now - Startinsertg;
 						}
 						else
 						{
@@ -388,6 +397,8 @@ namespace GeocachingTourPlanner
 			}
 
 			Log.AppendLine("Done after " + iterationcounter + " iterations");
+			Log.AppendLine("Routing took " + RouteCalculationTime.TotalSeconds + "seconds");
+			Log.AppendLine("Inserting took " + InsertingTime.TotalSeconds + "seconds");
 
 			File.AppendAllText("Routerlog.txt", Log.ToString());
 
