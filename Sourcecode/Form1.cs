@@ -19,6 +19,7 @@ using Itinero.IO.Osm;
 using System.Xml;
 using Itinero.LocalGeo;
 using static Itinero.Route;
+using System.Threading;
 
 namespace GeocachingTourPlanner
 {
@@ -562,7 +563,7 @@ namespace GeocachingTourPlanner
 		/// <summary>
 		/// Updates Map
 		/// </summary>
-		private void LoadMap()
+		public void LoadMap()
 		{
 			//Remove all geocache (and only the geocache!) overlays
 			if (Map.Overlays.Where(x => x.Id == "TopOverlay").Count() > 0)
@@ -739,65 +740,12 @@ namespace GeocachingTourPlanner
 			}
 			#endregion
 
-					
-
-			KeyValuePair<Route, List<Geocache>> Result = Tourplanning.GetRoute(SelectedProfile, Program.Geocaches.ToList(), new Coordinate(StartLat, StartLon), new Coordinate(EndLat, EndLon), GeocachesToInclude);
-
-
-			if (Result != null)
+			new Thread(new ThreadStart(() =>
 			{
-				#region Display on Map
-
-				Route FinalRoute = Result.Key;
-				List<Geocache> GeocachesOnRoute = Result.Value;
-
-				//Name of the route which will be used for all further referencing
-				string Routetag = SelectedProfile.Name + " Route " + (SelectedProfile.RoutesOfthisType + 1);
-
-				Program.Routes.Add(new KeyValueTriple<string, Route, List<Geocache>>(Routetag, Result.Key, Result.Value));
-				List<PointLatLng> GMAPRoute = new List<PointLatLng>();
-
-				foreach (Coordinate COO in FinalRoute.Shape)
-				{
-					GMAPRoute.Add(new PointLatLng(COO.Latitude, COO.Longitude));
-				}
-
-
-				SelectedProfile.RoutesOfthisType++;
-
-				GMapOverlay RouteOverlay = new GMapOverlay(Routetag);
-				RouteOverlay.Routes.Add(new GMapRoute(GMAPRoute, Routetag));
-				foreach (Geocache GC in GeocachesOnRoute)
-				{
-					GMapMarker GCMarker = null;
-					//Three Categories => Thirds of the Point range
-					if (GC.Rating > (Program.DB.MinimalRating) + 0.66 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
-					{
-						GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.green_small);
-						RouteOverlay.Markers.Add(GCMarker);
-					}
-					else if (GC.Rating > (Program.DB.MinimalRating) + 0.33 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
-					{
-						GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.yellow_small);
-						RouteOverlay.Markers.Add(GCMarker);
-					}
-					else
-					{
-						GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.red_small);
-						RouteOverlay.Markers.Add(GCMarker);
-					}
-
-					GCMarker.ToolTipText = GC.GCCODE + "\n" + GC.Name + "\n" + GC.Type + "(" + GC.DateHidden.Date.ToString().Remove(10) + ")\nD-Wertung: " + GC.DRating + "\nT-Wertung: " + GC.TRating + "\nBewertung: " + GC.Rating;
-					GCMarker.Tag = GC.GCCODE;
-				}
-				#endregion
-
-				Application.UseWaitCursor = false;
-				Map.Overlays.Add(RouteOverlay);
-				newRouteControlElement(Routetag);
-				Map_Load(null,null);
-
+				Tourplanning.GetRoute(SelectedProfile, Program.Geocaches.ToList(), new Coordinate(StartLat, StartLon), new Coordinate(EndLat, EndLon), GeocachesToInclude);
 			}
+			)).Start();
+
 		}
 
 		#region Geocachecheckboxes
