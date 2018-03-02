@@ -742,7 +742,7 @@ namespace GeocachingTourPlanner
 
 			new Thread(new ThreadStart(() =>
 			{
-				Tourplanning.GetRoute(SelectedProfile, Program.Geocaches.ToList(), new Coordinate(StartLat, StartLon), new Coordinate(EndLat, EndLon), GeocachesToInclude);
+				new Tourplanning().GetRoute(SelectedProfile, Program.Geocaches.ToList(), new Coordinate(StartLat, StartLon), new Coordinate(EndLat, EndLon), GeocachesToInclude);
 			}
 			)).Start();
 
@@ -789,60 +789,163 @@ namespace GeocachingTourPlanner
 		#endregion
 
 		#region Routes
+		delegate void newRouteControlElementDelegate(string OverlayTag);
 		public void newRouteControlElement(string OverlayTag)
 		{
-			GroupBox groupBox = new GroupBox();
-			groupBox.Text = OverlayTag;
-			groupBox.Width = 200;
-			groupBox.Height = 80;
-
-			TableLayoutPanel Table = new TableLayoutPanel();
-			Table.RowCount = 2;
-			Table.ColumnCount = 2;
-			Table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent,0.5f));
-			Table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 0.5f));
-			Table.RowStyles.Add(new RowStyle(SizeType.Percent, 0.5f));
-			Table.RowStyles.Add(new RowStyle(SizeType.Percent, 0.5f));
-			Table.Dock = DockStyle.Fill;
-			groupBox.Controls.Add(Table);
-
-			CheckBox RouteControl = new CheckBox();
-			RouteControl.Text = "show";
-			RouteControl.AutoSize = true;
-			RouteControl.Checked = true;
-			RouteControl.CheckedChanged += (sender, e) => RouteControlElement_CheckedChanged(sender, OverlayTag);
-			RouteControl.Dock = DockStyle.Fill;
-			Table.Controls.Add(RouteControl, 0, 0);
-
-			Label Info = new Label();
-			List<Geocache> GeocachesOnRoute = Program.Routes.First(x => x.Key == OverlayTag).Value2;
-			int NumberOfGeocaches = GeocachesOnRoute.Count;
-			float SumOfPoints = 0;
-			foreach(Geocache GC in GeocachesOnRoute)
+			if (MapTab_SideMenu.InvokeRequired == false)
 			{
-				SumOfPoints += GC.Rating;
+
+
+				GroupBox groupBox = new GroupBox();
+				groupBox.Text = OverlayTag;
+				groupBox.Width = 200;
+				groupBox.Height = 80;
+
+				TableLayoutPanel Table = new TableLayoutPanel();
+				Table.RowCount = 2;
+				Table.ColumnCount = 2;
+				Table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 0.5f));
+				Table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 0.5f));
+				Table.RowStyles.Add(new RowStyle(SizeType.Percent, 0.5f));
+				Table.RowStyles.Add(new RowStyle(SizeType.Percent, 0.5f));
+				Table.Dock = DockStyle.Fill;
+				groupBox.Controls.Add(Table);
+
+				CheckBox RouteControl = new CheckBox();
+				RouteControl.Text = "show";
+				RouteControl.AutoSize = true;
+				RouteControl.Checked = true;
+				RouteControl.CheckedChanged += (sender, e) => RouteControlElement_CheckedChanged(sender, OverlayTag);
+				RouteControl.Dock = DockStyle.Fill;
+				Table.Controls.Add(RouteControl, 0, 0);
+
+				Label Info = new Label();
+				List<Geocache> GeocachesOnRoute = Program.Routes.First(x => x.Key == OverlayTag).Value2;
+				int NumberOfGeocaches = GeocachesOnRoute.Count;
+				float SumOfPoints = 0;
+				foreach (Geocache GC in GeocachesOnRoute)
+				{
+					SumOfPoints += GC.Rating;
+				}
+				Info.Text = "Geocaches: " + NumberOfGeocaches + "\n Points: " + SumOfPoints;
+				Info.Dock = DockStyle.Fill;
+				Table.Controls.Add(Info, 1, 0);
+
+				Button DeleteButton = new Button();
+				DeleteButton.Text = "Delete";
+				DeleteButton.Click += (sender, e) => DeleteButton_Click(sender, e, OverlayTag);
+				DeleteButton.Dock = DockStyle.Fill;
+				Table.Controls.Add(DeleteButton, 0, 1);
+
+				Button ExportButton = new Button();
+				ExportButton.Text = "Export";
+				ExportButton.Click += (sender, e) => Export_Click(OverlayTag);
+				ExportButton.Dock = DockStyle.Fill;
+				Table.Controls.Add(ExportButton, 1, 1);
+
+				MapTab_SideMenu.RowCount++;
+				MapTab_SideMenu.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+				MapTab_SideMenu.Controls.Add(groupBox, 0, MapTab_SideMenu.RowCount);
+				RouteControl.Show();
 			}
-			Info.Text = "Geocaches: " + NumberOfGeocaches + "\n Points: " + SumOfPoints;
-			Info.Dock = DockStyle.Fill;
-			Table.Controls.Add(Info, 1, 0);
-			
-			Button DeleteButton = new Button();
-			DeleteButton.Text = "Delete";
-			DeleteButton.Click += (sender, e) => DeleteButton_Click(sender, e, OverlayTag);
-			DeleteButton.Dock = DockStyle.Fill;
-			Table.Controls.Add(DeleteButton, 0, 1);
-
-			Button ExportButton = new Button();
-			ExportButton.Text = "Export";
-			ExportButton.Click += (sender, e) => Export_Click(OverlayTag);
-			ExportButton.Dock = DockStyle.Fill;
-			Table.Controls.Add(ExportButton, 1, 1);
-
-			MapTab_SideMenu.RowCount++;
-			MapTab_SideMenu.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-			MapTab_SideMenu.Controls.Add(groupBox, 0,MapTab_SideMenu.RowCount);
-			RouteControl.Show();
+			else
+			{
+				newRouteControlElementDelegate dg = new newRouteControlElementDelegate(newRouteControlElement);
+				Invoke(dg, OverlayTag);
+			}
 		}
+
+		delegate void AddFinalRouteDelegate(KeyValuePair<Route, List<Geocache>> Result, Routingprofile profile);
+		public void AddFinalRoute(KeyValuePair<Route, List<Geocache>> Result, Routingprofile profile)
+		{
+			if (Map.InvokeRequired == false)
+			{
+				Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "PreliminaryRoute"));//Remove the live displayed routes
+
+				Route FinalRoute = Result.Key;
+				List<Geocache> GeocachesOnRoute = Result.Value; //Should be the same but anyways.
+
+				//Name of the route which will be used for all further referencing
+				string Routetag = profile.Name + " Route " + (profile.RoutesOfthisType + 1);
+
+				Program.Routes.Add(new KeyValueTriple<string, Route, List<Geocache>>(Routetag, Result.Key, Result.Value));
+				List<PointLatLng> GMAPRoute = new List<PointLatLng>();
+
+				foreach (Coordinate COO in FinalRoute.Shape)
+				{
+					GMAPRoute.Add(new PointLatLng(COO.Latitude, COO.Longitude));
+				}
+
+
+				profile.RoutesOfthisType++;
+
+				GMapOverlay RouteOverlay = new GMapOverlay(Routetag);
+				RouteOverlay.Routes.Add(new GMapRoute(GMAPRoute, Routetag));
+				foreach (Geocache GC in GeocachesOnRoute)
+				{
+					GMapMarker GCMarker = null;
+					//Three Categories => Thirds of the Point range
+					if (GC.Rating > (Program.DB.MinimalRating) + 0.66 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
+					{
+						GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.green_small);
+						RouteOverlay.Markers.Add(GCMarker);
+					}
+					else if (GC.Rating > (Program.DB.MinimalRating) + 0.33 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
+					{
+						GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.yellow_small);
+						RouteOverlay.Markers.Add(GCMarker);
+					}
+					else
+					{
+						GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.red_small);
+						RouteOverlay.Markers.Add(GCMarker);
+					}
+
+					GCMarker.ToolTipText = GC.GCCODE + "\n" + GC.Name + "\n" + GC.Type + "(" + GC.DateHidden.Date.ToString().Remove(10) + ")\nD-Wertung: " + GC.DRating + "\nT-Wertung: " + GC.TRating + "\nBewertung: " + GC.Rating;
+					GCMarker.Tag = GC.GCCODE;
+				}
+
+				Map.Overlays.Add(RouteOverlay);
+				newRouteControlElement(Routetag);
+			}
+			else
+			{
+				AddFinalRouteDelegate dg = new AddFinalRouteDelegate(AddFinalRoute);
+				Invoke(dg,new object[]{ Result,profile});
+			}
+		}
+
+		/* It kills performace and doesn't work properly
+		delegate void DisplayPreliminaryRouteDelegate(List<KeyValuePair<Route, List<KeyValueTriple<Geocache, float, RouterPoint>>>> RoutingData);
+		public void DisplayPreliminaryRoute(List<KeyValuePair<Route, List<KeyValueTriple<Geocache, float, RouterPoint>>>> RoutingData)
+		{
+			if (Map.InvokeRequired == false)
+			{
+				if (Program.MainWindow.Map.Overlays.Count(x => x.Id == "PreliminaryRoute") != 0)
+				{
+					Program.MainWindow.Map.Overlays.Remove(Program.MainWindow.Map.Overlays.First(x => x.Id == "PreliminaryRoute"));
+				}
+
+				List<PointLatLng> GMAPRoute = new List<PointLatLng>();
+
+				foreach (KeyValuePair<Route, List<KeyValueTriple<Geocache, float, RouterPoint>>> route in RoutingData)
+				{
+					foreach (Coordinate COO in route.Key.Shape)
+					{
+						GMAPRoute.Add(new PointLatLng(COO.Latitude, COO.Longitude));
+					}
+				}
+				GMapOverlay RouteOverlay = new GMapOverlay("PreliminaryRoute");
+				RouteOverlay.Routes.Add(new GMapRoute(GMAPRoute, "PreliminaryRoute"));
+				Program.MainWindow.Map.Overlays.Add(RouteOverlay);
+			}
+			else
+			{
+				DisplayPreliminaryRouteDelegate dg = new DisplayPreliminaryRouteDelegate(DisplayPreliminaryRoute);
+				Invoke(dg, new object[] { RoutingData });
+			}
+		}
+		*/
 
 		private void DeleteButton_Click(object sender, EventArgs e, string OverlayTag)
 		{
