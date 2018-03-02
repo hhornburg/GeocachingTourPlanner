@@ -851,7 +851,7 @@ namespace GeocachingTourPlanner
 			else
 			{
 				newRouteControlElementDelegate dg = new newRouteControlElementDelegate(newRouteControlElement);
-				Invoke(dg, OverlayTag);
+				BeginInvoke(dg, OverlayTag);
 			}
 		}
 
@@ -860,7 +860,7 @@ namespace GeocachingTourPlanner
 		{
 			if (Map.InvokeRequired == false)
 			{
-				Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "PreliminaryRoute"));//Remove the live displayed routes
+				//Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "PreliminaryRoute"));//Remove the live displayed routes
 
 				Route FinalRoute = Result.Key;
 				List<Geocache> GeocachesOnRoute = Result.Value; //Should be the same but anyways.
@@ -911,7 +911,7 @@ namespace GeocachingTourPlanner
 			else
 			{
 				AddFinalRouteDelegate dg = new AddFinalRouteDelegate(AddFinalRoute);
-				Invoke(dg,new object[]{ Result,profile});
+				BeginInvoke(dg,new object[]{ Result,profile});
 			}
 		}
 
@@ -942,7 +942,7 @@ namespace GeocachingTourPlanner
 			else
 			{
 				DisplayPreliminaryRouteDelegate dg = new DisplayPreliminaryRouteDelegate(DisplayPreliminaryRoute);
-				Invoke(dg, new object[] { RoutingData });
+				BeginInvoke(dg, new object[] { RoutingData });
 			}
 		}
 		*/

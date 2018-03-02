@@ -172,7 +172,7 @@ namespace GeocachingTourPlanner
 							CurrentRouteTime += NewPart1.TotalTime;
 							CurrentRouteTime += NewPart2.TotalTime;
 
-							InsertIntoRoute(profile, RoutingData, NewPart1, NewPart2, IndexOfRouteToInsertIn, CurrentRouteDistance);
+							InsertIntoRoute(NewPart1, NewPart2, IndexOfRouteToInsertIn);
 							GeocachesOnRoute.Add(GeocacheToAdd);
 						}
 
@@ -229,7 +229,7 @@ namespace GeocachingTourPlanner
 
 			File.AppendAllText("Routerlog.txt", Log.ToString());
 
-			KeyValuePair<Route, List<Geocache>> Result = CalculateRouteToEnd(Router1, Router2, profile, RoutingData, GeocachesOnRoute, CurrentRouteDistance, CurrentRouteTime);
+			KeyValuePair<Route, List<Geocache>> Result = CalculateRouteToEnd();
 
 			Log = new StringBuilder();
 			Log.AppendLine("Time after routing finished:" + DateTime.Now);
@@ -448,7 +448,7 @@ namespace GeocachingTourPlanner
 
 		}
 
-		private static KeyValuePair<Route, List<Geocache>> CalculateRouteToEnd(Router router1, Router router2, Routingprofile profile, List<KeyValuePair<Route, List<KeyValueTriple<Geocache, float, RouterPoint>>>> RoutingData, List<Geocache> GeocachesOnRoute, float CurrentRouteDistance, float CurrentRouteTime)
+		private static KeyValuePair<Route, List<Geocache>> CalculateRouteToEnd()
 		{
 			//ALWAYS keep RoutingDataList sorted by the way it came. It determines the direction of the route.
 
@@ -554,7 +554,7 @@ namespace GeocachingTourPlanner
 					Route NewPart1 = null;
 					Thread Calculate1 = new Thread(new ThreadStart( () =>
 					{
-						Result<Route> Result1 = router1.TryCalculate(SelectedProfile.ItineroProfile.profile, router1.Resolve(SelectedProfile.ItineroProfile.profile, RouteToInsertIn.Shape[0]), GeocacheToAdd.Value2);
+						Result<Route> Result1 = Router1.TryCalculate(SelectedProfile.ItineroProfile.profile, Router1.Resolve(SelectedProfile.ItineroProfile.profile, RouteToInsertIn.Shape[0]), GeocacheToAdd.Value2);
 						if (!Result1.IsError)
 						{
 							NewPart1 = Result1.Value;
@@ -564,7 +564,7 @@ namespace GeocachingTourPlanner
 					Route NewPart2 = null;
 					Thread Calculate2 = new Thread(new ThreadStart(() =>
 					{
-						Result<Route> Result2 = router2.TryCalculate(SelectedProfile.ItineroProfile.profile, GeocacheToAdd.Value2, router2.Resolve(SelectedProfile.ItineroProfile.profile, RouteToInsertIn.Shape[RouteToInsertIn.Shape.Length - 1]));
+						Result<Route> Result2 = Router2.TryCalculate(SelectedProfile.ItineroProfile.profile, GeocacheToAdd.Value2, Router2.Resolve(SelectedProfile.ItineroProfile.profile, RouteToInsertIn.Shape[RouteToInsertIn.Shape.Length - 1]));
 						if (!Result2.IsError)
 						{
 							NewPart2 = Result2.Value;
@@ -603,24 +603,24 @@ namespace GeocachingTourPlanner
 						CurrentRouteTime += NewPart1.TotalTime;
 						CurrentRouteTime += NewPart2.TotalTime;
 
-						Log.AppendLine("New Route calculated.\nLength (Max Length) in km:" + CurrentRouteDistance / 1000 + " (" + profile.MaxDistance + ") \nTime (Max Time) in min: " + (CurrentRouteTime / 60 + GeocachesOnRoute.Count * profile.TimePerGeocache) + " (" + profile.MaxTime + ")\nGeocaches:" + GeocachesOnRoute.Count);
+						Log.AppendLine("New Route calculated.\nLength (Max Length) in km:" + CurrentRouteDistance / 1000 + " (" + SelectedProfile.MaxDistance + ") \nTime (Max Time) in min: " + (CurrentRouteTime / 60 + GeocachesOnRoute.Count * SelectedProfile.TimePerGeocache) + " (" + SelectedProfile.MaxTime + ")\nGeocaches:" + GeocachesOnRoute.Count);
 
 						CurrentRoutePoints += GeocacheToAdd.Key.Rating;
 
-						if (CurrentRouteDistance > profile.MaxDistance * 1000)
+						if (CurrentRouteDistance > SelectedProfile.MaxDistance * 1000)
 						{
-							CurrentRoutePoints -= (CurrentRouteDistance - profile.MaxDistance * 1000) * profile.PenaltyPerExtraKM / 1000;
+							CurrentRoutePoints -= (CurrentRouteDistance - SelectedProfile.MaxDistance * 1000) * SelectedProfile.PenaltyPerExtraKM / 1000;
 						}
-						if (CurrentRouteTime / 60 + GeocachesOnRoute.Count * profile.TimePerGeocache > profile.MaxTime)
+						if (CurrentRouteTime / 60 + GeocachesOnRoute.Count * SelectedProfile.TimePerGeocache > SelectedProfile.MaxTime)
 						{
-							CurrentRoutePoints -= (CurrentRouteTime / 60 - profile.MaxTime) * profile.PenaltyPerExtra10min / 10;
+							CurrentRoutePoints -= (CurrentRouteTime / 60 - SelectedProfile.MaxTime) * SelectedProfile.PenaltyPerExtra10min / 10;
 						}
 						Log.AppendLine("New Points:" + CurrentRoutePoints + " Old Points:" + LastCurrentRoutePoints);
 
 						if (LastCurrentRoutePoints <= CurrentRoutePoints)
 						{
 							DateTime Startinsertg = DateTime.Now;
-							InsertIntoRoute(profile, RoutingData, NewPart1, NewPart2, IndexOfRouteToInsertIn, CurrentRouteDistance);
+							InsertIntoRoute(NewPart1, NewPart2, IndexOfRouteToInsertIn);
 							InsertingTime += DateTime.Now - Startinsertg;
 						}
 						else
@@ -668,7 +668,7 @@ namespace GeocachingTourPlanner
 			return new KeyValuePair<Route, List<Geocache>>(FinalRoute, GeocachesOnRoute);
 		}
 
-		private static void InsertIntoRoute(Routingprofile profile, List<KeyValuePair<Route, List<KeyValueTriple<Geocache, float, RouterPoint>>>> RoutingData, Route NewPart1, Route NewPart2, int IndexOfRouteToReplace, float CurrentRouteDistance)
+		private static void InsertIntoRoute(Route NewPart1, Route NewPart2, int IndexOfRouteToReplace)
 		{
 			List<KeyValueTriple<Geocache, float, RouterPoint>> NewPart1Geocaches = new List<KeyValueTriple<Geocache, float, RouterPoint>>();
 			List<KeyValueTriple<Geocache, float, RouterPoint>> GeocachesNotAlreadyUsedThread1 = new List<KeyValueTriple<Geocache, float, RouterPoint>>(RoutingData[IndexOfRouteToReplace].Value);
