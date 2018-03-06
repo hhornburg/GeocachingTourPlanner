@@ -909,6 +909,8 @@ namespace GeocachingTourPlanner
 
 				Map.Overlays.Add(RouteOverlay);
 				newRouteControlElement(Routetag);
+				Application.UseWaitCursor = false;
+				Map.UseWaitCursor = false;
 			}
 			else
 			{

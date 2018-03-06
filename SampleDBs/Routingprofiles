@@ -10,15 +10,6 @@
     <ItineroProfile Vehicle="bicycle" Metric="Shortest" />
   </Routingprofile>
   <Routingprofile>
-    <Name>Car</Name>
-    <MaxDistance>50</MaxDistance>
-    <PenaltyPerExtraKM>100</PenaltyPerExtraKM>
-    <MaxTime>120</MaxTime>
-    <PenaltyPerExtra10min>100</PenaltyPerExtra10min>
-    <TimePerGeocache>5</TimePerGeocache>
-    <ItineroProfile Vehicle="car" Metric="Shortest" />
-  </Routingprofile>
-  <Routingprofile>
     <Name>Pedestrian</Name>
     <MaxDistance>20</MaxDistance>
     <PenaltyPerExtraKM>100</PenaltyPerExtraKM>
@@ -26,5 +17,14 @@
     <PenaltyPerExtra10min>100</PenaltyPerExtra10min>
     <TimePerGeocache>10</TimePerGeocache>
     <ItineroProfile Vehicle="pedestrian" Metric="Shortest" />
+  </Routingprofile>
+  <Routingprofile>
+    <Name>Car</Name>
+    <MaxDistance>50</MaxDistance>
+    <PenaltyPerExtraKM>100</PenaltyPerExtraKM>
+    <MaxTime>240</MaxTime>
+    <PenaltyPerExtra10min>100</PenaltyPerExtra10min>
+    <TimePerGeocache>5</TimePerGeocache>
+    <ItineroProfile Vehicle="car" Metric="Shortest" />
   </Routingprofile>
 </ArrayOfRoutingprofile>
