@@ -337,6 +337,7 @@
 			this.Map.Size = new System.Drawing.Size(762, 432);
 			this.Map.TabIndex = 2;
 			this.Map.Zoom = 0D;
+			this.Map.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.Map_OnMarkerClick);
 			this.Map.OnMapDrag += new GMap.NET.MapDrag(this.Map_OnMapDrag);
 			this.Map.OnMapZoomChanged += new GMap.NET.MapZoomChanged(this.Map_OnMapZoomChanged);
 			this.Map.Load += new System.EventHandler(this.Map_Load);

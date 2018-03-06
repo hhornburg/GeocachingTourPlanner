@@ -602,6 +602,7 @@ namespace GeocachingTourPlanner
 					LowOverlay.Markers.Add(GCMarker);
 				}
 
+				
 				GCMarker.ToolTipText = GC.GCCODE + "\n" + GC.Name + "\n" + GC.Type + "(" + GC.DateHidden.Date.ToString().Remove(10) + ")\nD-Wertung: " + GC.DRating + "\nT-Wertung: " + GC.TRating + "\nBewertung: " + GC.Rating;
 				GCMarker.Tag = GC.GCCODE;
 			}
