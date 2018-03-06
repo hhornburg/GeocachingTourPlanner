@@ -75,7 +75,15 @@ namespace GeocachingTourPlanner
 				{
 					MainWindow.Close();
 				}
+
+				//Set default settings
+				DB.EveryNthShapepoint = 25;//Wild guess, should be approx every .5 km
+				DB.RouterMode = RouterMode.On_the_go;
+				DB.Tolerance = 500;
+				DB.Divisor = 4;
 			}
+
+			MainWindow.UpdateSettingsTextBoxes();
 
 			if (DB.RouterDB_Filepath != null)
 			{
@@ -84,7 +92,6 @@ namespace GeocachingTourPlanner
 				 RouterDB = RouterDb.Deserialize(stream);
 				}
 			}
-			Routes.ListChanged += new ListChangedEventHandler(MainWindow.Routes_ListChanged);
 			
 			//Load Ratingprofiles from the File specified in the Database
 			ReadRatingprofiles();
@@ -94,19 +101,25 @@ namespace GeocachingTourPlanner
 			ReadRoutingprofiles();
 			Backup(null);//so settings get saved in the DB. Nothing else, as it just came from the file
 
-            //Tabelleneinstellungen
-            MainWindow.GeocacheTable.DataSource = Geocaches;
-            MainWindow.GeocacheTable.Columns["GCCODE"].DisplayIndex = 0;
-            MainWindow.GeocacheTable.Columns["Name"].DisplayIndex = 1;
-            MainWindow.GeocacheTable.Columns["lat"].DisplayIndex = 2;
-            MainWindow.GeocacheTable.Columns["lon"].DisplayIndex = 3;
-            MainWindow.GeocacheTable.Columns["Type"].DisplayIndex = 4;
-            MainWindow.GeocacheTable.Columns["Size"].DisplayIndex = 5;
-            MainWindow.GeocacheTable.Columns["DRating"].DisplayIndex = 6;
-            MainWindow.GeocacheTable.Columns["TRating"].DisplayIndex = 7;
-            MainWindow.GeocacheTable.Columns["Rating"].DisplayIndex = MainWindow.GeocacheTable.ColumnCount-1;
-			//Map
-			MainWindow.Map.DisableFocusOnMouseEnter = true;//So Windows put in foreground stay in foreground
+			#region check if settings exist
+			if (DB.EveryNthShapepoint == 0)
+			{
+				DB.EveryNthShapepoint = 25;
+			}
+			if (DB.RouterMode == 0)
+			{
+				DB.RouterMode = RouterMode.On_the_go;
+			}
+			if (DB.Divisor == 0)
+			{
+				DB.Divisor = 3;
+			}
+			if (DB.RoutefindingWidth == 0)
+			{
+				DB.RoutefindingWidth = 2;
+			}
+			#endregion
+			MainWindow.GeocacheTable.DataSource = Geocaches;
 
 			Application.Run(MainWindow);
         }
@@ -222,7 +235,7 @@ namespace GeocachingTourPlanner
 		{
 			Routingprofiles.Clear();
 			StreamReader RPReader = null;
-			if (DB.CheckDatabaseFilepath(Database.Databases.Routingprofiles))//returns true if the user has set a valid database
+			if (DB.CheckDatabaseFilepath(Databases.Routingprofiles))//returns true if the user has set a valid database
 			{
 				try
 				{
@@ -254,7 +267,7 @@ namespace GeocachingTourPlanner
 		{
 			Ratingprofiles.Clear();
 			StreamReader BPReader = null;
-			if (DB.CheckDatabaseFilepath(Database.Databases.Ratingprofiles))//returns true if the user has set a valid database
+			if (DB.CheckDatabaseFilepath(Databases.Ratingprofiles))//returns true if the user has set a valid database
 			{
 				try
 				{
@@ -288,7 +301,7 @@ namespace GeocachingTourPlanner
 			Geocaches.Clear();
 			StreamReader GCReader = null;
 
-			if (DB.CheckDatabaseFilepath(Database.Databases.Geocaches))//returns true if the user has set a valid database
+			if (DB.CheckDatabaseFilepath(Databases.Geocaches))//returns true if the user has set a valid database
 			{
 				try
 				{

@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfRoutingprofile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Routingprofile>
-    <Name>Car</Name>
-    <MaxDistance>50</MaxDistance>
-    <PenaltyPerExtraKM>100</PenaltyPerExtraKM>
-    <MaxTime>120</MaxTime>
-    <PenaltyPerExtra10min>100</PenaltyPerExtra10min>
-    <TimePerGeocache>5</TimePerGeocache>
-    <ItineroProfile Vehicle="car" Metric="Fastest" />
-  </Routingprofile>
-  <Routingprofile>
-    <Name>Pedestrian</Name>
-    <MaxDistance>10</MaxDistance>
+    <Name>Bicycle</Name>
+    <MaxDistance>20</MaxDistance>
     <PenaltyPerExtraKM>100</PenaltyPerExtraKM>
     <MaxTime>240</MaxTime>
     <PenaltyPerExtra10min>100</PenaltyPerExtra10min>
     <TimePerGeocache>5</TimePerGeocache>
+    <ItineroProfile Vehicle="bicycle" Metric="Shortest" />
+  </Routingprofile>
+  <Routingprofile>
+    <Name>Pedestrian</Name>
+    <MaxDistance>20</MaxDistance>
+    <PenaltyPerExtraKM>100</PenaltyPerExtraKM>
+    <MaxTime>600</MaxTime>
+    <PenaltyPerExtra10min>100</PenaltyPerExtra10min>
+    <TimePerGeocache>10</TimePerGeocache>
     <ItineroProfile Vehicle="pedestrian" Metric="Shortest" />
+  </Routingprofile>
+  <Routingprofile>
+    <Name>Car</Name>
+    <MaxDistance>50</MaxDistance>
+    <PenaltyPerExtraKM>100</PenaltyPerExtraKM>
+    <MaxTime>240</MaxTime>
+    <PenaltyPerExtra10min>100</PenaltyPerExtra10min>
+    <TimePerGeocache>5</TimePerGeocache>
+    <ItineroProfile Vehicle="car" Metric="Shortest" />
   </Routingprofile>
 </ArrayOfRoutingprofile>
