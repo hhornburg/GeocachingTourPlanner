@@ -211,6 +211,7 @@
 			this.RouterModeCombobox = new System.Windows.Forms.ComboBox();
 			this.label59 = new System.Windows.Forms.Label();
 			this.RoutefindingWidth_Textbox = new System.Windows.Forms.TextBox();
+			this.LiveDisplayRouteCalculationCheckbox = new System.Windows.Forms.CheckBox();
 			this.UpmostTableLayoutPanel.SuspendLayout();
 			this.Tabcontainer.SuspendLayout();
 			this.MapTab.SuspendLayout();
@@ -2973,6 +2974,7 @@
 			this.tableLayoutPanel16.Controls.Add(this.RouterModeCombobox, 0, 0);
 			this.tableLayoutPanel16.Controls.Add(this.label59, 0, 1);
 			this.tableLayoutPanel16.Controls.Add(this.RoutefindingWidth_Textbox, 1, 1);
+			this.tableLayoutPanel16.Controls.Add(this.LiveDisplayRouteCalculationCheckbox, 0, 5);
 			this.tableLayoutPanel16.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tableLayoutPanel16.Location = new System.Drawing.Point(3, 16);
 			this.tableLayoutPanel16.Name = "tableLayoutPanel16";
@@ -3084,6 +3086,17 @@
 			this.RoutefindingWidth_Textbox.Size = new System.Drawing.Size(69, 20);
 			this.RoutefindingWidth_Textbox.TabIndex = 8;
 			this.RoutefindingWidth_Textbox.TextChanged += new System.EventHandler(this.RoutefindingWidth_Textbox_TextChanged);
+			// 
+			// LiveDisplayRouteCalculationCheckbox
+			// 
+			this.LiveDisplayRouteCalculationCheckbox.AutoSize = true;
+			this.LiveDisplayRouteCalculationCheckbox.Location = new System.Drawing.Point(3, 210);
+			this.LiveDisplayRouteCalculationCheckbox.Name = "LiveDisplayRouteCalculationCheckbox";
+			this.LiveDisplayRouteCalculationCheckbox.Size = new System.Drawing.Size(179, 17);
+			this.LiveDisplayRouteCalculationCheckbox.TabIndex = 9;
+			this.LiveDisplayRouteCalculationCheckbox.Text = "Live Display of calculated Route";
+			this.LiveDisplayRouteCalculationCheckbox.UseVisualStyleBackColor = true;
+			this.LiveDisplayRouteCalculationCheckbox.CheckedChanged += new System.EventHandler(this.LiveDisplayRouteCalculationCheckbox_CheckedChanged);
 			// 
 			// Form1
 			// 
@@ -3352,6 +3365,7 @@
 		private System.Windows.Forms.ComboBox RouterModeCombobox;
 		private System.Windows.Forms.Label label59;
 		private System.Windows.Forms.TextBox RoutefindingWidth_Textbox;
+		private System.Windows.Forms.CheckBox LiveDisplayRouteCalculationCheckbox;
 	}
 }
 

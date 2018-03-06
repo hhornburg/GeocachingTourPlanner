@@ -51,6 +51,7 @@ namespace GeocachingTourPlanner
 		public int Divisor { get; set; }
 		public int Tolerance { get; set; }
 		public int RoutefindingWidth { get; set; }
+		public bool DisplayLiveCalculation { get; set; }
 
 		#region Methods
 		/// <summary>

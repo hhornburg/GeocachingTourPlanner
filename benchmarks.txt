@@ -35,3 +35,6 @@ Multicore v_2:	Resolving took 5,9773339 seconds
 Multicore v_3:	Resolving took 5,4303039 seconds
 				Routing took 31,599754seconds
 				Inserting took 0,0149867seconds
+				
+				
+	New Routing algorithm:

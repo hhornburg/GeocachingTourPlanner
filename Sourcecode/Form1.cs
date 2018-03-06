@@ -18,7 +18,6 @@ using System.IO;
 using Itinero.IO.Osm;
 using System.Xml;
 using Itinero.LocalGeo;
-using static Itinero.Route;
 using System.Threading;
 
 namespace GeocachingTourPlanner
@@ -860,7 +859,10 @@ namespace GeocachingTourPlanner
 		{
 			if (Map.InvokeRequired == false)
 			{
-				//Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "PreliminaryRoute"));//Remove the live displayed routes
+				if(Map.Overlays.Count(x => x.Id == "PreliminaryRoute") > 0)
+				{
+					Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "PreliminaryRoute"));//Remove the live displayed routes
+				}
 
 				Route FinalRoute = Result.Key;
 				List<Geocache> GeocachesOnRoute = Result.Value; //Should be the same but anyways.
@@ -915,37 +917,40 @@ namespace GeocachingTourPlanner
 			}
 		}
 
-		/* It kills performace and doesn't work properly
+		//Doesn't work, kills performance
 		delegate void DisplayPreliminaryRouteDelegate(List<KeyValuePair<Route, List<KeyValueTriple<Geocache, float, RouterPoint>>>> RoutingData);
 		public void DisplayPreliminaryRoute(List<KeyValuePair<Route, List<KeyValueTriple<Geocache, float, RouterPoint>>>> RoutingData)
 		{
-			if (Map.InvokeRequired == false)
+			if (Program.DB.DisplayLiveCalculation)
 			{
-				if (Program.MainWindow.Map.Overlays.Count(x => x.Id == "PreliminaryRoute") != 0)
+				if (Map.InvokeRequired == false)
 				{
-					Program.MainWindow.Map.Overlays.Remove(Program.MainWindow.Map.Overlays.First(x => x.Id == "PreliminaryRoute"));
-				}
-
-				List<PointLatLng> GMAPRoute = new List<PointLatLng>();
-
-				foreach (KeyValuePair<Route, List<KeyValueTriple<Geocache, float, RouterPoint>>> route in RoutingData)
-				{
-					foreach (Coordinate COO in route.Key.Shape)
+					if (Program.MainWindow.Map.Overlays.Count(x => x.Id == "PreliminaryRoute") != 0)
 					{
-						GMAPRoute.Add(new PointLatLng(COO.Latitude, COO.Longitude));
+						Program.MainWindow.Map.Overlays.Remove(Program.MainWindow.Map.Overlays.First(x => x.Id == "PreliminaryRoute"));
 					}
+
+					List<PointLatLng> GMAPRoute = new List<PointLatLng>();
+
+					foreach (KeyValuePair<Route, List<KeyValueTriple<Geocache, float, RouterPoint>>> route in RoutingData)
+					{
+						foreach (Coordinate COO in route.Key.Shape)
+						{
+							GMAPRoute.Add(new PointLatLng(COO.Latitude, COO.Longitude));
+						}
+					}
+					GMapOverlay RouteOverlay = new GMapOverlay("PreliminaryRoute");
+					RouteOverlay.Routes.Add(new GMapRoute(GMAPRoute, "PreliminaryRoute"));
+					Program.MainWindow.Map.Overlays.Add(RouteOverlay);
 				}
-				GMapOverlay RouteOverlay = new GMapOverlay("PreliminaryRoute");
-				RouteOverlay.Routes.Add(new GMapRoute(GMAPRoute, "PreliminaryRoute"));
-				Program.MainWindow.Map.Overlays.Add(RouteOverlay);
-			}
-			else
-			{
-				DisplayPreliminaryRouteDelegate dg = new DisplayPreliminaryRouteDelegate(DisplayPreliminaryRoute);
-				BeginInvoke(dg, new object[] { RoutingData });
+				else
+				{
+					DisplayPreliminaryRouteDelegate dg = new DisplayPreliminaryRouteDelegate(DisplayPreliminaryRoute);
+					BeginInvoke(dg, new object[] { RoutingData });
+				}
 			}
 		}
-		*/
+		
 
 		private void DeleteButton_Click(object sender, EventArgs e, string OverlayTag)
 		{
@@ -1167,31 +1172,6 @@ namespace GeocachingTourPlanner
 
 		#endregion
 
-		//UNDONE Attach this to EVERY Dropdownlist
-		private void Dropdown_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			((ComboBox)sender).Text = ((ComboBox)sender).SelectedItem.ToString();//So I can just check the text and it doesn't matter whether the user typed it or selected it
-
-			if(sender == EditRoutingprofileCombobox)
-			{
-				Routingprofile_Click(sender, e);
-				SelectedRoutingprofileCombobox.Text = EditRoutingprofileCombobox.Text;
-			}else if (sender == EditRatingprofileCombobox)
-			{
-				Ratingprofile_Click(sender, e);
-				SelectedRatingprofileCombobox.Text = EditRatingprofileCombobox.Text;
-			}
-			else if(sender == SelectedRoutingprofileCombobox)
-			{
-				Routingprofile_Click(sender, e);
-				EditRoutingprofileCombobox.Text=SelectedRoutingprofileCombobox.Text;
-			}else if (sender == SelectedRatingprofileCombobox)
-			{
-				Ratingprofile_Click(sender, e);
-				EditRatingprofileCombobox.Text = SelectedRatingprofileCombobox.Text;
-			}
-		}
-
 		#region Settings
 		private void EveryNthPointTextBox_TextChanged(object sender, EventArgs e)
 		{
@@ -1257,6 +1237,13 @@ namespace GeocachingTourPlanner
 			Program.DB.RouterMode =(RouterMode)RouterModeCombobox.SelectedIndex;//As they are in the correct order
 		}
 
+		
+		private void LiveDisplayRouteCalculationCheckbox_CheckedChanged(object sender, EventArgs e)
+		{
+			Program.DB.DisplayLiveCalculation = LiveDisplayRouteCalculationCheckbox.Checked;
+			Program.Backup(null);
+		}
+		
 		public void UpdateSettingsTextBoxes()
 		{
 			if (Program.DB.Divisor == 0)
@@ -1268,11 +1255,39 @@ namespace GeocachingTourPlanner
 			ToleranceTextBox.Text = Program.DB.Tolerance.ToString();
 			RoutefindingWidth_Textbox.Text = Program.DB.RoutefindingWidth.ToString();
 			RouterModeCombobox.SelectedIndex = (int)Program.DB.RouterMode;
+			/*LiveDisplayRouteCalculationCheckbox.Checked = Program.DB.DisplayLiveCalculation;*/
 		}
+
 
 
 		#endregion
 
-		
+
+		//UNDONE Attach this to EVERY Dropdownlist
+		private void Dropdown_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			((ComboBox)sender).Text = ((ComboBox)sender).SelectedItem.ToString();//So I can just check the text and it doesn't matter whether the user typed it or selected it
+
+			if (sender == EditRoutingprofileCombobox)
+			{
+				Routingprofile_Click(sender, e);
+				SelectedRoutingprofileCombobox.Text = EditRoutingprofileCombobox.Text;
+			}
+			else if (sender == EditRatingprofileCombobox)
+			{
+				Ratingprofile_Click(sender, e);
+				SelectedRatingprofileCombobox.Text = EditRatingprofileCombobox.Text;
+			}
+			else if (sender == SelectedRoutingprofileCombobox)
+			{
+				Routingprofile_Click(sender, e);
+				EditRoutingprofileCombobox.Text = SelectedRoutingprofileCombobox.Text;
+			}
+			else if (sender == SelectedRatingprofileCombobox)
+			{
+				Ratingprofile_Click(sender, e);
+				EditRatingprofileCombobox.Text = SelectedRatingprofileCombobox.Text;
+			}
+		}
 	}
 }
