@@ -46,7 +46,7 @@ namespace GeocachingTourPlanner
 		/// </summary>
 		public float MaximalRating { get; set; }
 
-		public RouterMode RouterMode { get; set; }
+		public bool Autotargetselection { get; set; }
 		public int EveryNthShapepoint { get; set; }
 		public int Divisor { get; set; }
 		public int Tolerance { get; set; }
@@ -148,11 +148,5 @@ namespace GeocachingTourPlanner
 		Routingprofiles,
 		RouterDB
 	}
-
-	public enum RouterMode
-	{
-		On_the_go,
-		Some_thought,
-		Try_hard
-	}
+	
 }

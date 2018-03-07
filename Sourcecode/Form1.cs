@@ -1236,12 +1236,12 @@ namespace GeocachingTourPlanner
 			}
 		}
 
-		private void RouterModeCombobox_SelectedIndexChanged(object sender, EventArgs e)
+		private void Autotargetselection_CheckedChanged(object sender, EventArgs e)
 		{
-			Program.DB.RouterMode =(RouterMode)RouterModeCombobox.SelectedIndex;//As they are in the correct order
+			Program.DB.Autotargetselection = Autotargetselection.Checked;
 		}
 
-		
+
 		private void LiveDisplayRouteCalculationCheckbox_CheckedChanged(object sender, EventArgs e)
 		{
 			Program.DB.DisplayLiveCalculation = LiveDisplayRouteCalculationCheckbox.Checked;
@@ -1258,7 +1258,7 @@ namespace GeocachingTourPlanner
 			DivisorTextBox.Text = Program.DB.Divisor.ToString();
 			ToleranceTextBox.Text = Program.DB.Tolerance.ToString();
 			RoutefindingWidth_Textbox.Text = Program.DB.RoutefindingWidth.ToString();
-			RouterModeCombobox.SelectedIndex = (int)Program.DB.RouterMode;
+			Autotargetselection.Checked = Program.DB.Autotargetselection;
 			/*LiveDisplayRouteCalculationCheckbox.Checked = Program.DB.DisplayLiveCalculation;*/
 		}
 
@@ -1293,5 +1293,7 @@ namespace GeocachingTourPlanner
 				EditRatingprofileCombobox.Text = SelectedRatingprofileCombobox.Text;
 			}
 		}
+
+		
 	}
 }

@@ -190,7 +190,7 @@ namespace GeocachingTourPlanner
 			File.AppendAllText("Routerlog.txt", Log.ToString());
 			Log.Clear();
 
-			if (Program.DB.RouterMode != RouterMode.On_the_go)
+			if (Program.DB.Autotargetselection)
 			{
 				DateTime StartDirectionDecision = DateTime.Now;
 				DirectionDecision();
