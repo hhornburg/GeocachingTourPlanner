@@ -92,6 +92,8 @@ namespace GeocachingTourPlanner
 					}
 				});
 
+				RouterDBStateLabel.Text = "Successfully loaded RouterDB";
+
 				Program.Backup(null);
 			}
 		}
@@ -204,6 +206,7 @@ namespace GeocachingTourPlanner
 						}
 					}
 
+					GeocachesStateLabel.Text = Program.Geocaches.Count + " Geocaches loaded";
 				}
 				catch (Exception ex)
 				{
@@ -247,6 +250,17 @@ namespace GeocachingTourPlanner
 				}
 				Program.Backup(null);
 			}
+		}
+
+		private void GetPQLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			System.Diagnostics.Process.Start("https://www.geocaching.com/pocket/");
+		}
+
+
+		private void GetPbfLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			System.Diagnostics.Process.Start("http://download.geofabrik.de/");
 		}
 		#endregion
 
@@ -1294,6 +1308,5 @@ namespace GeocachingTourPlanner
 			}
 		}
 
-		
 	}
 }
