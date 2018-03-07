@@ -385,6 +385,7 @@ namespace GeocachingTourPlanner
 			//Eintragen des neuen Profils
 			foreach (Routingprofile BP in Program.Routingprofiles.Where(x => x.Name == Profile.Name).ToList())
 			{
+				Profile.RoutesOfthisType = BP.RoutesOfthisType;
 				Program.Routingprofiles.Remove(BP);
 			}
 			Program.Routingprofiles.Add(Profile);
@@ -602,6 +603,7 @@ namespace GeocachingTourPlanner
 					LowOverlay.Markers.Add(GCMarker);
 				}
 
+				
 				GCMarker.ToolTipText = GC.GCCODE + "\n" + GC.Name + "\n" + GC.Type + "(" + GC.DateHidden.Date.ToString().Remove(10) + ")\nD-Wertung: " + GC.DRating + "\nT-Wertung: " + GC.TRating + "\nBewertung: " + GC.Rating;
 				GCMarker.Tag = GC.GCCODE;
 			}
