@@ -21,7 +21,11 @@ namespace GeocachingTourPlanner
         public float Rating { get; set; }
 		public bool ForceInclude { get; set; }
 
-        public void Rate(Ratingprofile Profil)
+		public override string ToString()
+		{
+			return GCCODE;
+		}
+		public void Rate(Ratingprofile Profil)
         {
             Rating = 0;
             Rating += (Profil.TypeRatings.Where(x=>x.Key==Type).First().Value * Profil.TypePriority);

@@ -199,6 +199,19 @@
 			this.label53 = new System.Windows.Forms.Label();
 			this.EditRoutingprofileCombobox = new System.Windows.Forms.ComboBox();
 			this.Settings = new System.Windows.Forms.TabPage();
+			this.tableLayoutPanel15 = new System.Windows.Forms.TableLayoutPanel();
+			this.RoutingsettingsGroupbox = new System.Windows.Forms.GroupBox();
+			this.tableLayoutPanel16 = new System.Windows.Forms.TableLayoutPanel();
+			this.label56 = new System.Windows.Forms.Label();
+			this.label57 = new System.Windows.Forms.Label();
+			this.label58 = new System.Windows.Forms.Label();
+			this.EveryNthPointTextBox = new System.Windows.Forms.TextBox();
+			this.DivisorTextBox = new System.Windows.Forms.TextBox();
+			this.ToleranceTextBox = new System.Windows.Forms.TextBox();
+			this.label59 = new System.Windows.Forms.Label();
+			this.RoutefindingWidth_Textbox = new System.Windows.Forms.TextBox();
+			this.LiveDisplayRouteCalculationCheckbox = new System.Windows.Forms.CheckBox();
+			this.Autotargetselection = new System.Windows.Forms.CheckBox();
 			this.UpmostTableLayoutPanel.SuspendLayout();
 			this.Tabcontainer.SuspendLayout();
 			this.MapTab.SuspendLayout();
@@ -238,6 +251,10 @@
 			this.TimeGroupBox.SuspendLayout();
 			this.tableLayoutPanel13.SuspendLayout();
 			this.tableLayoutPanel14.SuspendLayout();
+			this.Settings.SuspendLayout();
+			this.tableLayoutPanel15.SuspendLayout();
+			this.RoutingsettingsGroupbox.SuspendLayout();
+			this.tableLayoutPanel16.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// UpmostTableLayoutPanel
@@ -320,11 +337,13 @@
 			this.Map.Size = new System.Drawing.Size(762, 432);
 			this.Map.TabIndex = 2;
 			this.Map.Zoom = 0D;
+			this.Map.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.Map_OnMarkerClick);
 			this.Map.OnMapDrag += new GMap.NET.MapDrag(this.Map_OnMapDrag);
 			this.Map.OnMapZoomChanged += new GMap.NET.MapZoomChanged(this.Map_OnMapZoomChanged);
 			this.Map.Load += new System.EventHandler(this.Map_Load);
 			this.Map.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Map_Click);
 			this.Map.MouseEnter += new System.EventHandler(this.Map_Load);
+			this.Map.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Map_MouseUp);
 			// 
 			// MapTab_SideMenu
 			// 
@@ -2909,12 +2928,178 @@
 			// 
 			// Settings
 			// 
+			this.Settings.Controls.Add(this.tableLayoutPanel15);
 			this.Settings.Location = new System.Drawing.Point(4, 22);
 			this.Settings.Name = "Settings";
 			this.Settings.Size = new System.Drawing.Size(386, 544);
 			this.Settings.TabIndex = 3;
 			this.Settings.Text = "Settings";
 			this.Settings.UseVisualStyleBackColor = true;
+			// 
+			// tableLayoutPanel15
+			// 
+			this.tableLayoutPanel15.ColumnCount = 1;
+			this.tableLayoutPanel15.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.tableLayoutPanel15.Controls.Add(this.RoutingsettingsGroupbox, 0, 0);
+			this.tableLayoutPanel15.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tableLayoutPanel15.Location = new System.Drawing.Point(0, 0);
+			this.tableLayoutPanel15.Name = "tableLayoutPanel15";
+			this.tableLayoutPanel15.RowCount = 2;
+			this.tableLayoutPanel15.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.tableLayoutPanel15.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.tableLayoutPanel15.Size = new System.Drawing.Size(386, 544);
+			this.tableLayoutPanel15.TabIndex = 0;
+			// 
+			// RoutingsettingsGroupbox
+			// 
+			this.RoutingsettingsGroupbox.Controls.Add(this.tableLayoutPanel16);
+			this.RoutingsettingsGroupbox.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.RoutingsettingsGroupbox.Location = new System.Drawing.Point(3, 3);
+			this.RoutingsettingsGroupbox.Name = "RoutingsettingsGroupbox";
+			this.RoutingsettingsGroupbox.Size = new System.Drawing.Size(380, 266);
+			this.RoutingsettingsGroupbox.TabIndex = 0;
+			this.RoutingsettingsGroupbox.TabStop = false;
+			this.RoutingsettingsGroupbox.Text = "Routing settings";
+			// 
+			// tableLayoutPanel16
+			// 
+			this.tableLayoutPanel16.ColumnCount = 2;
+			this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
+			this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+			this.tableLayoutPanel16.Controls.Add(this.label56, 0, 2);
+			this.tableLayoutPanel16.Controls.Add(this.label57, 0, 3);
+			this.tableLayoutPanel16.Controls.Add(this.label58, 0, 4);
+			this.tableLayoutPanel16.Controls.Add(this.EveryNthPointTextBox, 1, 2);
+			this.tableLayoutPanel16.Controls.Add(this.DivisorTextBox, 1, 3);
+			this.tableLayoutPanel16.Controls.Add(this.ToleranceTextBox, 1, 4);
+			this.tableLayoutPanel16.Controls.Add(this.label59, 0, 1);
+			this.tableLayoutPanel16.Controls.Add(this.RoutefindingWidth_Textbox, 1, 1);
+			this.tableLayoutPanel16.Controls.Add(this.LiveDisplayRouteCalculationCheckbox, 0, 5);
+			this.tableLayoutPanel16.Controls.Add(this.Autotargetselection, 0, 0);
+			this.tableLayoutPanel16.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tableLayoutPanel16.Location = new System.Drawing.Point(3, 16);
+			this.tableLayoutPanel16.Name = "tableLayoutPanel16";
+			this.tableLayoutPanel16.RowCount = 6;
+			this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			this.tableLayoutPanel16.Size = new System.Drawing.Size(374, 247);
+			this.tableLayoutPanel16.TabIndex = 0;
+			// 
+			// label56
+			// 
+			this.label56.AutoSize = true;
+			this.label56.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.label56.Location = new System.Drawing.Point(3, 58);
+			this.label56.Margin = new System.Windows.Forms.Padding(3);
+			this.label56.Name = "label56";
+			this.label56.Size = new System.Drawing.Size(293, 39);
+			this.label56.TabIndex = 0;
+			this.label56.Text = "Look at every nth trackpoint to determine wether a geocache is in range of the ro" +
+    "ute. Values range, but calculate with 25 points per km. (Default: 1)";
+			// 
+			// label57
+			// 
+			this.label57.AutoSize = true;
+			this.label57.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.label57.Location = new System.Drawing.Point(3, 103);
+			this.label57.Margin = new System.Windows.Forms.Padding(3);
+			this.label57.Name = "label57";
+			this.label57.Size = new System.Drawing.Size(293, 39);
+			this.label57.TabIndex = 1;
+			this.label57.Text = "Divide remaining distance of route by this value when checking if geocache is in " +
+    "distance. Should be at least two, for more geocaches on route it should be highe" +
+    "r. (Default: 5)";
+			// 
+			// label58
+			// 
+			this.label58.AutoSize = true;
+			this.label58.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.label58.Location = new System.Drawing.Point(3, 148);
+			this.label58.Margin = new System.Windows.Forms.Padding(3);
+			this.label58.Name = "label58";
+			this.label58.Size = new System.Drawing.Size(293, 39);
+			this.label58.TabIndex = 2;
+			this.label58.Text = "Tolerance in m when calculating geocaches in distance. Makes sure that when dista" +
+    "nce is used up, caches that lie directly on the way are still considered. (Defau" +
+    "lt: 200)";
+			// 
+			// EveryNthPointTextBox
+			// 
+			this.EveryNthPointTextBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+			this.EveryNthPointTextBox.Location = new System.Drawing.Point(302, 67);
+			this.EveryNthPointTextBox.Name = "EveryNthPointTextBox";
+			this.EveryNthPointTextBox.Size = new System.Drawing.Size(69, 20);
+			this.EveryNthPointTextBox.TabIndex = 3;
+			this.EveryNthPointTextBox.TextChanged += new System.EventHandler(this.EveryNthPointTextBox_TextChanged);
+			// 
+			// DivisorTextBox
+			// 
+			this.DivisorTextBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+			this.DivisorTextBox.Location = new System.Drawing.Point(302, 112);
+			this.DivisorTextBox.Name = "DivisorTextBox";
+			this.DivisorTextBox.Size = new System.Drawing.Size(69, 20);
+			this.DivisorTextBox.TabIndex = 4;
+			this.DivisorTextBox.TextChanged += new System.EventHandler(this.DivisorTextBox_TextChanged);
+			// 
+			// ToleranceTextBox
+			// 
+			this.ToleranceTextBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+			this.ToleranceTextBox.Location = new System.Drawing.Point(302, 157);
+			this.ToleranceTextBox.Name = "ToleranceTextBox";
+			this.ToleranceTextBox.Size = new System.Drawing.Size(69, 20);
+			this.ToleranceTextBox.TabIndex = 5;
+			this.ToleranceTextBox.TextChanged += new System.EventHandler(this.ToleranceTextBox_TextChanged);
+			// 
+			// label59
+			// 
+			this.label59.Anchor = System.Windows.Forms.AnchorStyles.Left;
+			this.label59.AutoSize = true;
+			this.label59.Location = new System.Drawing.Point(3, 26);
+			this.label59.Margin = new System.Windows.Forms.Padding(3);
+			this.label59.Name = "label59";
+			this.label59.Size = new System.Drawing.Size(254, 26);
+			this.label59.TabIndex = 7;
+			this.label59.Text = "Number of potential target caches considered when Autotargetselection is enabled " +
+    "(Default: 4)";
+			// 
+			// RoutefindingWidth_Textbox
+			// 
+			this.RoutefindingWidth_Textbox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+			this.RoutefindingWidth_Textbox.Location = new System.Drawing.Point(302, 29);
+			this.RoutefindingWidth_Textbox.Name = "RoutefindingWidth_Textbox";
+			this.RoutefindingWidth_Textbox.Size = new System.Drawing.Size(69, 20);
+			this.RoutefindingWidth_Textbox.TabIndex = 8;
+			this.RoutefindingWidth_Textbox.TextChanged += new System.EventHandler(this.RoutefindingWidth_Textbox_TextChanged);
+			// 
+			// LiveDisplayRouteCalculationCheckbox
+			// 
+			this.LiveDisplayRouteCalculationCheckbox.AutoSize = true;
+			this.LiveDisplayRouteCalculationCheckbox.Location = new System.Drawing.Point(3, 193);
+			this.LiveDisplayRouteCalculationCheckbox.Name = "LiveDisplayRouteCalculationCheckbox";
+			this.LiveDisplayRouteCalculationCheckbox.Size = new System.Drawing.Size(179, 17);
+			this.LiveDisplayRouteCalculationCheckbox.TabIndex = 9;
+			this.LiveDisplayRouteCalculationCheckbox.Text = "Live Display of calculated Route";
+			this.LiveDisplayRouteCalculationCheckbox.UseVisualStyleBackColor = true;
+			this.LiveDisplayRouteCalculationCheckbox.CheckedChanged += new System.EventHandler(this.LiveDisplayRouteCalculationCheckbox_CheckedChanged);
+			// 
+			// Autotargetselection
+			// 
+			this.Autotargetselection.AutoSize = true;
+			this.Autotargetselection.Checked = true;
+			this.Autotargetselection.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.tableLayoutPanel16.SetColumnSpan(this.Autotargetselection, 2);
+			this.Autotargetselection.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.Autotargetselection.Location = new System.Drawing.Point(3, 3);
+			this.Autotargetselection.Name = "Autotargetselection";
+			this.Autotargetselection.Size = new System.Drawing.Size(368, 17);
+			this.Autotargetselection.TabIndex = 10;
+			this.Autotargetselection.Text = "Autotargetselection (Default: on)";
+			this.Autotargetselection.UseVisualStyleBackColor = true;
+			this.Autotargetselection.CheckedChanged += new System.EventHandler(this.Autotargetselection_CheckedChanged);
 			// 
 			// Form1
 			// 
@@ -2989,6 +3174,11 @@
 			this.tableLayoutPanel13.PerformLayout();
 			this.tableLayoutPanel14.ResumeLayout(false);
 			this.tableLayoutPanel14.PerformLayout();
+			this.Settings.ResumeLayout(false);
+			this.tableLayoutPanel15.ResumeLayout(false);
+			this.RoutingsettingsGroupbox.ResumeLayout(false);
+			this.tableLayoutPanel16.ResumeLayout(false);
+			this.tableLayoutPanel16.PerformLayout();
 			this.ResumeLayout(false);
 
         }
@@ -3166,6 +3356,19 @@
 		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.Label label52;
 		public System.Windows.Forms.TextBox RoutingProfileName;
+		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel15;
+		private System.Windows.Forms.GroupBox RoutingsettingsGroupbox;
+		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel16;
+		private System.Windows.Forms.Label label56;
+		private System.Windows.Forms.Label label57;
+		private System.Windows.Forms.Label label58;
+		private System.Windows.Forms.TextBox EveryNthPointTextBox;
+		private System.Windows.Forms.TextBox DivisorTextBox;
+		private System.Windows.Forms.TextBox ToleranceTextBox;
+		private System.Windows.Forms.Label label59;
+		private System.Windows.Forms.TextBox RoutefindingWidth_Textbox;
+		private System.Windows.Forms.CheckBox LiveDisplayRouteCalculationCheckbox;
+		private System.Windows.Forms.CheckBox Autotargetselection;
 	}
 }
 

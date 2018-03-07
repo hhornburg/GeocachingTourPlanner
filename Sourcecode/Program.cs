@@ -75,7 +75,15 @@ namespace GeocachingTourPlanner
 				{
 					MainWindow.Close();
 				}
+
+				//Set default settings
+				DB.EveryNthShapepoint = 25;//Wild guess, should be approx every .5 km
+				DB.RouterMode = RouterMode.On_the_go;
+				DB.Tolerance = 500;
+				DB.Divisor = 4;
 			}
+
+			MainWindow.UpdateSettingsTextBoxes();
 
 			if (DB.RouterDB_Filepath != null)
 			{
@@ -93,8 +101,25 @@ namespace GeocachingTourPlanner
 			ReadRoutingprofiles();
 			Backup(null);//so settings get saved in the DB. Nothing else, as it just came from the file
 
-
-			MainWindow.GeocacheTable.DataSource = Program.Geocaches;
+			#region check if settings exist
+			if (DB.EveryNthShapepoint == 0)
+			{
+				DB.EveryNthShapepoint = 5;
+			}
+			if (DB.RouterMode == 0)
+			{
+				DB.RouterMode = RouterMode.On_the_go;
+			}
+			if (DB.Divisor == 0)
+			{
+				DB.Divisor = 5;
+			}
+			if (DB.RoutefindingWidth == 0)
+			{
+				DB.RoutefindingWidth = 3;
+			}
+			#endregion
+			MainWindow.GeocacheTable.DataSource = Geocaches;
 
 			Application.Run(MainWindow);
         }
@@ -210,7 +235,7 @@ namespace GeocachingTourPlanner
 		{
 			Routingprofiles.Clear();
 			StreamReader RPReader = null;
-			if (DB.CheckDatabaseFilepath(Database.Databases.Routingprofiles))//returns true if the user has set a valid database
+			if (DB.CheckDatabaseFilepath(Databases.Routingprofiles))//returns true if the user has set a valid database
 			{
 				try
 				{
@@ -242,7 +267,7 @@ namespace GeocachingTourPlanner
 		{
 			Ratingprofiles.Clear();
 			StreamReader BPReader = null;
-			if (DB.CheckDatabaseFilepath(Database.Databases.Ratingprofiles))//returns true if the user has set a valid database
+			if (DB.CheckDatabaseFilepath(Databases.Ratingprofiles))//returns true if the user has set a valid database
 			{
 				try
 				{
@@ -276,7 +301,7 @@ namespace GeocachingTourPlanner
 			Geocaches.Clear();
 			StreamReader GCReader = null;
 
-			if (DB.CheckDatabaseFilepath(Database.Databases.Geocaches))//returns true if the user has set a valid database
+			if (DB.CheckDatabaseFilepath(Databases.Geocaches))//returns true if the user has set a valid database
 			{
 				try
 				{
