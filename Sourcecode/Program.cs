@@ -104,7 +104,7 @@ namespace GeocachingTourPlanner
 			#region check if settings exist
 			if (DB.EveryNthShapepoint == 0)
 			{
-				DB.EveryNthShapepoint = 25;
+				DB.EveryNthShapepoint = 5;
 			}
 			if (DB.RouterMode == 0)
 			{
@@ -112,11 +112,11 @@ namespace GeocachingTourPlanner
 			}
 			if (DB.Divisor == 0)
 			{
-				DB.Divisor = 3;
+				DB.Divisor = 5;
 			}
 			if (DB.RoutefindingWidth == 0)
 			{
-				DB.RoutefindingWidth = 2;
+				DB.RoutefindingWidth = 3;
 			}
 			#endregion
 			MainWindow.GeocacheTable.DataSource = Geocaches;

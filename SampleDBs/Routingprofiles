@@ -20,7 +20,7 @@
   </Routingprofile>
   <Routingprofile>
     <Name>Bicycle</Name>
-    <MaxDistance>40</MaxDistance>
+    <MaxDistance>30</MaxDistance>
     <PenaltyPerExtraKM>100</PenaltyPerExtraKM>
     <MaxTime>240</MaxTime>
     <PenaltyPerExtra10min>100</PenaltyPerExtra10min>

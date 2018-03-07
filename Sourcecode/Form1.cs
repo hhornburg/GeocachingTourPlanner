@@ -385,6 +385,7 @@ namespace GeocachingTourPlanner
 			//Eintragen des neuen Profils
 			foreach (Routingprofile BP in Program.Routingprofiles.Where(x => x.Name == Profile.Name).ToList())
 			{
+				Profile.RoutesOfthisType = BP.RoutesOfthisType;
 				Program.Routingprofiles.Remove(BP);
 			}
 			Program.Routingprofiles.Add(Profile);
