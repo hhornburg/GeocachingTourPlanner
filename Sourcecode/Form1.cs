@@ -89,9 +89,9 @@ namespace GeocachingTourPlanner
 					{
 						if (MessageBox.Show("If you selected an existing file it will be overwritten.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
 						{
-							File.Create(StandardFileDialog.FileName);
-							Program.Backup(Program.Geocaches);
-							Program.Geocaches = new SortableBindingList<Geocache>();
+							File.Create(NewFileDialog.FileName);
+							Program.Backup(null);
+							Program.RouterDB = new RouterDb();
 							Program.DB.GeocacheDB_Filepath = StandardFileDialog.FileName;
 						}
 						else
@@ -881,7 +881,7 @@ namespace GeocachingTourPlanner
 
 			new Thread(new ThreadStart(() =>
 			{
-				new Tourplanning().GetRoute(SelectedProfile, Program.Geocaches.ToList(), new Coordinate(StartLat, StartLon), new Coordinate(EndLat, EndLon), GeocachesToInclude);
+				new Tourplanning().GetRoute_Recursive(SelectedProfile, Program.Geocaches.ToList(), new Coordinate(StartLat, StartLon), new Coordinate(EndLat, EndLon), GeocachesToInclude);
 			}
 			)).Start();
 
