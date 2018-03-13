@@ -71,6 +71,36 @@ namespace GeocachingTourPlanner
 
 			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
 			{
+				//Create a new File
+				SaveFileDialog NewFileDialog = new SaveFileDialog
+				{
+					InitialDirectory = Program.DB.LastUsedFilepath,
+					Filter = "Routerdb files (*.routerdb)|*.routerdb|All files (*.*)|*.*",
+					FilterIndex = 1,
+					RestoreDirectory = true,
+					Title = "Create new Routerdb file"
+				};
+
+				bool retry = false;
+				do
+				{
+					retry = false;
+					if (NewFileDialog.ShowDialog() == DialogResult.OK)
+					{
+						if (MessageBox.Show("If you selected an existing file it will be overwritten.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+						{
+							File.Create(StandardFileDialog.FileName);
+							Program.Backup(Program.Geocaches);
+							Program.Geocaches = new SortableBindingList<Geocache>();
+							Program.DB.GeocacheDB_Filepath = StandardFileDialog.FileName;
+						}
+						else
+						{
+							retry = true;
+						}
+					}
+				} while (retry);
+
 				MessageBox.Show("This might take a while, depending on how big your pbf file is.\n How about getting yourself a coffee?");
 				using (var stream = new FileInfo(StandardFileDialog.FileName).OpenRead())
 				{
@@ -112,14 +142,42 @@ namespace GeocachingTourPlanner
 
 			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
 			{
-				DialogResult Importmodus = MessageBox.Show("Should the loaded Geocaches be kept?", "Import", MessageBoxButtons.YesNoCancel);
+				DialogResult Importmodus = MessageBox.Show("Should the Geocaches be loaded into a new Database?", "Import", MessageBoxButtons.YesNoCancel);
 				if (Importmodus == DialogResult.Yes)
 				{
-					//Do nothing
+					//Create a new File
+					SaveFileDialog NewFileDialog = new SaveFileDialog
+					{
+						InitialDirectory = Program.DB.LastUsedFilepath,
+						Filter = "gcdb files (*.gcdb)|*.gcdb|All files (*.*)|*.*",
+						FilterIndex = 1,
+						RestoreDirectory = true,
+						Title = "Create new, empty geocachedatabase"
+					};
+
+					bool retry = false;
+					do
+					{
+						retry = false;
+						if (NewFileDialog.ShowDialog() == DialogResult.OK)
+						{
+							if (MessageBox.Show("If you selected an existing file it will be overwritten.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+							{
+								File.Create(StandardFileDialog.FileName);
+								Program.Backup(Program.Geocaches);
+								Program.Geocaches = new SortableBindingList<Geocache>();
+								Program.DB.GeocacheDB_Filepath = StandardFileDialog.FileName;
+							}
+							else
+							{
+								retry = true;
+							}
+						}
+					} while (retry);
 				}
 				else if (Importmodus == DialogResult.No)
 				{
-					Program.Geocaches.Clear();
+					//Do nothing
 				}
 				else
 				{
@@ -262,102 +320,168 @@ namespace GeocachingTourPlanner
 		{
 			System.Diagnostics.Process.Start("http://download.geofabrik.de/");
 		}
+
+		private void NewRatingprofileDatabaseButton_Click(object sender, EventArgs e)
+		{
+			SaveFileDialog StandardFileDialog = new SaveFileDialog
+			{
+				InitialDirectory = Program.DB.LastUsedFilepath,
+				Filter = "ratingprofiles files (*.ratingprf)|*.ratingprf|All files (*.*)|*.*",
+				FilterIndex = 1,
+				RestoreDirectory = true,
+				Title = "Create new, empty ratingprofilesdatabase"
+			};
+
+			bool retry = false;
+			do
+			{
+				retry = false;
+				if (StandardFileDialog.ShowDialog() == DialogResult.OK)
+				{
+					if (MessageBox.Show("If you selected an existing file it will be overwritten.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+					{
+						File.Create(StandardFileDialog.FileName);
+						Program.Backup(Program.Ratingprofiles);
+						Program.Ratingprofiles = new SortableBindingList<Ratingprofile>();
+						Program.DB.RatingprofileDB_Filepath = StandardFileDialog.FileName;
+					}
+					else
+					{
+						retry = true;
+					}
+				}
+			} while (retry);
+			
+		}
+
+		private void NewRoutingprofilesDatabaseButton_Click(object sender, EventArgs e)
+		{
+			SaveFileDialog StandardFileDialog = new SaveFileDialog
+			{
+				InitialDirectory = Program.DB.LastUsedFilepath,
+				Filter = "routingprofile files (*.routingprf)|*.routingprf|All files (*.*)|*.*",
+				FilterIndex = 1,
+				RestoreDirectory = true,
+				Title = "Create new, empty routingprofilesdatabase"
+			};
+
+			bool retry = false;
+			do
+			{
+				retry = false;
+				if (StandardFileDialog.ShowDialog() == DialogResult.OK)
+				{
+					if (MessageBox.Show("If you selected an existing file it will be overwritten.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+					{
+						File.Create(StandardFileDialog.FileName);
+						Program.Backup(Program.Routingprofiles);
+						Program.Routingprofiles = new SortableBindingList<Routingprofile>();
+						Program.DB.RoutingprofileDB_Filepath = StandardFileDialog.FileName;
+					}
+					else
+					{
+						retry = true;
+					}
+				}
+			} while (retry);
+
+		}
 		#endregion
 
 		#region Update of Rating/Routingprofiles
 
 		public void CreateRatingprofile(object sender, EventArgs e)
+	{
+		Ratingprofile Profile = new Ratingprofile();
+		if (RatingProfileName.Text == null)
 		{
-			Ratingprofile Profile = new Ratingprofile();
-			if (RatingProfileName.Text == null)
-			{
-				MessageBox.Show("Bitte Namen festlegen");
-				return;
-			}
-			try
-			{
-				Profile.Name = RatingProfileName.Text;
-				Profile.TypePriority = int.Parse(TypePriorityvalue.Text);
-				Profile.TypeRatings = new List<KeyValuePair<GeocacheType, int>>();
-				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.EarthCache, int.Parse(EarthcacheValue.Text)));
-				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Letterbox, int.Parse(LetterboxValue.Text)));
-				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Multi, int.Parse(Multivalue.Text)));
-				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Mystery, int.Parse(MysteryValue.Text)));
-				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Other, int.Parse(OtherTypeValue.Text)));
-				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Traditional, int.Parse(Traditionalvalue.Text)));
-				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Virtual, int.Parse(VirtualValue.Text)));
-				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Webcam, int.Parse(WebcamValue.Text)));
-				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Wherigo, int.Parse(WherigoValue.Text)));
-
-				Profile.SizePriority = int.Parse(GrößenPrioritätValue.Text);
-				Profile.SizeRatings = new List<KeyValuePair<GeocacheSize, int>>();
-				Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Large, int.Parse(LargeValue.Text)));
-				Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Micro, int.Parse(MicroValue.Text)));
-				Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Other, int.Parse(OtherGrößeValue.Text)));
-				Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Regular, int.Parse(RegularValue.Text)));
-				Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Small, int.Parse(SmallValue.Text)));
-
-				Profile.DPriority = int.Parse(DPrioritätenValue.Text);
-				Profile.DRatings = new List<KeyValuePair<float, int>>();
-				Profile.DRatings.Add(new KeyValuePair<float, int>(1f, int.Parse(D1Value.Text)));
-				Profile.DRatings.Add(new KeyValuePair<float, int>(1.5f, int.Parse(D15Value.Text)));
-				Profile.DRatings.Add(new KeyValuePair<float, int>(2f, int.Parse(D2Value.Text)));
-				Profile.DRatings.Add(new KeyValuePair<float, int>(2.5f, int.Parse(D25Value.Text)));
-				Profile.DRatings.Add(new KeyValuePair<float, int>(3f, int.Parse(D3Value.Text)));
-				Profile.DRatings.Add(new KeyValuePair<float, int>(3.5f, int.Parse(D35Value.Text)));
-				Profile.DRatings.Add(new KeyValuePair<float, int>(4f, int.Parse(D4Value.Text)));
-				Profile.DRatings.Add(new KeyValuePair<float, int>(4.5f, int.Parse(D45Value.Text)));
-				Profile.DRatings.Add(new KeyValuePair<float, int>(5f, int.Parse(D5Value.Text)));
-
-				Profile.TPriority = int.Parse(TPrioritätenValue.Text);
-				Profile.TRatings = new List<KeyValuePair<float, int>>();
-				Profile.TRatings.Add(new KeyValuePair<float, int>(1f, int.Parse(T1Value.Text)));
-				Profile.TRatings.Add(new KeyValuePair<float, int>(1.5f, int.Parse(T15Value.Text)));
-				Profile.TRatings.Add(new KeyValuePair<float, int>(2f, int.Parse(T2Value.Text)));
-				Profile.TRatings.Add(new KeyValuePair<float, int>(2.5f, int.Parse(T25Value.Text)));
-				Profile.TRatings.Add(new KeyValuePair<float, int>(3f, int.Parse(T3Value.Text)));
-				Profile.TRatings.Add(new KeyValuePair<float, int>(3.5f, int.Parse(T35Value.Text)));
-				Profile.TRatings.Add(new KeyValuePair<float, int>(4f, int.Parse(T4Value.Text)));
-				Profile.TRatings.Add(new KeyValuePair<float, int>(4.5f, int.Parse(T45Value.Text)));
-				Profile.TRatings.Add(new KeyValuePair<float, int>(5f, int.Parse(T5Value.Text)));
-
-				if (!int.TryParse(NMFlagValue.Text.Replace("-", ""), out int Value))
-				{
-					MessageBox.Show("Please write only positive whole numbers into the field with the NMPenalty");
-				}
-				else
-				{
-					Profile.NMPenalty = Value;
-				}
-
-				if (AgeValue.SelectedItem.ToString() == "multiply with")
-				{
-					Profile.Yearmode = true;
-				}
-				else
-				{
-					Profile.Yearmode = false;
-				}
-
-				Profile.Yearfactor = int.Parse(AlterZahlValue.Text);
-
-			}
-			catch (NullReferenceException)
-			{
-				MessageBox.Show("Please fill all fields");
-				return;
-			}
-
-			//Eintragen des neuen Profils
-			foreach (Ratingprofile BP in Program.Ratingprofiles.Where(x => x.Name == Profile.Name).ToList())//Make sure only one profile with a name exists
-			{
-				Program.Ratingprofiles.Remove(BP);
-			}
-			Program.Ratingprofiles.Add(Profile);
-			//The Dropdownmenu gets updated through an event handler
-			Program.Backup(Program.Ratingprofiles);
-			EditRatingprofileCombobox.SelectedItem = Profile.Name; //Eventhandler takes care of same profile selected
+			MessageBox.Show("Bitte Namen festlegen");
+			return;
 		}
+		try
+		{
+			Profile.Name = RatingProfileName.Text;
+			Profile.TypePriority = int.Parse(TypePriorityvalue.Text);
+			Profile.TypeRatings = new List<KeyValuePair<GeocacheType, int>>();
+			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.EarthCache, int.Parse(EarthcacheValue.Text)));
+			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Letterbox, int.Parse(LetterboxValue.Text)));
+			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Multi, int.Parse(Multivalue.Text)));
+			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Mystery, int.Parse(MysteryValue.Text)));
+			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Other, int.Parse(OtherTypeValue.Text)));
+			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Traditional, int.Parse(Traditionalvalue.Text)));
+			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Virtual, int.Parse(VirtualValue.Text)));
+			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Webcam, int.Parse(WebcamValue.Text)));
+			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Wherigo, int.Parse(WherigoValue.Text)));
+
+			Profile.SizePriority = int.Parse(GrößenPrioritätValue.Text);
+			Profile.SizeRatings = new List<KeyValuePair<GeocacheSize, int>>();
+			Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Large, int.Parse(LargeValue.Text)));
+			Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Micro, int.Parse(MicroValue.Text)));
+			Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Other, int.Parse(OtherGrößeValue.Text)));
+			Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Regular, int.Parse(RegularValue.Text)));
+			Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Small, int.Parse(SmallValue.Text)));
+
+			Profile.DPriority = int.Parse(DPrioritätenValue.Text);
+			Profile.DRatings = new List<KeyValuePair<float, int>>();
+			Profile.DRatings.Add(new KeyValuePair<float, int>(1f, int.Parse(D1Value.Text)));
+			Profile.DRatings.Add(new KeyValuePair<float, int>(1.5f, int.Parse(D15Value.Text)));
+			Profile.DRatings.Add(new KeyValuePair<float, int>(2f, int.Parse(D2Value.Text)));
+			Profile.DRatings.Add(new KeyValuePair<float, int>(2.5f, int.Parse(D25Value.Text)));
+			Profile.DRatings.Add(new KeyValuePair<float, int>(3f, int.Parse(D3Value.Text)));
+			Profile.DRatings.Add(new KeyValuePair<float, int>(3.5f, int.Parse(D35Value.Text)));
+			Profile.DRatings.Add(new KeyValuePair<float, int>(4f, int.Parse(D4Value.Text)));
+			Profile.DRatings.Add(new KeyValuePair<float, int>(4.5f, int.Parse(D45Value.Text)));
+			Profile.DRatings.Add(new KeyValuePair<float, int>(5f, int.Parse(D5Value.Text)));
+
+			Profile.TPriority = int.Parse(TPrioritätenValue.Text);
+			Profile.TRatings = new List<KeyValuePair<float, int>>();
+			Profile.TRatings.Add(new KeyValuePair<float, int>(1f, int.Parse(T1Value.Text)));
+			Profile.TRatings.Add(new KeyValuePair<float, int>(1.5f, int.Parse(T15Value.Text)));
+			Profile.TRatings.Add(new KeyValuePair<float, int>(2f, int.Parse(T2Value.Text)));
+			Profile.TRatings.Add(new KeyValuePair<float, int>(2.5f, int.Parse(T25Value.Text)));
+			Profile.TRatings.Add(new KeyValuePair<float, int>(3f, int.Parse(T3Value.Text)));
+			Profile.TRatings.Add(new KeyValuePair<float, int>(3.5f, int.Parse(T35Value.Text)));
+			Profile.TRatings.Add(new KeyValuePair<float, int>(4f, int.Parse(T4Value.Text)));
+			Profile.TRatings.Add(new KeyValuePair<float, int>(4.5f, int.Parse(T45Value.Text)));
+			Profile.TRatings.Add(new KeyValuePair<float, int>(5f, int.Parse(T5Value.Text)));
+
+			if (!int.TryParse(NMFlagValue.Text.Replace("-", ""), out int Value))
+			{
+				MessageBox.Show("Please write only positive whole numbers into the field with the NMPenalty");
+			}
+			else
+			{
+				Profile.NMPenalty = Value;
+			}
+
+			if (AgeValue.SelectedItem.ToString() == "multiply with")
+			{
+				Profile.Yearmode = true;
+			}
+			else
+			{
+				Profile.Yearmode = false;
+			}
+
+			Profile.Yearfactor = int.Parse(AlterZahlValue.Text);
+
+		}
+		catch (NullReferenceException)
+		{
+			MessageBox.Show("Please fill all fields");
+			return;
+		}
+
+		//Eintragen des neuen Profils
+		foreach (Ratingprofile BP in Program.Ratingprofiles.Where(x => x.Name == Profile.Name).ToList())//Make sure only one profile with a name exists
+		{
+			Program.Ratingprofiles.Remove(BP);
+		}
+		Program.Ratingprofiles.Add(Profile);
+		//The Dropdownmenu gets updated through an event handler
+		Program.Backup(Program.Ratingprofiles);
+		EditRatingprofileCombobox.SelectedItem = Profile.Name; //Eventhandler takes care of same profile selected
+	}
 
 		public void CreateRoutingprofile(object sender, EventArgs e)
 		{
@@ -1308,5 +1432,6 @@ namespace GeocachingTourPlanner
 			}
 		}
 
+		
 	}
 }
