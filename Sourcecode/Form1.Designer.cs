@@ -408,9 +408,9 @@
 			// 
 			this.tableLayoutPanel10.ColumnCount = 3;
 			this.tableLayoutPanel1.SetColumnSpan(this.tableLayoutPanel10, 2);
-			this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 344F));
+			this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+			this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+			this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
 			this.tableLayoutPanel10.Controls.Add(this.RateGeocachesButton, 2, 3);
 			this.tableLayoutPanel10.Controls.Add(this.CreateRouteButton, 1, 3);
 			this.tableLayoutPanel10.Controls.Add(this.SelectedRoutingprofileCombobox, 1, 1);
@@ -613,7 +613,6 @@
 			// 
 			// StateTableLayout
 			// 
-			this.StateTableLayout.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
 			this.StateTableLayout.ColumnCount = 3;
 			this.StateTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
 			this.StateTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -705,7 +704,7 @@
 			this.SetGeocacheDBButton.Name = "SetGeocacheDBButton";
 			this.StateTableLayout.SetRowSpan(this.SetGeocacheDBButton, 2);
 			this.SetGeocacheDBButton.Size = new System.Drawing.Size(109, 56);
-			this.SetGeocacheDBButton.TabIndex = 6;
+			this.SetGeocacheDBButton.TabIndex = 1;
 			this.SetGeocacheDBButton.Text = "Set Geocache Database";
 			this.SetGeocacheDBButton.UseVisualStyleBackColor = true;
 			this.SetGeocacheDBButton.Click += new System.EventHandler(this.setGeocachedatabaseButton_Click);
@@ -718,7 +717,7 @@
 			this.ImportPQButton.Name = "ImportPQButton";
 			this.StateTableLayout.SetRowSpan(this.ImportPQButton, 2);
 			this.ImportPQButton.Size = new System.Drawing.Size(111, 56);
-			this.ImportPQButton.TabIndex = 7;
+			this.ImportPQButton.TabIndex = 2;
 			this.ImportPQButton.Text = "Import Pocket Query";
 			this.ImportPQButton.UseVisualStyleBackColor = true;
 			this.ImportPQButton.Click += new System.EventHandler(this.ImportGeocachesButton_Click);
@@ -731,7 +730,7 @@
 			this.SetRatingprofileDBButton.Name = "SetRatingprofileDBButton";
 			this.StateTableLayout.SetRowSpan(this.SetRatingprofileDBButton, 2);
 			this.SetRatingprofileDBButton.Size = new System.Drawing.Size(109, 56);
-			this.SetRatingprofileDBButton.TabIndex = 8;
+			this.SetRatingprofileDBButton.TabIndex = 3;
 			this.SetRatingprofileDBButton.Text = "Set Ratingprofile Database";
 			this.SetRatingprofileDBButton.UseVisualStyleBackColor = true;
 			this.SetRatingprofileDBButton.Click += new System.EventHandler(this.setRatingprofiledatabaseButton_Click);
@@ -744,7 +743,7 @@
 			this.SetRoutingprofileDBButton.Name = "SetRoutingprofileDBButton";
 			this.StateTableLayout.SetRowSpan(this.SetRoutingprofileDBButton, 2);
 			this.SetRoutingprofileDBButton.Size = new System.Drawing.Size(109, 56);
-			this.SetRoutingprofileDBButton.TabIndex = 9;
+			this.SetRoutingprofileDBButton.TabIndex = 5;
 			this.SetRoutingprofileDBButton.Text = "Set Routingprofile Database";
 			this.SetRoutingprofileDBButton.UseVisualStyleBackColor = true;
 			this.SetRoutingprofileDBButton.Click += new System.EventHandler(this.setRoutingprofiledatabaseButton_Click);
@@ -757,7 +756,7 @@
 			this.SetRouterDBButton.Name = "SetRouterDBButton";
 			this.StateTableLayout.SetRowSpan(this.SetRouterDBButton, 2);
 			this.SetRouterDBButton.Size = new System.Drawing.Size(109, 56);
-			this.SetRouterDBButton.TabIndex = 10;
+			this.SetRouterDBButton.TabIndex = 7;
 			this.SetRouterDBButton.Text = "Set Router Database";
 			this.SetRouterDBButton.UseVisualStyleBackColor = true;
 			this.SetRouterDBButton.Click += new System.EventHandler(this.setRouterDBButton_Click);
@@ -770,7 +769,7 @@
 			this.ImportPbfButton.Name = "ImportPbfButton";
 			this.StateTableLayout.SetRowSpan(this.ImportPbfButton, 2);
 			this.ImportPbfButton.Size = new System.Drawing.Size(111, 56);
-			this.ImportPbfButton.TabIndex = 11;
+			this.ImportPbfButton.TabIndex = 8;
 			this.ImportPbfButton.Text = "Import .pbf file";
 			this.ImportPbfButton.UseVisualStyleBackColor = true;
 			this.ImportPbfButton.Click += new System.EventHandler(this.ImportOSMDataButton_Click);
@@ -810,7 +809,7 @@
 			this.NewRatingprofileDatbaseButton.Name = "NewRatingprofileDatbaseButton";
 			this.StateTableLayout.SetRowSpan(this.NewRatingprofileDatbaseButton, 2);
 			this.NewRatingprofileDatbaseButton.Size = new System.Drawing.Size(111, 54);
-			this.NewRatingprofileDatbaseButton.TabIndex = 13;
+			this.NewRatingprofileDatbaseButton.TabIndex = 4;
 			this.NewRatingprofileDatbaseButton.Text = "New, empty Database";
 			this.NewRatingprofileDatbaseButton.UseVisualStyleBackColor = true;
 			this.NewRatingprofileDatbaseButton.Click += new System.EventHandler(this.NewRatingprofileDatabaseButton_Click);
@@ -822,7 +821,7 @@
 			this.NewRoutingprofileDatabaseButton.Name = "NewRoutingprofileDatabaseButton";
 			this.StateTableLayout.SetRowSpan(this.NewRoutingprofileDatabaseButton, 2);
 			this.NewRoutingprofileDatabaseButton.Size = new System.Drawing.Size(111, 54);
-			this.NewRoutingprofileDatabaseButton.TabIndex = 14;
+			this.NewRoutingprofileDatabaseButton.TabIndex = 6;
 			this.NewRoutingprofileDatabaseButton.Text = "New, empty Database";
 			this.NewRoutingprofileDatabaseButton.UseVisualStyleBackColor = true;
 			this.NewRoutingprofileDatabaseButton.Click += new System.EventHandler(this.NewRoutingprofilesDatabaseButton_Click);
