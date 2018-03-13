@@ -52,6 +52,11 @@ namespace GeocachingTourPlanner
 			//Remove Cross in the middle of the Map
 			Map.ShowCenter = false;
 
+			//StatusDisplay
+			Program.Geocaches.ListChanged += new ListChangedEventHandler(UpdateGCText);
+			Program.Ratingprofiles.ListChanged += new ListChangedEventHandler(UpdateRatingprofileText);
+			Program.Routingprofiles.ListChanged += new ListChangedEventHandler(UpdateRoutingprofileText);
+
 		}
 
 
@@ -89,7 +94,7 @@ namespace GeocachingTourPlanner
 					{
 						if (MessageBox.Show("If you selected an existing file it will be overwritten.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
 						{
-							File.Create(NewFileDialog.FileName);
+							File.Create(NewFileDialog.FileName).Close();
 							Program.Backup(null);
 							Program.RouterDB = new RouterDb();
 							Program.DB.GeocacheDB_Filepath = StandardFileDialog.FileName;
@@ -131,16 +136,16 @@ namespace GeocachingTourPlanner
 		private void ImportGeocachesButton_Click(object sender, EventArgs e)
 		{
 			string GPXDatei;
-			OpenFileDialog StandardFileDialog = new OpenFileDialog
+			OpenFileDialog SelectGPXFileDialog = new OpenFileDialog
 			{
 				InitialDirectory = Program.DB.LastUsedFilepath,
 				Filter = "gpx files (*.gpx)|*.gpx|All files (*.*)|*.*",
-				FilterIndex = 2,
+				FilterIndex = 1,
 				RestoreDirectory = true,
 				Title = "Import geocaches"
 			};
 
-			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
+			if (SelectGPXFileDialog.ShowDialog() == DialogResult.OK)
 			{
 				DialogResult Importmodus = MessageBox.Show("Should the Geocaches be loaded into a new Database?", "Import", MessageBoxButtons.YesNoCancel);
 				if (Importmodus == DialogResult.Yes)
@@ -163,10 +168,10 @@ namespace GeocachingTourPlanner
 						{
 							if (MessageBox.Show("If you selected an existing file it will be overwritten.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
 							{
-								File.Create(StandardFileDialog.FileName);
+								File.Create(NewFileDialog.FileName).Close();
 								Program.Backup(Program.Geocaches);
 								Program.Geocaches = new SortableBindingList<Geocache>();
-								Program.DB.GeocacheDB_Filepath = StandardFileDialog.FileName;
+								Program.DB.GeocacheDB_Filepath = NewFileDialog.FileName;
 							}
 							else
 							{
@@ -186,8 +191,8 @@ namespace GeocachingTourPlanner
 
 				try
 				{
-					GPXDatei = StandardFileDialog.FileName;
-					Program.DB.LastUsedFilepath = StandardFileDialog.FileName;
+					GPXDatei = SelectGPXFileDialog.FileName;
+					Program.DB.LastUsedFilepath = SelectGPXFileDialog.FileName;
 					XElement RootElement = XElement.Load(GPXDatei);
 
 					XNamespace gpx = "http://www.topografix.com/GPX/1/0"; //default namespace
@@ -263,14 +268,13 @@ namespace GeocachingTourPlanner
 							//Nothing in the moment, would be good if it would update the Geocaches
 						}
 					}
-
-					GeocachesStateLabel.Text = Program.Geocaches.Count + " Geocaches loaded";
 				}
 				catch (Exception ex)
 				{
 					MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
 				}
 				Program.Backup(Program.Geocaches);
+				Program.Geocaches.ResetBindings();
 			}
 		}
 
@@ -351,6 +355,8 @@ namespace GeocachingTourPlanner
 					}
 				}
 			} while (retry);
+
+			Program.Ratingprofiles.ResetBindings();
 			
 		}
 
@@ -385,6 +391,22 @@ namespace GeocachingTourPlanner
 				}
 			} while (retry);
 
+			Program.Routingprofiles.ResetBindings();
+		}
+
+		private void UpdateGCText(object sender, EventArgs e)
+		{
+			GeocachesStateLabel.Text = Program.Geocaches.Count + " Geocaches loaded";
+		}
+
+		private void UpdateRatingprofileText(object sender, EventArgs e)
+		{
+			RatingprofilesStateLabel.Text = Program.Ratingprofiles.Count.ToString() + " Ratingprofiles loaded";
+		}
+
+		private void UpdateRoutingprofileText(object sender, EventArgs e)
+		{
+			RoutingprofilesStateLabel.Text = Program.Routingprofiles.Count.ToString() + " Routingprofiles loaded";
 		}
 		#endregion
 
@@ -547,7 +569,6 @@ namespace GeocachingTourPlanner
 				EditRatingprofileCombobox.Items.Add(profile.Name);
 				SelectedRatingprofileCombobox.Items.Add(profile.Name);
 			}
-			RatingprofilesStateLabel.Text = Program.Ratingprofiles.Count.ToString() + " Ratingprofiles loaded";
 		}
 
 		/// <summary>
@@ -565,7 +586,6 @@ namespace GeocachingTourPlanner
 				EditRoutingprofileCombobox.Items.Add(profile.Name);
 				SelectedRoutingprofileCombobox.Items.Add(profile.Name);
 			}
-			RoutingprofilesStateLabel.Text = Program.Routingprofiles.Count.ToString() + " Routingprofiles loaded";
 		}
 
 		private void Ratingprofile_Click(object sender, EventArgs e)

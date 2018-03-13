@@ -45,6 +45,9 @@ namespace GeocachingTourPlanner
             Application.SetCompatibleTextRenderingDefault(false);
             MainWindow = new Form1();
 
+			//select the Overview Tab
+			MainWindow.LeftTabs.SelectedIndex = 1;
+
 			//Initialisierungen:
 			//DB
 			if (File.Exists(Database_Filepath))//Thus it is not the first start of the program
