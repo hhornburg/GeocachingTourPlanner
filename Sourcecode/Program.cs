@@ -77,10 +77,14 @@ namespace GeocachingTourPlanner
 				}
 
 				//Set default settings
-				DB.EveryNthShapepoint = 25;//Wild guess, should be approx every .5 km
-				DB.RouterMode = RouterMode.On_the_go;
-				DB.Tolerance = 500;
-				DB.Divisor = 4;
+				DB.EveryNthShapepoint = 1;
+				DB.Autotargetselection = true;
+				DB.Tolerance = 200;
+				DB.Divisor = 5;
+				DB.RoutefindingWidth = 4;
+				DB.DisplayLiveCalculation = false;
+
+				MainWindow.LeftTabs.SelectedIndex = 0;
 			}
 
 			MainWindow.UpdateSettingsTextBoxes();
@@ -91,6 +95,8 @@ namespace GeocachingTourPlanner
 				{
 				 RouterDB = RouterDb.Deserialize(stream);
 				}
+
+				MainWindow.RouterDBStateLabel.Text = "Successfully loaded RouterDB";
 			}
 			
 			//Load Ratingprofiles from the File specified in the Database
@@ -105,10 +111,6 @@ namespace GeocachingTourPlanner
 			if (DB.EveryNthShapepoint == 0)
 			{
 				DB.EveryNthShapepoint = 5;
-			}
-			if (DB.RouterMode == 0)
-			{
-				DB.RouterMode = RouterMode.On_the_go;
 			}
 			if (DB.Divisor == 0)
 			{
@@ -326,6 +328,7 @@ namespace GeocachingTourPlanner
 					}
 				}
 				Geocaches.ResetBindings();
+				MainWindow.GeocachesStateLabel.Text = Geocaches.Count + " Geocaches loaded";
 			}
 		}
 		#endregion
