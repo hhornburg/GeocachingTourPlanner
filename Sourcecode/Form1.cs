@@ -52,11 +52,6 @@ namespace GeocachingTourPlanner
 			//Remove Cross in the middle of the Map
 			Map.ShowCenter = false;
 
-			//StatusDisplay
-			Program.Geocaches.ListChanged += new ListChangedEventHandler(UpdateGCText);
-			Program.Ratingprofiles.ListChanged += new ListChangedEventHandler(UpdateRatingprofileText);
-			Program.Routingprofiles.ListChanged += new ListChangedEventHandler(UpdateRoutingprofileText);
-
 		}
 
 
@@ -394,20 +389,6 @@ namespace GeocachingTourPlanner
 			Program.Routingprofiles.ResetBindings();
 		}
 
-		private void UpdateGCText(object sender, EventArgs e)
-		{
-			GeocachesStateLabel.Text = Program.Geocaches.Count + " Geocaches loaded";
-		}
-
-		private void UpdateRatingprofileText(object sender, EventArgs e)
-		{
-			RatingprofilesStateLabel.Text = Program.Ratingprofiles.Count.ToString() + " Ratingprofiles loaded";
-		}
-
-		private void UpdateRoutingprofileText(object sender, EventArgs e)
-		{
-			RoutingprofilesStateLabel.Text = Program.Routingprofiles.Count.ToString() + " Routingprofiles loaded";
-		}
 		#endregion
 
 		#region Update of Rating/Routingprofiles
@@ -508,7 +489,7 @@ namespace GeocachingTourPlanner
 		public void CreateRoutingprofile(object sender, EventArgs e)
 		{
 			Routingprofile Profile = new Routingprofile();
-			if (RatingProfileName.Text == null)
+			if (RoutingProfileName.Text == null)
 			{
 				MessageBox.Show("Please set Name");
 				return;
@@ -569,6 +550,7 @@ namespace GeocachingTourPlanner
 				EditRatingprofileCombobox.Items.Add(profile.Name);
 				SelectedRatingprofileCombobox.Items.Add(profile.Name);
 			}
+			RatingprofilesStateLabel.Text = Program.Ratingprofiles.Count.ToString() + " Ratingprofiles loaded";
 		}
 
 		/// <summary>
@@ -586,6 +568,41 @@ namespace GeocachingTourPlanner
 				EditRoutingprofileCombobox.Items.Add(profile.Name);
 				SelectedRoutingprofileCombobox.Items.Add(profile.Name);
 			}
+
+			RoutingprofilesStateLabel.Text = Program.Routingprofiles.Count.ToString() + " Routingprofiles loaded";
+		}
+
+		private void DeleteRoutingprofileButton_Click(object sender, EventArgs e)
+		{
+			Routingprofile Profile = new Routingprofile();
+			if (RoutingProfileName.Text == null)
+			{
+				MessageBox.Show("Please set Name");
+				return;
+			}
+			Profile.Name = RoutingProfileName.Text;
+			foreach (Routingprofile BP in Program.Routingprofiles.Where(x => x.Name == Profile.Name).ToList())
+			{
+				Program.Routingprofiles.Remove(BP);
+			}
+			Program.Backup(Program.Routingprofiles);
+		}
+
+
+		private void DeleteRatingprofileButton_Click(object sender, EventArgs e)
+		{
+			Ratingprofile Profile = new Ratingprofile();
+			if (RatingProfileName.Text == null)
+			{
+				MessageBox.Show("Please set Name");
+				return;
+			}
+			Profile.Name = RatingProfileName.Text;
+			foreach (Routingprofile BP in Program.Routingprofiles.Where(x => x.Name == Profile.Name).ToList())
+			{
+				Program.Routingprofiles.Remove(BP);
+			}
+			Program.Backup(Program.Ratingprofiles);
 		}
 
 		private void Ratingprofile_Click(object sender, EventArgs e)
@@ -1452,6 +1469,5 @@ namespace GeocachingTourPlanner
 			}
 		}
 
-		
 	}
 }
