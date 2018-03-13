@@ -12,6 +12,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>237</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9251671</lat>
@@ -25,6 +26,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>221</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.003334</lat>
@@ -38,6 +40,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>209</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9802666</lat>
@@ -51,6 +54,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>209</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9804153</lat>
@@ -64,6 +68,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>208</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0667343</lat>
@@ -77,6 +82,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>201</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.99027</lat>
@@ -90,6 +96,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>200</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9348</lat>
@@ -103,6 +110,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>199</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.01045</lat>
@@ -116,6 +124,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>197</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0027657</lat>
@@ -129,6 +138,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>197</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0071831</lat>
@@ -142,6 +152,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>197</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0462837</lat>
@@ -155,6 +166,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>195</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0135</lat>
@@ -168,6 +180,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>192</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.01915</lat>
@@ -181,6 +194,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>192</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9822655</lat>
@@ -194,6 +208,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>192</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9188347</lat>
@@ -207,6 +222,7 @@
     <Type>Letterbox</Type>
     <Size>Regular</Size>
     <Rating>189</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9861</lat>
@@ -220,6 +236,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>189</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9723167</lat>
@@ -233,6 +250,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>184</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0580177</lat>
@@ -246,6 +264,7 @@
     <Type>Letterbox</Type>
     <Size>Regular</Size>
     <Rating>184</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.91422</lat>
@@ -259,6 +278,7 @@
     <Type>Letterbox</Type>
     <Size>Regular</Size>
     <Rating>184</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0266151</lat>
@@ -272,6 +292,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>183</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0252</lat>
@@ -285,6 +306,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>183</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9385338</lat>
@@ -298,6 +320,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>181</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.97315</lat>
@@ -311,6 +334,7 @@
     <Type>Letterbox</Type>
     <Size>Regular</Size>
     <Rating>179</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0009651</lat>
@@ -324,6 +348,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>179</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9666672</lat>
@@ -337,6 +362,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>178</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.059166</lat>
@@ -350,6 +376,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>175</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9093323</lat>
@@ -363,6 +390,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>170</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.94462</lat>
@@ -376,6 +404,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>169</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9180679</lat>
@@ -389,6 +418,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>167</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.98097</lat>
@@ -402,6 +432,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>167</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9666672</lat>
@@ -415,6 +446,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>166</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0029335</lat>
@@ -428,6 +460,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>165</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00875</lat>
@@ -441,6 +474,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>164</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.91675</lat>
@@ -454,6 +488,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>164</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9156</lat>
@@ -467,6 +502,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>164</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.99528</lat>
@@ -480,6 +516,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>163</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.96925</lat>
@@ -493,6 +530,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>161</Rating>
+    <ForceInclude>true</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.94565</lat>
@@ -506,6 +544,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>160</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0233345</lat>
@@ -519,6 +558,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>160</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9727173</lat>
@@ -532,6 +572,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>160</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.95</lat>
@@ -545,6 +586,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>160</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9648323</lat>
@@ -558,6 +600,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>160</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9612656</lat>
@@ -571,6 +614,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>160</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9668846</lat>
@@ -584,6 +628,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>159</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0670166</lat>
@@ -597,6 +642,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>159</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9833336</lat>
@@ -610,6 +656,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>158</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9752846</lat>
@@ -623,6 +670,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>157</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.054</lat>
@@ -636,6 +684,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>157</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9833336</lat>
@@ -649,6 +698,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>157</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.02653</lat>
@@ -662,6 +712,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>157</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00427</lat>
@@ -675,6 +726,7 @@
     <Type>Letterbox</Type>
     <Size>Regular</Size>
     <Rating>156</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.99893</lat>
@@ -688,6 +740,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>156</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.084</lat>
@@ -701,6 +754,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>155</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.94628</lat>
@@ -714,6 +768,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>155</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0370331</lat>
@@ -727,6 +782,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>154</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9616661</lat>
@@ -740,6 +796,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>153</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0047</lat>
@@ -753,6 +810,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>153</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0117</lat>
@@ -766,6 +824,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>152</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9707832</lat>
@@ -779,6 +838,7 @@
     <Type>Letterbox</Type>
     <Size>Regular</Size>
     <Rating>152</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.96155</lat>
@@ -792,6 +852,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>151</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9302</lat>
@@ -805,6 +866,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>150</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.99708</lat>
@@ -818,6 +880,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>150</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0158348</lat>
@@ -831,6 +894,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>150</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00325</lat>
@@ -844,6 +908,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>150</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.97193</lat>
@@ -857,6 +922,7 @@
     <Type>Multi</Type>
     <Size>Large</Size>
     <Rating>149</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.955616</lat>
@@ -870,6 +936,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>149</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00833</lat>
@@ -883,6 +950,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>149</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9320831</lat>
@@ -896,6 +964,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>149</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9670677</lat>
@@ -909,6 +978,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>148</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.96137</lat>
@@ -922,6 +992,7 @@
     <Type>Traditional</Type>
     <Size>Large</Size>
     <Rating>148</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.03085</lat>
@@ -935,6 +1006,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>147</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00595</lat>
@@ -948,6 +1020,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>147</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9074821</lat>
@@ -961,6 +1034,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>147</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0316162</lat>
@@ -974,6 +1048,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>147</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.94037</lat>
@@ -987,6 +1062,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>147</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9388847</lat>
@@ -1000,6 +1076,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>145</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9488335</lat>
@@ -1013,6 +1090,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>144</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9617157</lat>
@@ -1026,6 +1104,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>144</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.02015</lat>
@@ -1039,6 +1118,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>143</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9233665</lat>
@@ -1052,6 +1132,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>142</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9892654</lat>
@@ -1065,6 +1146,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>142</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.985</lat>
@@ -1078,6 +1160,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>142</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9799347</lat>
@@ -1091,6 +1174,7 @@
     <Type>EarthCache</Type>
     <Size>Other</Size>
     <Rating>142</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00575</lat>
@@ -1104,6 +1188,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>142</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.94927</lat>
@@ -1117,6 +1202,7 @@
     <Type>Multi</Type>
     <Size>Large</Size>
     <Rating>142</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9504166</lat>
@@ -1130,6 +1216,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>142</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0245</lat>
@@ -1143,6 +1230,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>141</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.98985</lat>
@@ -1156,6 +1244,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>141</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9722176</lat>
@@ -1169,6 +1258,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>141</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.95947</lat>
@@ -1182,6 +1272,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>140</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.08075</lat>
@@ -1195,6 +1286,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>140</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9578323</lat>
@@ -1208,6 +1300,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>140</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0133324</lat>
@@ -1221,6 +1314,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>140</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.01362</lat>
@@ -1234,6 +1328,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>140</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9121</lat>
@@ -1247,6 +1342,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>140</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0275154</lat>
@@ -1260,6 +1356,7 @@
     <Type>Letterbox</Type>
     <Size>Regular</Size>
     <Rating>139</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.95925</lat>
@@ -1273,6 +1370,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>138</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9833336</lat>
@@ -1286,6 +1384,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>138</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.96417</lat>
@@ -1299,6 +1398,7 @@
     <Type>Mystery</Type>
     <Size>Large</Size>
     <Rating>138</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.03417</lat>
@@ -1312,6 +1412,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>138</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.94687</lat>
@@ -1325,6 +1426,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>138</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9565659</lat>
@@ -1338,6 +1440,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>136</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9141</lat>
@@ -1351,6 +1454,7 @@
     <Type>Letterbox</Type>
     <Size>Large</Size>
     <Rating>136</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.93133</lat>
@@ -1364,6 +1468,7 @@
     <Type>Letterbox</Type>
     <Size>Large</Size>
     <Rating>136</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9430656</lat>
@@ -1377,6 +1482,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>136</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.99893</lat>
@@ -1390,6 +1496,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>135</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.91987</lat>
@@ -1403,6 +1510,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>135</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9163</lat>
@@ -1416,6 +1524,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>135</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9752846</lat>
@@ -1429,6 +1538,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>135</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9597</lat>
@@ -1442,6 +1552,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>135</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9552</lat>
@@ -1455,6 +1566,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>134</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.04798</lat>
@@ -1468,6 +1580,7 @@
     <Type>Letterbox</Type>
     <Size>Regular</Size>
     <Rating>134</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9139175</lat>
@@ -1481,6 +1594,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>134</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.948616</lat>
@@ -1494,6 +1608,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>133</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0070343</lat>
@@ -1507,6 +1622,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>133</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0356</lat>
@@ -1520,6 +1636,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>133</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0474663</lat>
@@ -1533,6 +1650,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>133</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9907837</lat>
@@ -1546,6 +1664,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>133</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.95975</lat>
@@ -1559,6 +1678,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>133</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.01642</lat>
@@ -1572,6 +1692,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>133</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0178337</lat>
@@ -1585,6 +1706,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>133</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9783325</lat>
@@ -1598,6 +1720,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>132</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0520668</lat>
@@ -1611,6 +1734,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>132</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9609833</lat>
@@ -1624,6 +1748,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>132</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.06333</lat>
@@ -1637,6 +1762,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>132</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0166664</lat>
@@ -1650,6 +1776,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>131</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.97185</lat>
@@ -1663,6 +1790,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>131</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9615</lat>
@@ -1676,6 +1804,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>130</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0754166</lat>
@@ -1689,6 +1818,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>130</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0655</lat>
@@ -1702,6 +1832,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>130</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00935</lat>
@@ -1715,6 +1846,7 @@
     <Type>Virtual</Type>
     <Size>Other</Size>
     <Rating>130</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.035183</lat>
@@ -1728,6 +1860,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>130</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.06275</lat>
@@ -1741,6 +1874,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>130</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0639153</lat>
@@ -1754,6 +1888,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>130</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.91705</lat>
@@ -1767,6 +1902,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>130</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.07405</lat>
@@ -1780,6 +1916,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>130</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0014839</lat>
@@ -1793,6 +1930,7 @@
     <Type>Traditional</Type>
     <Size>Large</Size>
     <Rating>130</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0749168</lat>
@@ -1806,6 +1944,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>130</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.011467</lat>
@@ -1819,6 +1958,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>129</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9470825</lat>
@@ -1832,6 +1972,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>129</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9359322</lat>
@@ -1845,6 +1986,7 @@
     <Type>EarthCache</Type>
     <Size>Other</Size>
     <Rating>129</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9888344</lat>
@@ -1858,6 +2000,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>129</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9905</lat>
@@ -1871,6 +2014,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>129</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9799843</lat>
@@ -1884,6 +2028,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>129</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.91705</lat>
@@ -1897,6 +2042,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>129</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0513153</lat>
@@ -1910,6 +2056,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>129</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9927826</lat>
@@ -1923,6 +2070,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>129</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.953</lat>
@@ -1936,6 +2084,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>128</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00413</lat>
@@ -1949,6 +2098,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>128</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.94258</lat>
@@ -1962,6 +2112,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>128</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0333328</lat>
@@ -1975,6 +2126,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>128</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.97487</lat>
@@ -1988,6 +2140,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>128</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.04245</lat>
@@ -2001,6 +2154,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>128</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0663338</lat>
@@ -2014,6 +2168,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>128</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.04193</lat>
@@ -2027,6 +2182,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>128</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.001667</lat>
@@ -2040,6 +2196,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>128</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0216827</lat>
@@ -2053,6 +2210,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>127</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9755173</lat>
@@ -2066,6 +2224,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>127</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.05075</lat>
@@ -2079,6 +2238,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>127</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9416656</lat>
@@ -2092,6 +2252,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>127</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0029831</lat>
@@ -2105,6 +2266,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>127</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.95463</lat>
@@ -2118,6 +2280,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>127</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9833336</lat>
@@ -2131,6 +2294,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>127</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0537834</lat>
@@ -2144,6 +2308,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>127</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.97195</lat>
@@ -2157,6 +2322,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>126</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0175819</lat>
@@ -2170,6 +2336,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>126</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9166679</lat>
@@ -2183,6 +2350,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>126</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.01205</lat>
@@ -2196,6 +2364,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>126</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.95</lat>
@@ -2209,6 +2378,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>126</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9981</lat>
@@ -2222,6 +2392,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>126</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0738335</lat>
@@ -2235,6 +2406,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>126</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.94298</lat>
@@ -2248,6 +2420,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>126</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.990284</lat>
@@ -2261,6 +2434,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>126</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.062767</lat>
@@ -2274,6 +2448,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>126</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.92172</lat>
@@ -2287,6 +2462,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>126</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0733833</lat>
@@ -2300,6 +2476,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>126</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0203323</lat>
@@ -2313,6 +2490,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>125</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0474663</lat>
@@ -2326,6 +2504,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>125</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0263672</lat>
@@ -2339,6 +2518,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>125</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9670677</lat>
@@ -2352,6 +2532,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>125</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9648</lat>
@@ -2365,6 +2546,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>124</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9846153</lat>
@@ -2378,6 +2560,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>124</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9833336</lat>
@@ -2391,6 +2574,7 @@
     <Type>Letterbox</Type>
     <Size>Small</Size>
     <Rating>124</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.955</lat>
@@ -2404,6 +2588,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>124</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9115334</lat>
@@ -2417,6 +2602,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>123</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9711838</lat>
@@ -2430,6 +2616,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>123</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.96525</lat>
@@ -2443,6 +2630,7 @@
     <Type>Mystery</Type>
     <Size>Other</Size>
     <Rating>122</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0155</lat>
@@ -2456,6 +2644,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>122</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.07</lat>
@@ -2469,6 +2658,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>122</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0683327</lat>
@@ -2482,6 +2672,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>122</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9406</lat>
@@ -2495,6 +2686,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>122</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.99645</lat>
@@ -2508,6 +2700,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>122</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0138</lat>
@@ -2521,6 +2714,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>122</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9508171</lat>
@@ -2534,6 +2728,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>122</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9633331</lat>
@@ -2547,6 +2742,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>122</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00085</lat>
@@ -2560,6 +2756,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>122</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0153656</lat>
@@ -2573,6 +2770,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>121</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.02978</lat>
@@ -2586,6 +2784,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>121</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0042343</lat>
@@ -2599,6 +2798,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>121</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.079483</lat>
@@ -2612,6 +2812,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>121</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.97262</lat>
@@ -2625,6 +2826,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>120</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.05638</lat>
@@ -2638,6 +2840,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>120</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9481</lat>
@@ -2651,6 +2854,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>120</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0174675</lat>
@@ -2664,6 +2868,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>120</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.025</lat>
@@ -2677,6 +2882,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>120</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.931</lat>
@@ -2690,6 +2896,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>120</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.040966</lat>
@@ -2703,6 +2910,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>120</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.01025</lat>
@@ -2716,6 +2924,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>119</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9483</lat>
@@ -2729,6 +2938,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>119</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9189835</lat>
@@ -2742,6 +2952,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>119</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9280167</lat>
@@ -2755,6 +2966,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>119</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9333344</lat>
@@ -2768,6 +2980,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>119</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0483665</lat>
@@ -2781,6 +2994,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>119</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.928833</lat>
@@ -2794,6 +3008,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>119</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.935833</lat>
@@ -2807,6 +3022,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>119</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.93667</lat>
@@ -2820,6 +3036,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>119</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.05</lat>
@@ -2833,6 +3050,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>119</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0587845</lat>
@@ -2846,6 +3064,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>119</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.935833</lat>
@@ -2859,6 +3078,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>119</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.974617</lat>
@@ -2872,6 +3092,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>118</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.99705</lat>
@@ -2885,6 +3106,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>118</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9459</lat>
@@ -2898,6 +3120,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>118</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9188843</lat>
@@ -2911,6 +3134,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>118</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.03965</lat>
@@ -2924,6 +3148,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>118</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0575</lat>
@@ -2937,6 +3162,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>118</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9967651</lat>
@@ -2950,6 +3176,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>117</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0164</lat>
@@ -2963,6 +3190,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>117</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9994659</lat>
@@ -2976,6 +3204,7 @@
     <Type>Mystery</Type>
     <Size>Other</Size>
     <Rating>117</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.996</lat>
@@ -2989,6 +3218,7 @@
     <Type>Traditional</Type>
     <Size>Other</Size>
     <Rating>117</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.97167</lat>
@@ -3002,6 +3232,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>116</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9701</lat>
@@ -3015,6 +3246,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>116</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9210663</lat>
@@ -3028,6 +3260,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>116</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.075016</lat>
@@ -3041,6 +3274,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>116</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9843</lat>
@@ -3054,6 +3288,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>116</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0250664</lat>
@@ -3067,6 +3302,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>116</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.05965</lat>
@@ -3080,6 +3316,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>116</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0416</lat>
@@ -3093,6 +3330,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>115</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00925</lat>
@@ -3106,6 +3344,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>115</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00453</lat>
@@ -3119,6 +3358,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>115</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.96795</lat>
@@ -3132,6 +3372,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>115</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9989166</lat>
@@ -3145,6 +3386,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>115</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.99905</lat>
@@ -3158,6 +3400,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>115</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9962845</lat>
@@ -3171,6 +3414,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>115</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.92592</lat>
@@ -3184,6 +3428,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>115</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.97283</lat>
@@ -3197,6 +3442,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>115</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0667152</lat>
@@ -3210,6 +3456,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>114</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9833336</lat>
@@ -3223,6 +3470,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>114</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9445</lat>
@@ -3236,6 +3484,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>114</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9691162</lat>
@@ -3249,6 +3498,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>114</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9725</lat>
@@ -3262,6 +3512,7 @@
     <Type>Letterbox</Type>
     <Size>Regular</Size>
     <Rating>114</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9978676</lat>
@@ -3275,6 +3526,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>114</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0107346</lat>
@@ -3288,6 +3540,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>114</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.01592</lat>
@@ -3301,6 +3554,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>114</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0169334</lat>
@@ -3314,6 +3568,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>113</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9678345</lat>
@@ -3327,6 +3582,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>113</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0166664</lat>
@@ -3340,6 +3596,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>113</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9736176</lat>
@@ -3353,6 +3610,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>113</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0009842</lat>
@@ -3366,6 +3624,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>113</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9812164</lat>
@@ -3379,6 +3638,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>112</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00688</lat>
@@ -3392,6 +3652,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>112</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0065346</lat>
@@ -3405,6 +3666,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>112</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0181</lat>
@@ -3418,6 +3680,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>112</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0091324</lat>
@@ -3431,6 +3694,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>112</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0611</lat>
@@ -3444,6 +3708,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>112</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0371323</lat>
@@ -3457,6 +3722,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>112</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.95463</lat>
@@ -3470,6 +3736,7 @@
     <Type>Letterbox</Type>
     <Size>Regular</Size>
     <Rating>111</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9634323</lat>
@@ -3483,6 +3750,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>111</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.97983</lat>
@@ -3496,6 +3764,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>111</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.005</lat>
@@ -3509,6 +3778,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>111</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9993</lat>
@@ -3522,6 +3792,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>111</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0607338</lat>
@@ -3535,6 +3806,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>111</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9924164</lat>
@@ -3548,6 +3820,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>110</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9900665</lat>
@@ -3561,6 +3834,7 @@
     <Type>EarthCache</Type>
     <Size>Other</Size>
     <Rating>110</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.99685</lat>
@@ -3574,6 +3848,7 @@
     <Type>EarthCache</Type>
     <Size>Other</Size>
     <Rating>110</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9594154</lat>
@@ -3587,6 +3862,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>110</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9705162</lat>
@@ -3600,6 +3876,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>110</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9993172</lat>
@@ -3613,6 +3890,7 @@
     <Type>Letterbox</Type>
     <Size>Small</Size>
     <Rating>110</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0012</lat>
@@ -3626,6 +3904,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>110</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00052</lat>
@@ -3639,6 +3918,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>110</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49</lat>
@@ -3652,6 +3932,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>110</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9829178</lat>
@@ -3665,6 +3946,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>110</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0263672</lat>
@@ -3678,6 +3960,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>109</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.931366</lat>
@@ -3691,6 +3974,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>109</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.99</lat>
@@ -3704,6 +3988,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>109</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0286331</lat>
@@ -3717,6 +4002,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>109</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9248161</lat>
@@ -3730,6 +4016,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>109</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9693832</lat>
@@ -3743,6 +4030,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>109</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.91635</lat>
@@ -3756,6 +4044,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>109</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9705</lat>
@@ -3769,6 +4058,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>108</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9189</lat>
@@ -3782,6 +4072,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>108</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0699158</lat>
@@ -3795,6 +4086,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>108</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9818</lat>
@@ -3808,6 +4100,7 @@
     <Type>EarthCache</Type>
     <Size>Other</Size>
     <Rating>108</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.02933</lat>
@@ -3821,6 +4114,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>108</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.95315</lat>
@@ -3834,6 +4128,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>108</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0166664</lat>
@@ -3847,6 +4142,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>107</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9854164</lat>
@@ -3860,6 +4156,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>107</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9868164</lat>
@@ -3873,6 +4170,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>107</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9708328</lat>
@@ -3886,6 +4184,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>107</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9648</lat>
@@ -3899,6 +4198,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>107</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9181671</lat>
@@ -3912,6 +4212,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>107</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9985847</lat>
@@ -3925,6 +4226,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>107</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00555</lat>
@@ -3938,6 +4240,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>106</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00085</lat>
@@ -3951,6 +4254,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>106</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0225334</lat>
@@ -3964,6 +4268,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>106</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.97205</lat>
@@ -3977,6 +4282,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>106</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9627838</lat>
@@ -3990,6 +4296,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>105</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9472847</lat>
@@ -4003,6 +4310,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>105</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0179</lat>
@@ -4016,6 +4324,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>105</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9473343</lat>
@@ -4029,6 +4338,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>105</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0160179</lat>
@@ -4042,6 +4352,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>105</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0307846</lat>
@@ -4055,6 +4366,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>105</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9172</lat>
@@ -4068,6 +4380,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>105</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.975</lat>
@@ -4081,6 +4394,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>105</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9426</lat>
@@ -4094,6 +4408,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>105</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.98982</lat>
@@ -4107,6 +4422,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>105</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9342</lat>
@@ -4120,6 +4436,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>105</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0110664</lat>
@@ -4133,6 +4450,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>104</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0096321</lat>
@@ -4146,6 +4464,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>104</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0193176</lat>
@@ -4159,6 +4478,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>104</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.928833</lat>
@@ -4172,6 +4492,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>104</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.922718</lat>
@@ -4185,6 +4506,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>104</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9731178</lat>
@@ -4198,6 +4520,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>104</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.01305</lat>
@@ -4211,6 +4534,7 @@
     <Type>Mystery</Type>
     <Size>Other</Size>
     <Rating>104</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.925</lat>
@@ -4224,6 +4548,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>104</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.975</lat>
@@ -4237,6 +4562,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>104</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.95</lat>
@@ -4250,6 +4576,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>104</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9333153</lat>
@@ -4263,6 +4590,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>104</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.93242</lat>
@@ -4276,6 +4604,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>104</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9187164</lat>
@@ -4289,6 +4618,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>104</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.91045</lat>
@@ -4302,6 +4632,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>104</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0172348</lat>
@@ -4315,6 +4646,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>103</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.975</lat>
@@ -4328,6 +4660,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>103</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9981651</lat>
@@ -4341,6 +4674,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>103</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9632</lat>
@@ -4354,6 +4688,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>103</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9620819</lat>
@@ -4367,6 +4702,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>103</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0642662</lat>
@@ -4380,6 +4716,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>102</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0405846</lat>
@@ -4393,6 +4730,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>102</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.06175</lat>
@@ -4406,6 +4744,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>102</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0545654</lat>
@@ -4419,6 +4758,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>102</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.06365</lat>
@@ -4432,6 +4772,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>102</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9964676</lat>
@@ -4445,6 +4786,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>102</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.067234</lat>
@@ -4458,6 +4800,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>102</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.96545</lat>
@@ -4471,6 +4814,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>102</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9981651</lat>
@@ -4484,6 +4828,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>102</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.008</lat>
@@ -4497,6 +4842,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>102</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0723343</lat>
@@ -4510,6 +4856,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>102</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49</lat>
@@ -4523,6 +4870,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>102</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0708847</lat>
@@ -4536,6 +4884,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>102</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.06675</lat>
@@ -4549,6 +4898,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>102</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.92483</lat>
@@ -4562,6 +4912,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>102</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.03235</lat>
@@ -4575,6 +4926,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>102</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.96633</lat>
@@ -4588,6 +4940,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>102</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.95355</lat>
@@ -4601,6 +4954,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>101</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0440331</lat>
@@ -4614,6 +4968,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>101</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.04997</lat>
@@ -4627,6 +4982,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>101</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9158821</lat>
@@ -4640,6 +4996,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>100</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0466652</lat>
@@ -4653,6 +5010,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>100</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9105339</lat>
@@ -4666,6 +5024,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>100</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0717163</lat>
@@ -4679,6 +5038,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>100</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9381828</lat>
@@ -4692,6 +5052,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>100</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.97545</lat>
@@ -4705,6 +5066,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>100</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9946823</lat>
@@ -4718,6 +5080,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>100</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.01502</lat>
@@ -4731,6 +5094,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>100</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.997982</lat>
@@ -4744,6 +5108,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>100</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49</lat>
@@ -4757,6 +5122,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>100</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.97195</lat>
@@ -4770,6 +5136,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>100</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0333328</lat>
@@ -4783,6 +5150,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>100</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9700165</lat>
@@ -4796,6 +5164,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>99</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0733337</lat>
@@ -4809,6 +5178,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>99</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9752846</lat>
@@ -4822,6 +5192,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>99</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0032</lat>
@@ -4835,6 +5206,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>99</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9078674</lat>
@@ -4848,6 +5220,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>99</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.98517</lat>
@@ -4861,6 +5234,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>99</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.02833</lat>
@@ -4874,6 +5248,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>99</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9097672</lat>
@@ -4887,6 +5262,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>99</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9666672</lat>
@@ -4900,6 +5276,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>99</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00255</lat>
@@ -4913,6 +5290,7 @@
     <Type>Multi</Type>
     <Size>Other</Size>
     <Rating>99</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9166679</lat>
@@ -4926,6 +5304,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>99</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9783325</lat>
@@ -4939,6 +5318,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>99</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.97395</lat>
@@ -4952,6 +5332,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>99</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0106659</lat>
@@ -4965,6 +5346,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>99</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9508667</lat>
@@ -4978,6 +5360,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>98</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00835</lat>
@@ -4991,6 +5374,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>98</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0298653</lat>
@@ -5004,6 +5388,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>98</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9883347</lat>
@@ -5017,6 +5402,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>98</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0784836</lat>
@@ -5030,6 +5416,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>98</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9415</lat>
@@ -5043,6 +5430,7 @@
     <Type>Wherigo</Type>
     <Size>Small</Size>
     <Rating>98</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0233345</lat>
@@ -5056,6 +5444,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>98</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9109</lat>
@@ -5069,6 +5458,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>97</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.965416</lat>
@@ -5082,6 +5472,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>97</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9354</lat>
@@ -5095,6 +5486,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>97</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9790154</lat>
@@ -5108,6 +5500,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>97</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0363159</lat>
@@ -5121,6 +5514,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>97</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.991333</lat>
@@ -5134,6 +5528,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>97</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9457321</lat>
@@ -5147,6 +5542,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>97</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0358162</lat>
@@ -5160,6 +5556,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>96</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.97491</lat>
@@ -5173,6 +5570,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>96</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9609833</lat>
@@ -5186,6 +5584,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>96</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9722176</lat>
@@ -5199,6 +5598,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>96</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9356651</lat>
@@ -5212,6 +5612,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>96</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9870338</lat>
@@ -5225,6 +5626,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>96</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9965324</lat>
@@ -5238,6 +5640,7 @@
     <Type>Mystery</Type>
     <Size>Other</Size>
     <Rating>96</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.06568</lat>
@@ -5251,6 +5654,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>96</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0333328</lat>
@@ -5264,6 +5668,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>96</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9497681</lat>
@@ -5277,6 +5682,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>96</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.983532</lat>
@@ -5290,6 +5696,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>95</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9883347</lat>
@@ -5303,6 +5710,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>95</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9265823</lat>
@@ -5316,6 +5724,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>95</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9765</lat>
@@ -5329,6 +5738,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>95</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.982132</lat>
@@ -5342,6 +5752,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>95</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.995</lat>
@@ -5355,6 +5766,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>95</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9791</lat>
@@ -5368,6 +5780,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>95</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0256844</lat>
@@ -5381,6 +5794,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>95</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0598</lat>
@@ -5394,6 +5808,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>95</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0207</lat>
@@ -5407,6 +5822,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>95</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0322838</lat>
@@ -5420,6 +5836,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>95</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.07332</lat>
@@ -5433,6 +5850,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>95</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0296173</lat>
@@ -5446,6 +5864,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>94</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.99893</lat>
@@ -5459,6 +5878,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>94</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.05</lat>
@@ -5472,6 +5892,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>94</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9937668</lat>
@@ -5485,6 +5906,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>94</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00733</lat>
@@ -5498,6 +5920,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>94</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.99455</lat>
@@ -5511,6 +5934,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>94</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9838333</lat>
@@ -5524,6 +5948,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>94</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0333328</lat>
@@ -5537,6 +5962,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>94</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0557671</lat>
@@ -5550,6 +5976,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>94</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00285</lat>
@@ -5563,6 +5990,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>93</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.96445</lat>
@@ -5576,6 +6004,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>93</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.97755</lat>
@@ -5589,6 +6018,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>93</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.02115</lat>
@@ -5602,6 +6032,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>92</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0095</lat>
@@ -5615,6 +6046,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>92</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9551659</lat>
@@ -5628,6 +6060,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>92</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0095177</lat>
@@ -5641,6 +6074,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>92</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.02247</lat>
@@ -5654,6 +6088,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>92</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.01575</lat>
@@ -5667,6 +6102,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>92</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9463654</lat>
@@ -5680,6 +6116,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>92</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.928833</lat>
@@ -5693,6 +6130,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>92</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0366325</lat>
@@ -5706,6 +6144,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>92</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9705</lat>
@@ -5719,6 +6158,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>92</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9239845</lat>
@@ -5732,6 +6172,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>92</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9066162</lat>
@@ -5745,6 +6186,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>92</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0246658</lat>
@@ -5758,6 +6200,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>91</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0411339</lat>
@@ -5771,6 +6214,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>91</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9666672</lat>
@@ -5784,6 +6228,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>91</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0006676</lat>
@@ -5797,6 +6242,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>91</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.045166</lat>
@@ -5810,6 +6256,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>91</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.941433</lat>
@@ -5823,6 +6270,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>91</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.92125</lat>
@@ -5836,6 +6284,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>90</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9687843</lat>
@@ -5849,6 +6298,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>90</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9469337</lat>
@@ -5862,6 +6312,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>90</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.929882</lat>
@@ -5875,6 +6326,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>90</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0302162</lat>
@@ -5888,6 +6340,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>90</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.008934</lat>
@@ -5901,6 +6354,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>90</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9840164</lat>
@@ -5914,6 +6368,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>90</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.91313</lat>
@@ -5927,6 +6382,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>90</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0126</lat>
@@ -5940,6 +6396,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>90</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9264832</lat>
@@ -5953,6 +6410,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>90</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.02425</lat>
@@ -5966,6 +6424,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>90</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0419846</lat>
@@ -5979,6 +6438,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>90</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0289841</lat>
@@ -5992,6 +6452,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>90</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9269333</lat>
@@ -6005,6 +6466,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>90</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.05885</lat>
@@ -6018,6 +6480,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>90</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9666672</lat>
@@ -6031,6 +6494,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>90</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9666672</lat>
@@ -6044,6 +6508,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>89</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9483</lat>
@@ -6057,6 +6522,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>89</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9556656</lat>
@@ -6070,6 +6536,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>89</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.95925</lat>
@@ -6083,6 +6550,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>89</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0468674</lat>
@@ -6096,6 +6564,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>89</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0478172</lat>
@@ -6109,6 +6578,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>89</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9666672</lat>
@@ -6122,6 +6592,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>89</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9583</lat>
@@ -6135,6 +6606,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>89</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9276161</lat>
@@ -6148,6 +6620,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>89</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9161835</lat>
@@ -6161,6 +6634,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>89</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9181671</lat>
@@ -6174,6 +6648,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>89</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9537</lat>
@@ -6187,6 +6662,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>89</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.03533</lat>
@@ -6200,6 +6676,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>89</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0126</lat>
@@ -6213,6 +6690,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>88</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9670334</lat>
@@ -6226,6 +6704,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>88</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.02235</lat>
@@ -6239,6 +6718,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>87</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9517</lat>
@@ -6252,6 +6732,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>87</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0092</lat>
@@ -6265,6 +6746,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>87</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0172653</lat>
@@ -6278,6 +6760,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>87</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0307</lat>
@@ -6291,6 +6774,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>87</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9666672</lat>
@@ -6304,6 +6788,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>87</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.06333</lat>
@@ -6317,6 +6802,7 @@
     <Type>Mystery</Type>
     <Size>Other</Size>
     <Rating>87</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9567</lat>
@@ -6330,6 +6816,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>87</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.94335</lat>
@@ -6343,6 +6830,7 @@
     <Type>Traditional</Type>
     <Size>Other</Size>
     <Rating>87</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.025</lat>
@@ -6356,6 +6844,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>87</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0436821</lat>
@@ -6369,6 +6858,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>87</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.04</lat>
@@ -6382,6 +6872,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>87</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.94277</lat>
@@ -6395,6 +6886,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>87</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0255</lat>
@@ -6408,6 +6900,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>87</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0078659</lat>
@@ -6421,6 +6914,7 @@
     <Type>Mystery</Type>
     <Size>Other</Size>
     <Rating>86</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.93655</lat>
@@ -6434,6 +6928,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>86</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.92335</lat>
@@ -6447,6 +6942,7 @@
     <Type>Traditional</Type>
     <Size>Other</Size>
     <Rating>86</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0007</lat>
@@ -6460,6 +6956,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>86</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0032349</lat>
@@ -6473,6 +6970,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>86</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9945</lat>
@@ -6486,6 +6984,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>86</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0214653</lat>
@@ -6499,6 +6998,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>86</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0119171</lat>
@@ -6512,6 +7012,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>86</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.92725</lat>
@@ -6525,6 +7026,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>85</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9546661</lat>
@@ -6538,6 +7040,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>85</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9267654</lat>
@@ -6551,6 +7054,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>85</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.02</lat>
@@ -6564,6 +7068,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>85</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9211655</lat>
@@ -6577,6 +7082,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>85</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0141678</lat>
@@ -6590,6 +7096,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>85</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9177</lat>
@@ -6603,6 +7110,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>85</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9090652</lat>
@@ -6616,6 +7124,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>85</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.996</lat>
@@ -6629,6 +7138,7 @@
     <Type>Mystery</Type>
     <Size>Other</Size>
     <Rating>85</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0225</lat>
@@ -6642,6 +7152,7 @@
     <Type>Mystery</Type>
     <Size>Other</Size>
     <Rating>85</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9844</lat>
@@ -6655,6 +7166,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>85</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9573174</lat>
@@ -6668,6 +7180,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>85</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.95667</lat>
@@ -6681,6 +7194,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>85</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9194679</lat>
@@ -6694,6 +7208,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>85</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.98475</lat>
@@ -6707,6 +7222,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>85</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.953167</lat>
@@ -6720,6 +7236,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>84</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9741669</lat>
@@ -6733,6 +7250,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>84</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.919384</lat>
@@ -6746,6 +7264,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>84</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0325</lat>
@@ -6759,6 +7278,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>84</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0034676</lat>
@@ -6772,6 +7292,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>84</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0485</lat>
@@ -6785,6 +7306,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>84</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.06703</lat>
@@ -6798,6 +7320,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>84</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.03405</lat>
@@ -6811,6 +7334,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>84</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.043766</lat>
@@ -6824,6 +7348,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>84</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.97397</lat>
@@ -6837,6 +7362,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>84</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0066</lat>
@@ -6850,6 +7376,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>84</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.984684</lat>
@@ -6863,6 +7390,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>83</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9689178</lat>
@@ -6876,6 +7404,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>83</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.94443</lat>
@@ -6889,6 +7418,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>83</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9853325</lat>
@@ -6902,6 +7432,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>83</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9995842</lat>
@@ -6915,6 +7446,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>83</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0275841</lat>
@@ -6928,6 +7460,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>83</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9351</lat>
@@ -6941,6 +7474,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>83</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0174828</lat>
@@ -6954,6 +7488,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>82</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9853668</lat>
@@ -6967,6 +7502,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>82</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.04698</lat>
@@ -6980,6 +7516,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>82</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9582672</lat>
@@ -6993,6 +7530,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>82</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.04455</lat>
@@ -7006,6 +7544,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>82</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0291672</lat>
@@ -7019,6 +7558,7 @@
     <Type>Mystery</Type>
     <Size>Other</Size>
     <Rating>82</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0436668</lat>
@@ -7032,6 +7572,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>82</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9495</lat>
@@ -7045,6 +7586,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>82</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.06665</lat>
@@ -7058,6 +7600,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>81</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0666656</lat>
@@ -7071,6 +7614,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>81</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.91545</lat>
@@ -7084,6 +7628,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>81</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.04513</lat>
@@ -7097,6 +7642,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>81</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9167671</lat>
@@ -7110,6 +7656,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>81</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9933319</lat>
@@ -7123,6 +7670,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>80</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.955</lat>
@@ -7136,6 +7684,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>80</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.975</lat>
@@ -7149,6 +7698,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>80</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0369</lat>
@@ -7162,6 +7712,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>80</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.98033</lat>
@@ -7175,6 +7726,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>80</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.99898</lat>
@@ -7188,6 +7740,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>80</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9225</lat>
@@ -7201,6 +7754,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>80</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0478172</lat>
@@ -7214,6 +7768,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>80</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.02833</lat>
@@ -7227,6 +7782,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>79</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9392662</lat>
@@ -7240,6 +7796,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>79</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.06165</lat>
@@ -7253,6 +7810,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>79</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9209</lat>
@@ -7266,6 +7824,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>79</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.97257</lat>
@@ -7279,6 +7838,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>79</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0303345</lat>
@@ -7292,6 +7852,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>79</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9443</lat>
@@ -7305,6 +7866,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>78</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9596329</lat>
@@ -7318,6 +7880,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>78</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.943718</lat>
@@ -7331,6 +7894,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>78</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.048233</lat>
@@ -7344,6 +7908,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>78</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.03605</lat>
@@ -7357,6 +7922,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>78</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9428</lat>
@@ -7370,6 +7936,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>78</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9412842</lat>
@@ -7383,6 +7950,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>78</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.93292</lat>
@@ -7396,6 +7964,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>78</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.938282</lat>
@@ -7409,6 +7978,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>78</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0460663</lat>
@@ -7422,6 +7992,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>78</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0327835</lat>
@@ -7435,6 +8006,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>78</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0590324</lat>
@@ -7448,6 +8020,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>78</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9346161</lat>
@@ -7461,6 +8034,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>78</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9259834</lat>
@@ -7474,6 +8048,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>78</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.04067</lat>
@@ -7487,6 +8062,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>78</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.06145</lat>
@@ -7500,6 +8076,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>78</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9227676</lat>
@@ -7513,6 +8090,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>78</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9667</lat>
@@ -7526,6 +8104,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>77</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0783844</lat>
@@ -7539,6 +8118,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>77</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9996834</lat>
@@ -7552,6 +8132,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>77</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0195847</lat>
@@ -7565,6 +8146,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>77</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9361153</lat>
@@ -7578,6 +8160,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>77</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.025</lat>
@@ -7591,6 +8174,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>77</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.92967</lat>
@@ -7604,6 +8188,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>77</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.034</lat>
@@ -7617,6 +8202,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>77</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.93437</lat>
@@ -7630,6 +8216,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>77</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.91885</lat>
@@ -7643,6 +8230,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>76</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.93337</lat>
@@ -7656,6 +8244,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>76</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9804153</lat>
@@ -7669,6 +8258,7 @@
     <Type>Mystery</Type>
     <Size>Other</Size>
     <Rating>76</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9123154</lat>
@@ -7682,6 +8272,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>76</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9341164</lat>
@@ -7695,6 +8286,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>76</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9248</lat>
@@ -7708,6 +8300,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>76</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.05</lat>
@@ -7721,6 +8314,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>76</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00925</lat>
@@ -7734,6 +8328,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>76</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0161324</lat>
@@ -7747,6 +8342,7 @@
     <Type>Traditional</Type>
     <Size>Other</Size>
     <Rating>75</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9653168</lat>
@@ -7760,6 +8356,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>75</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0026321</lat>
@@ -7773,6 +8370,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>75</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9606323</lat>
@@ -7786,6 +8384,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>75</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.95605</lat>
@@ -7799,6 +8398,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>75</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.055</lat>
@@ -7812,6 +8412,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>75</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9716</lat>
@@ -7825,6 +8426,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>75</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0124321</lat>
@@ -7838,6 +8440,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>75</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.91305</lat>
@@ -7851,6 +8454,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>74</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9214325</lat>
@@ -7864,6 +8468,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>74</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0828171</lat>
@@ -7877,6 +8482,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>74</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0152168</lat>
@@ -7890,6 +8496,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>74</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.97952</lat>
@@ -7903,6 +8510,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>74</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9992828</lat>
@@ -7916,6 +8524,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>74</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00415</lat>
@@ -7929,6 +8538,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>74</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0333328</lat>
@@ -7942,6 +8552,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>73</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0078</lat>
@@ -7955,6 +8566,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>73</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9364166</lat>
@@ -7968,6 +8580,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>73</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9384346</lat>
@@ -7981,6 +8594,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>73</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9212837</lat>
@@ -7994,6 +8608,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>73</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.01395</lat>
@@ -8007,6 +8622,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>73</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9599</lat>
@@ -8020,6 +8636,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>73</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0744667</lat>
@@ -8033,6 +8650,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>73</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9347153</lat>
@@ -8046,6 +8664,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>73</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0124664</lat>
@@ -8059,6 +8678,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>73</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.07778</lat>
@@ -8072,6 +8692,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>73</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00605</lat>
@@ -8085,6 +8706,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>73</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0241165</lat>
@@ -8098,6 +8720,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>73</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0084839</lat>
@@ -8111,6 +8734,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>73</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0789833</lat>
@@ -8124,6 +8748,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>73</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9384651</lat>
@@ -8137,6 +8762,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>72</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9403152</lat>
@@ -8150,6 +8776,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>72</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0094</lat>
@@ -8163,6 +8790,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>72</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.995</lat>
@@ -8176,6 +8804,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>72</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9958344</lat>
@@ -8189,6 +8818,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>72</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9833336</lat>
@@ -8202,6 +8832,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>72</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.01755</lat>
@@ -8215,6 +8846,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>72</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9238</lat>
@@ -8228,6 +8860,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>72</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9411659</lat>
@@ -8241,6 +8874,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>71</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.92</lat>
@@ -8254,6 +8888,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>71</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9287834</lat>
@@ -8267,6 +8902,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>71</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9242668</lat>
@@ -8280,6 +8916,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>71</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0466652</lat>
@@ -8293,6 +8930,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>71</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.94605</lat>
@@ -8306,6 +8944,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>71</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9357338</lat>
@@ -8319,6 +8958,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>71</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9972153</lat>
@@ -8332,6 +8972,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>71</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0116653</lat>
@@ -8345,6 +8986,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>71</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9305344</lat>
@@ -8358,6 +9000,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>71</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9245</lat>
@@ -8371,6 +9014,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>70</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00847</lat>
@@ -8384,6 +9028,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>70</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9521</lat>
@@ -8397,6 +9042,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>70</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0152664</lat>
@@ -8410,6 +9056,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>70</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9142838</lat>
@@ -8423,6 +9070,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>70</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0166664</lat>
@@ -8436,6 +9084,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>69</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9153671</lat>
@@ -8449,6 +9098,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>69</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.07263</lat>
@@ -8462,6 +9112,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>69</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.03235</lat>
@@ -8475,6 +9126,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>69</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0165825</lat>
@@ -8488,6 +9140,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>69</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9105339</lat>
@@ -8501,6 +9154,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>69</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0037</lat>
@@ -8514,6 +9168,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>69</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.07382</lat>
@@ -8527,6 +9182,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>68</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.95055</lat>
@@ -8540,6 +9196,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>68</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.95165</lat>
@@ -8553,6 +9210,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>68</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9432831</lat>
@@ -8566,6 +9224,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>68</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.94063</lat>
@@ -8579,6 +9238,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>68</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9441833</lat>
@@ -8592,6 +9252,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>68</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0328331</lat>
@@ -8605,6 +9266,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>68</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9506</lat>
@@ -8618,6 +9280,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>68</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.93895</lat>
@@ -8631,6 +9294,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>68</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0585327</lat>
@@ -8644,6 +9308,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>68</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9266663</lat>
@@ -8657,6 +9322,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>67</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.03073</lat>
@@ -8670,6 +9336,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>67</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9833336</lat>
@@ -8683,6 +9350,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>67</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.06585</lat>
@@ -8696,6 +9364,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>67</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.02672</lat>
@@ -8709,6 +9378,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>66</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.99785</lat>
@@ -8722,6 +9392,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>66</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0233345</lat>
@@ -8735,6 +9406,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>66</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9291344</lat>
@@ -8748,6 +9420,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>66</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9734</lat>
@@ -8761,6 +9434,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>66</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9899</lat>
@@ -8774,6 +9448,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>66</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9925</lat>
@@ -8787,6 +9462,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>65</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0119171</lat>
@@ -8800,6 +9476,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>65</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9908333</lat>
@@ -8813,6 +9490,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>65</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9127655</lat>
@@ -8826,6 +9504,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>65</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.995266</lat>
@@ -8839,6 +9518,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>64</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.985817</lat>
@@ -8852,6 +9532,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>64</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0028343</lat>
@@ -8865,6 +9546,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>64</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0758324</lat>
@@ -8878,6 +9560,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>64</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0624161</lat>
@@ -8891,6 +9574,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>64</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0282669</lat>
@@ -8904,6 +9588,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>64</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9144821</lat>
@@ -8917,6 +9602,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>64</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0531845</lat>
@@ -8930,6 +9616,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>64</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9446831</lat>
@@ -8943,6 +9630,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>63</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0440826</lat>
@@ -8956,6 +9644,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>63</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9708176</lat>
@@ -8969,6 +9658,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>63</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.95527</lat>
@@ -8982,6 +9672,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>63</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9151</lat>
@@ -8995,6 +9686,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>63</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00975</lat>
@@ -9008,6 +9700,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>63</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.96557</lat>
@@ -9021,6 +9714,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>62</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.07875</lat>
@@ -9034,6 +9728,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>62</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.023716</lat>
@@ -9047,6 +9742,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>62</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9575</lat>
@@ -9060,6 +9756,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>62</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0197334</lat>
@@ -9073,6 +9770,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>62</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0175</lat>
@@ -9086,6 +9784,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>62</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0281677</lat>
@@ -9099,6 +9798,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>62</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00152</lat>
@@ -9112,6 +9812,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>62</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9606</lat>
@@ -9125,6 +9826,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>62</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.92623</lat>
@@ -9138,6 +9840,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>62</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.01025</lat>
@@ -9151,6 +9854,7 @@
     <Type>Other</Type>
     <Size>Other</Size>
     <Rating>62</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0077171</lat>
@@ -9164,6 +9868,7 @@
     <Type>Other</Type>
     <Size>Other</Size>
     <Rating>62</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9226</lat>
@@ -9177,6 +9882,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>62</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9809</lat>
@@ -9190,6 +9896,7 @@
     <Type>Other</Type>
     <Size>Other</Size>
     <Rating>62</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0108681</lat>
@@ -9203,6 +9910,7 @@
     <Type>Other</Type>
     <Size>Other</Size>
     <Rating>62</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0511322</lat>
@@ -9216,6 +9924,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>61</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0729675</lat>
@@ -9229,6 +9938,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>61</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9321671</lat>
@@ -9242,6 +9952,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>61</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.95045</lat>
@@ -9255,6 +9966,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>61</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9407158</lat>
@@ -9268,6 +9980,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>61</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9664345</lat>
@@ -9281,6 +9994,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>61</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.98797</lat>
@@ -9294,6 +10008,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>61</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0055656</lat>
@@ -9307,6 +10022,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>60</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0422668</lat>
@@ -9320,6 +10036,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>60</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9401665</lat>
@@ -9333,6 +10050,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>59</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0281677</lat>
@@ -9346,6 +10064,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>59</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.027</lat>
@@ -9359,6 +10078,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>59</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0133324</lat>
@@ -9372,6 +10092,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>59</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0333328</lat>
@@ -9385,6 +10106,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>59</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0055</lat>
@@ -9398,6 +10120,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>58</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0449</lat>
@@ -9411,6 +10134,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>58</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0741</lat>
@@ -9424,6 +10148,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>58</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.041</lat>
@@ -9437,6 +10162,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>58</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0570335</lat>
@@ -9450,6 +10176,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>57</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.91873</lat>
@@ -9463,6 +10190,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>57</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.073</lat>
@@ -9476,6 +10204,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>57</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9511</lat>
@@ -9489,6 +10218,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>57</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.921917</lat>
@@ -9502,6 +10232,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>57</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9842</lat>
@@ -9515,6 +10246,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>57</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0204659</lat>
@@ -9528,6 +10260,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>57</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.92573</lat>
@@ -9541,6 +10274,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>57</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9484673</lat>
@@ -9554,6 +10288,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>56</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.01438</lat>
@@ -9567,6 +10302,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>56</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.97</lat>
@@ -9580,6 +10316,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>56</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9711</lat>
@@ -9593,6 +10330,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>56</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00205</lat>
@@ -9606,6 +10344,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>55</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9883156</lat>
@@ -9619,6 +10358,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>55</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.94055</lat>
@@ -9632,6 +10372,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>55</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9626656</lat>
@@ -9645,6 +10386,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>55</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9621</lat>
@@ -9658,6 +10400,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>55</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0096664</lat>
@@ -9671,6 +10414,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>55</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9673347</lat>
@@ -9684,6 +10428,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>55</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9860344</lat>
@@ -9697,6 +10442,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>55</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0361176</lat>
@@ -9710,6 +10456,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>54</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.952034</lat>
@@ -9723,6 +10470,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>54</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9421654</lat>
@@ -9736,6 +10484,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>53</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9648323</lat>
@@ -9749,6 +10498,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>53</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.03255</lat>
@@ -9762,6 +10512,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>53</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0057</lat>
@@ -9775,6 +10526,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>53</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9419174</lat>
@@ -9788,6 +10540,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>52</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0038834</lat>
@@ -9801,6 +10554,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>52</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0492325</lat>
@@ -9814,6 +10568,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>52</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9405</lat>
@@ -9827,6 +10582,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>52</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0026321</lat>
@@ -9840,6 +10596,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>52</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0168343</lat>
@@ -9853,6 +10610,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>51</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0149155</lat>
@@ -9866,6 +10624,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>51</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.97245</lat>
@@ -9879,6 +10638,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>51</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00617</lat>
@@ -9892,6 +10652,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>51</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9818344</lat>
@@ -9905,6 +10666,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>51</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0132332</lat>
@@ -9918,6 +10680,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>51</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.93915</lat>
@@ -9931,6 +10694,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>51</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.024</lat>
@@ -9944,6 +10708,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>51</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0164833</lat>
@@ -9957,6 +10722,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>50</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9459152</lat>
@@ -9970,6 +10736,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>50</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9402161</lat>
@@ -9983,6 +10750,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>50</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9226341</lat>
@@ -9996,6 +10764,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>50</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.93025</lat>
@@ -10009,6 +10778,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>50</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0115</lat>
@@ -10022,6 +10792,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>50</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.96092</lat>
@@ -10035,6 +10806,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>50</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0684166</lat>
@@ -10048,6 +10820,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>50</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9833336</lat>
@@ -10061,6 +10834,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>50</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9492</lat>
@@ -10074,6 +10848,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>50</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.99295</lat>
@@ -10087,6 +10862,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>50</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0413666</lat>
@@ -10100,6 +10876,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>50</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9477348</lat>
@@ -10113,6 +10890,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>50</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.946</lat>
@@ -10126,6 +10904,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>50</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.93852</lat>
@@ -10139,6 +10918,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>50</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.95</lat>
@@ -10152,6 +10932,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>50</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9767838</lat>
@@ -10165,6 +10946,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>50</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9423676</lat>
@@ -10178,6 +10960,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>50</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.99148</lat>
@@ -10191,6 +10974,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>49</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.95945</lat>
@@ -10204,6 +10988,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>49</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9250832</lat>
@@ -10217,6 +11002,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>48</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.939518</lat>
@@ -10230,6 +11016,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>48</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9466667</lat>
@@ -10243,6 +11030,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>47</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.02825</lat>
@@ -10256,6 +11044,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>47</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9205</lat>
@@ -10269,6 +11058,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>47</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.94245</lat>
@@ -10282,6 +11072,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>47</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.99045</lat>
@@ -10295,6 +11086,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>46</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.95</lat>
@@ -10308,6 +11100,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>46</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00975</lat>
@@ -10321,6 +11114,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>46</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9854164</lat>
@@ -10334,6 +11128,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>46</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9927826</lat>
@@ -10347,6 +11142,7 @@
     <Type>Mystery</Type>
     <Size>Large</Size>
     <Rating>45</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9429321</lat>
@@ -10360,6 +11156,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>45</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9649658</lat>
@@ -10373,6 +11170,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>45</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9351</lat>
@@ -10386,6 +11184,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>45</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0072823</lat>
@@ -10399,6 +11198,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>45</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9667168</lat>
@@ -10412,6 +11212,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>45</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9459152</lat>
@@ -10425,6 +11226,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>45</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.02413</lat>
@@ -10438,6 +11240,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>45</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0138664</lat>
@@ -10451,6 +11254,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>45</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9094429</lat>
@@ -10464,6 +11268,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>45</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.01172</lat>
@@ -10477,6 +11282,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>45</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9719658</lat>
@@ -10490,6 +11296,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>45</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0004</lat>
@@ -10503,6 +11310,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>44</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9891167</lat>
@@ -10516,6 +11324,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>44</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9394836</lat>
@@ -10529,6 +11338,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>43</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.94045</lat>
@@ -10542,6 +11352,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>43</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9540176</lat>
@@ -10555,6 +11366,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>43</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0383339</lat>
@@ -10568,6 +11380,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>43</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0177</lat>
@@ -10581,6 +11394,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>43</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9141846</lat>
@@ -10594,6 +11408,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>43</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.90755</lat>
@@ -10607,6 +11422,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>42</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9941673</lat>
@@ -10620,6 +11436,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>42</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.97587</lat>
@@ -10633,6 +11450,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>42</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9419174</lat>
@@ -10646,6 +11464,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>42</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0080681</lat>
@@ -10659,6 +11478,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>42</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0174</lat>
@@ -10672,6 +11492,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>42</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00595</lat>
@@ -10685,6 +11506,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>41</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.98555</lat>
@@ -10698,6 +11520,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>41</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9849663</lat>
@@ -10711,6 +11534,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>41</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0113335</lat>
@@ -10724,6 +11548,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>41</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9914322</lat>
@@ -10737,6 +11562,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>40</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0373344</lat>
@@ -10750,6 +11576,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>40</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9411659</lat>
@@ -10763,6 +11590,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>40</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9918327</lat>
@@ -10776,6 +11604,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>40</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0713348</lat>
@@ -10789,6 +11618,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>40</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0092659</lat>
@@ -10802,6 +11632,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>40</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9915848</lat>
@@ -10815,6 +11646,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>40</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0133324</lat>
@@ -10828,6 +11660,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>39</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.94602</lat>
@@ -10841,6 +11674,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>39</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9399834</lat>
@@ -10854,6 +11688,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>39</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.95855</lat>
@@ -10867,6 +11702,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>39</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.01452</lat>
@@ -10880,6 +11716,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>38</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9306679</lat>
@@ -10893,6 +11730,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>38</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.01158</lat>
@@ -10906,6 +11744,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>38</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9640846</lat>
@@ -10919,6 +11758,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>38</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00735</lat>
@@ -10932,6 +11772,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>38</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0071831</lat>
@@ -10945,6 +11786,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>38</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9414177</lat>
@@ -10958,6 +11800,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>38</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9474335</lat>
@@ -10971,6 +11814,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>38</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9223671</lat>
@@ -10984,6 +11828,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>38</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0132179</lat>
@@ -10997,6 +11842,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>38</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.98495</lat>
@@ -11010,6 +11856,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>38</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9667168</lat>
@@ -11023,6 +11870,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>38</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0385</lat>
@@ -11036,6 +11884,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>37</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0214844</lat>
@@ -11049,6 +11898,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>37</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.06777</lat>
@@ -11062,6 +11912,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>37</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00968</lat>
@@ -11075,6 +11926,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>37</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.91662</lat>
@@ -11088,6 +11940,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>36</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9333344</lat>
@@ -11101,6 +11954,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>36</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.993</lat>
@@ -11114,6 +11968,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>36</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0434</lat>
@@ -11127,6 +11982,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>35</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00368</lat>
@@ -11140,6 +11996,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>35</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.014782</lat>
@@ -11153,6 +12010,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>35</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0688171</lat>
@@ -11166,6 +12024,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>34</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.98567</lat>
@@ -11179,6 +12038,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>34</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9988</lat>
@@ -11192,6 +12052,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>34</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0116348</lat>
@@ -11205,6 +12066,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>34</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0040321</lat>
@@ -11218,6 +12080,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>34</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.984684</lat>
@@ -11231,6 +12094,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>34</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0020332</lat>
@@ -11244,6 +12108,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>34</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9972</lat>
@@ -11257,6 +12122,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>33</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.995</lat>
@@ -11270,6 +12136,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>33</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.99355</lat>
@@ -11283,6 +12150,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>31</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9797173</lat>
@@ -11296,6 +12164,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>30</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00012</lat>
@@ -11309,6 +12178,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>30</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0525169</lat>
@@ -11322,6 +12192,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>29</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.01452</lat>
@@ -11335,6 +12206,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>29</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9202</lat>
@@ -11348,6 +12220,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>29</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.99008</lat>
@@ -11361,6 +12234,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>29</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9953346</lat>
@@ -11374,6 +12248,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>29</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0502319</lat>
@@ -11387,6 +12262,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>28</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0227661</lat>
@@ -11400,6 +12276,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>28</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9703178</lat>
@@ -11413,6 +12290,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>27</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9391174</lat>
@@ -11426,6 +12304,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>26</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0195847</lat>
@@ -11439,6 +12318,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>25</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.95455</lat>
@@ -11452,6 +12332,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>24</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0059662</lat>
@@ -11465,6 +12346,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>24</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9577</lat>
@@ -11478,6 +12360,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>22</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0361328</lat>
@@ -11491,6 +12374,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>20</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9833336</lat>
@@ -11504,6 +12388,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>20</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0695152</lat>
@@ -11517,6 +12402,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>19</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9388</lat>
@@ -11530,6 +12416,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>18</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9429665</lat>
@@ -11543,6 +12430,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>17</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9776154</lat>
@@ -11556,6 +12444,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>17</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0781822</lat>
@@ -11569,6 +12458,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>16</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.995018</lat>
@@ -11582,6 +12472,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>15</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0027</lat>
@@ -11595,6 +12486,7 @@
     <Type>Multi</Type>
     <Size>Regular</Size>
     <Rating>14</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49</lat>
@@ -11608,6 +12500,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>12</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9927673</lat>
@@ -11621,6 +12514,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>12</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.965168</lat>
@@ -11634,6 +12528,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>12</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9824677</lat>
@@ -11647,6 +12542,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>12</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.96295</lat>
@@ -11660,6 +12556,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>10</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0328</lat>
@@ -11673,6 +12570,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>10</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0063171</lat>
@@ -11686,6 +12584,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>8</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.02</lat>
@@ -11699,6 +12598,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>8</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.02952</lat>
@@ -11712,6 +12612,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>5</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.950016</lat>
@@ -11725,6 +12626,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>5</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9082336</lat>
@@ -11738,6 +12640,7 @@
     <Type>Traditional</Type>
     <Size>Other</Size>
     <Rating>3</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.93415</lat>
@@ -11751,6 +12654,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>3</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9213829</lat>
@@ -11764,6 +12668,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>3</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9524345</lat>
@@ -11777,6 +12682,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>3</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.92198</lat>
@@ -11790,6 +12696,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>2</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9990654</lat>
@@ -11803,6 +12710,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>1</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.955</lat>
@@ -11816,6 +12724,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>1</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9890823</lat>
@@ -11829,6 +12738,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>0</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9457</lat>
@@ -11842,6 +12752,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>0</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9359</lat>
@@ -11855,6 +12766,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>-1</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9853325</lat>
@@ -11868,6 +12780,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-2</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9687157</lat>
@@ -11881,6 +12794,7 @@
     <Type>Mystery</Type>
     <Size>Regular</Size>
     <Rating>-2</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.972332</lat>
@@ -11894,6 +12808,7 @@
     <Type>Traditional</Type>
     <Size>Regular</Size>
     <Rating>-3</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0015678</lat>
@@ -11907,6 +12822,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>-3</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9549828</lat>
@@ -11920,6 +12836,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>-3</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0370674</lat>
@@ -11933,6 +12850,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>-4</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.99943</lat>
@@ -11946,6 +12864,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-6</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0035324</lat>
@@ -11959,6 +12878,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>-6</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0006828</lat>
@@ -11972,6 +12892,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>-7</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00425</lat>
@@ -11985,6 +12906,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>-8</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0091324</lat>
@@ -11998,6 +12920,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>-8</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.04325</lat>
@@ -12011,6 +12934,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>-8</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9333153</lat>
@@ -12024,6 +12948,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>-8</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9836159</lat>
@@ -12037,6 +12962,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>-9</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9468155</lat>
@@ -12050,6 +12976,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-9</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.90898</lat>
@@ -12063,6 +12990,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>-9</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0436325</lat>
@@ -12076,6 +13004,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>-10</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.04857</lat>
@@ -12089,6 +13018,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>-10</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.97893</lat>
@@ -12102,6 +13032,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>-10</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0216179</lat>
@@ -12115,6 +13046,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>-14</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.930584</lat>
@@ -12128,6 +13060,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>-15</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.947216</lat>
@@ -12141,6 +13074,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>-16</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0025673</lat>
@@ -12154,6 +13088,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-17</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.96875</lat>
@@ -12167,6 +13102,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>-18</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9129333</lat>
@@ -12180,6 +13116,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>-19</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9315834</lat>
@@ -12193,6 +13130,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>-19</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9327</lat>
@@ -12206,6 +13144,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>-20</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0003662</lat>
@@ -12219,6 +13158,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>-21</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.01335</lat>
@@ -12232,6 +13172,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>-21</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9298668</lat>
@@ -12245,6 +13186,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-23</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9987831</lat>
@@ -12258,6 +13200,7 @@
     <Type>Multi</Type>
     <Size>Other</Size>
     <Rating>-23</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9863319</lat>
@@ -12271,6 +13214,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>-24</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00495</lat>
@@ -12284,6 +13228,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>-24</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.99515</lat>
@@ -12297,6 +13242,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>-25</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9100342</lat>
@@ -12310,6 +13256,7 @@
     <Type>Multi</Type>
     <Size>Small</Size>
     <Rating>-25</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.91147</lat>
@@ -12323,6 +13270,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-26</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0531654</lat>
@@ -12336,6 +13284,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-26</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.01032</lat>
@@ -12349,6 +13298,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>-28</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9492</lat>
@@ -12362,6 +13312,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>-28</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00937</lat>
@@ -12375,6 +13326,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>-29</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9286156</lat>
@@ -12388,6 +13340,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-30</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9359665</lat>
@@ -12401,6 +13354,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-30</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9352341</lat>
@@ -12414,6 +13368,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-30</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0109329</lat>
@@ -12427,6 +13382,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>-32</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9394</lat>
@@ -12440,6 +13396,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>-32</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.945</lat>
@@ -12453,6 +13410,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>-32</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.05932</lat>
@@ -12466,6 +13424,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-33</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9787674</lat>
@@ -12479,6 +13438,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-33</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9654655</lat>
@@ -12492,6 +13452,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>-35</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9159164</lat>
@@ -12505,6 +13466,7 @@
     <Type>Mystery</Type>
     <Size>Other</Size>
     <Rating>-36</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0018158</lat>
@@ -12518,6 +13480,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>-36</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.989</lat>
@@ -12531,6 +13494,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>-36</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9353828</lat>
@@ -12544,6 +13508,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-37</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0179825</lat>
@@ -12557,6 +13522,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-38</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00712</lat>
@@ -12570,6 +13536,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-38</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.01455</lat>
@@ -12583,6 +13550,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-38</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.013134</lat>
@@ -12596,6 +13564,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>-39</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9487343</lat>
@@ -12609,6 +13578,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-39</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0038</lat>
@@ -12622,6 +13592,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-39</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0757</lat>
@@ -12635,6 +13606,7 @@
     <Type>Traditional</Type>
     <Size>Small</Size>
     <Rating>-39</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0118</lat>
@@ -12648,6 +13620,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>-40</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9822845</lat>
@@ -12661,6 +13634,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>-41</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0301628</lat>
@@ -12674,6 +13648,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-43</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0058174</lat>
@@ -12687,6 +13662,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-44</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0136681</lat>
@@ -12700,6 +13676,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-44</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00595</lat>
@@ -12713,6 +13690,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-44</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0174675</lat>
@@ -12726,6 +13704,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-44</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.049984</lat>
@@ -12739,6 +13718,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-45</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0105</lat>
@@ -12752,6 +13732,7 @@
     <Type>Mystery</Type>
     <Size>Small</Size>
     <Rating>-45</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9997826</lat>
@@ -12765,6 +13746,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>-45</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9968</lat>
@@ -12778,6 +13760,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-48</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0578156</lat>
@@ -12791,6 +13774,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>-49</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.995533</lat>
@@ -12804,6 +13788,7 @@
     <Type>Multi</Type>
     <Size>Micro</Size>
     <Rating>-51</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0275345</lat>
@@ -12817,6 +13802,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-53</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0381165</lat>
@@ -12830,6 +13816,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-53</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00083</lat>
@@ -12843,6 +13830,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-54</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9418678</lat>
@@ -12856,6 +13844,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>-55</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0543823</lat>
@@ -12869,6 +13858,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-55</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.93617</lat>
@@ -12882,6 +13872,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-55</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.00937</lat>
@@ -12895,6 +13886,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>-56</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.025</lat>
@@ -12908,6 +13900,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>-56</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.96615</lat>
@@ -12921,6 +13914,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>-58</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9774323</lat>
@@ -12934,6 +13928,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-59</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>48.9913826</lat>
@@ -12947,6 +13942,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>-61</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.04658</lat>
@@ -12960,6 +13956,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-63</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.04314</lat>
@@ -12973,6 +13970,7 @@
     <Type>Traditional</Type>
     <Size>Micro</Size>
     <Rating>-65</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.01295</lat>
@@ -12986,6 +13984,7 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>-65</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
   <Geocache>
     <lat>49.0092</lat>
@@ -12999,5 +13998,6 @@
     <Type>Mystery</Type>
     <Size>Micro</Size>
     <Rating>-65</Rating>
+    <ForceInclude>false</ForceInclude>
   </Geocache>
 </ArrayOfGeocache>

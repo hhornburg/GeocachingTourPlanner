@@ -66,8 +66,8 @@
     <Reference Include="OsmSharp, Version=6.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\OsmSharp.6.0.0\lib\net45\OsmSharp.dll</HintPath>
     </Reference>
-    <Reference Include="protobuf-net, Version=2.0.0.668, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
-      <HintPath>packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
+    <Reference Include="protobuf-net, Version=2.3.7.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>packages\protobuf-net.2.3.7\lib\net40\protobuf-net.dll</HintPath>
     </Reference>
     <Reference Include="Reminiscence, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Reminiscence.1.1.0\lib\net45\Reminiscence.dll</HintPath>
@@ -118,9 +118,9 @@
     <None Include=".vs\VSWorkspaceState.json" />
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="SampleDBs\Geocaches" />
-    <None Include="SampleDBs\Ratingprofiles" />
-    <None Include="SampleDBs\Routingprofiles">
+    <None Include="SampleDBs\Geocaches.gcdb" />
+    <None Include="SampleDBs\Ratingprofiles.ratingprf" />
+    <None Include="SampleDBs\Routingprofiles.routingprf">
       <SubType>Designer</SubType>
     </None>
     <None Include="Sourcecode\App.config" />
