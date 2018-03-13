@@ -40,12 +40,13 @@ namespace GeocachingTourPlanner
 		/// <param name="profile"></param>
 		/// <param name=""></param>
 		/// <returns></returns>
-		public void GetRoute(Routingprofile profile, List<Geocache> AllGeocaches, Coordinate Startpoint, Coordinate Endpoint, List<Geocache> GeocachesToInclude)
+		public void GetRoute_Recursive(Routingprofile profile, List<Geocache> AllGeocaches, Coordinate Startpoint, Coordinate Endpoint, List<Geocache> GeocachesToInclude)
 		{
-			DateTime StartTime = DateTime.Now;
-			Log.AppendLine("\n  ==========New Route Calculation========== \n");
-			Log.AppendLine("Current Time:" + StartTime);
-			Log.AppendLine("Profile: " + profile.Name);
+            DateTime StartTime = DateTime.Now;
+            Log.AppendLine("\n  ==========New Route Calculation========== \n");
+            Log.AppendLine("Current Time:" + StartTime);
+            Log.AppendLine("Profile: " + profile.Name);
+            
 
 			SelectedProfile = profile;
 
@@ -92,7 +93,7 @@ namespace GeocachingTourPlanner
 				Application.UseWaitCursor = false;
 				return;
 			}
-
+            
 			//Calculate initial Route
 			try
 			{

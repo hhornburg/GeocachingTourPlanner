@@ -1,6 +1,8 @@
 # GeocachingTourPlanner
 A tool to plan tours to Geocaches based on your own rating system
 
+### You need to be a premium member to use this tool effectively
+
 ## Planned Features:
 * Rate Geocaches based on your own rating profiles
 * Display the rated Geocaches with colourcode on the map, click them to view the listing
@@ -15,6 +17,15 @@ A tool to plan tours to Geocaches based on your own rating system
 * Automatic Route creation:
   * Choose a target geocache and a starting point
   * The program will add as many geocaches to your route as make your route better (based on timeframe you gave and/or distance limitations)
+  
+## Current Features ([Partially Untested Release 0.9.3](https://github.com/pingurus/GeocachingTourPlanner/releases/)):
+* _Complete redesign of UI_
+* Rate Geocaches based on your own rating profiles
+* Display the rated Geocaches with colourcode on the map, click them to see the listing
+* Automatic Route creation:
+  * Choose a target geocache and a starting point
+  * The program will add as many geocaches to your route as make your route better (based on timeframe you gave and/or distance limitations)
+* Multithreading
 
 ## Quick start guide (see [First Steps](https://github.com/pingurus/GeocachingTourPlanner/wiki/First-Steps) for more information)
 * Download a release, unzip it to any new folder
