@@ -1280,25 +1280,52 @@ namespace GeocachingTourPlanner
 			LoadMap();
 		}
 
+		
 		private void Map_OnMarkerClick(GMapMarker item, MouseEventArgs e)
 		{
-			System.Diagnostics.Process.Start("https://www.coord.info/" + item.Tag);
-		}
-
-		private void Map_Click(object sender, MouseEventArgs e)
-		{
-			if (e.Button == MouseButtons.Right)
+			if (e.Button == MouseButtons.Left)
 			{
+				System.Diagnostics.Process.Start("https://www.coord.info/" + item.Tag);
+			}
+			else if (e.Button == MouseButtons.Right)
+			{
+				ContextMenu MapContextMenu = new ContextMenu();
 				PointLatLng Coordinates = Map.FromLocalToLatLng(e.X, e.Y);
-				ContextMenu contextMenu = new ContextMenu();
 				// initialize the commands
 				MenuItem SetEndpoint = new MenuItem("Set Endpoint here");
 				SetEndpoint.Click += (new_sender, new_e) => SetEndpoint_Click(Coordinates);
 				MenuItem SetStartpoint = new MenuItem("Set Startpoint here");
 				SetStartpoint.Click += (new_sender, new_e) => SetStartpoint_Click(Coordinates);
-				contextMenu.MenuItems.Add(SetStartpoint);
-				contextMenu.MenuItems.Add(SetEndpoint);
-				contextMenu.Show(Map,e.Location);
+
+				Geocache geocache = Program.Geocaches.First(x => x.GCCODE == item.Tag.ToString());
+				MenuItem SetForceInclude = new MenuItem("ForceInclude");
+				if (geocache.ForceInclude)
+				{
+					SetForceInclude.Checked=true;
+				}
+				SetForceInclude.Click += (new_sender, new_e) => toggleForceInclude(geocache);
+
+				MapContextMenu.MenuItems.Add(SetStartpoint);
+				MapContextMenu.MenuItems.Add(SetEndpoint);
+				MapContextMenu.MenuItems.Add(SetForceInclude);
+				MapContextMenu.Show(Map, e.Location);
+			}
+		}
+
+		private void Map_Click(object sender, MouseEventArgs e)
+		{
+			if (e.Button == MouseButtons.Right && !((GMapControl)sender).IsMouseOverMarker)
+			{
+				ContextMenu MapContextMenu = new ContextMenu();
+				PointLatLng Coordinates = Map.FromLocalToLatLng(e.X, e.Y);
+				// initialize the commands
+				MenuItem SetEndpoint = new MenuItem("Set Endpoint here");
+				SetEndpoint.Click += (new_sender, new_e) => SetEndpoint_Click(Coordinates);
+				MenuItem SetStartpoint = new MenuItem("Set Startpoint here");
+				SetStartpoint.Click += (new_sender, new_e) => SetStartpoint_Click(Coordinates);
+				MapContextMenu.MenuItems.Add(SetStartpoint);
+				MapContextMenu.MenuItems.Add(SetEndpoint);
+				MapContextMenu.Show(Map,e.Location);
 			}
 		}
 
@@ -1350,6 +1377,18 @@ namespace GeocachingTourPlanner
 			}
 
 			EndpointTextbox.Text = coordinates.Lat.ToString(CultureInfo.InvariantCulture) + ";" + coordinates.Lng.ToString(CultureInfo.InvariantCulture);
+		}
+
+		private void toggleForceInclude(Geocache geocache)
+		{
+			if (geocache.ForceInclude)
+			{
+				geocache.ForceInclude = false;
+			}
+			else
+			{
+				geocache.ForceInclude = true;
+			}
 		}
 		#endregion
 
