@@ -1,4 +1,6 @@
-﻿namespace GeocachingTourPlanner
+﻿using System.Windows.Forms;
+
+namespace GeocachingTourPlanner
 {
     partial class Form1
     {
@@ -215,6 +217,9 @@
 			this.RoutefindingWidth_Textbox = new System.Windows.Forms.TextBox();
 			this.LiveDisplayRouteCalculationCheckbox = new System.Windows.Forms.CheckBox();
 			this.Autotargetselection = new System.Windows.Forms.CheckBox();
+			this.tableLayoutPanel17 = new System.Windows.Forms.TableLayoutPanel();
+			this.WikiLabel = new System.Windows.Forms.LinkLabel();
+			this.webBrowser1 = new System.Windows.Forms.WebBrowser();
 			this.UpmostTableLayoutPanel.SuspendLayout();
 			this.Tabcontainer.SuspendLayout();
 			this.MapTab.SuspendLayout();
@@ -224,6 +229,7 @@
 			this.GeocachesTab.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.GeocacheTable)).BeginInit();
 			this.LeftTabs.SuspendLayout();
+			this.Firststeps.SuspendLayout();
 			this.Overviewpage.SuspendLayout();
 			this.NameStateTable.SuspendLayout();
 			this.StateTableLayout.SuspendLayout();
@@ -258,6 +264,7 @@
 			this.tableLayoutPanel15.SuspendLayout();
 			this.RoutingsettingsGroupbox.SuspendLayout();
 			this.tableLayoutPanel16.SuspendLayout();
+			this.tableLayoutPanel17.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// UpmostTableLayoutPanel
@@ -578,6 +585,7 @@
 			// 
 			// Firststeps
 			// 
+			this.Firststeps.Controls.Add(this.tableLayoutPanel17);
 			this.Firststeps.Location = new System.Drawing.Point(4, 22);
 			this.Firststeps.Name = "Firststeps";
 			this.Firststeps.Size = new System.Drawing.Size(386, 544);
@@ -2548,10 +2556,10 @@
 			this.DeleteRatingprofileButton.AutoSize = true;
 			this.DeleteRatingprofileButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.DeleteRatingprofileButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.DeleteRatingprofileButton.Location = new System.Drawing.Point(301, 3);
+			this.DeleteRatingprofileButton.Location = new System.Drawing.Point(307, 3);
 			this.DeleteRatingprofileButton.MinimumSize = new System.Drawing.Size(50, 20);
 			this.DeleteRatingprofileButton.Name = "DeleteRatingprofileButton";
-			this.DeleteRatingprofileButton.Size = new System.Drawing.Size(76, 24);
+			this.DeleteRatingprofileButton.Size = new System.Drawing.Size(70, 24);
 			this.DeleteRatingprofileButton.TabIndex = 0;
 			this.DeleteRatingprofileButton.Text = "Delete";
 			this.DeleteRatingprofileButton.UseVisualStyleBackColor = true;
@@ -2561,10 +2569,10 @@
 			// 
 			this.CreateRatingprofileButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.CreateRatingprofileButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.CreateRatingprofileButton.Location = new System.Drawing.Point(220, 3);
+			this.CreateRatingprofileButton.Location = new System.Drawing.Point(231, 3);
 			this.CreateRatingprofileButton.MinimumSize = new System.Drawing.Size(50, 20);
 			this.CreateRatingprofileButton.Name = "CreateRatingprofileButton";
-			this.CreateRatingprofileButton.Size = new System.Drawing.Size(75, 24);
+			this.CreateRatingprofileButton.Size = new System.Drawing.Size(70, 24);
 			this.CreateRatingprofileButton.TabIndex = 1;
 			this.CreateRatingprofileButton.Text = "Save profile";
 			this.CreateRatingprofileButton.UseVisualStyleBackColor = true;
@@ -2578,7 +2586,7 @@
 			this.label54.Margin = new System.Windows.Forms.Padding(3);
 			this.label54.MinimumSize = new System.Drawing.Size(50, 20);
 			this.label54.Name = "label54";
-			this.label54.Size = new System.Drawing.Size(50, 20);
+			this.label54.Size = new System.Drawing.Size(70, 24);
 			this.label54.TabIndex = 2;
 			this.label54.Text = "Save as";
 			this.label54.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -2586,10 +2594,10 @@
 			// RatingProfileName
 			// 
 			this.RatingProfileName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-			this.RatingProfileName.Location = new System.Drawing.Point(58, 5);
+			this.RatingProfileName.Location = new System.Drawing.Point(79, 5);
 			this.RatingProfileName.MinimumSize = new System.Drawing.Size(50, 20);
 			this.RatingProfileName.Name = "RatingProfileName";
-			this.RatingProfileName.Size = new System.Drawing.Size(156, 20);
+			this.RatingProfileName.Size = new System.Drawing.Size(146, 20);
 			this.RatingProfileName.TabIndex = 3;
 			// 
 			// Routingprofiles
@@ -3161,6 +3169,45 @@
 			this.Autotargetselection.UseVisualStyleBackColor = true;
 			this.Autotargetselection.CheckedChanged += new System.EventHandler(this.Autotargetselection_CheckedChanged);
 			// 
+			// tableLayoutPanel17
+			// 
+			this.tableLayoutPanel17.ColumnCount = 1;
+			this.tableLayoutPanel17.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			this.tableLayoutPanel17.Controls.Add(this.WikiLabel, 0, 0);
+			this.tableLayoutPanel17.Controls.Add(this.webBrowser1, 0, 1);
+			this.tableLayoutPanel17.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tableLayoutPanel17.Location = new System.Drawing.Point(0, 0);
+			this.tableLayoutPanel17.Name = "tableLayoutPanel17";
+			this.tableLayoutPanel17.RowCount = 2;
+			this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.tableLayoutPanel17.Size = new System.Drawing.Size(386, 544);
+			this.tableLayoutPanel17.TabIndex = 0;
+			// 
+			// WikiLabel
+			// 
+			this.WikiLabel.AutoSize = true;
+			this.WikiLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.WikiLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.WikiLabel.Location = new System.Drawing.Point(3, 3);
+			this.WikiLabel.Margin = new System.Windows.Forms.Padding(3);
+			this.WikiLabel.Name = "WikiLabel";
+			this.WikiLabel.Size = new System.Drawing.Size(380, 20);
+			this.WikiLabel.TabIndex = 0;
+			this.WikiLabel.TabStop = true;
+			this.WikiLabel.Text = "Open complete wiki in browser";
+			this.WikiLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.WikiLabel_LinkClicked);
+			// 
+			// webBrowser1
+			// 
+			this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.webBrowser1.Location = new System.Drawing.Point(3, 29);
+			this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+			this.webBrowser1.Name = "webBrowser1";
+			this.webBrowser1.Size = new System.Drawing.Size(380, 512);
+			this.webBrowser1.TabIndex = 1;
+			this.webBrowser1.Url = new System.Uri("file://" + Application.StartupPath + "/first-steps.html", System.UriKind.RelativeOrAbsolute);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3182,6 +3229,7 @@
 			this.GeocachesTab.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.GeocacheTable)).EndInit();
 			this.LeftTabs.ResumeLayout(false);
+			this.Firststeps.ResumeLayout(false);
 			this.Overviewpage.ResumeLayout(false);
 			this.NameStateTable.ResumeLayout(false);
 			this.NameStateTable.PerformLayout();
@@ -3240,6 +3288,8 @@
 			this.RoutingsettingsGroupbox.ResumeLayout(false);
 			this.tableLayoutPanel16.ResumeLayout(false);
 			this.tableLayoutPanel16.PerformLayout();
+			this.tableLayoutPanel17.ResumeLayout(false);
+			this.tableLayoutPanel17.PerformLayout();
 			this.ResumeLayout(false);
 
         }
@@ -3433,6 +3483,9 @@
 		public System.Windows.Forms.Label RouterDBStateLabel;
 		private System.Windows.Forms.Button NewRatingprofileDatbaseButton;
 		private System.Windows.Forms.Button NewRoutingprofileDatabaseButton;
+		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel17;
+		private System.Windows.Forms.LinkLabel WikiLabel;
+		private System.Windows.Forms.WebBrowser webBrowser1;
 	}
 }
 

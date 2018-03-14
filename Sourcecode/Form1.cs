@@ -48,13 +48,17 @@ namespace GeocachingTourPlanner
 			Map.DragButton = MouseButtons.Left;
 
 			Map.MapProvider = OpenCycleLandscapeMapProvider.Instance;
-			GMaps.Instance.Mode = AccessMode.ServerOnly;
+			GMaps.Instance.Mode = AccessMode.ServerAndCache;
 			//Remove Cross in the middle of the Map
 			Map.ShowCenter = false;
 
 		}
 
 
+		private void WikiLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			System.Diagnostics.Process.Start("https://github.com/pingurus/GeocachingTourPlanner/wiki");
+		}
 
 		#region Overview
 
