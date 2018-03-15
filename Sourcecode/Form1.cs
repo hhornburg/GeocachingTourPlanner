@@ -46,6 +46,7 @@ namespace GeocachingTourPlanner
 			//Map
 			Map.DisableFocusOnMouseEnter = true;//So Windows put in foreground stay in foreground
 			Map.DragButton = MouseButtons.Left;
+			Map.IgnoreMarkerOnMouseWheel = true;
 
 			Map.MapProvider = OpenCycleLandscapeMapProvider.Instance;
 			GMaps.Instance.Mode = AccessMode.ServerAndCache;
@@ -741,78 +742,106 @@ namespace GeocachingTourPlanner
 		}
 
 		#endregion
-		
+
 		#region Map
+		delegate void Loadmap_Delegate();
 		/// <summary>
 		/// Updates Map
 		/// </summary>
 		public void LoadMap()
 		{
-			//Remove all geocache (and only the geocache!) overlays
-			if (Map.Overlays.Where(x => x.Id == "TopOverlay").Count() > 0)
+			if (!Map.InvokeRequired)
 			{
-				Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "TopOverlay"));
-			}
-			if (Map.Overlays.Where(x => x.Id == "MediumOverlay").Count() > 0)
-			{
-				Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "MediumOverlay"));
-			}
-			if (Map.Overlays.Where(x => x.Id == "LowOverlay").Count() > 0)
-			{
-				Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "LowOverlay"));
-			}
-
-			//recreate them
-			GMapOverlay TopOverlay = new GMapOverlay("TopOverlay");
-			GMapOverlay MediumOverlay = new GMapOverlay("MediumOverlay");
-			GMapOverlay LowOverlay = new GMapOverlay("LowOverlay");
-			foreach (Geocache GC in Program.Geocaches)
-			{
-				GMapMarker GCMarker = null;
-				//Three Categories => Thirds of the Point range
-				if (GC.Rating > (Program.DB.MinimalRating) + 0.66 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
+				//Remove all geocache (and only the geocache!) overlays
+				if (Map.Overlays.Where(x => x.Id == "TopOverlay").Count() > 0)
 				{
-					GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.green_small);
-					TopOverlay.Markers.Add(GCMarker);
+					Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "TopOverlay"));
 				}
-				else if (GC.Rating > (Program.DB.MinimalRating) + 0.33 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
+				if (Map.Overlays.Where(x => x.Id == "MediumOverlay").Count() > 0)
 				{
-					GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.yellow_small);
-					MediumOverlay.Markers.Add(GCMarker);
+					Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "MediumOverlay"));
 				}
-				else
+				if (Map.Overlays.Where(x => x.Id == "LowOverlay").Count() > 0)
 				{
-					GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.red_small);
-					LowOverlay.Markers.Add(GCMarker);
+					Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "LowOverlay"));
 				}
 
-				
-				GCMarker.ToolTipText = GC.GCCODE + "\n" + GC.Name + "\n" + GC.Type + "(" + GC.DateHidden.Date.ToString().Remove(10) + ")\nD-Wertung: " + GC.DRating + "\nT-Wertung: " + GC.TRating + "\nBewertung: " + GC.Rating;
-				GCMarker.Tag = GC.GCCODE;
+				//recreate them
+				GMapOverlay TopOverlay = new GMapOverlay("TopOverlay");
+				GMapOverlay MediumOverlay = new GMapOverlay("MediumOverlay");
+				GMapOverlay LowOverlay = new GMapOverlay("LowOverlay");
+				foreach (Geocache GC in Program.Geocaches)
+				{
+					GMapMarker GCMarker = null;
+					//Three Categories => Thirds of the Point range
+					if (GC.Rating > (Program.DB.MinimalRating) + 0.66 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
+					{
+						if (GC.ForceInclude)
+						{
+							GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.blue_small);
+						}
+						else
+						{
+							GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.green_small);
+						}
+						TopOverlay.Markers.Add(GCMarker);
+					}
+					else if (GC.Rating > (Program.DB.MinimalRating) + 0.33 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
+					{
+						if (GC.ForceInclude)
+						{
+							GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.blue_small);
+						}
+						else
+						{
+							GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.yellow_small);
+						}
+						MediumOverlay.Markers.Add(GCMarker);
+					}
+					else
+					{
+						if (GC.ForceInclude)
+						{
+							GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.blue_small);
+						}
+						else
+						{
+							GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.red_small);
+						}
+						LowOverlay.Markers.Add(GCMarker);
+					}
+
+					GCMarker.ToolTipText = GC.GCCODE + "\n" + GC.Name + "\n" + GC.Type + "(" + GC.DateHidden.Date.ToString().Remove(10) + ")\nD-Wertung: " + GC.DRating + "\nT-Wertung: " + GC.TRating + "\nBewertung: " + GC.Rating;
+					GCMarker.Tag = GC.GCCODE;
+				}
+
+				Map.Overlays.Add(LowOverlay);
+				Map.Overlays.Add(MediumOverlay);
+				Map.Overlays.Add(TopOverlay);
+
+				//Not that clean, but makes sure that the checked states are equal to the visibility
+				BestCheckbox_CheckedChanged(null, null);
+				MediumCheckbox_CheckedChanged(null, null);
+				WorstCheckbox_CheckedChanged(null, null);
+
+				//Set Views
+				if (Program.DB.LastMapZoom == 0)
+				{
+					Program.DB.LastMapZoom = 5;
+				}
+				Map.Zoom = Program.DB.LastMapZoom;
+
+				if (Program.DB.LastMapPosition.IsEmpty)//Equals that the user hasn't seen the map before (fixes #2)
+				{
+					Program.DB.LastMapPosition = new PointLatLng(49.0, 8.5);
+				}
+				Map.Position = Program.DB.LastMapPosition;
 			}
-
-			Map.Overlays.Add(LowOverlay);
-			Map.Overlays.Add(MediumOverlay);
-			Map.Overlays.Add(TopOverlay);
-
-			//Not that clean, but makes sure that the checked states are equal to the visibility
-			BestCheckbox_CheckedChanged(null, null);
-			MediumCheckbox_CheckedChanged(null, null);
-			WorstCheckbox_CheckedChanged(null, null);
-
-			//Set Views
-			if (Program.DB.LastMapZoom == 0)
+			else
 			{
-				Program.DB.LastMapZoom = 5;
+				Loadmap_Delegate dg = new Loadmap_Delegate(LoadMap);
+				Invoke(dg);
 			}
-			Map.Zoom = Program.DB.LastMapZoom;
-
-			if (Program.DB.LastMapPosition.IsEmpty)//Equals that the user hasn't seen the map before (fixes #2)
-			{
-				Program.DB.LastMapPosition = new PointLatLng(49.0, 8.5);
-			}
-			Map.Position = Program.DB.LastMapPosition;
-
 
 		}
 
@@ -1269,12 +1298,12 @@ namespace GeocachingTourPlanner
 				Mapdragging = false;
 			}
 		}
-
+		
 		private void Map_Enter(object sender, EventArgs e)
 		{
 			LoadMap();
 		}
-
+		
 		private void Map_OnMapZoomChanged()
 		{
 			Program.DB.LastMapPosition = Map.Position;//Since you can change position when zooming
@@ -1298,12 +1327,11 @@ namespace GeocachingTourPlanner
 			else if (e.Button == MouseButtons.Right && item.Tag.ToString()!= "Endpoint" && item.Tag.ToString() != "Startpoint")
 			{
 				ContextMenu MapContextMenu = new ContextMenu();
-				PointLatLng Coordinates = Map.FromLocalToLatLng(e.X, e.Y);
 				// initialize the commands
 				MenuItem SetEndpoint = new MenuItem("Set Endpoint here");
-				SetEndpoint.Click += (new_sender, new_e) => SetEndpoint_Click(Coordinates);
+				SetEndpoint.Click += (new_sender, new_e) => SetEndpoint_Click(item.Position);
 				MenuItem SetStartpoint = new MenuItem("Set Startpoint here");
-				SetStartpoint.Click += (new_sender, new_e) => SetStartpoint_Click(Coordinates);
+				SetStartpoint.Click += (new_sender, new_e) => SetStartpoint_Click(item.Position);
 
 				Geocache geocache = Program.Geocaches.First(x => x.GCCODE == item.Tag.ToString());
 				MenuItem SetForceInclude = new MenuItem("ForceInclude");
@@ -1311,7 +1339,7 @@ namespace GeocachingTourPlanner
 				{
 					SetForceInclude.Checked=true;
 				}
-				SetForceInclude.Click += (new_sender, new_e) => toggleForceInclude(geocache);
+				SetForceInclude.Click += (new_sender, new_e) => toggleForceInclude(geocache, item);
 
 				MapContextMenu.MenuItems.Add(SetStartpoint);
 				MapContextMenu.MenuItems.Add(SetEndpoint);
@@ -1387,7 +1415,7 @@ namespace GeocachingTourPlanner
 			EndpointTextbox.Text = coordinates.Lat.ToString(CultureInfo.InvariantCulture) + ";" + coordinates.Lng.ToString(CultureInfo.InvariantCulture);
 		}
 
-		private void toggleForceInclude(Geocache geocache)
+		private void toggleForceInclude(Geocache geocache, GMapMarker marker)
 		{
 			if (geocache.ForceInclude)
 			{
@@ -1397,6 +1425,7 @@ namespace GeocachingTourPlanner
 			{
 				geocache.ForceInclude = true;
 			}
+			LoadMap();//So color is changed
 		}
 		#endregion
 
