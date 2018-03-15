@@ -585,6 +585,10 @@ namespace GeocachingTourPlanner
 				return;
 			}
 			Profile.Name = RoutingProfileName.Text;
+
+			ClearAllChildTextAndComboboxes(RoutingprofilesSettingsTabelLayout);
+			ClearAllChildTextAndComboboxes(SaveRoutingProfileTableLayout);
+			SelectedRoutingprofileCombobox.Text = null;
 			foreach (Routingprofile BP in Program.Routingprofiles.Where(x => x.Name == Profile.Name).ToList())
 			{
 				Program.Routingprofiles.Remove(BP);
@@ -606,6 +610,9 @@ namespace GeocachingTourPlanner
 			{
 				Program.Routingprofiles.Remove(BP);
 			}
+			ClearAllChildTextAndComboboxes(RatingprofilesSettingsTabelLayout);
+			ClearAllChildTextAndComboboxes(SaveRatingprofileLayoutPanel);
+			SelectedRatingprofileCombobox.Text = null;
 			Program.Backup(Program.Ratingprofiles);
 		}
 
@@ -704,9 +711,6 @@ namespace GeocachingTourPlanner
 				TimePerGeocache.Text = SelectedRoutingprofile.TimePerGeocache.ToString();
 
 				//Profile
-
-				//VehicleValue.Text = SelectedRoutingprofile.ItineroProfile.profile.FullName.Remove(SelectedRoutingprofile.ItineroProfile.profile.FullName.IndexOf("."));//gets the parent of the profile (thus the vehicle)
-				//ModeValue.SelectedText = SelectedRoutingprofile.ItineroProfile.profile.Name;//Gives the metric
 
 				//Workaround Issue #161 @ Itinero
 				if (SelectedRoutingprofile.ItineroProfile.profile.FullName.Contains("."))
@@ -1492,29 +1496,66 @@ namespace GeocachingTourPlanner
 		//UNDONE Attach this to EVERY Dropdownlist
 		private void Dropdown_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			((ComboBox)sender).Text = ((ComboBox)sender).SelectedItem.ToString();//So I can just check the text and it doesn't matter whether the user typed it or selected it
+			if (((ComboBox)sender).SelectedItem != null)//happens when profile is deleted
+			{
+				((ComboBox)sender).Text = ((ComboBox)sender).SelectedItem.ToString();//So I can just check the text and it doesn't matter whether the user typed it or selected it
 
-			if (sender == EditRoutingprofileCombobox)
-			{
-				Routingprofile_Click(sender, e);
-				SelectedRoutingprofileCombobox.Text = EditRoutingprofileCombobox.Text;
-			}
-			else if (sender == EditRatingprofileCombobox)
-			{
-				Ratingprofile_Click(sender, e);
-				SelectedRatingprofileCombobox.Text = EditRatingprofileCombobox.Text;
-			}
-			else if (sender == SelectedRoutingprofileCombobox)
-			{
-				Routingprofile_Click(sender, e);
-				EditRoutingprofileCombobox.Text = SelectedRoutingprofileCombobox.Text;
-			}
-			else if (sender == SelectedRatingprofileCombobox)
-			{
-				Ratingprofile_Click(sender, e);
-				EditRatingprofileCombobox.Text = SelectedRatingprofileCombobox.Text;
+				if (sender == EditRoutingprofileCombobox)
+				{
+					Routingprofile_Click(sender, e);
+					SelectedRoutingprofileCombobox.Text = EditRoutingprofileCombobox.Text;
+				}
+				else if (sender == EditRatingprofileCombobox)
+				{
+					Ratingprofile_Click(sender, e);
+					SelectedRatingprofileCombobox.Text = EditRatingprofileCombobox.Text;
+				}
+				else if (sender == SelectedRoutingprofileCombobox)
+				{
+					Routingprofile_Click(sender, e);
+					EditRoutingprofileCombobox.Text = SelectedRoutingprofileCombobox.Text;
+				}
+				else if (sender == SelectedRatingprofileCombobox)
+				{
+					Ratingprofile_Click(sender, e);
+					EditRatingprofileCombobox.Text = SelectedRatingprofileCombobox.Text;
+				}
 			}
 		}
 
+		/// <summary>
+		/// Sets the text of all TextBox- and ComboBox- children of the specified parent to null. Does this recursively through 3 layers.
+		/// </summary>
+		/// <param name="parent"></param>
+		private void ClearAllChildTextAndComboboxes(Control parent)
+		{
+			foreach (Control C in parent.Controls)
+			{
+				if (C is TextBox || C is ComboBox)
+				{
+					C.Text = null;
+				}
+				else if (C is GroupBox || C is TableLayoutPanel)
+				{
+					foreach (Control C2 in C.Controls)
+					{
+						if (C2 is TextBox || C2 is ComboBox)
+						{
+							C2.Text = null;
+						}
+						else if (C2 is GroupBox || C2 is TableLayoutPanel)
+						{
+							foreach (Control C3 in C2.Controls)
+							{
+								if (C3 is TextBox || C3 is ComboBox)
+								{
+									C3.Text = null;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }
