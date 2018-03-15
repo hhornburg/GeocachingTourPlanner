@@ -1095,7 +1095,7 @@ namespace GeocachingTourPlanner
 				Map.Overlays.Add(RouteOverlay);
 				newRouteControlElement(Routetag);
 				Application.UseWaitCursor = false;
-				Map.UseWaitCursor = false;
+				Map.Cursor = Cursors.Default;
 			}
 			else
 			{
@@ -1287,11 +1287,11 @@ namespace GeocachingTourPlanner
 		
 		private void Map_OnMarkerClick(GMapMarker item, MouseEventArgs e)
 		{
-			if (e.Button == MouseButtons.Left)
+			if (e.Button == MouseButtons.Left && item.Tag.ToString() != "Endpoint" && item.Tag.ToString() != "Startpoint")
 			{
 				System.Diagnostics.Process.Start("https://www.coord.info/" + item.Tag);
 			}
-			else if (e.Button == MouseButtons.Right)
+			else if (e.Button == MouseButtons.Right && item.Tag.ToString()!= "Endpoint" && item.Tag.ToString() != "Startpoint")
 			{
 				ContextMenu MapContextMenu = new ContextMenu();
 				PointLatLng Coordinates = Map.FromLocalToLatLng(e.X, e.Y);
@@ -1343,7 +1343,7 @@ namespace GeocachingTourPlanner
 					Overlay.Markers.Remove(Map.Overlays.First(x => x.Id == "StartEnd").Markers.First(x => x.Tag.ToString() == "Startpoint"));
 				}
 				GMapMarker Startpoint = new GMarkerGoogle(coordinates, GMarkerGoogleType.green_big_go);
-				Startpoint.Tag = "Endpoint";
+				Startpoint.Tag = "Startpoint";
 				Overlay.Markers.Add(Startpoint);
 			}
 			else
