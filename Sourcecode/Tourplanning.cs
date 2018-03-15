@@ -240,7 +240,7 @@ namespace GeocachingTourPlanner
 			
 			Program.MainWindow.AddFinalRoute(Result, profile);
 			Application.UseWaitCursor = false;
-
+			Program.RouteCalculationRunning = false;
 
 		}
 

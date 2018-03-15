@@ -835,96 +835,100 @@ namespace GeocachingTourPlanner
 
 		private void CreateRouteButtonClick(object sender, EventArgs e)
 		{
-			Application.UseWaitCursor = true;
-			
-			#region get values
-			if (SelectedRoutingprofileCombobox.Text.Length == 0)
+			if (!Program.RouteCalculationRunning)
 			{
-				MessageBox.Show("No Routingprofile set.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				Application.UseWaitCursor = false;
-				return;
-			}
+				Program.RouteCalculationRunning = true;
+				Application.UseWaitCursor = true;
 
-			Routingprofile SelectedProfile = Program.Routingprofiles.First(x => x.Name == SelectedRoutingprofileCombobox.Text);
-
-			List<Geocache> GeocachesToInclude = new List<Geocache>();
-			foreach (Geocache GC in Program.Geocaches.Where(x=>x.ForceInclude))
-			{
-				GeocachesToInclude.Add(GC);
-			}
-			
-			float StartLat = 0;
-			float StartLon = 0;
-			float EndLat = 0;
-			float EndLon = 0;
-
-			if (StartpointTextbox.Text.Length == 0)
-			{
-				MessageBox.Show("No Startpoint set. Please type one in or select one with right click on the map", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				Application.UseWaitCursor = false;
-				return;
-			}
-
-			if (!float.TryParse(StartpointTextbox.Text.Substring(0, StartpointTextbox.Text.IndexOf(";")-1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture,out StartLat))
-			{
-				MessageBox.Show("Couldn't parse latitude of Startcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				Application.UseWaitCursor = false;
-				return;
-			}
-			if (!float.TryParse(StartpointTextbox.Text.Substring(StartpointTextbox.Text.IndexOf(";")+1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out StartLon))
-			{
-				MessageBox.Show("Couldn't parse longitude Startcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				Application.UseWaitCursor = false;
-				return;
-			}
-
-			if (EndpointTextbox.Text.Length == 0)
-			{
-				if (MessageBox.Show("No Endpoint set. Do you want to set Startpoint as Endpoint as well?", "Question", MessageBoxButtons.YesNo) == DialogResult.Yes)
+				#region get values
+				if (SelectedRoutingprofileCombobox.Text.Length == 0)
 				{
-					EndLat = StartLat;
-					EndLon = StartLon;
-					EndpointTextbox.Text = EndLat.ToString(CultureInfo.InvariantCulture) + ";" + EndLon.ToString(CultureInfo.InvariantCulture);
+					MessageBox.Show("No Routingprofile set.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					Application.UseWaitCursor = false;
+					return;
+				}
+
+				Routingprofile SelectedProfile = Program.Routingprofiles.First(x => x.Name == SelectedRoutingprofileCombobox.Text);
+
+				List<Geocache> GeocachesToInclude = new List<Geocache>();
+				foreach (Geocache GC in Program.Geocaches.Where(x => x.ForceInclude))
+				{
+					GeocachesToInclude.Add(GC);
+				}
+
+				float StartLat = 0;
+				float StartLon = 0;
+				float EndLat = 0;
+				float EndLon = 0;
+
+				if (StartpointTextbox.Text.Length == 0)
+				{
+					MessageBox.Show("No Startpoint set. Please type one in or select one with right click on the map", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					Application.UseWaitCursor = false;
+					return;
+				}
+
+				if (!float.TryParse(StartpointTextbox.Text.Substring(0, StartpointTextbox.Text.IndexOf(";") - 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out StartLat))
+				{
+					MessageBox.Show("Couldn't parse latitude of Startcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					Application.UseWaitCursor = false;
+					return;
+				}
+				if (!float.TryParse(StartpointTextbox.Text.Substring(StartpointTextbox.Text.IndexOf(";") + 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out StartLon))
+				{
+					MessageBox.Show("Couldn't parse longitude Startcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					Application.UseWaitCursor = false;
+					return;
+				}
+
+				if (EndpointTextbox.Text.Length == 0)
+				{
+					if (MessageBox.Show("No Endpoint set. Do you want to set Startpoint as Endpoint as well?", "Question", MessageBoxButtons.YesNo) == DialogResult.Yes)
+					{
+						EndLat = StartLat;
+						EndLon = StartLon;
+						EndpointTextbox.Text = EndLat.ToString(CultureInfo.InvariantCulture) + ";" + EndLon.ToString(CultureInfo.InvariantCulture);
+					}
+					else
+					{
+						Application.UseWaitCursor = false;
+						return;
+					}
 				}
 				else
 				{
-					Application.UseWaitCursor = false;
-					return;
-				}
-			}
-			else
-			{
-				if (!float.TryParse(EndpointTextbox.Text.Substring(0, EndpointTextbox.Text.IndexOf(";")-1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out EndLat))
-				{
-				
-					MessageBox.Show("Couldn't parse latitude of Endcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					Application.UseWaitCursor = false;
-					return;
-					
-				}
-				if (!float.TryParse(EndpointTextbox.Text.Substring(EndpointTextbox.Text.IndexOf(";")+1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out EndLon))
-				{
-					//Big procedure only once, as the result would be the same
-					MessageBox.Show("Couldn't parse longitude of Endcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					Application.UseWaitCursor = false;
-					return;
-				}
-			}
+					if (!float.TryParse(EndpointTextbox.Text.Substring(0, EndpointTextbox.Text.IndexOf(";") - 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out EndLat))
+					{
 
-			//Check if Start and Endpoint have been selected
-			if (StartLat == 0 && StartLon == 0 && EndLat == 0 && EndLon == 0)
-			{
-				MessageBox.Show("Please select a Startingpoint and a Finalpoint", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				Application.UseWaitCursor = false;
-				return;
-			}
-			#endregion
+						MessageBox.Show("Couldn't parse latitude of Endcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						Application.UseWaitCursor = false;
+						return;
 
-			new Thread(new ThreadStart(() =>
-			{
-				new Tourplanning().GetRoute_Recursive(SelectedProfile, Program.Geocaches.ToList(), new Coordinate(StartLat, StartLon), new Coordinate(EndLat, EndLon), GeocachesToInclude);
+					}
+					if (!float.TryParse(EndpointTextbox.Text.Substring(EndpointTextbox.Text.IndexOf(";") + 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out EndLon))
+					{
+						//Big procedure only once, as the result would be the same
+						MessageBox.Show("Couldn't parse longitude of Endcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						Application.UseWaitCursor = false;
+						return;
+					}
+				}
+
+				//Check if Start and Endpoint have been selected
+				if (StartLat == 0 && StartLon == 0 && EndLat == 0 && EndLon == 0)
+				{
+					MessageBox.Show("Please select a Startingpoint and a Finalpoint", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					Application.UseWaitCursor = false;
+					return;
+				}
+				#endregion
+
+				new Thread(new ThreadStart(() =>
+				{
+					new Tourplanning().GetRoute_Recursive(SelectedProfile, Program.Geocaches.ToList(), new Coordinate(StartLat, StartLon), new Coordinate(EndLat, EndLon), GeocachesToInclude);
+				}
+				)).Start();
 			}
-			)).Start();
 
 		}
 
