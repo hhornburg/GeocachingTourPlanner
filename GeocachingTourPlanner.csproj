@@ -118,7 +118,6 @@
     <None Include=".vs\VSWorkspaceState.json" />
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="SampleDBs\Geocaches.gcdb" />
     <None Include="SampleDBs\Ratingprofiles.ratingprf" />
     <None Include="SampleDBs\Routingprofiles.routingprf">
       <SubType>Designer</SubType>
@@ -128,6 +127,8 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Sourcecode\Fileoperations.cs" />
+    <Compile Include="Sourcecode\Startup.cs" />
     <Compile Include="Sourcecode\AcceptLicenseWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -168,9 +169,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="PNG\Cross.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

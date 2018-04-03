@@ -1,4 +1,6 @@
-﻿namespace GeocachingTourPlanner
+﻿using System.Windows.Forms;
+
+namespace GeocachingTourPlanner
 {
     partial class Form1
     {
@@ -52,6 +54,9 @@
 			this.GeocacheTable = new System.Windows.Forms.DataGridView();
 			this.LeftTabs = new System.Windows.Forms.TabControl();
 			this.Firststeps = new System.Windows.Forms.TabPage();
+			this.tableLayoutPanel17 = new System.Windows.Forms.TableLayoutPanel();
+			this.WikiLabel = new System.Windows.Forms.LinkLabel();
+			this.webBrowser1 = new System.Windows.Forms.WebBrowser();
 			this.Overviewpage = new System.Windows.Forms.TabPage();
 			this.NameStateTable = new System.Windows.Forms.TableLayoutPanel();
 			this.StateTableLayout = new System.Windows.Forms.TableLayoutPanel();
@@ -165,18 +170,18 @@
 			this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
 			this.label55 = new System.Windows.Forms.Label();
 			this.EditRatingprofileCombobox = new System.Windows.Forms.ComboBox();
-			this.SaveRatingprofileLayoutPanel17 = new System.Windows.Forms.TableLayoutPanel();
-			this.CancelNewProfileButton = new System.Windows.Forms.Button();
+			this.SaveRatingprofileLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+			this.DeleteRatingprofileButton = new System.Windows.Forms.Button();
 			this.CreateRatingprofileButton = new System.Windows.Forms.Button();
 			this.label54 = new System.Windows.Forms.Label();
 			this.RatingProfileName = new System.Windows.Forms.TextBox();
 			this.Routingprofiles = new System.Windows.Forms.TabPage();
 			this.SaveRoutingProfileTableLayout = new System.Windows.Forms.TableLayoutPanel();
-			this.button1 = new System.Windows.Forms.Button();
+			this.DeleteRoutingprofileButton = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
 			this.label52 = new System.Windows.Forms.Label();
 			this.RoutingProfileName = new System.Windows.Forms.TextBox();
-			this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
+			this.RoutingprofilesSettingsTabelLayout = new System.Windows.Forms.TableLayoutPanel();
 			this.RoutingCoreGroupbox = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
 			this.label45 = new System.Windows.Forms.Label();
@@ -224,6 +229,8 @@
 			this.GeocachesTab.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.GeocacheTable)).BeginInit();
 			this.LeftTabs.SuspendLayout();
+			this.Firststeps.SuspendLayout();
+			this.tableLayoutPanel17.SuspendLayout();
 			this.Overviewpage.SuspendLayout();
 			this.NameStateTable.SuspendLayout();
 			this.StateTableLayout.SuspendLayout();
@@ -243,10 +250,10 @@
 			this.Sonstiges.SuspendLayout();
 			this.tableLayoutPanel6.SuspendLayout();
 			this.tableLayoutPanel2.SuspendLayout();
-			this.SaveRatingprofileLayoutPanel17.SuspendLayout();
+			this.SaveRatingprofileLayoutPanel.SuspendLayout();
 			this.Routingprofiles.SuspendLayout();
 			this.SaveRoutingProfileTableLayout.SuspendLayout();
-			this.tableLayoutPanel9.SuspendLayout();
+			this.RoutingprofilesSettingsTabelLayout.SuspendLayout();
 			this.RoutingCoreGroupbox.SuspendLayout();
 			this.tableLayoutPanel11.SuspendLayout();
 			this.DistanceGroupBox.SuspendLayout();
@@ -344,7 +351,7 @@
 			this.Map.OnMapDrag += new GMap.NET.MapDrag(this.Map_OnMapDrag);
 			this.Map.OnMapZoomChanged += new GMap.NET.MapZoomChanged(this.Map_OnMapZoomChanged);
 			this.Map.Load += new System.EventHandler(this.Map_Load);
-			this.Map.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Map_Click);
+			this.Map.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Map_Click);
 			this.Map.MouseEnter += new System.EventHandler(this.Map_Load);
 			this.Map.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Map_MouseUp);
 			// 
@@ -408,9 +415,9 @@
 			// 
 			this.tableLayoutPanel10.ColumnCount = 3;
 			this.tableLayoutPanel1.SetColumnSpan(this.tableLayoutPanel10, 2);
-			this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-			this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-			this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+			this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+			this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+			this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
 			this.tableLayoutPanel10.Controls.Add(this.RateGeocachesButton, 2, 3);
 			this.tableLayoutPanel10.Controls.Add(this.CreateRouteButton, 1, 3);
 			this.tableLayoutPanel10.Controls.Add(this.SelectedRoutingprofileCombobox, 1, 1);
@@ -435,9 +442,9 @@
 			// RateGeocachesButton
 			// 
 			this.RateGeocachesButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.RateGeocachesButton.Location = new System.Drawing.Point(621, 70);
+			this.RateGeocachesButton.Location = new System.Drawing.Point(643, 70);
 			this.RateGeocachesButton.Name = "RateGeocachesButton";
-			this.RateGeocachesButton.Size = new System.Drawing.Size(338, 21);
+			this.RateGeocachesButton.Size = new System.Drawing.Size(316, 21);
 			this.RateGeocachesButton.TabIndex = 0;
 			this.RateGeocachesButton.Text = "Rate Geocaches";
 			this.RateGeocachesButton.UseVisualStyleBackColor = true;
@@ -446,9 +453,9 @@
 			// CreateRouteButton
 			// 
 			this.CreateRouteButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.CreateRouteButton.Location = new System.Drawing.Point(312, 70);
+			this.CreateRouteButton.Location = new System.Drawing.Point(323, 70);
 			this.CreateRouteButton.Name = "CreateRouteButton";
-			this.CreateRouteButton.Size = new System.Drawing.Size(303, 21);
+			this.CreateRouteButton.Size = new System.Drawing.Size(314, 21);
 			this.CreateRouteButton.TabIndex = 1;
 			this.CreateRouteButton.Text = "Create Route";
 			this.CreateRouteButton.UseVisualStyleBackColor = true;
@@ -460,9 +467,9 @@
 			this.SelectedRoutingprofileCombobox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
 			this.SelectedRoutingprofileCombobox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.SelectedRoutingprofileCombobox.FormattingEnabled = true;
-			this.SelectedRoutingprofileCombobox.Location = new System.Drawing.Point(312, 23);
+			this.SelectedRoutingprofileCombobox.Location = new System.Drawing.Point(323, 23);
 			this.SelectedRoutingprofileCombobox.Name = "SelectedRoutingprofileCombobox";
-			this.SelectedRoutingprofileCombobox.Size = new System.Drawing.Size(303, 21);
+			this.SelectedRoutingprofileCombobox.Size = new System.Drawing.Size(314, 21);
 			this.SelectedRoutingprofileCombobox.TabIndex = 2;
 			this.SelectedRoutingprofileCombobox.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
 			// 
@@ -472,9 +479,9 @@
 			this.SelectedRatingprofileCombobox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
 			this.SelectedRatingprofileCombobox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.SelectedRatingprofileCombobox.FormattingEnabled = true;
-			this.SelectedRatingprofileCombobox.Location = new System.Drawing.Point(621, 23);
+			this.SelectedRatingprofileCombobox.Location = new System.Drawing.Point(643, 23);
 			this.SelectedRatingprofileCombobox.Name = "SelectedRatingprofileCombobox";
-			this.SelectedRatingprofileCombobox.Size = new System.Drawing.Size(338, 21);
+			this.SelectedRatingprofileCombobox.Size = new System.Drawing.Size(316, 21);
 			this.SelectedRatingprofileCombobox.TabIndex = 3;
 			this.SelectedRatingprofileCombobox.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
 			// 
@@ -482,10 +489,10 @@
 			// 
 			this.label1.AutoSize = true;
 			this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label1.Location = new System.Drawing.Point(312, 3);
+			this.label1.Location = new System.Drawing.Point(323, 3);
 			this.label1.Margin = new System.Windows.Forms.Padding(3);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(303, 14);
+			this.label1.Size = new System.Drawing.Size(314, 14);
 			this.label1.TabIndex = 4;
 			this.label1.Text = "Select Routingprofile";
 			// 
@@ -493,10 +500,10 @@
 			// 
 			this.label41.AutoSize = true;
 			this.label41.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label41.Location = new System.Drawing.Point(621, 3);
+			this.label41.Location = new System.Drawing.Point(643, 3);
 			this.label41.Margin = new System.Windows.Forms.Padding(3);
 			this.label41.Name = "label41";
-			this.label41.Size = new System.Drawing.Size(338, 14);
+			this.label41.Size = new System.Drawing.Size(316, 14);
 			this.label41.TabIndex = 5;
 			this.label41.Text = "SelectRatingprofiles";
 			// 
@@ -507,7 +514,7 @@
 			this.label42.Location = new System.Drawing.Point(3, 3);
 			this.label42.Margin = new System.Windows.Forms.Padding(3);
 			this.label42.Name = "label42";
-			this.label42.Size = new System.Drawing.Size(303, 14);
+			this.label42.Size = new System.Drawing.Size(314, 14);
 			this.label42.TabIndex = 6;
 			this.label42.Text = "Startpoint";
 			// 
@@ -518,7 +525,7 @@
 			this.label43.Location = new System.Drawing.Point(3, 50);
 			this.label43.Margin = new System.Windows.Forms.Padding(3);
 			this.label43.Name = "label43";
-			this.label43.Size = new System.Drawing.Size(303, 14);
+			this.label43.Size = new System.Drawing.Size(314, 14);
 			this.label43.TabIndex = 7;
 			this.label43.Text = "Endpoint";
 			// 
@@ -527,7 +534,7 @@
 			this.StartpointTextbox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.StartpointTextbox.Location = new System.Drawing.Point(3, 23);
 			this.StartpointTextbox.Name = "StartpointTextbox";
-			this.StartpointTextbox.Size = new System.Drawing.Size(303, 20);
+			this.StartpointTextbox.Size = new System.Drawing.Size(314, 20);
 			this.StartpointTextbox.TabIndex = 8;
 			// 
 			// EndpointTextbox
@@ -535,7 +542,7 @@
 			this.EndpointTextbox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.EndpointTextbox.Location = new System.Drawing.Point(3, 70);
 			this.EndpointTextbox.Name = "EndpointTextbox";
-			this.EndpointTextbox.Size = new System.Drawing.Size(303, 20);
+			this.EndpointTextbox.Size = new System.Drawing.Size(314, 20);
 			this.EndpointTextbox.TabIndex = 9;
 			// 
 			// GeocachesTab
@@ -578,12 +585,53 @@
 			// 
 			// Firststeps
 			// 
+			this.Firststeps.Controls.Add(this.tableLayoutPanel17);
 			this.Firststeps.Location = new System.Drawing.Point(4, 22);
 			this.Firststeps.Name = "Firststeps";
 			this.Firststeps.Size = new System.Drawing.Size(386, 544);
 			this.Firststeps.TabIndex = 4;
 			this.Firststeps.Text = "First steps";
 			this.Firststeps.UseVisualStyleBackColor = true;
+			// 
+			// tableLayoutPanel17
+			// 
+			this.tableLayoutPanel17.ColumnCount = 1;
+			this.tableLayoutPanel17.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			this.tableLayoutPanel17.Controls.Add(this.WikiLabel, 0, 0);
+			this.tableLayoutPanel17.Controls.Add(this.webBrowser1, 0, 1);
+			this.tableLayoutPanel17.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tableLayoutPanel17.Location = new System.Drawing.Point(0, 0);
+			this.tableLayoutPanel17.Name = "tableLayoutPanel17";
+			this.tableLayoutPanel17.RowCount = 2;
+			this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.tableLayoutPanel17.Size = new System.Drawing.Size(386, 544);
+			this.tableLayoutPanel17.TabIndex = 0;
+			// 
+			// WikiLabel
+			// 
+			this.WikiLabel.AutoSize = true;
+			this.WikiLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.WikiLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.WikiLabel.Location = new System.Drawing.Point(3, 3);
+			this.WikiLabel.Margin = new System.Windows.Forms.Padding(3);
+			this.WikiLabel.Name = "WikiLabel";
+			this.WikiLabel.Size = new System.Drawing.Size(380, 20);
+			this.WikiLabel.TabIndex = 0;
+			this.WikiLabel.TabStop = true;
+			this.WikiLabel.Text = "Open complete wiki in browser";
+			this.WikiLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.WikiLabel_LinkClicked);
+			// 
+			// webBrowser1
+			// 
+			this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.webBrowser1.Location = new System.Drawing.Point(3, 29);
+			this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+			this.webBrowser1.Name = "webBrowser1";
+			this.webBrowser1.Size = new System.Drawing.Size(380, 512);
+			this.webBrowser1.TabIndex = 1;
+			this.webBrowser1.Url = new System.Uri("file://C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\IDE/" +
+        "first-steps.html", System.UriKind.Absolute);
 			// 
 			// Overviewpage
 			// 
@@ -652,10 +700,10 @@
 			// 
 			this.GeocachesStateLabel.AutoSize = true;
 			this.GeocachesStateLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.GeocachesStateLabel.Location = new System.Drawing.Point(6, 6);
+			this.GeocachesStateLabel.Location = new System.Drawing.Point(5, 5);
 			this.GeocachesStateLabel.Margin = new System.Windows.Forms.Padding(5);
 			this.GeocachesStateLabel.Name = "GeocachesStateLabel";
-			this.GeocachesStateLabel.Size = new System.Drawing.Size(128, 13);
+			this.GeocachesStateLabel.Size = new System.Drawing.Size(130, 13);
 			this.GeocachesStateLabel.TabIndex = 1;
 			this.GeocachesStateLabel.Text = "0 Geocaches loaded";
 			this.GeocachesStateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -664,10 +712,10 @@
 			// 
 			this.RatingprofilesStateLabel.AutoSize = true;
 			this.RatingprofilesStateLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.RatingprofilesStateLabel.Location = new System.Drawing.Point(6, 67);
+			this.RatingprofilesStateLabel.Location = new System.Drawing.Point(5, 65);
 			this.RatingprofilesStateLabel.Margin = new System.Windows.Forms.Padding(5);
 			this.RatingprofilesStateLabel.Name = "RatingprofilesStateLabel";
-			this.RatingprofilesStateLabel.Size = new System.Drawing.Size(128, 13);
+			this.RatingprofilesStateLabel.Size = new System.Drawing.Size(130, 13);
 			this.RatingprofilesStateLabel.TabIndex = 2;
 			this.RatingprofilesStateLabel.Text = "0 Ratingprofiles loaded";
 			this.RatingprofilesStateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -676,10 +724,10 @@
 			// 
 			this.RoutingprofilesStateLabel.AutoSize = true;
 			this.RoutingprofilesStateLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.RoutingprofilesStateLabel.Location = new System.Drawing.Point(6, 128);
+			this.RoutingprofilesStateLabel.Location = new System.Drawing.Point(5, 125);
 			this.RoutingprofilesStateLabel.Margin = new System.Windows.Forms.Padding(5);
 			this.RoutingprofilesStateLabel.Name = "RoutingprofilesStateLabel";
-			this.RoutingprofilesStateLabel.Size = new System.Drawing.Size(128, 13);
+			this.RoutingprofilesStateLabel.Size = new System.Drawing.Size(130, 13);
 			this.RoutingprofilesStateLabel.TabIndex = 3;
 			this.RoutingprofilesStateLabel.Text = "0 Routingprofiles loaded";
 			this.RoutingprofilesStateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -688,10 +736,10 @@
 			// 
 			this.RouterDBStateLabel.AutoSize = true;
 			this.RouterDBStateLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.RouterDBStateLabel.Location = new System.Drawing.Point(6, 189);
+			this.RouterDBStateLabel.Location = new System.Drawing.Point(5, 185);
 			this.RouterDBStateLabel.Margin = new System.Windows.Forms.Padding(5);
 			this.RouterDBStateLabel.Name = "RouterDBStateLabel";
-			this.RouterDBStateLabel.Size = new System.Drawing.Size(128, 13);
+			this.RouterDBStateLabel.Size = new System.Drawing.Size(130, 13);
 			this.RouterDBStateLabel.TabIndex = 4;
 			this.RouterDBStateLabel.Text = "No RouterDB loaded";
 			this.RouterDBStateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -699,11 +747,11 @@
 			// SetGeocacheDBButton
 			// 
 			this.SetGeocacheDBButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.SetGeocacheDBButton.Location = new System.Drawing.Point(143, 3);
+			this.SetGeocacheDBButton.Location = new System.Drawing.Point(143, 2);
 			this.SetGeocacheDBButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.SetGeocacheDBButton.Name = "SetGeocacheDBButton";
 			this.StateTableLayout.SetRowSpan(this.SetGeocacheDBButton, 2);
-			this.SetGeocacheDBButton.Size = new System.Drawing.Size(109, 56);
+			this.SetGeocacheDBButton.Size = new System.Drawing.Size(110, 56);
 			this.SetGeocacheDBButton.TabIndex = 1;
 			this.SetGeocacheDBButton.Text = "Set Geocache Database";
 			this.SetGeocacheDBButton.UseVisualStyleBackColor = true;
@@ -712,11 +760,11 @@
 			// ImportPQButton
 			// 
 			this.ImportPQButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.ImportPQButton.Location = new System.Drawing.Point(259, 3);
+			this.ImportPQButton.Location = new System.Drawing.Point(259, 2);
 			this.ImportPQButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.ImportPQButton.Name = "ImportPQButton";
 			this.StateTableLayout.SetRowSpan(this.ImportPQButton, 2);
-			this.ImportPQButton.Size = new System.Drawing.Size(111, 56);
+			this.ImportPQButton.Size = new System.Drawing.Size(112, 56);
 			this.ImportPQButton.TabIndex = 2;
 			this.ImportPQButton.Text = "Import Pocket Query";
 			this.ImportPQButton.UseVisualStyleBackColor = true;
@@ -725,11 +773,11 @@
 			// SetRatingprofileDBButton
 			// 
 			this.SetRatingprofileDBButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.SetRatingprofileDBButton.Location = new System.Drawing.Point(143, 64);
+			this.SetRatingprofileDBButton.Location = new System.Drawing.Point(143, 62);
 			this.SetRatingprofileDBButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.SetRatingprofileDBButton.Name = "SetRatingprofileDBButton";
 			this.StateTableLayout.SetRowSpan(this.SetRatingprofileDBButton, 2);
-			this.SetRatingprofileDBButton.Size = new System.Drawing.Size(109, 56);
+			this.SetRatingprofileDBButton.Size = new System.Drawing.Size(110, 56);
 			this.SetRatingprofileDBButton.TabIndex = 3;
 			this.SetRatingprofileDBButton.Text = "Set Ratingprofile Database";
 			this.SetRatingprofileDBButton.UseVisualStyleBackColor = true;
@@ -738,11 +786,11 @@
 			// SetRoutingprofileDBButton
 			// 
 			this.SetRoutingprofileDBButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.SetRoutingprofileDBButton.Location = new System.Drawing.Point(143, 125);
+			this.SetRoutingprofileDBButton.Location = new System.Drawing.Point(143, 122);
 			this.SetRoutingprofileDBButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.SetRoutingprofileDBButton.Name = "SetRoutingprofileDBButton";
 			this.StateTableLayout.SetRowSpan(this.SetRoutingprofileDBButton, 2);
-			this.SetRoutingprofileDBButton.Size = new System.Drawing.Size(109, 56);
+			this.SetRoutingprofileDBButton.Size = new System.Drawing.Size(110, 56);
 			this.SetRoutingprofileDBButton.TabIndex = 5;
 			this.SetRoutingprofileDBButton.Text = "Set Routingprofile Database";
 			this.SetRoutingprofileDBButton.UseVisualStyleBackColor = true;
@@ -751,11 +799,11 @@
 			// SetRouterDBButton
 			// 
 			this.SetRouterDBButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.SetRouterDBButton.Location = new System.Drawing.Point(143, 186);
+			this.SetRouterDBButton.Location = new System.Drawing.Point(143, 182);
 			this.SetRouterDBButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.SetRouterDBButton.Name = "SetRouterDBButton";
 			this.StateTableLayout.SetRowSpan(this.SetRouterDBButton, 2);
-			this.SetRouterDBButton.Size = new System.Drawing.Size(109, 56);
+			this.SetRouterDBButton.Size = new System.Drawing.Size(110, 56);
 			this.SetRouterDBButton.TabIndex = 7;
 			this.SetRouterDBButton.Text = "Set Router Database";
 			this.SetRouterDBButton.UseVisualStyleBackColor = true;
@@ -764,11 +812,11 @@
 			// ImportPbfButton
 			// 
 			this.ImportPbfButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.ImportPbfButton.Location = new System.Drawing.Point(259, 186);
+			this.ImportPbfButton.Location = new System.Drawing.Point(259, 182);
 			this.ImportPbfButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.ImportPbfButton.Name = "ImportPbfButton";
 			this.StateTableLayout.SetRowSpan(this.ImportPbfButton, 2);
-			this.ImportPbfButton.Size = new System.Drawing.Size(111, 56);
+			this.ImportPbfButton.Size = new System.Drawing.Size(112, 56);
 			this.ImportPbfButton.TabIndex = 8;
 			this.ImportPbfButton.Text = "Import .pbf file";
 			this.ImportPbfButton.UseVisualStyleBackColor = true;
@@ -778,10 +826,10 @@
 			// 
 			this.GetPQLabel.AutoSize = true;
 			this.GetPQLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.GetPQLabel.Location = new System.Drawing.Point(4, 27);
+			this.GetPQLabel.Location = new System.Drawing.Point(3, 25);
 			this.GetPQLabel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.GetPQLabel.Name = "GetPQLabel";
-			this.GetPQLabel.Size = new System.Drawing.Size(132, 32);
+			this.GetPQLabel.Size = new System.Drawing.Size(134, 33);
 			this.GetPQLabel.TabIndex = 0;
 			this.GetPQLabel.TabStop = true;
 			this.GetPQLabel.Text = "Get Pocket Query";
@@ -792,10 +840,10 @@
 			// 
 			this.GetPbfLabel.AutoSize = true;
 			this.GetPbfLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.GetPbfLabel.Location = new System.Drawing.Point(4, 210);
+			this.GetPbfLabel.Location = new System.Drawing.Point(3, 205);
 			this.GetPbfLabel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.GetPbfLabel.Name = "GetPbfLabel";
-			this.GetPbfLabel.Size = new System.Drawing.Size(132, 32);
+			this.GetPbfLabel.Size = new System.Drawing.Size(134, 33);
 			this.GetPbfLabel.TabIndex = 5;
 			this.GetPbfLabel.TabStop = true;
 			this.GetPbfLabel.Text = "Get OSM pbf file";
@@ -805,10 +853,10 @@
 			// NewRatingprofileDatbaseButton
 			// 
 			this.NewRatingprofileDatbaseButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.NewRatingprofileDatbaseButton.Location = new System.Drawing.Point(259, 65);
+			this.NewRatingprofileDatbaseButton.Location = new System.Drawing.Point(259, 63);
 			this.NewRatingprofileDatbaseButton.Name = "NewRatingprofileDatbaseButton";
 			this.StateTableLayout.SetRowSpan(this.NewRatingprofileDatbaseButton, 2);
-			this.NewRatingprofileDatbaseButton.Size = new System.Drawing.Size(111, 54);
+			this.NewRatingprofileDatbaseButton.Size = new System.Drawing.Size(112, 54);
 			this.NewRatingprofileDatbaseButton.TabIndex = 4;
 			this.NewRatingprofileDatbaseButton.Text = "New, empty Database";
 			this.NewRatingprofileDatbaseButton.UseVisualStyleBackColor = true;
@@ -817,10 +865,10 @@
 			// NewRoutingprofileDatabaseButton
 			// 
 			this.NewRoutingprofileDatabaseButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.NewRoutingprofileDatabaseButton.Location = new System.Drawing.Point(259, 126);
+			this.NewRoutingprofileDatabaseButton.Location = new System.Drawing.Point(259, 123);
 			this.NewRoutingprofileDatabaseButton.Name = "NewRoutingprofileDatabaseButton";
 			this.StateTableLayout.SetRowSpan(this.NewRoutingprofileDatabaseButton, 2);
-			this.NewRoutingprofileDatabaseButton.Size = new System.Drawing.Size(111, 54);
+			this.NewRoutingprofileDatabaseButton.Size = new System.Drawing.Size(112, 54);
 			this.NewRoutingprofileDatabaseButton.TabIndex = 6;
 			this.NewRoutingprofileDatabaseButton.Text = "New, empty Database";
 			this.NewRoutingprofileDatabaseButton.UseVisualStyleBackColor = true;
@@ -843,7 +891,7 @@
 			// Ratingprofiles
 			// 
 			this.Ratingprofiles.Controls.Add(this.panel1);
-			this.Ratingprofiles.Controls.Add(this.SaveRatingprofileLayoutPanel17);
+			this.Ratingprofiles.Controls.Add(this.SaveRatingprofileLayoutPanel);
 			this.Ratingprofiles.Location = new System.Drawing.Point(4, 22);
 			this.Ratingprofiles.Name = "Ratingprofiles";
 			this.Ratingprofiles.Padding = new System.Windows.Forms.Padding(3);
@@ -2522,46 +2570,49 @@
 			this.EditRatingprofileCombobox.TabIndex = 1;
 			this.EditRatingprofileCombobox.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
 			// 
-			// SaveRatingprofileLayoutPanel17
+			// SaveRatingprofileLayoutPanel
 			// 
-			this.SaveRatingprofileLayoutPanel17.AutoSize = true;
-			this.SaveRatingprofileLayoutPanel17.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.SaveRatingprofileLayoutPanel17.ColumnCount = 4;
-			this.SaveRatingprofileLayoutPanel17.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 55F));
-			this.SaveRatingprofileLayoutPanel17.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.SaveRatingprofileLayoutPanel17.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-			this.SaveRatingprofileLayoutPanel17.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-			this.SaveRatingprofileLayoutPanel17.Controls.Add(this.CancelNewProfileButton, 3, 0);
-			this.SaveRatingprofileLayoutPanel17.Controls.Add(this.CreateRatingprofileButton, 2, 0);
-			this.SaveRatingprofileLayoutPanel17.Controls.Add(this.label54, 0, 0);
-			this.SaveRatingprofileLayoutPanel17.Controls.Add(this.RatingProfileName, 1, 0);
-			this.SaveRatingprofileLayoutPanel17.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.SaveRatingprofileLayoutPanel17.Location = new System.Drawing.Point(3, 511);
-			this.SaveRatingprofileLayoutPanel17.Name = "SaveRatingprofileLayoutPanel17";
-			this.SaveRatingprofileLayoutPanel17.RowCount = 1;
-			this.SaveRatingprofileLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-			this.SaveRatingprofileLayoutPanel17.Size = new System.Drawing.Size(380, 30);
-			this.SaveRatingprofileLayoutPanel17.TabIndex = 9;
+			this.SaveRatingprofileLayoutPanel.AutoSize = true;
+			this.SaveRatingprofileLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.SaveRatingprofileLayoutPanel.ColumnCount = 4;
+			this.SaveRatingprofileLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+			this.SaveRatingprofileLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+			this.SaveRatingprofileLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+			this.SaveRatingprofileLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+			this.SaveRatingprofileLayoutPanel.Controls.Add(this.DeleteRatingprofileButton, 3, 0);
+			this.SaveRatingprofileLayoutPanel.Controls.Add(this.CreateRatingprofileButton, 2, 0);
+			this.SaveRatingprofileLayoutPanel.Controls.Add(this.label54, 0, 0);
+			this.SaveRatingprofileLayoutPanel.Controls.Add(this.RatingProfileName, 1, 0);
+			this.SaveRatingprofileLayoutPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.SaveRatingprofileLayoutPanel.Location = new System.Drawing.Point(3, 511);
+			this.SaveRatingprofileLayoutPanel.Name = "SaveRatingprofileLayoutPanel";
+			this.SaveRatingprofileLayoutPanel.RowCount = 1;
+			this.SaveRatingprofileLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+			this.SaveRatingprofileLayoutPanel.Size = new System.Drawing.Size(380, 30);
+			this.SaveRatingprofileLayoutPanel.TabIndex = 9;
 			// 
-			// CancelNewProfileButton
+			// DeleteRatingprofileButton
 			// 
-			this.CancelNewProfileButton.AutoSize = true;
-			this.CancelNewProfileButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.CancelNewProfileButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.CancelNewProfileButton.Location = new System.Drawing.Point(301, 3);
-			this.CancelNewProfileButton.Name = "CancelNewProfileButton";
-			this.CancelNewProfileButton.Size = new System.Drawing.Size(76, 24);
-			this.CancelNewProfileButton.TabIndex = 0;
-			this.CancelNewProfileButton.Text = "Cancel";
-			this.CancelNewProfileButton.UseVisualStyleBackColor = true;
+			this.DeleteRatingprofileButton.AutoSize = true;
+			this.DeleteRatingprofileButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.DeleteRatingprofileButton.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.DeleteRatingprofileButton.Location = new System.Drawing.Point(307, 3);
+			this.DeleteRatingprofileButton.MinimumSize = new System.Drawing.Size(50, 20);
+			this.DeleteRatingprofileButton.Name = "DeleteRatingprofileButton";
+			this.DeleteRatingprofileButton.Size = new System.Drawing.Size(70, 24);
+			this.DeleteRatingprofileButton.TabIndex = 0;
+			this.DeleteRatingprofileButton.Text = "Delete";
+			this.DeleteRatingprofileButton.UseVisualStyleBackColor = true;
+			this.DeleteRatingprofileButton.Click += new System.EventHandler(this.DeleteRatingprofileButton_Click);
 			// 
 			// CreateRatingprofileButton
 			// 
 			this.CreateRatingprofileButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.CreateRatingprofileButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.CreateRatingprofileButton.Location = new System.Drawing.Point(220, 3);
+			this.CreateRatingprofileButton.Location = new System.Drawing.Point(231, 3);
+			this.CreateRatingprofileButton.MinimumSize = new System.Drawing.Size(50, 20);
 			this.CreateRatingprofileButton.Name = "CreateRatingprofileButton";
-			this.CreateRatingprofileButton.Size = new System.Drawing.Size(75, 24);
+			this.CreateRatingprofileButton.Size = new System.Drawing.Size(70, 24);
 			this.CreateRatingprofileButton.TabIndex = 1;
 			this.CreateRatingprofileButton.Text = "Save profile";
 			this.CreateRatingprofileButton.UseVisualStyleBackColor = true;
@@ -2569,12 +2620,13 @@
 			// 
 			// label54
 			// 
-			this.label54.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
 			this.label54.AutoSize = true;
-			this.label54.Location = new System.Drawing.Point(3, 8);
+			this.label54.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.label54.Location = new System.Drawing.Point(3, 3);
 			this.label54.Margin = new System.Windows.Forms.Padding(3);
+			this.label54.MinimumSize = new System.Drawing.Size(50, 20);
 			this.label54.Name = "label54";
-			this.label54.Size = new System.Drawing.Size(49, 13);
+			this.label54.Size = new System.Drawing.Size(70, 24);
 			this.label54.TabIndex = 2;
 			this.label54.Text = "Save as";
 			this.label54.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -2582,15 +2634,16 @@
 			// RatingProfileName
 			// 
 			this.RatingProfileName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-			this.RatingProfileName.Location = new System.Drawing.Point(58, 5);
+			this.RatingProfileName.Location = new System.Drawing.Point(79, 5);
+			this.RatingProfileName.MinimumSize = new System.Drawing.Size(50, 20);
 			this.RatingProfileName.Name = "RatingProfileName";
-			this.RatingProfileName.Size = new System.Drawing.Size(156, 20);
+			this.RatingProfileName.Size = new System.Drawing.Size(146, 20);
 			this.RatingProfileName.TabIndex = 3;
 			// 
 			// Routingprofiles
 			// 
 			this.Routingprofiles.Controls.Add(this.SaveRoutingProfileTableLayout);
-			this.Routingprofiles.Controls.Add(this.tableLayoutPanel9);
+			this.Routingprofiles.Controls.Add(this.RoutingprofilesSettingsTabelLayout);
 			this.Routingprofiles.Location = new System.Drawing.Point(4, 22);
 			this.Routingprofiles.Name = "Routingprofiles";
 			this.Routingprofiles.Padding = new System.Windows.Forms.Padding(3);
@@ -2601,13 +2654,14 @@
 			// 
 			// SaveRoutingProfileTableLayout
 			// 
+			this.SaveRoutingProfileTableLayout.AutoSize = true;
 			this.SaveRoutingProfileTableLayout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.SaveRoutingProfileTableLayout.ColumnCount = 4;
-			this.SaveRoutingProfileTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-			this.SaveRoutingProfileTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.SaveRoutingProfileTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-			this.SaveRoutingProfileTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-			this.SaveRoutingProfileTableLayout.Controls.Add(this.button1, 3, 0);
+			this.SaveRoutingProfileTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+			this.SaveRoutingProfileTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+			this.SaveRoutingProfileTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+			this.SaveRoutingProfileTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+			this.SaveRoutingProfileTableLayout.Controls.Add(this.DeleteRoutingprofileButton, 3, 0);
 			this.SaveRoutingProfileTableLayout.Controls.Add(this.button2, 2, 0);
 			this.SaveRoutingProfileTableLayout.Controls.Add(this.label52, 0, 0);
 			this.SaveRoutingProfileTableLayout.Controls.Add(this.RoutingProfileName, 1, 0);
@@ -2615,29 +2669,32 @@
 			this.SaveRoutingProfileTableLayout.Location = new System.Drawing.Point(3, 511);
 			this.SaveRoutingProfileTableLayout.Name = "SaveRoutingProfileTableLayout";
 			this.SaveRoutingProfileTableLayout.RowCount = 1;
-			this.SaveRoutingProfileTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+			this.SaveRoutingProfileTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
 			this.SaveRoutingProfileTableLayout.Size = new System.Drawing.Size(380, 30);
 			this.SaveRoutingProfileTableLayout.TabIndex = 11;
 			// 
-			// button1
+			// DeleteRoutingprofileButton
 			// 
-			this.button1.AutoSize = true;
-			this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.button1.Location = new System.Drawing.Point(323, 3);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(54, 30);
-			this.button1.TabIndex = 0;
-			this.button1.Text = "Cancel";
-			this.button1.UseVisualStyleBackColor = true;
+			this.DeleteRoutingprofileButton.AutoSize = true;
+			this.DeleteRoutingprofileButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.DeleteRoutingprofileButton.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.DeleteRoutingprofileButton.Location = new System.Drawing.Point(307, 3);
+			this.DeleteRoutingprofileButton.MinimumSize = new System.Drawing.Size(50, 20);
+			this.DeleteRoutingprofileButton.Name = "DeleteRoutingprofileButton";
+			this.DeleteRoutingprofileButton.Size = new System.Drawing.Size(70, 24);
+			this.DeleteRoutingprofileButton.TabIndex = 0;
+			this.DeleteRoutingprofileButton.Text = "Delete";
+			this.DeleteRoutingprofileButton.UseVisualStyleBackColor = true;
+			this.DeleteRoutingprofileButton.Click += new System.EventHandler(this.DeleteRoutingprofileButton_Click);
 			// 
 			// button2
 			// 
-			this.button2.Anchor = System.Windows.Forms.AnchorStyles.Left;
 			this.button2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.button2.Location = new System.Drawing.Point(243, 3);
+			this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.button2.Location = new System.Drawing.Point(231, 3);
+			this.button2.MinimumSize = new System.Drawing.Size(50, 20);
 			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(74, 30);
+			this.button2.Size = new System.Drawing.Size(70, 24);
 			this.button2.TabIndex = 1;
 			this.button2.Text = "Save profile";
 			this.button2.UseVisualStyleBackColor = true;
@@ -2649,42 +2706,44 @@
 			this.label52.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.label52.Location = new System.Drawing.Point(3, 3);
 			this.label52.Margin = new System.Windows.Forms.Padding(3);
+			this.label52.MinimumSize = new System.Drawing.Size(50, 20);
 			this.label52.Name = "label52";
-			this.label52.Size = new System.Drawing.Size(54, 30);
+			this.label52.Size = new System.Drawing.Size(70, 24);
 			this.label52.TabIndex = 2;
 			this.label52.Text = "Save as";
 			this.label52.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// RoutingProfileName
 			// 
-			this.RoutingProfileName.Anchor = System.Windows.Forms.AnchorStyles.Left;
-			this.RoutingProfileName.Location = new System.Drawing.Point(63, 8);
+			this.RoutingProfileName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+			this.RoutingProfileName.Location = new System.Drawing.Point(79, 5);
+			this.RoutingProfileName.MinimumSize = new System.Drawing.Size(50, 20);
 			this.RoutingProfileName.Name = "RoutingProfileName";
-			this.RoutingProfileName.Size = new System.Drawing.Size(168, 20);
+			this.RoutingProfileName.Size = new System.Drawing.Size(146, 20);
 			this.RoutingProfileName.TabIndex = 3;
 			// 
-			// tableLayoutPanel9
+			// RoutingprofilesSettingsTabelLayout
 			// 
-			this.tableLayoutPanel9.AutoScroll = true;
-			this.tableLayoutPanel9.ColumnCount = 1;
-			this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel9.Controls.Add(this.RoutingCoreGroupbox, 0, 2);
-			this.tableLayoutPanel9.Controls.Add(this.DistanceGroupBox, 0, 3);
-			this.tableLayoutPanel9.Controls.Add(this.TimeGroupBox, 0, 4);
-			this.tableLayoutPanel9.Controls.Add(this.label44, 0, 0);
-			this.tableLayoutPanel9.Controls.Add(this.tableLayoutPanel14, 0, 1);
-			this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Top;
-			this.tableLayoutPanel9.Location = new System.Drawing.Point(3, 3);
-			this.tableLayoutPanel9.Name = "tableLayoutPanel9";
-			this.tableLayoutPanel9.RowCount = 6;
-			this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-			this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.tableLayoutPanel9.Size = new System.Drawing.Size(380, 350);
-			this.tableLayoutPanel9.TabIndex = 0;
+			this.RoutingprofilesSettingsTabelLayout.AutoScroll = true;
+			this.RoutingprofilesSettingsTabelLayout.ColumnCount = 1;
+			this.RoutingprofilesSettingsTabelLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			this.RoutingprofilesSettingsTabelLayout.Controls.Add(this.RoutingCoreGroupbox, 0, 2);
+			this.RoutingprofilesSettingsTabelLayout.Controls.Add(this.DistanceGroupBox, 0, 3);
+			this.RoutingprofilesSettingsTabelLayout.Controls.Add(this.TimeGroupBox, 0, 4);
+			this.RoutingprofilesSettingsTabelLayout.Controls.Add(this.label44, 0, 0);
+			this.RoutingprofilesSettingsTabelLayout.Controls.Add(this.tableLayoutPanel14, 0, 1);
+			this.RoutingprofilesSettingsTabelLayout.Dock = System.Windows.Forms.DockStyle.Top;
+			this.RoutingprofilesSettingsTabelLayout.Location = new System.Drawing.Point(3, 3);
+			this.RoutingprofilesSettingsTabelLayout.Name = "RoutingprofilesSettingsTabelLayout";
+			this.RoutingprofilesSettingsTabelLayout.RowCount = 6;
+			this.RoutingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.RoutingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+			this.RoutingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.RoutingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.RoutingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.RoutingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+			this.RoutingprofilesSettingsTabelLayout.Size = new System.Drawing.Size(380, 350);
+			this.RoutingprofilesSettingsTabelLayout.TabIndex = 0;
 			// 
 			// RoutingCoreGroupbox
 			// 
@@ -3171,6 +3230,9 @@
 			this.GeocachesTab.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.GeocacheTable)).EndInit();
 			this.LeftTabs.ResumeLayout(false);
+			this.Firststeps.ResumeLayout(false);
+			this.tableLayoutPanel17.ResumeLayout(false);
+			this.tableLayoutPanel17.PerformLayout();
 			this.Overviewpage.ResumeLayout(false);
 			this.NameStateTable.ResumeLayout(false);
 			this.NameStateTable.PerformLayout();
@@ -3205,13 +3267,14 @@
 			this.tableLayoutPanel6.PerformLayout();
 			this.tableLayoutPanel2.ResumeLayout(false);
 			this.tableLayoutPanel2.PerformLayout();
-			this.SaveRatingprofileLayoutPanel17.ResumeLayout(false);
-			this.SaveRatingprofileLayoutPanel17.PerformLayout();
+			this.SaveRatingprofileLayoutPanel.ResumeLayout(false);
+			this.SaveRatingprofileLayoutPanel.PerformLayout();
 			this.Routingprofiles.ResumeLayout(false);
+			this.Routingprofiles.PerformLayout();
 			this.SaveRoutingProfileTableLayout.ResumeLayout(false);
 			this.SaveRoutingProfileTableLayout.PerformLayout();
-			this.tableLayoutPanel9.ResumeLayout(false);
-			this.tableLayoutPanel9.PerformLayout();
+			this.RoutingprofilesSettingsTabelLayout.ResumeLayout(false);
+			this.RoutingprofilesSettingsTabelLayout.PerformLayout();
 			this.RoutingCoreGroupbox.ResumeLayout(false);
 			this.tableLayoutPanel11.ResumeLayout(false);
 			this.tableLayoutPanel11.PerformLayout();
@@ -3260,8 +3323,8 @@
 		private System.Windows.Forms.TabPage Ratingprofiles;
 		private System.Windows.Forms.TabPage Routingprofiles;
 		private System.Windows.Forms.TabPage Settings;
-		private System.Windows.Forms.TableLayoutPanel SaveRatingprofileLayoutPanel17;
-		private System.Windows.Forms.Button CancelNewProfileButton;
+		private System.Windows.Forms.TableLayoutPanel SaveRatingprofileLayoutPanel;
+		private System.Windows.Forms.Button DeleteRatingprofileButton;
 		private System.Windows.Forms.Button CreateRatingprofileButton;
 		private System.Windows.Forms.Label label54;
 		private System.Windows.Forms.TextBox RatingProfileName;
@@ -3372,7 +3435,7 @@
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
 		private System.Windows.Forms.Label label55;
 		private System.Windows.Forms.ComboBox EditRatingprofileCombobox;
-		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
+		private System.Windows.Forms.TableLayoutPanel RoutingprofilesSettingsTabelLayout;
 		private System.Windows.Forms.GroupBox RoutingCoreGroupbox;
 		private System.Windows.Forms.GroupBox DistanceGroupBox;
 		private System.Windows.Forms.GroupBox TimeGroupBox;
@@ -3398,7 +3461,7 @@
 		private System.Windows.Forms.Label label53;
 		private System.Windows.Forms.ComboBox EditRoutingprofileCombobox;
 		private System.Windows.Forms.TableLayoutPanel SaveRoutingProfileTableLayout;
-		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button DeleteRoutingprofileButton;
 		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.Label label52;
 		public System.Windows.Forms.TextBox RoutingProfileName;
@@ -3421,6 +3484,9 @@
 		public System.Windows.Forms.Label RouterDBStateLabel;
 		private System.Windows.Forms.Button NewRatingprofileDatbaseButton;
 		private System.Windows.Forms.Button NewRoutingprofileDatabaseButton;
+		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel17;
+		private System.Windows.Forms.LinkLabel WikiLabel;
+		private System.Windows.Forms.WebBrowser webBrowser1;
 	}
 }
 

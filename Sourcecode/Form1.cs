@@ -46,239 +46,41 @@ namespace GeocachingTourPlanner
 			//Map
 			Map.DisableFocusOnMouseEnter = true;//So Windows put in foreground stay in foreground
 			Map.DragButton = MouseButtons.Left;
+			Map.IgnoreMarkerOnMouseWheel = true;
 
 			Map.MapProvider = OpenCycleLandscapeMapProvider.Instance;
-			GMaps.Instance.Mode = AccessMode.ServerOnly;
+			GMaps.Instance.Mode = AccessMode.ServerAndCache;
 			//Remove Cross in the middle of the Map
 			Map.ShowCenter = false;
 
 		}
 
 
+		private void WikiLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			System.Diagnostics.Process.Start("https://github.com/pingurus/GeocachingTourPlanner/wiki");
+		}
 
 		#region Overview
 
 		private void ImportOSMDataButton_Click(object sender, EventArgs e)
 		{
-			OpenFileDialog StandardFileDialog = new OpenFileDialog
+			if (Fileoperations.ImportOSMData())
 			{
-				InitialDirectory = Program.DB.LastUsedFilepath,
-				Filter = "pbf files (*.pbf)|*.pbf|All files (*.*)|*.*",
-				FilterIndex = 2,
-				RestoreDirectory = true,
-				Title = "Import OSM Data"
-			};
-
-			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
-			{
-				//Create a new File
-				SaveFileDialog NewFileDialog = new SaveFileDialog
-				{
-					InitialDirectory = Program.DB.LastUsedFilepath,
-					Filter = "Routerdb files (*.routerdb)|*.routerdb|All files (*.*)|*.*",
-					FilterIndex = 1,
-					RestoreDirectory = true,
-					Title = "Create new Routerdb file"
-				};
-
-				bool retry = false;
-				do
-				{
-					retry = false;
-					if (NewFileDialog.ShowDialog() == DialogResult.OK)
-					{
-						if (MessageBox.Show("If you selected an existing file it will be overwritten.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
-						{
-							File.Create(NewFileDialog.FileName);
-							Program.Backup(null);
-							Program.RouterDB = new RouterDb();
-							Program.DB.GeocacheDB_Filepath = StandardFileDialog.FileName;
-						}
-						else
-						{
-							retry = true;
-						}
-					}
-				} while (retry);
-
-				MessageBox.Show("This might take a while, depending on how big your pbf file is.\n How about getting yourself a coffee?");
-				using (var stream = new FileInfo(StandardFileDialog.FileName).OpenRead())
-				{
-					Program.RouterDB.LoadOsmData(stream, new Itinero.Profiles.Vehicle[] { Itinero.Osm.Vehicles.Vehicle.Bicycle, Itinero.Osm.Vehicles.Vehicle.Car, Itinero.Osm.Vehicles.Vehicle.Pedestrian });
-				}
-
-				// write the routerdb to disk.
-
-				if (Program.DB.RouterDB_Filepath == null)
-				{
-					Program.DB.RouterDB_Filepath = "OSM.routerdb";
-				}
-				Task Serialize = Task.Factory.StartNew(() =>
-				{
-					//just let it run in background
-					using (var stream = new FileInfo(Program.DB.RouterDB_Filepath).Open(FileMode.Create))
-					{
-						Program.RouterDB.Serialize(stream);
-					}
-				});
-
 				RouterDBStateLabel.Text = "Successfully loaded RouterDB";
-
-				Program.Backup(null);
 			}
 		}
 
 		private void ImportGeocachesButton_Click(object sender, EventArgs e)
 		{
-			string GPXDatei;
-			OpenFileDialog StandardFileDialog = new OpenFileDialog
-			{
-				InitialDirectory = Program.DB.LastUsedFilepath,
-				Filter = "gpx files (*.gpx)|*.gpx|All files (*.*)|*.*",
-				FilterIndex = 2,
-				RestoreDirectory = true,
-				Title = "Import geocaches"
-			};
-
-			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
-			{
-				DialogResult Importmodus = MessageBox.Show("Should the Geocaches be loaded into a new Database?", "Import", MessageBoxButtons.YesNoCancel);
-				if (Importmodus == DialogResult.Yes)
-				{
-					//Create a new File
-					SaveFileDialog NewFileDialog = new SaveFileDialog
-					{
-						InitialDirectory = Program.DB.LastUsedFilepath,
-						Filter = "gcdb files (*.gcdb)|*.gcdb|All files (*.*)|*.*",
-						FilterIndex = 1,
-						RestoreDirectory = true,
-						Title = "Create new, empty geocachedatabase"
-					};
-
-					bool retry = false;
-					do
-					{
-						retry = false;
-						if (NewFileDialog.ShowDialog() == DialogResult.OK)
-						{
-							if (MessageBox.Show("If you selected an existing file it will be overwritten.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
-							{
-								File.Create(StandardFileDialog.FileName);
-								Program.Backup(Program.Geocaches);
-								Program.Geocaches = new SortableBindingList<Geocache>();
-								Program.DB.GeocacheDB_Filepath = StandardFileDialog.FileName;
-							}
-							else
-							{
-								retry = true;
-							}
-						}
-					} while (retry);
-				}
-				else if (Importmodus == DialogResult.No)
-				{
-					//Do nothing
-				}
-				else
-				{
-					return;
-				}
-
-				try
-				{
-					GPXDatei = StandardFileDialog.FileName;
-					Program.DB.LastUsedFilepath = StandardFileDialog.FileName;
-					XElement RootElement = XElement.Load(GPXDatei);
-
-					XNamespace gpx = "http://www.topografix.com/GPX/1/0"; //default namespace
-					XNamespace groundspeak = "http://www.groundspeak.com/cache/1/0/1";
-
-					foreach (XElement elem in RootElement.Elements(gpx + "wpt"))
-					{
-						Geocache geocache = new Geocache { };
-
-						geocache.lat = float.Parse(elem.FirstAttribute.ToString().Replace("\"", "").Replace("lat=", ""), CultureInfo.InvariantCulture);
-						geocache.lon = float.Parse(elem.LastAttribute.ToString().Replace("\"", "").Replace("lon=", ""), CultureInfo.InvariantCulture);
-						geocache.GCCODE = (string)elem.Element(gpx + "name").Value;
-						geocache.Name = (string)elem.Element(gpx + "urlname").Value;
-						XElement CacheDetails = elem.Element(groundspeak + "cache");
-						geocache.DRating = float.Parse(CacheDetails.Element(groundspeak + "difficulty").Value.ToString(), CultureInfo.InvariantCulture);
-						geocache.TRating = float.Parse(CacheDetails.Element(groundspeak + "terrain").Value.ToString(), CultureInfo.InvariantCulture);
-						geocache.NeedsMaintenance = CacheDetails.Element(groundspeak + "attributes").Elements().ToList().Exists(x => x.FirstAttribute.Value == 42.ToString());
-						geocache.DateHidden = DateTime.Parse(elem.Element(gpx + "time").Value.ToString());
-						switch (elem.Element(gpx + "type").Value)
-						{
-							case "Geocache|Unknown Cache":
-								geocache.Type = GeocacheType.Mystery;
-								break;
-							case "Geocache|Traditional Cache":
-								geocache.Type = GeocacheType.Traditional;
-								break;
-							case "Geocache|Multi-cache":
-								geocache.Type = GeocacheType.Multi;
-								break;
-							case "Geocache|Virtual Cache":
-								geocache.Type = GeocacheType.Virtual;
-								break;
-							case "Geocache|Wherigo Cache":
-								geocache.Type = GeocacheType.Wherigo;
-								break;
-							case "Geocache|Webcam Cache":
-								geocache.Type = GeocacheType.Webcam;
-								break;
-							case "Geocache|Letterbox Hybrid":
-								geocache.Type = GeocacheType.Letterbox;
-								break;
-							case "Geocache|Earthcache":
-								geocache.Type = GeocacheType.EarthCache;
-								break;
-							default:
-								geocache.Type = GeocacheType.Other;
-								break;
-						}
-						switch (CacheDetails.Element(groundspeak + "container").Value)
-						{
-							case "Large":
-								geocache.Size = GeocacheSize.Large;
-								break;
-							case "Regular":
-								geocache.Size = GeocacheSize.Regular;
-								break;
-							case "Small":
-								geocache.Size = GeocacheSize.Small;
-								break;
-							case "Micro":
-								geocache.Size = GeocacheSize.Micro;
-								break;
-							default:
-								geocache.Size = GeocacheSize.Other;
-								break;
-						}
-						if (!Program.Geocaches.Any(x => x.GCCODE == geocache.GCCODE))
-						{
-							Program.Geocaches.Add(geocache);
-						}
-						else
-						{
-							//Nothing in the moment, would be good if it would update the Geocaches
-						}
-					}
-
-					GeocachesStateLabel.Text = Program.Geocaches.Count + " Geocaches loaded";
-				}
-				catch (Exception ex)
-				{
-					MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
-				}
-				Program.Backup(Program.Geocaches);
-			}
+			Fileoperations.ImportGeocaches();
 		}
 
 		private void setGeocachedatabaseButton_Click(object sender, EventArgs e)
 		{
 			if (Program.DB.SetDatabaseFilepath(Databases.Geocaches))
 			{
-				Program.ReadGeocaches();
+				Fileoperations.ReadGeocaches();
 			}
 		}
 
@@ -286,7 +88,7 @@ namespace GeocachingTourPlanner
 		{
 			if (Program.DB.SetDatabaseFilepath(Databases.Routingprofiles))
 			{
-				Program.ReadRoutingprofiles();
+				Fileoperations.ReadRoutingprofiles();
 			}
 		}
 
@@ -294,7 +96,7 @@ namespace GeocachingTourPlanner
 		{
 			if (Program.DB.SetDatabaseFilepath(Databases.Ratingprofiles))
 			{
-				Program.ReadRatingprofiles();
+				Fileoperations.ReadRatingprofiles();
 			}
 		}
 
@@ -306,7 +108,7 @@ namespace GeocachingTourPlanner
 				{
 					Program.RouterDB = RouterDb.Deserialize(stream);
 				}
-				Program.Backup(null);
+				Fileoperations.Backup(null);
 			}
 		}
 
@@ -323,69 +125,14 @@ namespace GeocachingTourPlanner
 
 		private void NewRatingprofileDatabaseButton_Click(object sender, EventArgs e)
 		{
-			SaveFileDialog StandardFileDialog = new SaveFileDialog
-			{
-				InitialDirectory = Program.DB.LastUsedFilepath,
-				Filter = "ratingprofiles files (*.ratingprf)|*.ratingprf|All files (*.*)|*.*",
-				FilterIndex = 1,
-				RestoreDirectory = true,
-				Title = "Create new, empty ratingprofilesdatabase"
-			};
-
-			bool retry = false;
-			do
-			{
-				retry = false;
-				if (StandardFileDialog.ShowDialog() == DialogResult.OK)
-				{
-					if (MessageBox.Show("If you selected an existing file it will be overwritten.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
-					{
-						File.Create(StandardFileDialog.FileName);
-						Program.Backup(Program.Ratingprofiles);
-						Program.Ratingprofiles = new SortableBindingList<Ratingprofile>();
-						Program.DB.RatingprofileDB_Filepath = StandardFileDialog.FileName;
-					}
-					else
-					{
-						retry = true;
-					}
-				}
-			} while (retry);
-			
+			Fileoperations.NewRatingprofileDatabase();
 		}
 
 		private void NewRoutingprofilesDatabaseButton_Click(object sender, EventArgs e)
 		{
-			SaveFileDialog StandardFileDialog = new SaveFileDialog
-			{
-				InitialDirectory = Program.DB.LastUsedFilepath,
-				Filter = "routingprofile files (*.routingprf)|*.routingprf|All files (*.*)|*.*",
-				FilterIndex = 1,
-				RestoreDirectory = true,
-				Title = "Create new, empty routingprofilesdatabase"
-			};
-
-			bool retry = false;
-			do
-			{
-				retry = false;
-				if (StandardFileDialog.ShowDialog() == DialogResult.OK)
-				{
-					if (MessageBox.Show("If you selected an existing file it will be overwritten.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
-					{
-						File.Create(StandardFileDialog.FileName);
-						Program.Backup(Program.Routingprofiles);
-						Program.Routingprofiles = new SortableBindingList<Routingprofile>();
-						Program.DB.RoutingprofileDB_Filepath = StandardFileDialog.FileName;
-					}
-					else
-					{
-						retry = true;
-					}
-				}
-			} while (retry);
-
+			Fileoperations.NewRoutingprofileDatabase();
 		}
+
 		#endregion
 
 		#region Update of Rating/Routingprofiles
@@ -479,14 +226,14 @@ namespace GeocachingTourPlanner
 		}
 		Program.Ratingprofiles.Add(Profile);
 		//The Dropdownmenu gets updated through an event handler
-		Program.Backup(Program.Ratingprofiles);
+		Fileoperations.Backup(Program.Ratingprofiles);
 		EditRatingprofileCombobox.SelectedItem = Profile.Name; //Eventhandler takes care of same profile selected
 	}
 
 		public void CreateRoutingprofile(object sender, EventArgs e)
 		{
 			Routingprofile Profile = new Routingprofile();
-			if (RatingProfileName.Text == null)
+			if (RoutingProfileName.Text == null)
 			{
 				MessageBox.Show("Please set Name");
 				return;
@@ -528,7 +275,7 @@ namespace GeocachingTourPlanner
 			}
 			Program.Routingprofiles.Add(Profile);
 			//The Dropdownmenu is updated via an event handler
-			Program.Backup(Program.Routingprofiles);
+			Fileoperations.Backup(Program.Routingprofiles);
 			EditRoutingprofileCombobox.SelectedItem = Profile.Name; //Eventhandler takes care of same selection in comboboxes
 
 		}
@@ -565,7 +312,48 @@ namespace GeocachingTourPlanner
 				EditRoutingprofileCombobox.Items.Add(profile.Name);
 				SelectedRoutingprofileCombobox.Items.Add(profile.Name);
 			}
+
 			RoutingprofilesStateLabel.Text = Program.Routingprofiles.Count.ToString() + " Routingprofiles loaded";
+		}
+
+		private void DeleteRoutingprofileButton_Click(object sender, EventArgs e)
+		{
+			Routingprofile Profile = new Routingprofile();
+			if (RoutingProfileName.Text == null)
+			{
+				MessageBox.Show("Please set Name");
+				return;
+			}
+			Profile.Name = RoutingProfileName.Text;
+
+			ClearAllChildTextAndComboboxes(RoutingprofilesSettingsTabelLayout);
+			ClearAllChildTextAndComboboxes(SaveRoutingProfileTableLayout);
+			SelectedRoutingprofileCombobox.Text = null;
+			foreach (Routingprofile BP in Program.Routingprofiles.Where(x => x.Name == Profile.Name).ToList())
+			{
+				Program.Routingprofiles.Remove(BP);
+			}
+			Fileoperations.Backup(Program.Routingprofiles);
+		}
+
+
+		private void DeleteRatingprofileButton_Click(object sender, EventArgs e)
+		{
+			Ratingprofile Profile = new Ratingprofile();
+			if (RatingProfileName.Text == null)
+			{
+				MessageBox.Show("Please set Name");
+				return;
+			}
+			Profile.Name = RatingProfileName.Text;
+			foreach (Routingprofile BP in Program.Routingprofiles.Where(x => x.Name == Profile.Name).ToList())
+			{
+				Program.Routingprofiles.Remove(BP);
+			}
+			ClearAllChildTextAndComboboxes(RatingprofilesSettingsTabelLayout);
+			ClearAllChildTextAndComboboxes(SaveRatingprofileLayoutPanel);
+			SelectedRatingprofileCombobox.Text = null;
+			Fileoperations.Backup(Program.Ratingprofiles);
 		}
 
 		private void Ratingprofile_Click(object sender, EventArgs e)
@@ -664,9 +452,6 @@ namespace GeocachingTourPlanner
 
 				//Profile
 
-				//VehicleValue.Text = SelectedRoutingprofile.ItineroProfile.profile.FullName.Remove(SelectedRoutingprofile.ItineroProfile.profile.FullName.IndexOf("."));//gets the parent of the profile (thus the vehicle)
-				//ModeValue.SelectedText = SelectedRoutingprofile.ItineroProfile.profile.Name;//Gives the metric
-
 				//Workaround Issue #161 @ Itinero
 				if (SelectedRoutingprofile.ItineroProfile.profile.FullName.Contains("."))
 				{
@@ -696,78 +481,106 @@ namespace GeocachingTourPlanner
 		}
 
 		#endregion
-		
+
 		#region Map
+		delegate void Loadmap_Delegate();
 		/// <summary>
 		/// Updates Map
 		/// </summary>
 		public void LoadMap()
 		{
-			//Remove all geocache (and only the geocache!) overlays
-			if (Map.Overlays.Where(x => x.Id == "TopOverlay").Count() > 0)
+			if (!Map.InvokeRequired)
 			{
-				Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "TopOverlay"));
-			}
-			if (Map.Overlays.Where(x => x.Id == "MediumOverlay").Count() > 0)
-			{
-				Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "MediumOverlay"));
-			}
-			if (Map.Overlays.Where(x => x.Id == "LowOverlay").Count() > 0)
-			{
-				Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "LowOverlay"));
-			}
-
-			//recreate them
-			GMapOverlay TopOverlay = new GMapOverlay("TopOverlay");
-			GMapOverlay MediumOverlay = new GMapOverlay("MediumOverlay");
-			GMapOverlay LowOverlay = new GMapOverlay("LowOverlay");
-			foreach (Geocache GC in Program.Geocaches)
-			{
-				GMapMarker GCMarker = null;
-				//Three Categories => Thirds of the Point range
-				if (GC.Rating > (Program.DB.MinimalRating) + 0.66 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
+				//Remove all geocache (and only the geocache!) overlays
+				if (Map.Overlays.Where(x => x.Id == "TopOverlay").Count() > 0)
 				{
-					GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.green_small);
-					TopOverlay.Markers.Add(GCMarker);
+					Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "TopOverlay"));
 				}
-				else if (GC.Rating > (Program.DB.MinimalRating) + 0.33 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
+				if (Map.Overlays.Where(x => x.Id == "MediumOverlay").Count() > 0)
 				{
-					GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.yellow_small);
-					MediumOverlay.Markers.Add(GCMarker);
+					Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "MediumOverlay"));
 				}
-				else
+				if (Map.Overlays.Where(x => x.Id == "LowOverlay").Count() > 0)
 				{
-					GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.red_small);
-					LowOverlay.Markers.Add(GCMarker);
+					Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "LowOverlay"));
 				}
 
-				
-				GCMarker.ToolTipText = GC.GCCODE + "\n" + GC.Name + "\n" + GC.Type + "(" + GC.DateHidden.Date.ToString().Remove(10) + ")\nD-Wertung: " + GC.DRating + "\nT-Wertung: " + GC.TRating + "\nBewertung: " + GC.Rating;
-				GCMarker.Tag = GC.GCCODE;
+				//recreate them
+				GMapOverlay TopOverlay = new GMapOverlay("TopOverlay");
+				GMapOverlay MediumOverlay = new GMapOverlay("MediumOverlay");
+				GMapOverlay LowOverlay = new GMapOverlay("LowOverlay");
+				foreach (Geocache GC in Program.Geocaches)
+				{
+					GMapMarker GCMarker = null;
+					//Three Categories => Thirds of the Point range
+					if (GC.Rating > (Program.DB.MinimalRating) + 0.66 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
+					{
+						if (GC.ForceInclude)
+						{
+							GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.blue_small);
+						}
+						else
+						{
+							GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.green_small);
+						}
+						TopOverlay.Markers.Add(GCMarker);
+					}
+					else if (GC.Rating > (Program.DB.MinimalRating) + 0.33 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
+					{
+						if (GC.ForceInclude)
+						{
+							GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.blue_small);
+						}
+						else
+						{
+							GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.yellow_small);
+						}
+						MediumOverlay.Markers.Add(GCMarker);
+					}
+					else
+					{
+						if (GC.ForceInclude)
+						{
+							GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.blue_small);
+						}
+						else
+						{
+							GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.red_small);
+						}
+						LowOverlay.Markers.Add(GCMarker);
+					}
+
+					GCMarker.ToolTipText = GC.GCCODE + "\n" + GC.Name + "\n" + GC.Type + "(" + GC.DateHidden.Date.ToString().Remove(10) + ")\nD-Wertung: " + GC.DRating + "\nT-Wertung: " + GC.TRating + "\nBewertung: " + GC.Rating;
+					GCMarker.Tag = GC.GCCODE;
+				}
+
+				Map.Overlays.Add(LowOverlay);
+				Map.Overlays.Add(MediumOverlay);
+				Map.Overlays.Add(TopOverlay);
+
+				//Not that clean, but makes sure that the checked states are equal to the visibility
+				BestCheckbox_CheckedChanged(null, null);
+				MediumCheckbox_CheckedChanged(null, null);
+				WorstCheckbox_CheckedChanged(null, null);
+
+				//Set Views
+				if (Program.DB.LastMapZoom == 0)
+				{
+					Program.DB.LastMapZoom = 5;
+				}
+				Map.Zoom = Program.DB.LastMapZoom;
+
+				if (Program.DB.LastMapPosition.IsEmpty)//Equals that the user hasn't seen the map before (fixes #2)
+				{
+					Program.DB.LastMapPosition = new PointLatLng(49.0, 8.5);
+				}
+				Map.Position = Program.DB.LastMapPosition;
 			}
-
-			Map.Overlays.Add(LowOverlay);
-			Map.Overlays.Add(MediumOverlay);
-			Map.Overlays.Add(TopOverlay);
-
-			//Not that clean, but makes sure that the checked states are equal to the visibility
-			BestCheckbox_CheckedChanged(null, null);
-			MediumCheckbox_CheckedChanged(null, null);
-			WorstCheckbox_CheckedChanged(null, null);
-
-			//Set Views
-			if (Program.DB.LastMapZoom == 0)
+			else
 			{
-				Program.DB.LastMapZoom = 5;
+				Loadmap_Delegate dg = new Loadmap_Delegate(LoadMap);
+				Invoke(dg);
 			}
-			Map.Zoom = Program.DB.LastMapZoom;
-
-			if (Program.DB.LastMapPosition.IsEmpty)//Equals that the user hasn't seen the map before (fixes #2)
-			{
-				Program.DB.LastMapPosition = new PointLatLng(49.0, 8.5);
-			}
-			Map.Position = Program.DB.LastMapPosition;
-
 
 		}
 
@@ -788,102 +601,106 @@ namespace GeocachingTourPlanner
 			GeocacheTable.Sort(GeocacheTable.Columns["Rating"], ListSortDirection.Descending);
 			Program.DB.MaximalRating = Program.Geocaches[0].Rating;//Da sortierte Liste
 			Program.DB.MinimalRating = Program.Geocaches[Program.Geocaches.Count - 1].Rating;
-			Program.Backup(Program.Geocaches);
+			Fileoperations.Backup(Program.Geocaches);
 		}
 
 
 		private void CreateRouteButtonClick(object sender, EventArgs e)
 		{
-			Application.UseWaitCursor = true;
-			
-			#region get values
-			if (SelectedRoutingprofileCombobox.Text.Length == 0)
+			if (!Program.RouteCalculationRunning)
 			{
-				MessageBox.Show("No Routingprofile set.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				Application.UseWaitCursor = false;
-				return;
-			}
+				Program.RouteCalculationRunning = true;
+				Application.UseWaitCursor = true;
 
-			Routingprofile SelectedProfile = Program.Routingprofiles.First(x => x.Name == SelectedRoutingprofileCombobox.Text);
-
-			List<Geocache> GeocachesToInclude = new List<Geocache>();
-			foreach (Geocache GC in Program.Geocaches.Where(x=>x.ForceInclude))
-			{
-				GeocachesToInclude.Add(GC);
-			}
-			
-			float StartLat = 0;
-			float StartLon = 0;
-			float EndLat = 0;
-			float EndLon = 0;
-
-			if (StartpointTextbox.Text.Length == 0)
-			{
-				MessageBox.Show("No Startpoint set. Please type one in or select one with right click on the map", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				Application.UseWaitCursor = false;
-				return;
-			}
-
-			if (!float.TryParse(StartpointTextbox.Text.Substring(0, StartpointTextbox.Text.IndexOf(";")-1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture,out StartLat))
-			{
-				MessageBox.Show("Couldn't parse latitude of Startcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				Application.UseWaitCursor = false;
-				return;
-			}
-			if (!float.TryParse(StartpointTextbox.Text.Substring(StartpointTextbox.Text.IndexOf(";")+1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out StartLon))
-			{
-				MessageBox.Show("Couldn't parse longitude Startcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				Application.UseWaitCursor = false;
-				return;
-			}
-
-			if (EndpointTextbox.Text.Length == 0)
-			{
-				if (MessageBox.Show("No Endpoint set. Do you want to set Startpoint as Endpoint as well?", "Question", MessageBoxButtons.YesNo) == DialogResult.Yes)
+				#region get values
+				if (SelectedRoutingprofileCombobox.Text.Length == 0)
 				{
-					EndLat = StartLat;
-					EndLon = StartLon;
-					EndpointTextbox.Text = EndLat.ToString(CultureInfo.InvariantCulture) + ";" + EndLon.ToString(CultureInfo.InvariantCulture);
+					MessageBox.Show("No Routingprofile set.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					Application.UseWaitCursor = false;
+					return;
+				}
+
+				Routingprofile SelectedProfile = Program.Routingprofiles.First(x => x.Name == SelectedRoutingprofileCombobox.Text);
+
+				List<Geocache> GeocachesToInclude = new List<Geocache>();
+				foreach (Geocache GC in Program.Geocaches.Where(x => x.ForceInclude))
+				{
+					GeocachesToInclude.Add(GC);
+				}
+
+				float StartLat = 0;
+				float StartLon = 0;
+				float EndLat = 0;
+				float EndLon = 0;
+
+				if (StartpointTextbox.Text.Length == 0)
+				{
+					MessageBox.Show("No Startpoint set. Please type one in or select one with right click on the map", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					Application.UseWaitCursor = false;
+					return;
+				}
+
+				if (!float.TryParse(StartpointTextbox.Text.Substring(0, StartpointTextbox.Text.IndexOf(";") - 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out StartLat))
+				{
+					MessageBox.Show("Couldn't parse latitude of Startcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					Application.UseWaitCursor = false;
+					return;
+				}
+				if (!float.TryParse(StartpointTextbox.Text.Substring(StartpointTextbox.Text.IndexOf(";") + 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out StartLon))
+				{
+					MessageBox.Show("Couldn't parse longitude Startcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					Application.UseWaitCursor = false;
+					return;
+				}
+
+				if (EndpointTextbox.Text.Length == 0)
+				{
+					if (MessageBox.Show("No Endpoint set. Do you want to set Startpoint as Endpoint as well?", "Question", MessageBoxButtons.YesNo) == DialogResult.Yes)
+					{
+						EndLat = StartLat;
+						EndLon = StartLon;
+						EndpointTextbox.Text = EndLat.ToString(CultureInfo.InvariantCulture) + ";" + EndLon.ToString(CultureInfo.InvariantCulture);
+					}
+					else
+					{
+						Application.UseWaitCursor = false;
+						return;
+					}
 				}
 				else
 				{
-					Application.UseWaitCursor = false;
-					return;
-				}
-			}
-			else
-			{
-				if (!float.TryParse(EndpointTextbox.Text.Substring(0, EndpointTextbox.Text.IndexOf(";")-1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out EndLat))
-				{
-				
-					MessageBox.Show("Couldn't parse latitude of Endcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					Application.UseWaitCursor = false;
-					return;
-					
-				}
-				if (!float.TryParse(EndpointTextbox.Text.Substring(EndpointTextbox.Text.IndexOf(";")+1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out EndLon))
-				{
-					//Big procedure only once, as the result would be the same
-					MessageBox.Show("Couldn't parse longitude of Endcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					Application.UseWaitCursor = false;
-					return;
-				}
-			}
+					if (!float.TryParse(EndpointTextbox.Text.Substring(0, EndpointTextbox.Text.IndexOf(";") - 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out EndLat))
+					{
 
-			//Check if Start and Endpoint have been selected
-			if (StartLat == 0 && StartLon == 0 && EndLat == 0 && EndLon == 0)
-			{
-				MessageBox.Show("Please select a Startingpoint and a Finalpoint", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				Application.UseWaitCursor = false;
-				return;
-			}
-			#endregion
+						MessageBox.Show("Couldn't parse latitude of Endcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						Application.UseWaitCursor = false;
+						return;
 
-			new Thread(new ThreadStart(() =>
-			{
-				new Tourplanning().GetRoute_Recursive(SelectedProfile, Program.Geocaches.ToList(), new Coordinate(StartLat, StartLon), new Coordinate(EndLat, EndLon), GeocachesToInclude);
+					}
+					if (!float.TryParse(EndpointTextbox.Text.Substring(EndpointTextbox.Text.IndexOf(";") + 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out EndLon))
+					{
+						//Big procedure only once, as the result would be the same
+						MessageBox.Show("Couldn't parse longitude of Endcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						Application.UseWaitCursor = false;
+						return;
+					}
+				}
+
+				//Check if Start and Endpoint have been selected
+				if (StartLat == 0 && StartLon == 0 && EndLat == 0 && EndLon == 0)
+				{
+					MessageBox.Show("Please select a Startingpoint and a Finalpoint", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					Application.UseWaitCursor = false;
+					return;
+				}
+				#endregion
+
+				new Thread(new ThreadStart(() =>
+				{
+					new Tourplanning().GetRoute_Recursive(SelectedProfile, Program.Geocaches.ToList(), new Coordinate(StartLat, StartLon), new Coordinate(EndLat, EndLon), GeocachesToInclude);
+				}
+				)).Start();
 			}
-			)).Start();
 
 		}
 
@@ -1050,7 +867,7 @@ namespace GeocachingTourPlanner
 				Map.Overlays.Add(RouteOverlay);
 				newRouteControlElement(Routetag);
 				Application.UseWaitCursor = false;
-				Map.UseWaitCursor = false;
+				Map.Cursor = Cursors.Default;
 			}
 			else
 			{
@@ -1092,7 +909,6 @@ namespace GeocachingTourPlanner
 				}
 			}
 		}
-		
 
 		private void DeleteButton_Click(object sender, EventArgs e, string OverlayTag)
 		{
@@ -1103,91 +919,7 @@ namespace GeocachingTourPlanner
 
 		private void Export_Click(string OverlayTag)
 		{
-			SaveFileDialog StandardFileDialog = new SaveFileDialog
-			{
-				InitialDirectory = Program.DB.LastUsedFilepath,
-				Filter = "gpx files (*.gpx)|*.gpx|All files (*.*)|*.*",
-				FilterIndex = 1,
-				RestoreDirectory = true,
-				Title = "Export route as track"
-			};
-			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
-			{
-
-				KeyValueTriple<string, Route, List<Geocache>> RouteToSeialize = Program.Routes.First(x => x.Key == OverlayTag);
-
-				XmlDocument GPX = new XmlDocument();
-
-				XmlDeclaration xmldecl = GPX.CreateXmlDeclaration("1.0", "UTF-8", null);
-
-				XmlNode root = GPX.CreateElement("gpx");
-				GPX.AppendChild(root);
-
-				XmlAttribute xmlns = GPX.CreateAttribute("xmlns");
-				xmlns.Value = "http://www.topografix.com/GPX/1/1";
-				root.Attributes.Append(xmlns);
-
-				XmlAttribute version = GPX.CreateAttribute("version");
-				version.Value = "1.1";
-				root.Attributes.Append(version);
-
-				XmlAttribute creator = GPX.CreateAttribute("creator");
-				creator.Value = "GeocachingTourPlanner";
-				root.Attributes.Append(creator);
-
-				foreach (Geocache GC in RouteToSeialize.Value2)
-				{
-					XmlElement wpt = GPX.CreateElement("wpt");
-					//Coordinates
-					XmlAttribute latitude = GPX.CreateAttribute("lat");
-					latitude.Value = GC.lat.ToString(CultureInfo.InvariantCulture);
-					XmlAttribute longitude = GPX.CreateAttribute("lon");
-					longitude.Value = GC.lon.ToString(CultureInfo.InvariantCulture);
-					wpt.Attributes.Append(latitude);
-					wpt.Attributes.Append(longitude);
-
-					//Name
-					XmlElement gcname = GPX.CreateElement("name");
-					gcname.InnerText = GC.Name;
-					wpt.AppendChild(gcname);
-					//link
-					XmlElement link = GPX.CreateElement("link");
-					XmlAttribute linkattribute = GPX.CreateAttribute("href");
-					linkattribute.Value = "https://www.coord.info/" + GC.GCCODE;
-					link.Attributes.Append(linkattribute);
-					wpt.AppendChild(link);
-
-					root.AppendChild(wpt);
-				}
-
-				XmlNode track = GPX.CreateElement("trk");
-				root.AppendChild(track);
-
-				//Name of track
-				XmlNode name = GPX.CreateElement("name");
-				name.InnerText = RouteToSeialize.Key;
-				track.AppendChild(name);
-
-				XmlNode tracksegment = GPX.CreateElement("trkseg");
-				foreach (Coordinate COO in RouteToSeialize.Value1.Shape)
-				{
-					XmlNode trackpoint = GPX.CreateElement("trkpt");
-
-					//Coordinates
-					XmlAttribute latitude = GPX.CreateAttribute("lat");
-					latitude.Value = COO.Latitude.ToString(CultureInfo.InvariantCulture);
-					XmlAttribute longitude = GPX.CreateAttribute("lon");
-					longitude.Value = COO.Longitude.ToString(CultureInfo.InvariantCulture);
-
-					trackpoint.Attributes.Append(latitude);
-					trackpoint.Attributes.Append(longitude);
-					tracksegment.AppendChild(trackpoint);
-				}
-				track.AppendChild(tracksegment);
-
-				GPX.InsertBefore(xmldecl, root);
-				GPX.Save(StandardFileDialog.FileName);
-			}
+			Fileoperations.ExportGPX(OverlayTag);
 		}
 		
 		private void RouteControlElement_CheckedChanged(object sender, string Overlaytag)
@@ -1216,21 +948,21 @@ namespace GeocachingTourPlanner
 			if (Mapdragging)//So calculation only kicks in if dragging is over
 			{
 				Program.DB.LastMapPosition = Map.Position;
-				Program.Backup(null);
+				Fileoperations.Backup(null);
 				Mapdragging = false;
 			}
 		}
-
+		
 		private void Map_Enter(object sender, EventArgs e)
 		{
 			LoadMap();
 		}
-
+		
 		private void Map_OnMapZoomChanged()
 		{
 			Program.DB.LastMapPosition = Map.Position;//Since you can change position when zooming
 			Program.DB.LastMapZoom = Map.Zoom;
-			Program.Backup(null);
+			Fileoperations.Backup(null);
 		}
 
 
@@ -1239,25 +971,51 @@ namespace GeocachingTourPlanner
 			LoadMap();
 		}
 
+		
 		private void Map_OnMarkerClick(GMapMarker item, MouseEventArgs e)
 		{
-			System.Diagnostics.Process.Start("https://www.coord.info/" + item.Tag);
+			if (e.Button == MouseButtons.Left && item.Tag.ToString() != "Endpoint" && item.Tag.ToString() != "Startpoint")
+			{
+				System.Diagnostics.Process.Start("https://www.coord.info/" + item.Tag);
+			}
+			else if (e.Button == MouseButtons.Right && item.Tag.ToString()!= "Endpoint" && item.Tag.ToString() != "Startpoint")
+			{
+				ContextMenu MapContextMenu = new ContextMenu();
+				// initialize the commands
+				MenuItem SetEndpoint = new MenuItem("Set Endpoint here");
+				SetEndpoint.Click += (new_sender, new_e) => SetEndpoint_Click(item.Position);
+				MenuItem SetStartpoint = new MenuItem("Set Startpoint here");
+				SetStartpoint.Click += (new_sender, new_e) => SetStartpoint_Click(item.Position);
+
+				Geocache geocache = Program.Geocaches.First(x => x.GCCODE == item.Tag.ToString());
+				MenuItem SetForceInclude = new MenuItem("ForceInclude");
+				if (geocache.ForceInclude)
+				{
+					SetForceInclude.Checked=true;
+				}
+				SetForceInclude.Click += (new_sender, new_e) => toggleForceInclude(geocache);
+
+				MapContextMenu.MenuItems.Add(SetStartpoint);
+				MapContextMenu.MenuItems.Add(SetEndpoint);
+				MapContextMenu.MenuItems.Add(SetForceInclude);
+				MapContextMenu.Show(Map, e.Location);
+			}
 		}
 
 		private void Map_Click(object sender, MouseEventArgs e)
 		{
-			if (e.Button == MouseButtons.Right)
+			if (e.Button == MouseButtons.Right && !((GMapControl)sender).IsMouseOverMarker)
 			{
+				ContextMenu MapContextMenu = new ContextMenu();
 				PointLatLng Coordinates = Map.FromLocalToLatLng(e.X, e.Y);
-				ContextMenu contextMenu = new ContextMenu();
 				// initialize the commands
 				MenuItem SetEndpoint = new MenuItem("Set Endpoint here");
 				SetEndpoint.Click += (new_sender, new_e) => SetEndpoint_Click(Coordinates);
 				MenuItem SetStartpoint = new MenuItem("Set Startpoint here");
 				SetStartpoint.Click += (new_sender, new_e) => SetStartpoint_Click(Coordinates);
-				contextMenu.MenuItems.Add(SetStartpoint);
-				contextMenu.MenuItems.Add(SetEndpoint);
-				contextMenu.Show(Map,e.Location);
+				MapContextMenu.MenuItems.Add(SetStartpoint);
+				MapContextMenu.MenuItems.Add(SetEndpoint);
+				MapContextMenu.Show(Map,e.Location);
 			}
 		}
 
@@ -1271,7 +1029,7 @@ namespace GeocachingTourPlanner
 					Overlay.Markers.Remove(Map.Overlays.First(x => x.Id == "StartEnd").Markers.First(x => x.Tag.ToString() == "Startpoint"));
 				}
 				GMapMarker Startpoint = new GMarkerGoogle(coordinates, GMarkerGoogleType.green_big_go);
-				Startpoint.Tag = "Endpoint";
+				Startpoint.Tag = "Startpoint";
 				Overlay.Markers.Add(Startpoint);
 			}
 			else
@@ -1310,6 +1068,18 @@ namespace GeocachingTourPlanner
 
 			EndpointTextbox.Text = coordinates.Lat.ToString(CultureInfo.InvariantCulture) + ";" + coordinates.Lng.ToString(CultureInfo.InvariantCulture);
 		}
+
+		private void toggleForceInclude(Geocache geocache)
+		{
+			if (geocache.ForceInclude)
+			{
+				geocache.ForceInclude = false;
+			}
+			else
+			{
+				geocache.ForceInclude = true;
+			}
+		}
 		#endregion
 
 		#endregion
@@ -1319,7 +1089,7 @@ namespace GeocachingTourPlanner
 		{
 			if(int.TryParse(EveryNthPointTextBox.Text,out int value)){
 				Program.DB.EveryNthShapepoint = value;
-				Program.Backup(null);
+				Fileoperations.Backup(null);
 			}
 			else if(EveryNthPointTextBox.Text.Length!=0)
 			{
@@ -1338,7 +1108,7 @@ namespace GeocachingTourPlanner
 				else
 				{
 					Program.DB.Divisor = value;
-					Program.Backup(null);
+					Fileoperations.Backup(null);
 				}
 			}
 			else if(DivisorTextBox.Text.Length!=0)
@@ -1352,7 +1122,7 @@ namespace GeocachingTourPlanner
 			if (int.TryParse(ToleranceTextBox.Text, out int value))
 			{
 				Program.DB.Tolerance = value;
-				Program.Backup(null);
+				Fileoperations.Backup(null);
 			}
 			else if (ToleranceTextBox.Text.Length != 0)
 			{
@@ -1366,7 +1136,7 @@ namespace GeocachingTourPlanner
 			if (int.TryParse(RoutefindingWidth_Textbox.Text, out int value))
 			{
 				Program.DB.RoutefindingWidth = value;
-				Program.Backup(null);
+				Fileoperations.Backup(null);
 			}
 			else if (ToleranceTextBox.Text.Length != 0)
 			{
@@ -1383,7 +1153,7 @@ namespace GeocachingTourPlanner
 		private void LiveDisplayRouteCalculationCheckbox_CheckedChanged(object sender, EventArgs e)
 		{
 			Program.DB.DisplayLiveCalculation = LiveDisplayRouteCalculationCheckbox.Checked;
-			Program.Backup(null);
+			Fileoperations.Backup(null);
 		}
 		
 		public void UpdateSettingsTextBoxes()
@@ -1408,30 +1178,66 @@ namespace GeocachingTourPlanner
 		//UNDONE Attach this to EVERY Dropdownlist
 		private void Dropdown_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			((ComboBox)sender).Text = ((ComboBox)sender).SelectedItem.ToString();//So I can just check the text and it doesn't matter whether the user typed it or selected it
+			if (((ComboBox)sender).SelectedItem != null)//happens when profile is deleted
+			{
+				((ComboBox)sender).Text = ((ComboBox)sender).SelectedItem.ToString();//So I can just check the text and it doesn't matter whether the user typed it or selected it
 
-			if (sender == EditRoutingprofileCombobox)
-			{
-				Routingprofile_Click(sender, e);
-				SelectedRoutingprofileCombobox.Text = EditRoutingprofileCombobox.Text;
-			}
-			else if (sender == EditRatingprofileCombobox)
-			{
-				Ratingprofile_Click(sender, e);
-				SelectedRatingprofileCombobox.Text = EditRatingprofileCombobox.Text;
-			}
-			else if (sender == SelectedRoutingprofileCombobox)
-			{
-				Routingprofile_Click(sender, e);
-				EditRoutingprofileCombobox.Text = SelectedRoutingprofileCombobox.Text;
-			}
-			else if (sender == SelectedRatingprofileCombobox)
-			{
-				Ratingprofile_Click(sender, e);
-				EditRatingprofileCombobox.Text = SelectedRatingprofileCombobox.Text;
+				if (sender == EditRoutingprofileCombobox)
+				{
+					Routingprofile_Click(sender, e);
+					SelectedRoutingprofileCombobox.Text = EditRoutingprofileCombobox.Text;
+				}
+				else if (sender == EditRatingprofileCombobox)
+				{
+					Ratingprofile_Click(sender, e);
+					SelectedRatingprofileCombobox.Text = EditRatingprofileCombobox.Text;
+				}
+				else if (sender == SelectedRoutingprofileCombobox)
+				{
+					Routingprofile_Click(sender, e);
+					EditRoutingprofileCombobox.Text = SelectedRoutingprofileCombobox.Text;
+				}
+				else if (sender == SelectedRatingprofileCombobox)
+				{
+					Ratingprofile_Click(sender, e);
+					EditRatingprofileCombobox.Text = SelectedRatingprofileCombobox.Text;
+				}
 			}
 		}
 
-		
+		/// <summary>
+		/// Sets the text of all TextBox- and ComboBox- children of the specified parent to null. Does this recursively through 3 layers.
+		/// </summary>
+		/// <param name="parent"></param>
+		private void ClearAllChildTextAndComboboxes(Control parent)
+		{
+			foreach (Control C in parent.Controls)
+			{
+				if (C is TextBox || C is ComboBox)
+				{
+					C.Text = null;
+				}
+				else if (C is GroupBox || C is TableLayoutPanel)
+				{
+					foreach (Control C2 in C.Controls)
+					{
+						if (C2 is TextBox || C2 is ComboBox)
+						{
+							C2.Text = null;
+						}
+						else if (C2 is GroupBox || C2 is TableLayoutPanel)
+						{
+							foreach (Control C3 in C2.Controls)
+							{
+								if (C3 is TextBox || C3 is ComboBox)
+								{
+									C3.Text = null;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }
