@@ -1339,7 +1339,7 @@ namespace GeocachingTourPlanner
 				{
 					SetForceInclude.Checked=true;
 				}
-				SetForceInclude.Click += (new_sender, new_e) => toggleForceInclude(geocache, item);
+				SetForceInclude.Click += (new_sender, new_e) => toggleForceInclude(geocache);
 
 				MapContextMenu.MenuItems.Add(SetStartpoint);
 				MapContextMenu.MenuItems.Add(SetEndpoint);
@@ -1415,7 +1415,7 @@ namespace GeocachingTourPlanner
 			EndpointTextbox.Text = coordinates.Lat.ToString(CultureInfo.InvariantCulture) + ";" + coordinates.Lng.ToString(CultureInfo.InvariantCulture);
 		}
 
-		private void toggleForceInclude(Geocache geocache, GMapMarker marker)
+		private void toggleForceInclude(Geocache geocache)
 		{
 			if (geocache.ForceInclude)
 			{
@@ -1425,7 +1425,6 @@ namespace GeocachingTourPlanner
 			{
 				geocache.ForceInclude = true;
 			}
-			LoadMap();//So color is changed
 		}
 		#endregion
 
