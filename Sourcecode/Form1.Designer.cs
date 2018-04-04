@@ -80,6 +80,7 @@ namespace GeocachingTourPlanner
 			this.RatingprofilesSettingsTabelLayout = new System.Windows.Forms.TableLayoutPanel();
 			this.groupBox6 = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
+			this.AgeFactorValue = new System.Windows.Forms.TextBox();
 			this.AgeValue = new System.Windows.Forms.ComboBox();
 			this.DValueungGroupBox = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
@@ -93,8 +94,27 @@ namespace GeocachingTourPlanner
 			this.label24 = new System.Windows.Forms.Label();
 			this.label25 = new System.Windows.Forms.Label();
 			this.label21 = new System.Windows.Forms.Label();
+			this.DPriorityValue = new System.Windows.Forms.TextBox();
+			this.D5Value = new System.Windows.Forms.TextBox();
+			this.D35Value = new System.Windows.Forms.TextBox();
+			this.D2Value = new System.Windows.Forms.TextBox();
+			this.D45Value = new System.Windows.Forms.TextBox();
+			this.D4Value = new System.Windows.Forms.TextBox();
+			this.D3Value = new System.Windows.Forms.TextBox();
+			this.D15Value = new System.Windows.Forms.TextBox();
+			this.D25Value = new System.Windows.Forms.TextBox();
+			this.D1Value = new System.Windows.Forms.TextBox();
 			this.GeocachetypGroupBox = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+			this.WebcamValue = new System.Windows.Forms.TextBox();
+			this.WherigoValue = new System.Windows.Forms.TextBox();
+			this.MysteryValue = new System.Windows.Forms.TextBox();
+			this.OtherTypeValue = new System.Windows.Forms.TextBox();
+			this.LetterboxValue = new System.Windows.Forms.TextBox();
+			this.MultiValue = new System.Windows.Forms.TextBox();
+			this.VirtualValue = new System.Windows.Forms.TextBox();
+			this.EarthcacheValue = new System.Windows.Forms.TextBox();
+			this.TypePriorityValue = new System.Windows.Forms.TextBox();
 			this.label6 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
@@ -105,15 +125,22 @@ namespace GeocachingTourPlanner
 			this.label5 = new System.Windows.Forms.Label();
 			this.label19 = new System.Windows.Forms.Label();
 			this.label8 = new System.Windows.Forms.Label();
+			this.TraditionalValue = new System.Windows.Forms.TextBox();
 			this.label20 = new System.Windows.Forms.Label();
 			this.GeocachegrößeGroupBox = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+			this.RegularValue = new System.Windows.Forms.TextBox();
 			this.label7 = new System.Windows.Forms.Label();
 			this.label12 = new System.Windows.Forms.Label();
 			this.label16 = new System.Windows.Forms.Label();
 			this.label18 = new System.Windows.Forms.Label();
 			this.label17 = new System.Windows.Forms.Label();
 			this.label13 = new System.Windows.Forms.Label();
+			this.SizePriorityValue = new System.Windows.Forms.TextBox();
+			this.LargeValue = new System.Windows.Forms.TextBox();
+			this.SmallValue = new System.Windows.Forms.TextBox();
+			this.MicroValue = new System.Windows.Forms.TextBox();
+			this.OtherSizeValue = new System.Windows.Forms.TextBox();
 			this.TValueungGroupbox = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
 			this.label32 = new System.Windows.Forms.Label();
@@ -126,6 +153,16 @@ namespace GeocachingTourPlanner
 			this.label34 = new System.Windows.Forms.Label();
 			this.label35 = new System.Windows.Forms.Label();
 			this.label31 = new System.Windows.Forms.Label();
+			this.TPriorityValue = new System.Windows.Forms.TextBox();
+			this.T5Value = new System.Windows.Forms.TextBox();
+			this.T35Value = new System.Windows.Forms.TextBox();
+			this.T2Value = new System.Windows.Forms.TextBox();
+			this.T45Value = new System.Windows.Forms.TextBox();
+			this.T3Value = new System.Windows.Forms.TextBox();
+			this.T15Value = new System.Windows.Forms.TextBox();
+			this.T4Value = new System.Windows.Forms.TextBox();
+			this.T25Value = new System.Windows.Forms.TextBox();
+			this.T1Value = new System.Windows.Forms.TextBox();
 			this.Sonstiges = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
 			this.label15 = new System.Windows.Forms.Label();
@@ -183,43 +220,6 @@ namespace GeocachingTourPlanner
 			this.RoutefindingWidth_Textbox = new System.Windows.Forms.TextBox();
 			this.LiveDisplayRouteCalculationCheckbox = new System.Windows.Forms.CheckBox();
 			this.Autotargetselection = new System.Windows.Forms.CheckBox();
-			this.TraditionalValue = new System.Windows.Forms.TextBox();
-			this.TypePriorityValue = new System.Windows.Forms.TextBox();
-			this.EarthcacheValue = new System.Windows.Forms.TextBox();
-			this.VirtualValue = new System.Windows.Forms.TextBox();
-			this.MultiValue = new System.Windows.Forms.TextBox();
-			this.LetterboxValue = new System.Windows.Forms.TextBox();
-			this.OtherTypeValue = new System.Windows.Forms.TextBox();
-			this.MysteryValue = new System.Windows.Forms.TextBox();
-			this.WherigoValue = new System.Windows.Forms.TextBox();
-			this.WebcamValue = new System.Windows.Forms.TextBox();
-			this.SizePriorityValue = new System.Windows.Forms.TextBox();
-			this.MicroValue = new System.Windows.Forms.TextBox();
-			this.LargeValue = new System.Windows.Forms.TextBox();
-			this.SmallValue = new System.Windows.Forms.TextBox();
-			this.OtherSizeValue = new System.Windows.Forms.TextBox();
-			this.RegularValue = new System.Windows.Forms.TextBox();
-			this.DPriorityValue = new System.Windows.Forms.TextBox();
-			this.D5Value = new System.Windows.Forms.TextBox();
-			this.D35Value = new System.Windows.Forms.TextBox();
-			this.D2Value = new System.Windows.Forms.TextBox();
-			this.D45Value = new System.Windows.Forms.TextBox();
-			this.D4Value = new System.Windows.Forms.TextBox();
-			this.D3Value = new System.Windows.Forms.TextBox();
-			this.D15Value = new System.Windows.Forms.TextBox();
-			this.D25Value = new System.Windows.Forms.TextBox();
-			this.D1Value = new System.Windows.Forms.TextBox();
-			this.TPriorityValue = new System.Windows.Forms.TextBox();
-			this.T5Value = new System.Windows.Forms.TextBox();
-			this.T35Value = new System.Windows.Forms.TextBox();
-			this.T2Value = new System.Windows.Forms.TextBox();
-			this.T45Value = new System.Windows.Forms.TextBox();
-			this.T3Value = new System.Windows.Forms.TextBox();
-			this.T15Value = new System.Windows.Forms.TextBox();
-			this.T4Value = new System.Windows.Forms.TextBox();
-			this.T25Value = new System.Windows.Forms.TextBox();
-			this.T1Value = new System.Windows.Forms.TextBox();
-			this.AgeFactorValue = new System.Windows.Forms.TextBox();
 			this.UpmostTableLayoutPanel.SuspendLayout();
 			this.Tabcontainer.SuspendLayout();
 			this.MapTab.SuspendLayout();
@@ -965,6 +965,13 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel8.Size = new System.Drawing.Size(351, 26);
 			this.tableLayoutPanel8.TabIndex = 0;
 			// 
+			// AgeFactorValue
+			// 
+			this.AgeFactorValue.Location = new System.Drawing.Point(283, 3);
+			this.AgeFactorValue.Name = "AgeFactorValue";
+			this.AgeFactorValue.Size = new System.Drawing.Size(30, 20);
+			this.AgeFactorValue.TabIndex = 24;
+			// 
 			// AgeValue
 			// 
 			this.AgeValue.Dock = System.Windows.Forms.DockStyle.Left;
@@ -1137,6 +1144,76 @@ namespace GeocachingTourPlanner
 			this.label21.TabIndex = 5;
 			this.label21.Text = "Priority";
 			// 
+			// DPriorityValue
+			// 
+			this.DPriorityValue.Location = new System.Drawing.Point(47, 3);
+			this.DPriorityValue.Name = "DPriorityValue";
+			this.DPriorityValue.Size = new System.Drawing.Size(30, 20);
+			this.DPriorityValue.TabIndex = 24;
+			// 
+			// D5Value
+			// 
+			this.D5Value.Location = new System.Drawing.Point(119, 3);
+			this.D5Value.Name = "D5Value";
+			this.D5Value.Size = new System.Drawing.Size(30, 20);
+			this.D5Value.TabIndex = 25;
+			// 
+			// D35Value
+			// 
+			this.D35Value.Location = new System.Drawing.Point(191, 3);
+			this.D35Value.Name = "D35Value";
+			this.D35Value.Size = new System.Drawing.Size(30, 20);
+			this.D35Value.TabIndex = 26;
+			// 
+			// D2Value
+			// 
+			this.D2Value.Location = new System.Drawing.Point(263, 3);
+			this.D2Value.Name = "D2Value";
+			this.D2Value.Size = new System.Drawing.Size(30, 20);
+			this.D2Value.TabIndex = 27;
+			// 
+			// D45Value
+			// 
+			this.D45Value.Location = new System.Drawing.Point(119, 29);
+			this.D45Value.Name = "D45Value";
+			this.D45Value.Size = new System.Drawing.Size(30, 20);
+			this.D45Value.TabIndex = 28;
+			// 
+			// D4Value
+			// 
+			this.D4Value.Location = new System.Drawing.Point(119, 55);
+			this.D4Value.Name = "D4Value";
+			this.D4Value.Size = new System.Drawing.Size(30, 20);
+			this.D4Value.TabIndex = 29;
+			// 
+			// D3Value
+			// 
+			this.D3Value.Location = new System.Drawing.Point(191, 29);
+			this.D3Value.Name = "D3Value";
+			this.D3Value.Size = new System.Drawing.Size(30, 20);
+			this.D3Value.TabIndex = 30;
+			// 
+			// D15Value
+			// 
+			this.D15Value.Location = new System.Drawing.Point(263, 29);
+			this.D15Value.Name = "D15Value";
+			this.D15Value.Size = new System.Drawing.Size(30, 20);
+			this.D15Value.TabIndex = 31;
+			// 
+			// D25Value
+			// 
+			this.D25Value.Location = new System.Drawing.Point(191, 55);
+			this.D25Value.Name = "D25Value";
+			this.D25Value.Size = new System.Drawing.Size(30, 20);
+			this.D25Value.TabIndex = 32;
+			// 
+			// D1Value
+			// 
+			this.D1Value.Location = new System.Drawing.Point(263, 55);
+			this.D1Value.Name = "D1Value";
+			this.D1Value.Size = new System.Drawing.Size(30, 20);
+			this.D1Value.TabIndex = 33;
+			// 
 			// GeocachetypGroupBox
 			// 
 			this.GeocachetypGroupBox.AutoSize = true;
@@ -1193,6 +1270,69 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tableLayoutPanel7.Size = new System.Drawing.Size(351, 104);
 			this.tableLayoutPanel7.TabIndex = 0;
+			// 
+			// WebcamValue
+			// 
+			this.WebcamValue.Location = new System.Drawing.Point(261, 81);
+			this.WebcamValue.Name = "WebcamValue";
+			this.WebcamValue.Size = new System.Drawing.Size(30, 20);
+			this.WebcamValue.TabIndex = 36;
+			// 
+			// WherigoValue
+			// 
+			this.WherigoValue.Location = new System.Drawing.Point(169, 81);
+			this.WherigoValue.Name = "WherigoValue";
+			this.WherigoValue.Size = new System.Drawing.Size(30, 20);
+			this.WherigoValue.TabIndex = 35;
+			// 
+			// MysteryValue
+			// 
+			this.MysteryValue.Location = new System.Drawing.Point(65, 81);
+			this.MysteryValue.Name = "MysteryValue";
+			this.MysteryValue.Size = new System.Drawing.Size(30, 20);
+			this.MysteryValue.TabIndex = 34;
+			// 
+			// OtherTypeValue
+			// 
+			this.OtherTypeValue.Location = new System.Drawing.Point(261, 55);
+			this.OtherTypeValue.Name = "OtherTypeValue";
+			this.OtherTypeValue.Size = new System.Drawing.Size(30, 20);
+			this.OtherTypeValue.TabIndex = 33;
+			// 
+			// LetterboxValue
+			// 
+			this.LetterboxValue.Location = new System.Drawing.Point(169, 55);
+			this.LetterboxValue.Name = "LetterboxValue";
+			this.LetterboxValue.Size = new System.Drawing.Size(30, 20);
+			this.LetterboxValue.TabIndex = 32;
+			// 
+			// MultiValue
+			// 
+			this.MultiValue.Location = new System.Drawing.Point(65, 55);
+			this.MultiValue.Name = "MultiValue";
+			this.MultiValue.Size = new System.Drawing.Size(30, 20);
+			this.MultiValue.TabIndex = 31;
+			// 
+			// VirtualValue
+			// 
+			this.VirtualValue.Location = new System.Drawing.Point(261, 29);
+			this.VirtualValue.Name = "VirtualValue";
+			this.VirtualValue.Size = new System.Drawing.Size(30, 20);
+			this.VirtualValue.TabIndex = 30;
+			// 
+			// EarthcacheValue
+			// 
+			this.EarthcacheValue.Location = new System.Drawing.Point(169, 29);
+			this.EarthcacheValue.Name = "EarthcacheValue";
+			this.EarthcacheValue.Size = new System.Drawing.Size(30, 20);
+			this.EarthcacheValue.TabIndex = 29;
+			// 
+			// TypePriorityValue
+			// 
+			this.TypePriorityValue.Location = new System.Drawing.Point(65, 3);
+			this.TypePriorityValue.Name = "TypePriorityValue";
+			this.TypePriorityValue.Size = new System.Drawing.Size(30, 20);
+			this.TypePriorityValue.TabIndex = 24;
 			// 
 			// label6
 			// 
@@ -1301,6 +1441,13 @@ namespace GeocachingTourPlanner
 			this.label8.TabIndex = 3;
 			this.label8.Text = "Webcam";
 			// 
+			// TraditionalValue
+			// 
+			this.TraditionalValue.Location = new System.Drawing.Point(65, 29);
+			this.TraditionalValue.Name = "TraditionalValue";
+			this.TraditionalValue.Size = new System.Drawing.Size(30, 20);
+			this.TraditionalValue.TabIndex = 23;
+			// 
 			// label20
 			// 
 			this.label20.AutoSize = true;
@@ -1361,6 +1508,13 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tableLayoutPanel3.Size = new System.Drawing.Size(351, 78);
 			this.tableLayoutPanel3.TabIndex = 1;
+			// 
+			// RegularValue
+			// 
+			this.RegularValue.Location = new System.Drawing.Point(53, 55);
+			this.RegularValue.Name = "RegularValue";
+			this.RegularValue.Size = new System.Drawing.Size(30, 20);
+			this.RegularValue.TabIndex = 29;
 			// 
 			// label7
 			// 
@@ -1425,6 +1579,41 @@ namespace GeocachingTourPlanner
 			this.label13.Size = new System.Drawing.Size(32, 13);
 			this.label13.TabIndex = 1;
 			this.label13.Text = "Small";
+			// 
+			// SizePriorityValue
+			// 
+			this.SizePriorityValue.Location = new System.Drawing.Point(53, 3);
+			this.SizePriorityValue.Name = "SizePriorityValue";
+			this.SizePriorityValue.Size = new System.Drawing.Size(30, 20);
+			this.SizePriorityValue.TabIndex = 24;
+			// 
+			// LargeValue
+			// 
+			this.LargeValue.Location = new System.Drawing.Point(53, 29);
+			this.LargeValue.Name = "LargeValue";
+			this.LargeValue.Size = new System.Drawing.Size(30, 20);
+			this.LargeValue.TabIndex = 26;
+			// 
+			// SmallValue
+			// 
+			this.SmallValue.Location = new System.Drawing.Point(128, 29);
+			this.SmallValue.Name = "SmallValue";
+			this.SmallValue.Size = new System.Drawing.Size(30, 20);
+			this.SmallValue.TabIndex = 27;
+			// 
+			// MicroValue
+			// 
+			this.MicroValue.Location = new System.Drawing.Point(128, 55);
+			this.MicroValue.Name = "MicroValue";
+			this.MicroValue.Size = new System.Drawing.Size(30, 20);
+			this.MicroValue.TabIndex = 25;
+			// 
+			// OtherSizeValue
+			// 
+			this.OtherSizeValue.Location = new System.Drawing.Point(203, 29);
+			this.OtherSizeValue.Name = "OtherSizeValue";
+			this.OtherSizeValue.Size = new System.Drawing.Size(30, 20);
+			this.OtherSizeValue.TabIndex = 28;
 			// 
 			// TValueungGroupbox
 			// 
@@ -1583,6 +1772,76 @@ namespace GeocachingTourPlanner
 			this.label31.Size = new System.Drawing.Size(38, 13);
 			this.label31.TabIndex = 5;
 			this.label31.Text = "Priority";
+			// 
+			// TPriorityValue
+			// 
+			this.TPriorityValue.Location = new System.Drawing.Point(47, 3);
+			this.TPriorityValue.Name = "TPriorityValue";
+			this.TPriorityValue.Size = new System.Drawing.Size(30, 20);
+			this.TPriorityValue.TabIndex = 24;
+			// 
+			// T5Value
+			// 
+			this.T5Value.Location = new System.Drawing.Point(118, 3);
+			this.T5Value.Name = "T5Value";
+			this.T5Value.Size = new System.Drawing.Size(30, 20);
+			this.T5Value.TabIndex = 25;
+			// 
+			// T35Value
+			// 
+			this.T35Value.Location = new System.Drawing.Point(189, 3);
+			this.T35Value.Name = "T35Value";
+			this.T35Value.Size = new System.Drawing.Size(30, 20);
+			this.T35Value.TabIndex = 26;
+			// 
+			// T2Value
+			// 
+			this.T2Value.Location = new System.Drawing.Point(260, 3);
+			this.T2Value.Name = "T2Value";
+			this.T2Value.Size = new System.Drawing.Size(30, 20);
+			this.T2Value.TabIndex = 27;
+			// 
+			// T45Value
+			// 
+			this.T45Value.Location = new System.Drawing.Point(118, 29);
+			this.T45Value.Name = "T45Value";
+			this.T45Value.Size = new System.Drawing.Size(30, 20);
+			this.T45Value.TabIndex = 28;
+			// 
+			// T3Value
+			// 
+			this.T3Value.Location = new System.Drawing.Point(189, 29);
+			this.T3Value.Name = "T3Value";
+			this.T3Value.Size = new System.Drawing.Size(30, 20);
+			this.T3Value.TabIndex = 29;
+			// 
+			// T15Value
+			// 
+			this.T15Value.Location = new System.Drawing.Point(260, 29);
+			this.T15Value.Name = "T15Value";
+			this.T15Value.Size = new System.Drawing.Size(30, 20);
+			this.T15Value.TabIndex = 30;
+			// 
+			// T4Value
+			// 
+			this.T4Value.Location = new System.Drawing.Point(118, 55);
+			this.T4Value.Name = "T4Value";
+			this.T4Value.Size = new System.Drawing.Size(30, 20);
+			this.T4Value.TabIndex = 31;
+			// 
+			// T25Value
+			// 
+			this.T25Value.Location = new System.Drawing.Point(189, 55);
+			this.T25Value.Name = "T25Value";
+			this.T25Value.Size = new System.Drawing.Size(30, 20);
+			this.T25Value.TabIndex = 32;
+			// 
+			// T1Value
+			// 
+			this.T1Value.Location = new System.Drawing.Point(260, 55);
+			this.T1Value.Name = "T1Value";
+			this.T1Value.Size = new System.Drawing.Size(30, 20);
+			this.T1Value.TabIndex = 33;
 			// 
 			// Sonstiges
 			// 
@@ -2304,265 +2563,6 @@ namespace GeocachingTourPlanner
 			this.Autotargetselection.Text = "Autotargetselection (Default: on)";
 			this.Autotargetselection.UseVisualStyleBackColor = true;
 			this.Autotargetselection.CheckedChanged += new System.EventHandler(this.Autotargetselection_CheckedChanged);
-			// 
-			// TraditionalValue
-			// 
-			this.TraditionalValue.Location = new System.Drawing.Point(65, 29);
-			this.TraditionalValue.Name = "TraditionalValue";
-			this.TraditionalValue.Size = new System.Drawing.Size(30, 20);
-			this.TraditionalValue.TabIndex = 23;
-			// 
-			// TypePriorityValue
-			// 
-			this.TypePriorityValue.Location = new System.Drawing.Point(65, 3);
-			this.TypePriorityValue.Name = "TypePriorityValue";
-			this.TypePriorityValue.Size = new System.Drawing.Size(30, 20);
-			this.TypePriorityValue.TabIndex = 24;
-			// 
-			// EarthcacheValue
-			// 
-			this.EarthcacheValue.Location = new System.Drawing.Point(169, 29);
-			this.EarthcacheValue.Name = "EarthcacheValue";
-			this.EarthcacheValue.Size = new System.Drawing.Size(30, 20);
-			this.EarthcacheValue.TabIndex = 29;
-			// 
-			// VirtualValue
-			// 
-			this.VirtualValue.Location = new System.Drawing.Point(261, 29);
-			this.VirtualValue.Name = "VirtualValue";
-			this.VirtualValue.Size = new System.Drawing.Size(30, 20);
-			this.VirtualValue.TabIndex = 30;
-			// 
-			// MultiValue
-			// 
-			this.MultiValue.Location = new System.Drawing.Point(65, 55);
-			this.MultiValue.Name = "MultiValue";
-			this.MultiValue.Size = new System.Drawing.Size(30, 20);
-			this.MultiValue.TabIndex = 31;
-			// 
-			// LetterboxValue
-			// 
-			this.LetterboxValue.Location = new System.Drawing.Point(169, 55);
-			this.LetterboxValue.Name = "LetterboxValue";
-			this.LetterboxValue.Size = new System.Drawing.Size(30, 20);
-			this.LetterboxValue.TabIndex = 32;
-			// 
-			// OtherTypeValue
-			// 
-			this.OtherTypeValue.Location = new System.Drawing.Point(261, 55);
-			this.OtherTypeValue.Name = "OtherTypeValue";
-			this.OtherTypeValue.Size = new System.Drawing.Size(30, 20);
-			this.OtherTypeValue.TabIndex = 33;
-			// 
-			// MysteryValue
-			// 
-			this.MysteryValue.Location = new System.Drawing.Point(65, 81);
-			this.MysteryValue.Name = "MysteryValue";
-			this.MysteryValue.Size = new System.Drawing.Size(30, 20);
-			this.MysteryValue.TabIndex = 34;
-			// 
-			// WherigoValue
-			// 
-			this.WherigoValue.Location = new System.Drawing.Point(169, 81);
-			this.WherigoValue.Name = "WherigoValue";
-			this.WherigoValue.Size = new System.Drawing.Size(30, 20);
-			this.WherigoValue.TabIndex = 35;
-			// 
-			// WebcamValue
-			// 
-			this.WebcamValue.Location = new System.Drawing.Point(261, 81);
-			this.WebcamValue.Name = "WebcamValue";
-			this.WebcamValue.Size = new System.Drawing.Size(30, 20);
-			this.WebcamValue.TabIndex = 36;
-			// 
-			// SizePriorityValue
-			// 
-			this.SizePriorityValue.Location = new System.Drawing.Point(53, 3);
-			this.SizePriorityValue.Name = "SizePriorityValue";
-			this.SizePriorityValue.Size = new System.Drawing.Size(30, 20);
-			this.SizePriorityValue.TabIndex = 24;
-			// 
-			// MicroValue
-			// 
-			this.MicroValue.Location = new System.Drawing.Point(128, 55);
-			this.MicroValue.Name = "MicroValue";
-			this.MicroValue.Size = new System.Drawing.Size(30, 20);
-			this.MicroValue.TabIndex = 25;
-			// 
-			// LargeValue
-			// 
-			this.LargeValue.Location = new System.Drawing.Point(53, 29);
-			this.LargeValue.Name = "LargeValue";
-			this.LargeValue.Size = new System.Drawing.Size(30, 20);
-			this.LargeValue.TabIndex = 26;
-			// 
-			// SmallValue
-			// 
-			this.SmallValue.Location = new System.Drawing.Point(128, 29);
-			this.SmallValue.Name = "SmallValue";
-			this.SmallValue.Size = new System.Drawing.Size(30, 20);
-			this.SmallValue.TabIndex = 27;
-			// 
-			// OtherSizeValue
-			// 
-			this.OtherSizeValue.Location = new System.Drawing.Point(203, 29);
-			this.OtherSizeValue.Name = "OtherSizeValue";
-			this.OtherSizeValue.Size = new System.Drawing.Size(30, 20);
-			this.OtherSizeValue.TabIndex = 28;
-			// 
-			// RegularValue
-			// 
-			this.RegularValue.Location = new System.Drawing.Point(53, 55);
-			this.RegularValue.Name = "RegularValue";
-			this.RegularValue.Size = new System.Drawing.Size(30, 20);
-			this.RegularValue.TabIndex = 29;
-			// 
-			// DPriorityValue
-			// 
-			this.DPriorityValue.Location = new System.Drawing.Point(47, 3);
-			this.DPriorityValue.Name = "DPriorityValue";
-			this.DPriorityValue.Size = new System.Drawing.Size(30, 20);
-			this.DPriorityValue.TabIndex = 24;
-			// 
-			// D5Value
-			// 
-			this.D5Value.Location = new System.Drawing.Point(119, 3);
-			this.D5Value.Name = "D5Value";
-			this.D5Value.Size = new System.Drawing.Size(30, 20);
-			this.D5Value.TabIndex = 25;
-			// 
-			// D35Value
-			// 
-			this.D35Value.Location = new System.Drawing.Point(191, 3);
-			this.D35Value.Name = "D35Value";
-			this.D35Value.Size = new System.Drawing.Size(30, 20);
-			this.D35Value.TabIndex = 26;
-			// 
-			// D2Value
-			// 
-			this.D2Value.Location = new System.Drawing.Point(263, 3);
-			this.D2Value.Name = "D2Value";
-			this.D2Value.Size = new System.Drawing.Size(30, 20);
-			this.D2Value.TabIndex = 27;
-			// 
-			// D45Value
-			// 
-			this.D45Value.Location = new System.Drawing.Point(119, 29);
-			this.D45Value.Name = "D45Value";
-			this.D45Value.Size = new System.Drawing.Size(30, 20);
-			this.D45Value.TabIndex = 28;
-			// 
-			// D4Value
-			// 
-			this.D4Value.Location = new System.Drawing.Point(119, 55);
-			this.D4Value.Name = "D4Value";
-			this.D4Value.Size = new System.Drawing.Size(30, 20);
-			this.D4Value.TabIndex = 29;
-			// 
-			// D3Value
-			// 
-			this.D3Value.Location = new System.Drawing.Point(191, 29);
-			this.D3Value.Name = "D3Value";
-			this.D3Value.Size = new System.Drawing.Size(30, 20);
-			this.D3Value.TabIndex = 30;
-			// 
-			// D15Value
-			// 
-			this.D15Value.Location = new System.Drawing.Point(263, 29);
-			this.D15Value.Name = "D15Value";
-			this.D15Value.Size = new System.Drawing.Size(30, 20);
-			this.D15Value.TabIndex = 31;
-			// 
-			// D25Value
-			// 
-			this.D25Value.Location = new System.Drawing.Point(191, 55);
-			this.D25Value.Name = "D25Value";
-			this.D25Value.Size = new System.Drawing.Size(30, 20);
-			this.D25Value.TabIndex = 32;
-			// 
-			// D1Value
-			// 
-			this.D1Value.Location = new System.Drawing.Point(263, 55);
-			this.D1Value.Name = "D1Value";
-			this.D1Value.Size = new System.Drawing.Size(30, 20);
-			this.D1Value.TabIndex = 33;
-			// 
-			// TPriorityValue
-			// 
-			this.TPriorityValue.Location = new System.Drawing.Point(47, 3);
-			this.TPriorityValue.Name = "TPriorityValue";
-			this.TPriorityValue.Size = new System.Drawing.Size(30, 20);
-			this.TPriorityValue.TabIndex = 24;
-			// 
-			// T5Value
-			// 
-			this.T5Value.Location = new System.Drawing.Point(118, 3);
-			this.T5Value.Name = "T5Value";
-			this.T5Value.Size = new System.Drawing.Size(30, 20);
-			this.T5Value.TabIndex = 25;
-			// 
-			// T35Value
-			// 
-			this.T35Value.Location = new System.Drawing.Point(189, 3);
-			this.T35Value.Name = "T35Value";
-			this.T35Value.Size = new System.Drawing.Size(30, 20);
-			this.T35Value.TabIndex = 26;
-			// 
-			// T2Value
-			// 
-			this.T2Value.Location = new System.Drawing.Point(260, 3);
-			this.T2Value.Name = "T2Value";
-			this.T2Value.Size = new System.Drawing.Size(30, 20);
-			this.T2Value.TabIndex = 27;
-			// 
-			// T45Value
-			// 
-			this.T45Value.Location = new System.Drawing.Point(118, 29);
-			this.T45Value.Name = "T45Value";
-			this.T45Value.Size = new System.Drawing.Size(30, 20);
-			this.T45Value.TabIndex = 28;
-			// 
-			// T3Value
-			// 
-			this.T3Value.Location = new System.Drawing.Point(189, 29);
-			this.T3Value.Name = "T3Value";
-			this.T3Value.Size = new System.Drawing.Size(30, 20);
-			this.T3Value.TabIndex = 29;
-			// 
-			// T15Value
-			// 
-			this.T15Value.Location = new System.Drawing.Point(260, 29);
-			this.T15Value.Name = "T15Value";
-			this.T15Value.Size = new System.Drawing.Size(30, 20);
-			this.T15Value.TabIndex = 30;
-			// 
-			// T4Value
-			// 
-			this.T4Value.Location = new System.Drawing.Point(118, 55);
-			this.T4Value.Name = "T4Value";
-			this.T4Value.Size = new System.Drawing.Size(30, 20);
-			this.T4Value.TabIndex = 31;
-			// 
-			// T25Value
-			// 
-			this.T25Value.Location = new System.Drawing.Point(189, 55);
-			this.T25Value.Name = "T25Value";
-			this.T25Value.Size = new System.Drawing.Size(30, 20);
-			this.T25Value.TabIndex = 32;
-			// 
-			// T1Value
-			// 
-			this.T1Value.Location = new System.Drawing.Point(260, 55);
-			this.T1Value.Name = "T1Value";
-			this.T1Value.Size = new System.Drawing.Size(30, 20);
-			this.T1Value.TabIndex = 33;
-			// 
-			// AgeFactorValue
-			// 
-			this.AgeFactorValue.Location = new System.Drawing.Point(283, 3);
-			this.AgeFactorValue.Name = "AgeFactorValue";
-			this.AgeFactorValue.Size = new System.Drawing.Size(30, 20);
-			this.AgeFactorValue.TabIndex = 24;
 			// 
 			// Form1
 			// 

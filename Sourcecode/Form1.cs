@@ -608,11 +608,6 @@ namespace GeocachingTourPlanner
 		private void CreateRouteButtonClick(object sender, EventArgs e)
 		{
 			if (!Program.RouteCalculationRunning)
-
-			Application.UseWaitCursor = true;
-			
-			#region get Values
-			if (SelectedRoutingprofileCombobox.Text.Length == 0)
 			{
 				Program.RouteCalculationRunning = true;
 				Application.UseWaitCursor = true;
@@ -706,7 +701,6 @@ namespace GeocachingTourPlanner
 				}
 				)).Start();
 			}
-
 		}
 
 		#region Geocachecheckboxes
@@ -1095,7 +1089,7 @@ namespace GeocachingTourPlanner
 
 			if(int.TryParse(EveryNthPointTextBox.Text,out int Value)){
 				Program.DB.EveryNthShapepoint = Value;
-				Program.Backup(null);
+				Fileoperations.Backup(null);
 
 			}
 			else if(EveryNthPointTextBox.Text.Length!=0)
@@ -1116,7 +1110,7 @@ namespace GeocachingTourPlanner
 				{
 
 					Program.DB.Divisor = Value;
-					Program.Backup(null);
+					Fileoperations.Backup(null);
 				}
 			}
 			else if(DivisorTextBox.Text.Length!=0)
@@ -1130,7 +1124,7 @@ namespace GeocachingTourPlanner
 			if (int.TryParse(ToleranceTextBox.Text, out int Value))
 			{
 				Program.DB.Tolerance = Value;
-				Program.Backup(null);
+				Fileoperations.Backup(null);
 
 			}
 			else if (ToleranceTextBox.Text.Length != 0)
@@ -1145,7 +1139,7 @@ namespace GeocachingTourPlanner
 			if (int.TryParse(RoutefindingWidth_Textbox.Text, out int Value))
 			{
 				Program.DB.RoutefindingWidth = Value;
-				Program.Backup(null);
+				Fileoperations.Backup(null);
 
 			}
 			else if (ToleranceTextBox.Text.Length != 0)
