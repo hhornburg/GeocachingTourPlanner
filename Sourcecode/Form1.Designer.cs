@@ -630,8 +630,6 @@ namespace GeocachingTourPlanner
 			this.webBrowser1.Name = "webBrowser1";
 			this.webBrowser1.Size = new System.Drawing.Size(380, 512);
 			this.webBrowser1.TabIndex = 1;
-			this.webBrowser1.Url = new System.Uri("file://C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\IDE/" +
-        "first-steps.html", System.UriKind.Absolute);
 			// 
 			// Overviewpage
 			// 
