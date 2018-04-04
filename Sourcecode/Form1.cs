@@ -148,27 +148,27 @@ namespace GeocachingTourPlanner
 		try
 		{
 			Profile.Name = RatingProfileName.Text;
-			Profile.TypePriority = int.Parse(TypePriorityvalue.Text);
+			Profile.TypePriority = int.Parse(TypePriorityValue.Text);
 			Profile.TypeRatings = new List<KeyValuePair<GeocacheType, int>>();
 			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.EarthCache, int.Parse(EarthcacheValue.Text)));
 			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Letterbox, int.Parse(LetterboxValue.Text)));
-			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Multi, int.Parse(Multivalue.Text)));
+			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Multi, int.Parse(MultiValue.Text)));
 			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Mystery, int.Parse(MysteryValue.Text)));
 			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Other, int.Parse(OtherTypeValue.Text)));
-			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Traditional, int.Parse(Traditionalvalue.Text)));
+			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Traditional, int.Parse(TraditionalValue.Text)));
 			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Virtual, int.Parse(VirtualValue.Text)));
 			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Webcam, int.Parse(WebcamValue.Text)));
 			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Wherigo, int.Parse(WherigoValue.Text)));
 
-			Profile.SizePriority = int.Parse(GrößenPrioritätValue.Text);
+			Profile.SizePriority = int.Parse(SizePriorityValue.Text);
 			Profile.SizeRatings = new List<KeyValuePair<GeocacheSize, int>>();
 			Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Large, int.Parse(LargeValue.Text)));
 			Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Micro, int.Parse(MicroValue.Text)));
-			Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Other, int.Parse(OtherGrößeValue.Text)));
+			Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Other, int.Parse(OtherSizeValue.Text)));
 			Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Regular, int.Parse(RegularValue.Text)));
 			Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Small, int.Parse(SmallValue.Text)));
 
-			Profile.DPriority = int.Parse(DPrioritätenValue.Text);
+			Profile.DPriority = int.Parse(DPriorityValue.Text);
 			Profile.DRatings = new List<KeyValuePair<float, int>>();
 			Profile.DRatings.Add(new KeyValuePair<float, int>(1f, int.Parse(D1Value.Text)));
 			Profile.DRatings.Add(new KeyValuePair<float, int>(1.5f, int.Parse(D15Value.Text)));
@@ -180,7 +180,7 @@ namespace GeocachingTourPlanner
 			Profile.DRatings.Add(new KeyValuePair<float, int>(4.5f, int.Parse(D45Value.Text)));
 			Profile.DRatings.Add(new KeyValuePair<float, int>(5f, int.Parse(D5Value.Text)));
 
-			Profile.TPriority = int.Parse(TPrioritätenValue.Text);
+			Profile.TPriority = int.Parse(TPriorityValue.Text);
 			Profile.TRatings = new List<KeyValuePair<float, int>>();
 			Profile.TRatings.Add(new KeyValuePair<float, int>(1f, int.Parse(T1Value.Text)));
 			Profile.TRatings.Add(new KeyValuePair<float, int>(1.5f, int.Parse(T15Value.Text)));
@@ -210,7 +210,7 @@ namespace GeocachingTourPlanner
 				Profile.Yearmode = false;
 			}
 
-			Profile.Yearfactor = int.Parse(AlterZahlValue.Text);
+			Profile.Yearfactor = int.Parse(AgeFactorValue.Text);
 
 		}
 		catch (NullReferenceException)
@@ -263,7 +263,7 @@ namespace GeocachingTourPlanner
 			}
 			catch (FormatException)
 			{
-				MessageBox.Show("Some fields are filled with incompatible values", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show("Some fields are filled with incompatible Values", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
 
@@ -366,50 +366,50 @@ namespace GeocachingTourPlanner
 				RatingProfileName.Text = SelectedRatingprofile.Name;
 
 				//Prioritäten
-				TypePriorityvalue.SelectedItem = TypePriorityvalue.Items[TypePriorityvalue.Items.IndexOf(SelectedRatingprofile.TypePriority.ToString())];
-				GrößenPrioritätValue.SelectedItem = GrößenPrioritätValue.Items[TypePriorityvalue.Items.IndexOf(SelectedRatingprofile.SizePriority.ToString())];
-				DPrioritätenValue.SelectedItem = DPrioritätenValue.Items[TypePriorityvalue.Items.IndexOf(SelectedRatingprofile.DPriority.ToString())];
-				TPrioritätenValue.SelectedItem = TPrioritätenValue.Items[TypePriorityvalue.Items.IndexOf(SelectedRatingprofile.TPriority.ToString())];
+				TypePriorityValue.Text =SelectedRatingprofile.TypePriority.ToString();
+				SizePriorityValue.Text =SelectedRatingprofile.SizePriority.ToString();
+				DPriorityValue.Text =SelectedRatingprofile.DPriority.ToString();
+				TPriorityValue.Text =SelectedRatingprofile.TPriority.ToString();
 
 				//TypenValueungen
-				Traditionalvalue.SelectedItem = Traditionalvalue.Items[Traditionalvalue.Items.IndexOf(SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Traditional).Value.ToString())];
-				EarthcacheValue.SelectedItem = EarthcacheValue.Items[EarthcacheValue.Items.IndexOf(SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.EarthCache).Value.ToString())];
-				Multivalue.SelectedItem = Multivalue.Items[Multivalue.Items.IndexOf(SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Multi).Value.ToString())];
-				MysteryValue.SelectedItem = MysteryValue.Items[MysteryValue.Items.IndexOf(SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Mystery).Value.ToString())];
-				LetterboxValue.SelectedItem = LetterboxValue.Items[LetterboxValue.Items.IndexOf(SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Letterbox).Value.ToString())];
-				VirtualValue.SelectedItem = VirtualValue.Items[VirtualValue.Items.IndexOf(SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Virtual).Value.ToString())];
-				OtherTypeValue.SelectedItem = OtherTypeValue.Items[OtherTypeValue.Items.IndexOf(SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Other).Value.ToString())];
-				WebcamValue.SelectedItem = WebcamValue.Items[WebcamValue.Items.IndexOf(SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Webcam).Value.ToString())];
-				WherigoValue.SelectedItem = WherigoValue.Items[WherigoValue.Items.IndexOf(SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Wherigo).Value.ToString())];
+				TraditionalValue.Text =SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Traditional).Value.ToString();
+				EarthcacheValue.Text =SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.EarthCache).Value.ToString();
+				MultiValue.Text =SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Multi).Value.ToString();
+				MysteryValue.Text =SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Mystery).Value.ToString();
+				LetterboxValue.Text =SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Letterbox).Value.ToString();
+				VirtualValue.Text =SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Virtual).Value.ToString();
+				OtherTypeValue.Text =SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Other).Value.ToString();
+				WebcamValue.Text =SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Webcam).Value.ToString();
+				WherigoValue.Text =SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Wherigo).Value.ToString();
 
 				//Größe
-				LargeValue.SelectedItem = LargeValue.Items[LargeValue.Items.IndexOf(SelectedRatingprofile.SizeRatings.First(x => x.Key == GeocacheSize.Large).Value.ToString())];
-				RegularValue.SelectedItem = RegularValue.Items[RegularValue.Items.IndexOf(SelectedRatingprofile.SizeRatings.First(x => x.Key == GeocacheSize.Regular).Value.ToString())];
-				SmallValue.SelectedItem = SmallValue.Items[SmallValue.Items.IndexOf(SelectedRatingprofile.SizeRatings.First(x => x.Key == GeocacheSize.Small).Value.ToString())];
-				MicroValue.SelectedItem = MicroValue.Items[MicroValue.Items.IndexOf(SelectedRatingprofile.SizeRatings.First(x => x.Key == GeocacheSize.Micro).Value.ToString())];
-				OtherGrößeValue.SelectedItem = OtherGrößeValue.Items[OtherGrößeValue.Items.IndexOf(SelectedRatingprofile.SizeRatings.First(x => x.Key == GeocacheSize.Other).Value.ToString())];
+				LargeValue.Text =SelectedRatingprofile.SizeRatings.First(x => x.Key == GeocacheSize.Large).Value.ToString();
+				RegularValue.Text =SelectedRatingprofile.SizeRatings.First(x => x.Key == GeocacheSize.Regular).Value.ToString();
+				SmallValue.Text =SelectedRatingprofile.SizeRatings.First(x => x.Key == GeocacheSize.Small).Value.ToString();
+				MicroValue.Text =SelectedRatingprofile.SizeRatings.First(x => x.Key == GeocacheSize.Micro).Value.ToString();
+				OtherSizeValue.Text =SelectedRatingprofile.SizeRatings.First(x => x.Key == GeocacheSize.Other).Value.ToString();
 
 				//D
-				D1Value.SelectedItem = D1Value.Items[D1Value.Items.IndexOf(SelectedRatingprofile.DRatings.First(x => x.Key == 1).Value.ToString())];
-				D15Value.SelectedItem = D15Value.Items[D15Value.Items.IndexOf(SelectedRatingprofile.DRatings.First(x => x.Key == 1.5).Value.ToString())];
-				D2Value.SelectedItem = D2Value.Items[D2Value.Items.IndexOf(SelectedRatingprofile.DRatings.First(x => x.Key == 2).Value.ToString())];
-				D25Value.SelectedItem = D25Value.Items[D25Value.Items.IndexOf(SelectedRatingprofile.DRatings.First(x => x.Key == 2.5).Value.ToString())];
-				D3Value.SelectedItem = D3Value.Items[D3Value.Items.IndexOf(SelectedRatingprofile.DRatings.First(x => x.Key == 3).Value.ToString())];
-				D35Value.SelectedItem = D35Value.Items[D35Value.Items.IndexOf(SelectedRatingprofile.DRatings.First(x => x.Key == 3.5).Value.ToString())];
-				D4Value.SelectedItem = D4Value.Items[D4Value.Items.IndexOf(SelectedRatingprofile.DRatings.First(x => x.Key == 4).Value.ToString())];
-				D45Value.SelectedItem = D45Value.Items[D45Value.Items.IndexOf(SelectedRatingprofile.DRatings.First(x => x.Key == 4.5).Value.ToString())];
-				D5Value.SelectedItem = D5Value.Items[D5Value.Items.IndexOf(SelectedRatingprofile.DRatings.First(x => x.Key == 5).Value.ToString())];
+				D1Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 1).Value.ToString();
+				D15Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 1.5).Value.ToString();
+				D2Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 2).Value.ToString();
+				D25Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 2.5).Value.ToString();
+				D3Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 3).Value.ToString();
+				D35Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 3.5).Value.ToString();
+				D4Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 4).Value.ToString();
+				D45Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 4.5).Value.ToString();
+				D5Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 5).Value.ToString();
 
 				//T
-				T1Value.SelectedItem = T1Value.Items[T1Value.Items.IndexOf(SelectedRatingprofile.DRatings.First(x => x.Key == 1).Value.ToString())];
-				T15Value.SelectedItem = T15Value.Items[T15Value.Items.IndexOf(SelectedRatingprofile.DRatings.First(x => x.Key == 1.5).Value.ToString())];
-				T2Value.SelectedItem = T2Value.Items[T2Value.Items.IndexOf(SelectedRatingprofile.DRatings.First(x => x.Key == 2).Value.ToString())];
-				T25Value.SelectedItem = T25Value.Items[T25Value.Items.IndexOf(SelectedRatingprofile.DRatings.First(x => x.Key == 2.5).Value.ToString())];
-				T3Value.SelectedItem = T3Value.Items[T3Value.Items.IndexOf(SelectedRatingprofile.DRatings.First(x => x.Key == 3).Value.ToString())];
-				T35Value.SelectedItem = T35Value.Items[T35Value.Items.IndexOf(SelectedRatingprofile.DRatings.First(x => x.Key == 3.5).Value.ToString())];
-				T4Value.SelectedItem = T4Value.Items[T4Value.Items.IndexOf(SelectedRatingprofile.DRatings.First(x => x.Key == 4).Value.ToString())];
-				T45Value.SelectedItem = T45Value.Items[T45Value.Items.IndexOf(SelectedRatingprofile.DRatings.First(x => x.Key == 4.5).Value.ToString())];
-				T5Value.SelectedItem = T5Value.Items[T5Value.Items.IndexOf(SelectedRatingprofile.DRatings.First(x => x.Key == 5).Value.ToString())];
+				T1Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 1).Value.ToString();
+				T15Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 1.5).Value.ToString();
+				T2Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 2).Value.ToString();
+				T25Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 2.5).Value.ToString();
+				T3Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 3).Value.ToString();
+				T35Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 3.5).Value.ToString();
+				T4Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 4).Value.ToString();
+				T45Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 4.5).Value.ToString();
+				T5Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 5).Value.ToString();
 
 				//Sonstige
 				NMFlagValue.Text = SelectedRatingprofile.NMPenalty.ToString();
@@ -421,7 +421,7 @@ namespace GeocachingTourPlanner
 				{
 					AgeValue.SelectedItem = AgeValue.Items[1];
 				}
-				AlterZahlValue.SelectedItem = AlterZahlValue.Items[AlterZahlValue.Items.IndexOf(SelectedRatingprofile.Yearfactor.ToString())];
+				AgeFactorValue.Text =SelectedRatingprofile.Yearfactor.ToString();
 			}
 			catch (Exception)
 			{
@@ -608,6 +608,11 @@ namespace GeocachingTourPlanner
 		private void CreateRouteButtonClick(object sender, EventArgs e)
 		{
 			if (!Program.RouteCalculationRunning)
+
+			Application.UseWaitCursor = true;
+			
+			#region get Values
+			if (SelectedRoutingprofileCombobox.Text.Length == 0)
 			{
 				Program.RouteCalculationRunning = true;
 				Application.UseWaitCursor = true;
@@ -1087,9 +1092,11 @@ namespace GeocachingTourPlanner
 		#region Settings
 		private void EveryNthPointTextBox_TextChanged(object sender, EventArgs e)
 		{
-			if(int.TryParse(EveryNthPointTextBox.Text,out int value)){
-				Program.DB.EveryNthShapepoint = value;
-				Fileoperations.Backup(null);
+
+			if(int.TryParse(EveryNthPointTextBox.Text,out int Value)){
+				Program.DB.EveryNthShapepoint = Value;
+				Program.Backup(null);
+
 			}
 			else if(EveryNthPointTextBox.Text.Length!=0)
 			{
@@ -1099,16 +1106,17 @@ namespace GeocachingTourPlanner
 
 		private void DivisorTextBox_TextChanged(object sender, EventArgs e)
 		{
-			if (int.TryParse(DivisorTextBox.Text, out int value))
+			if (int.TryParse(DivisorTextBox.Text, out int Value))
 			{
-				if (value == 0)
+				if (Value == 0)
 				{
 					MessageBox.Show("Can't divide through 0");
 				}
 				else
 				{
-					Program.DB.Divisor = value;
-					Fileoperations.Backup(null);
+
+					Program.DB.Divisor = Value;
+					Program.Backup(null);
 				}
 			}
 			else if(DivisorTextBox.Text.Length!=0)
@@ -1119,10 +1127,11 @@ namespace GeocachingTourPlanner
 
 		private void ToleranceTextBox_TextChanged(object sender, EventArgs e)
 		{
-			if (int.TryParse(ToleranceTextBox.Text, out int value))
+			if (int.TryParse(ToleranceTextBox.Text, out int Value))
 			{
-				Program.DB.Tolerance = value;
-				Fileoperations.Backup(null);
+				Program.DB.Tolerance = Value;
+				Program.Backup(null);
+
 			}
 			else if (ToleranceTextBox.Text.Length != 0)
 			{
@@ -1133,10 +1142,11 @@ namespace GeocachingTourPlanner
 
 		private void RoutefindingWidth_Textbox_TextChanged(object sender, EventArgs e)
 		{
-			if (int.TryParse(RoutefindingWidth_Textbox.Text, out int value))
+			if (int.TryParse(RoutefindingWidth_Textbox.Text, out int Value))
 			{
-				Program.DB.RoutefindingWidth = value;
-				Fileoperations.Backup(null);
+				Program.DB.RoutefindingWidth = Value;
+				Program.Backup(null);
+
 			}
 			else if (ToleranceTextBox.Text.Length != 0)
 			{

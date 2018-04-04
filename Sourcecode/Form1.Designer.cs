@@ -80,38 +80,21 @@ namespace GeocachingTourPlanner
 			this.RatingprofilesSettingsTabelLayout = new System.Windows.Forms.TableLayoutPanel();
 			this.groupBox6 = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
-			this.AlterZahlValue = new System.Windows.Forms.ComboBox();
 			this.AgeValue = new System.Windows.Forms.ComboBox();
 			this.DValueungGroupBox = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-			this.D4Value = new System.Windows.Forms.ComboBox();
-			this.D45Value = new System.Windows.Forms.ComboBox();
-			this.D5Value = new System.Windows.Forms.ComboBox();
 			this.label22 = new System.Windows.Forms.Label();
 			this.label23 = new System.Windows.Forms.Label();
 			this.label26 = new System.Windows.Forms.Label();
 			this.label27 = new System.Windows.Forms.Label();
-			this.D25Value = new System.Windows.Forms.ComboBox();
 			this.label28 = new System.Windows.Forms.Label();
-			this.D2Value = new System.Windows.Forms.ComboBox();
 			this.label29 = new System.Windows.Forms.Label();
-			this.D15Value = new System.Windows.Forms.ComboBox();
 			this.label30 = new System.Windows.Forms.Label();
-			this.D1Value = new System.Windows.Forms.ComboBox();
 			this.label24 = new System.Windows.Forms.Label();
-			this.D35Value = new System.Windows.Forms.ComboBox();
 			this.label25 = new System.Windows.Forms.Label();
-			this.D3Value = new System.Windows.Forms.ComboBox();
 			this.label21 = new System.Windows.Forms.Label();
-			this.DPrioritätenValue = new System.Windows.Forms.ComboBox();
 			this.GeocachetypGroupBox = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-			this.WherigoValue = new System.Windows.Forms.ComboBox();
-			this.MysteryValue = new System.Windows.Forms.ComboBox();
-			this.LetterboxValue = new System.Windows.Forms.ComboBox();
-			this.Multivalue = new System.Windows.Forms.ComboBox();
-			this.EarthcacheValue = new System.Windows.Forms.ComboBox();
-			this.Traditionalvalue = new System.Windows.Forms.ComboBox();
 			this.label6 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
@@ -119,50 +102,30 @@ namespace GeocachingTourPlanner
 			this.label10 = new System.Windows.Forms.Label();
 			this.label11 = new System.Windows.Forms.Label();
 			this.label14 = new System.Windows.Forms.Label();
-			this.TypePriorityvalue = new System.Windows.Forms.ComboBox();
 			this.label5 = new System.Windows.Forms.Label();
-			this.VirtualValue = new System.Windows.Forms.ComboBox();
 			this.label19 = new System.Windows.Forms.Label();
-			this.OtherTypeValue = new System.Windows.Forms.ComboBox();
 			this.label8 = new System.Windows.Forms.Label();
-			this.WebcamValue = new System.Windows.Forms.ComboBox();
 			this.label20 = new System.Windows.Forms.Label();
 			this.GeocachegrößeGroupBox = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-			this.RegularValue = new System.Windows.Forms.ComboBox();
-			this.LargeValue = new System.Windows.Forms.ComboBox();
 			this.label7 = new System.Windows.Forms.Label();
 			this.label12 = new System.Windows.Forms.Label();
 			this.label16 = new System.Windows.Forms.Label();
-			this.GrößenPrioritätValue = new System.Windows.Forms.ComboBox();
 			this.label18 = new System.Windows.Forms.Label();
-			this.OtherGrößeValue = new System.Windows.Forms.ComboBox();
 			this.label17 = new System.Windows.Forms.Label();
-			this.MicroValue = new System.Windows.Forms.ComboBox();
 			this.label13 = new System.Windows.Forms.Label();
-			this.SmallValue = new System.Windows.Forms.ComboBox();
 			this.TValueungGroupbox = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-			this.T4Value = new System.Windows.Forms.ComboBox();
-			this.T45Value = new System.Windows.Forms.ComboBox();
-			this.T5Value = new System.Windows.Forms.ComboBox();
 			this.label32 = new System.Windows.Forms.Label();
 			this.label33 = new System.Windows.Forms.Label();
 			this.label36 = new System.Windows.Forms.Label();
 			this.label38 = new System.Windows.Forms.Label();
-			this.T2Value = new System.Windows.Forms.ComboBox();
 			this.label39 = new System.Windows.Forms.Label();
-			this.T15Value = new System.Windows.Forms.ComboBox();
 			this.label40 = new System.Windows.Forms.Label();
-			this.T1Value = new System.Windows.Forms.ComboBox();
 			this.label37 = new System.Windows.Forms.Label();
-			this.T25Value = new System.Windows.Forms.ComboBox();
 			this.label34 = new System.Windows.Forms.Label();
-			this.T35Value = new System.Windows.Forms.ComboBox();
 			this.label35 = new System.Windows.Forms.Label();
-			this.T3Value = new System.Windows.Forms.ComboBox();
 			this.label31 = new System.Windows.Forms.Label();
-			this.TPrioritätenValue = new System.Windows.Forms.ComboBox();
 			this.Sonstiges = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
 			this.label15 = new System.Windows.Forms.Label();
@@ -220,6 +183,43 @@ namespace GeocachingTourPlanner
 			this.RoutefindingWidth_Textbox = new System.Windows.Forms.TextBox();
 			this.LiveDisplayRouteCalculationCheckbox = new System.Windows.Forms.CheckBox();
 			this.Autotargetselection = new System.Windows.Forms.CheckBox();
+			this.TraditionalValue = new System.Windows.Forms.TextBox();
+			this.TypePriorityValue = new System.Windows.Forms.TextBox();
+			this.EarthcacheValue = new System.Windows.Forms.TextBox();
+			this.VirtualValue = new System.Windows.Forms.TextBox();
+			this.MultiValue = new System.Windows.Forms.TextBox();
+			this.LetterboxValue = new System.Windows.Forms.TextBox();
+			this.OtherTypeValue = new System.Windows.Forms.TextBox();
+			this.MysteryValue = new System.Windows.Forms.TextBox();
+			this.WherigoValue = new System.Windows.Forms.TextBox();
+			this.WebcamValue = new System.Windows.Forms.TextBox();
+			this.SizePriorityValue = new System.Windows.Forms.TextBox();
+			this.MicroValue = new System.Windows.Forms.TextBox();
+			this.LargeValue = new System.Windows.Forms.TextBox();
+			this.SmallValue = new System.Windows.Forms.TextBox();
+			this.OtherSizeValue = new System.Windows.Forms.TextBox();
+			this.RegularValue = new System.Windows.Forms.TextBox();
+			this.DPriorityValue = new System.Windows.Forms.TextBox();
+			this.D5Value = new System.Windows.Forms.TextBox();
+			this.D35Value = new System.Windows.Forms.TextBox();
+			this.D2Value = new System.Windows.Forms.TextBox();
+			this.D45Value = new System.Windows.Forms.TextBox();
+			this.D4Value = new System.Windows.Forms.TextBox();
+			this.D3Value = new System.Windows.Forms.TextBox();
+			this.D15Value = new System.Windows.Forms.TextBox();
+			this.D25Value = new System.Windows.Forms.TextBox();
+			this.D1Value = new System.Windows.Forms.TextBox();
+			this.TPriorityValue = new System.Windows.Forms.TextBox();
+			this.T5Value = new System.Windows.Forms.TextBox();
+			this.T35Value = new System.Windows.Forms.TextBox();
+			this.T2Value = new System.Windows.Forms.TextBox();
+			this.T45Value = new System.Windows.Forms.TextBox();
+			this.T3Value = new System.Windows.Forms.TextBox();
+			this.T15Value = new System.Windows.Forms.TextBox();
+			this.T4Value = new System.Windows.Forms.TextBox();
+			this.T25Value = new System.Windows.Forms.TextBox();
+			this.T1Value = new System.Windows.Forms.TextBox();
+			this.AgeFactorValue = new System.Windows.Forms.TextBox();
 			this.UpmostTableLayoutPanel.SuspendLayout();
 			this.Tabcontainer.SuspendLayout();
 			this.MapTab.SuspendLayout();
@@ -935,7 +935,7 @@ namespace GeocachingTourPlanner
 			this.RatingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19.04717F));
 			this.RatingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.523665F));
 			this.RatingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.523665F));
-			this.RatingprofilesSettingsTabelLayout.Size = new System.Drawing.Size(363, 634);
+			this.RatingprofilesSettingsTabelLayout.Size = new System.Drawing.Size(363, 617);
 			this.RatingprofilesSettingsTabelLayout.TabIndex = 4;
 			// 
 			// groupBox6
@@ -943,9 +943,9 @@ namespace GeocachingTourPlanner
 			this.groupBox6.AutoSize = true;
 			this.groupBox6.Controls.Add(this.tableLayoutPanel8);
 			this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.groupBox6.Location = new System.Drawing.Point(3, 529);
+			this.groupBox6.Location = new System.Drawing.Point(3, 516);
 			this.groupBox6.Name = "groupBox6";
-			this.groupBox6.Size = new System.Drawing.Size(357, 47);
+			this.groupBox6.Size = new System.Drawing.Size(357, 45);
 			this.groupBox6.TabIndex = 5;
 			this.groupBox6.TabStop = false;
 			this.groupBox6.Text = "Age";
@@ -955,40 +955,15 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel8.ColumnCount = 2;
 			this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
 			this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-			this.tableLayoutPanel8.Controls.Add(this.AlterZahlValue, 0, 0);
+			this.tableLayoutPanel8.Controls.Add(this.AgeFactorValue, 0, 0);
 			this.tableLayoutPanel8.Controls.Add(this.AgeValue, 0, 0);
 			this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 16);
 			this.tableLayoutPanel8.Name = "tableLayoutPanel8";
 			this.tableLayoutPanel8.RowCount = 1;
 			this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel8.Size = new System.Drawing.Size(351, 28);
+			this.tableLayoutPanel8.Size = new System.Drawing.Size(351, 26);
 			this.tableLayoutPanel8.TabIndex = 0;
-			// 
-			// AlterZahlValue
-			// 
-			this.AlterZahlValue.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.AlterZahlValue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.AlterZahlValue.Dock = System.Windows.Forms.DockStyle.Left;
-			this.AlterZahlValue.FormattingEnabled = true;
-			this.AlterZahlValue.Items.AddRange(new object[] {
-            "1",
-            "10",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.AlterZahlValue.Location = new System.Drawing.Point(283, 3);
-			this.AlterZahlValue.MaxLength = 1;
-			this.AlterZahlValue.Name = "AlterZahlValue";
-			this.AlterZahlValue.Size = new System.Drawing.Size(47, 21);
-			this.AlterZahlValue.Sorted = true;
-			this.AlterZahlValue.TabIndex = 16;
-			this.AlterZahlValue.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
 			// 
 			// AgeValue
 			// 
@@ -1008,9 +983,9 @@ namespace GeocachingTourPlanner
 			this.DValueungGroupBox.AutoSize = true;
 			this.DValueungGroupBox.Controls.Add(this.tableLayoutPanel4);
 			this.DValueungGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.DValueungGroupBox.Location = new System.Drawing.Point(3, 317);
+			this.DValueungGroupBox.Location = new System.Drawing.Point(3, 310);
 			this.DValueungGroupBox.Name = "DValueungGroupBox";
-			this.DValueungGroupBox.Size = new System.Drawing.Size(357, 100);
+			this.DValueungGroupBox.Size = new System.Drawing.Size(357, 97);
 			this.DValueungGroupBox.TabIndex = 2;
 			this.DValueungGroupBox.TabStop = false;
 			this.DValueungGroupBox.Text = "D-Rating";
@@ -1028,26 +1003,26 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
 			this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
 			this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-			this.tableLayoutPanel4.Controls.Add(this.D4Value, 3, 2);
-			this.tableLayoutPanel4.Controls.Add(this.D45Value, 3, 1);
-			this.tableLayoutPanel4.Controls.Add(this.D5Value, 3, 0);
 			this.tableLayoutPanel4.Controls.Add(this.label22, 2, 1);
 			this.tableLayoutPanel4.Controls.Add(this.label23, 2, 2);
 			this.tableLayoutPanel4.Controls.Add(this.label26, 2, 0);
 			this.tableLayoutPanel4.Controls.Add(this.label27, 4, 2);
-			this.tableLayoutPanel4.Controls.Add(this.D25Value, 5, 2);
 			this.tableLayoutPanel4.Controls.Add(this.label28, 6, 0);
-			this.tableLayoutPanel4.Controls.Add(this.D2Value, 7, 0);
 			this.tableLayoutPanel4.Controls.Add(this.label29, 6, 1);
-			this.tableLayoutPanel4.Controls.Add(this.D15Value, 7, 1);
 			this.tableLayoutPanel4.Controls.Add(this.label30, 6, 2);
-			this.tableLayoutPanel4.Controls.Add(this.D1Value, 7, 2);
 			this.tableLayoutPanel4.Controls.Add(this.label24, 4, 0);
-			this.tableLayoutPanel4.Controls.Add(this.D35Value, 5, 0);
 			this.tableLayoutPanel4.Controls.Add(this.label25, 4, 1);
-			this.tableLayoutPanel4.Controls.Add(this.D3Value, 5, 1);
 			this.tableLayoutPanel4.Controls.Add(this.label21, 0, 0);
-			this.tableLayoutPanel4.Controls.Add(this.DPrioritätenValue, 1, 0);
+			this.tableLayoutPanel4.Controls.Add(this.DPriorityValue, 1, 0);
+			this.tableLayoutPanel4.Controls.Add(this.D5Value, 3, 0);
+			this.tableLayoutPanel4.Controls.Add(this.D35Value, 5, 0);
+			this.tableLayoutPanel4.Controls.Add(this.D2Value, 7, 0);
+			this.tableLayoutPanel4.Controls.Add(this.D45Value, 3, 1);
+			this.tableLayoutPanel4.Controls.Add(this.D4Value, 3, 2);
+			this.tableLayoutPanel4.Controls.Add(this.D3Value, 5, 1);
+			this.tableLayoutPanel4.Controls.Add(this.D15Value, 7, 1);
+			this.tableLayoutPanel4.Controls.Add(this.D25Value, 5, 2);
+			this.tableLayoutPanel4.Controls.Add(this.D1Value, 7, 2);
 			this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 16);
 			this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -1056,92 +1031,17 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.tableLayoutPanel4.Size = new System.Drawing.Size(351, 81);
+			this.tableLayoutPanel4.Size = new System.Drawing.Size(351, 78);
 			this.tableLayoutPanel4.TabIndex = 1;
-			// 
-			// D4Value
-			// 
-			this.D4Value.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.D4Value.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.D4Value.Dock = System.Windows.Forms.DockStyle.Left;
-			this.D4Value.FormattingEnabled = true;
-			this.D4Value.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.D4Value.Location = new System.Drawing.Point(129, 57);
-			this.D4Value.MaxLength = 1;
-			this.D4Value.Name = "D4Value";
-			this.D4Value.Size = new System.Drawing.Size(40, 21);
-			this.D4Value.Sorted = true;
-			this.D4Value.TabIndex = 18;
-			this.D4Value.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
-			// D45Value
-			// 
-			this.D45Value.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.D45Value.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.D45Value.Dock = System.Windows.Forms.DockStyle.Left;
-			this.D45Value.FormattingEnabled = true;
-			this.D45Value.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.D45Value.Location = new System.Drawing.Point(129, 30);
-			this.D45Value.MaxLength = 1;
-			this.D45Value.Name = "D45Value";
-			this.D45Value.Size = new System.Drawing.Size(40, 21);
-			this.D45Value.Sorted = true;
-			this.D45Value.TabIndex = 16;
-			this.D45Value.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
-			// D5Value
-			// 
-			this.D5Value.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.D5Value.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.D5Value.Dock = System.Windows.Forms.DockStyle.Left;
-			this.D5Value.FormattingEnabled = true;
-			this.D5Value.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.D5Value.Location = new System.Drawing.Point(129, 3);
-			this.D5Value.MaxLength = 1;
-			this.D5Value.Name = "D5Value";
-			this.D5Value.Size = new System.Drawing.Size(40, 21);
-			this.D5Value.Sorted = true;
-			this.D5Value.TabIndex = 14;
-			this.D5Value.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
 			// 
 			// label22
 			// 
 			this.label22.AutoSize = true;
 			this.label22.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label22.Location = new System.Drawing.Point(93, 30);
+			this.label22.Location = new System.Drawing.Point(83, 29);
 			this.label22.Margin = new System.Windows.Forms.Padding(3);
 			this.label22.Name = "label22";
-			this.label22.Size = new System.Drawing.Size(30, 21);
+			this.label22.Size = new System.Drawing.Size(30, 20);
 			this.label22.TabIndex = 0;
 			this.label22.Text = "D4.5";
 			// 
@@ -1149,10 +1049,10 @@ namespace GeocachingTourPlanner
 			// 
 			this.label23.AutoSize = true;
 			this.label23.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label23.Location = new System.Drawing.Point(93, 57);
+			this.label23.Location = new System.Drawing.Point(83, 55);
 			this.label23.Margin = new System.Windows.Forms.Padding(3);
 			this.label23.Name = "label23";
-			this.label23.Size = new System.Drawing.Size(30, 21);
+			this.label23.Size = new System.Drawing.Size(30, 20);
 			this.label23.TabIndex = 1;
 			this.label23.Text = "D4";
 			// 
@@ -1160,216 +1060,72 @@ namespace GeocachingTourPlanner
 			// 
 			this.label26.AutoSize = true;
 			this.label26.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label26.Location = new System.Drawing.Point(93, 3);
+			this.label26.Location = new System.Drawing.Point(83, 3);
 			this.label26.Margin = new System.Windows.Forms.Padding(3);
 			this.label26.Name = "label26";
-			this.label26.Size = new System.Drawing.Size(30, 21);
+			this.label26.Size = new System.Drawing.Size(30, 20);
 			this.label26.TabIndex = 4;
 			this.label26.Text = "D5";
 			// 
 			// label27
 			// 
 			this.label27.AutoSize = true;
-			this.label27.Location = new System.Drawing.Point(175, 57);
+			this.label27.Location = new System.Drawing.Point(155, 55);
 			this.label27.Margin = new System.Windows.Forms.Padding(3);
 			this.label27.Name = "label27";
 			this.label27.Size = new System.Drawing.Size(30, 13);
 			this.label27.TabIndex = 7;
 			this.label27.Text = "D2.5";
 			// 
-			// D25Value
-			// 
-			this.D25Value.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.D25Value.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.D25Value.FormattingEnabled = true;
-			this.D25Value.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.D25Value.Location = new System.Drawing.Point(211, 57);
-			this.D25Value.MaxLength = 1;
-			this.D25Value.Name = "D25Value";
-			this.D25Value.Size = new System.Drawing.Size(40, 21);
-			this.D25Value.Sorted = true;
-			this.D25Value.TabIndex = 15;
-			this.D25Value.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
 			// label28
 			// 
 			this.label28.AutoSize = true;
-			this.label28.Location = new System.Drawing.Point(257, 3);
+			this.label28.Location = new System.Drawing.Point(227, 3);
 			this.label28.Margin = new System.Windows.Forms.Padding(3);
 			this.label28.Name = "label28";
 			this.label28.Size = new System.Drawing.Size(21, 13);
 			this.label28.TabIndex = 8;
 			this.label28.Text = "D2";
 			// 
-			// D2Value
-			// 
-			this.D2Value.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.D2Value.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.D2Value.FormattingEnabled = true;
-			this.D2Value.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.D2Value.Location = new System.Drawing.Point(293, 3);
-			this.D2Value.MaxLength = 1;
-			this.D2Value.Name = "D2Value";
-			this.D2Value.Size = new System.Drawing.Size(40, 21);
-			this.D2Value.Sorted = true;
-			this.D2Value.TabIndex = 17;
-			this.D2Value.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
 			// label29
 			// 
 			this.label29.AutoSize = true;
-			this.label29.Location = new System.Drawing.Point(257, 30);
+			this.label29.Location = new System.Drawing.Point(227, 29);
 			this.label29.Margin = new System.Windows.Forms.Padding(3);
 			this.label29.Name = "label29";
 			this.label29.Size = new System.Drawing.Size(30, 13);
 			this.label29.TabIndex = 9;
 			this.label29.Text = "D1.5";
 			// 
-			// D15Value
-			// 
-			this.D15Value.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.D15Value.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.D15Value.FormattingEnabled = true;
-			this.D15Value.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.D15Value.Location = new System.Drawing.Point(293, 30);
-			this.D15Value.MaxLength = 1;
-			this.D15Value.Name = "D15Value";
-			this.D15Value.Size = new System.Drawing.Size(40, 21);
-			this.D15Value.Sorted = true;
-			this.D15Value.TabIndex = 19;
-			this.D15Value.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
 			// label30
 			// 
 			this.label30.AutoSize = true;
-			this.label30.Location = new System.Drawing.Point(257, 57);
+			this.label30.Location = new System.Drawing.Point(227, 55);
 			this.label30.Margin = new System.Windows.Forms.Padding(3);
 			this.label30.Name = "label30";
 			this.label30.Size = new System.Drawing.Size(21, 13);
 			this.label30.TabIndex = 10;
 			this.label30.Text = "D1";
 			// 
-			// D1Value
-			// 
-			this.D1Value.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.D1Value.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.D1Value.FormattingEnabled = true;
-			this.D1Value.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.D1Value.Location = new System.Drawing.Point(293, 57);
-			this.D1Value.MaxLength = 1;
-			this.D1Value.Name = "D1Value";
-			this.D1Value.Size = new System.Drawing.Size(40, 21);
-			this.D1Value.Sorted = true;
-			this.D1Value.TabIndex = 21;
-			this.D1Value.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
 			// label24
 			// 
 			this.label24.AutoSize = true;
-			this.label24.Location = new System.Drawing.Point(175, 3);
+			this.label24.Location = new System.Drawing.Point(155, 3);
 			this.label24.Margin = new System.Windows.Forms.Padding(3);
 			this.label24.Name = "label24";
 			this.label24.Size = new System.Drawing.Size(30, 13);
 			this.label24.TabIndex = 2;
 			this.label24.Text = "D3.5";
 			// 
-			// D35Value
-			// 
-			this.D35Value.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.D35Value.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.D35Value.FormattingEnabled = true;
-			this.D35Value.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.D35Value.Location = new System.Drawing.Point(211, 3);
-			this.D35Value.MaxLength = 1;
-			this.D35Value.Name = "D35Value";
-			this.D35Value.Size = new System.Drawing.Size(40, 21);
-			this.D35Value.Sorted = true;
-			this.D35Value.TabIndex = 20;
-			this.D35Value.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
 			// label25
 			// 
 			this.label25.AutoSize = true;
-			this.label25.Location = new System.Drawing.Point(175, 30);
+			this.label25.Location = new System.Drawing.Point(155, 29);
 			this.label25.Margin = new System.Windows.Forms.Padding(3);
 			this.label25.Name = "label25";
 			this.label25.Size = new System.Drawing.Size(21, 13);
 			this.label25.TabIndex = 3;
 			this.label25.Text = "D3";
-			// 
-			// D3Value
-			// 
-			this.D3Value.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.D3Value.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.D3Value.FormattingEnabled = true;
-			this.D3Value.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.D3Value.Location = new System.Drawing.Point(211, 30);
-			this.D3Value.MaxLength = 1;
-			this.D3Value.Name = "D3Value";
-			this.D3Value.Size = new System.Drawing.Size(40, 21);
-			this.D3Value.Sorted = true;
-			this.D3Value.TabIndex = 22;
-			this.D3Value.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
 			// 
 			// label21
 			// 
@@ -1381,30 +1137,6 @@ namespace GeocachingTourPlanner
 			this.label21.TabIndex = 5;
 			this.label21.Text = "Priority";
 			// 
-			// DPrioritätenValue
-			// 
-			this.DPrioritätenValue.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.DPrioritätenValue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.DPrioritätenValue.FormattingEnabled = true;
-			this.DPrioritätenValue.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.DPrioritätenValue.Location = new System.Drawing.Point(47, 3);
-			this.DPrioritätenValue.MaxLength = 1;
-			this.DPrioritätenValue.Name = "DPrioritätenValue";
-			this.DPrioritätenValue.Size = new System.Drawing.Size(40, 21);
-			this.DPrioritätenValue.Sorted = true;
-			this.DPrioritätenValue.TabIndex = 11;
-			this.DPrioritätenValue.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
 			// GeocachetypGroupBox
 			// 
 			this.GeocachetypGroupBox.AutoSize = true;
@@ -1413,7 +1145,7 @@ namespace GeocachingTourPlanner
 			this.GeocachetypGroupBox.Location = new System.Drawing.Point(3, 78);
 			this.GeocachetypGroupBox.Name = "GeocachetypGroupBox";
 			this.GeocachetypGroupBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.GeocachetypGroupBox.Size = new System.Drawing.Size(357, 127);
+			this.GeocachetypGroupBox.Size = new System.Drawing.Size(357, 123);
 			this.GeocachetypGroupBox.TabIndex = 0;
 			this.GeocachetypGroupBox.TabStop = false;
 			this.GeocachetypGroupBox.Text = "Geocachetype";
@@ -1429,12 +1161,15 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
 			this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
 			this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+			this.tableLayoutPanel7.Controls.Add(this.WebcamValue, 5, 3);
 			this.tableLayoutPanel7.Controls.Add(this.WherigoValue, 3, 3);
 			this.tableLayoutPanel7.Controls.Add(this.MysteryValue, 1, 3);
+			this.tableLayoutPanel7.Controls.Add(this.OtherTypeValue, 5, 2);
 			this.tableLayoutPanel7.Controls.Add(this.LetterboxValue, 3, 2);
-			this.tableLayoutPanel7.Controls.Add(this.Multivalue, 1, 2);
+			this.tableLayoutPanel7.Controls.Add(this.MultiValue, 1, 2);
+			this.tableLayoutPanel7.Controls.Add(this.VirtualValue, 5, 1);
 			this.tableLayoutPanel7.Controls.Add(this.EarthcacheValue, 3, 1);
-			this.tableLayoutPanel7.Controls.Add(this.Traditionalvalue, 1, 1);
+			this.tableLayoutPanel7.Controls.Add(this.TypePriorityValue, 1, 0);
 			this.tableLayoutPanel7.Controls.Add(this.label6, 0, 0);
 			this.tableLayoutPanel7.Controls.Add(this.label3, 0, 2);
 			this.tableLayoutPanel7.Controls.Add(this.label4, 0, 3);
@@ -1442,13 +1177,10 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel7.Controls.Add(this.label10, 2, 1);
 			this.tableLayoutPanel7.Controls.Add(this.label11, 2, 2);
 			this.tableLayoutPanel7.Controls.Add(this.label14, 2, 3);
-			this.tableLayoutPanel7.Controls.Add(this.TypePriorityvalue, 1, 0);
 			this.tableLayoutPanel7.Controls.Add(this.label5, 4, 1);
-			this.tableLayoutPanel7.Controls.Add(this.VirtualValue, 5, 1);
 			this.tableLayoutPanel7.Controls.Add(this.label19, 4, 2);
-			this.tableLayoutPanel7.Controls.Add(this.OtherTypeValue, 5, 2);
 			this.tableLayoutPanel7.Controls.Add(this.label8, 4, 3);
-			this.tableLayoutPanel7.Controls.Add(this.WebcamValue, 5, 3);
+			this.tableLayoutPanel7.Controls.Add(this.TraditionalValue, 1, 1);
 			this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 16);
 			this.tableLayoutPanel7.Name = "tableLayoutPanel7";
@@ -1459,158 +1191,8 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanel7.Size = new System.Drawing.Size(351, 108);
+			this.tableLayoutPanel7.Size = new System.Drawing.Size(351, 104);
 			this.tableLayoutPanel7.TabIndex = 0;
-			// 
-			// WherigoValue
-			// 
-			this.WherigoValue.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.WherigoValue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.WherigoValue.Dock = System.Windows.Forms.DockStyle.Left;
-			this.WherigoValue.FormattingEnabled = true;
-			this.WherigoValue.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.WherigoValue.Location = new System.Drawing.Point(179, 84);
-			this.WherigoValue.MaxLength = 1;
-			this.WherigoValue.Name = "WherigoValue";
-			this.WherigoValue.Size = new System.Drawing.Size(40, 21);
-			this.WherigoValue.Sorted = true;
-			this.WherigoValue.TabIndex = 19;
-			this.WherigoValue.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
-			// MysteryValue
-			// 
-			this.MysteryValue.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.MysteryValue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.MysteryValue.Dock = System.Windows.Forms.DockStyle.Left;
-			this.MysteryValue.FormattingEnabled = true;
-			this.MysteryValue.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.MysteryValue.Location = new System.Drawing.Point(65, 84);
-			this.MysteryValue.MaxLength = 1;
-			this.MysteryValue.Name = "MysteryValue";
-			this.MysteryValue.Size = new System.Drawing.Size(40, 21);
-			this.MysteryValue.Sorted = true;
-			this.MysteryValue.TabIndex = 18;
-			this.MysteryValue.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
-			// LetterboxValue
-			// 
-			this.LetterboxValue.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.LetterboxValue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.LetterboxValue.Dock = System.Windows.Forms.DockStyle.Left;
-			this.LetterboxValue.FormattingEnabled = true;
-			this.LetterboxValue.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.LetterboxValue.Location = new System.Drawing.Point(179, 57);
-			this.LetterboxValue.MaxLength = 1;
-			this.LetterboxValue.Name = "LetterboxValue";
-			this.LetterboxValue.Size = new System.Drawing.Size(40, 21);
-			this.LetterboxValue.Sorted = true;
-			this.LetterboxValue.TabIndex = 17;
-			this.LetterboxValue.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
-			// Multivalue
-			// 
-			this.Multivalue.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.Multivalue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.Multivalue.Dock = System.Windows.Forms.DockStyle.Left;
-			this.Multivalue.FormattingEnabled = true;
-			this.Multivalue.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.Multivalue.Location = new System.Drawing.Point(65, 57);
-			this.Multivalue.MaxLength = 1;
-			this.Multivalue.Name = "Multivalue";
-			this.Multivalue.Size = new System.Drawing.Size(40, 21);
-			this.Multivalue.Sorted = true;
-			this.Multivalue.TabIndex = 16;
-			this.Multivalue.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
-			// EarthcacheValue
-			// 
-			this.EarthcacheValue.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.EarthcacheValue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.EarthcacheValue.Dock = System.Windows.Forms.DockStyle.Left;
-			this.EarthcacheValue.FormattingEnabled = true;
-			this.EarthcacheValue.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.EarthcacheValue.Location = new System.Drawing.Point(179, 30);
-			this.EarthcacheValue.MaxLength = 1;
-			this.EarthcacheValue.Name = "EarthcacheValue";
-			this.EarthcacheValue.Size = new System.Drawing.Size(40, 21);
-			this.EarthcacheValue.Sorted = true;
-			this.EarthcacheValue.TabIndex = 15;
-			this.EarthcacheValue.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
-			// Traditionalvalue
-			// 
-			this.Traditionalvalue.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.Traditionalvalue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.Traditionalvalue.Dock = System.Windows.Forms.DockStyle.Left;
-			this.Traditionalvalue.FormattingEnabled = true;
-			this.Traditionalvalue.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.Traditionalvalue.Location = new System.Drawing.Point(65, 30);
-			this.Traditionalvalue.MaxLength = 1;
-			this.Traditionalvalue.Name = "Traditionalvalue";
-			this.Traditionalvalue.Size = new System.Drawing.Size(40, 21);
-			this.Traditionalvalue.Sorted = true;
-			this.Traditionalvalue.TabIndex = 14;
-			this.Traditionalvalue.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
 			// 
 			// label6
 			// 
@@ -1619,7 +1201,7 @@ namespace GeocachingTourPlanner
 			this.label6.Location = new System.Drawing.Point(3, 3);
 			this.label6.Margin = new System.Windows.Forms.Padding(3);
 			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(56, 21);
+			this.label6.Size = new System.Drawing.Size(56, 20);
 			this.label6.TabIndex = 5;
 			this.label6.Text = "Priority";
 			// 
@@ -1627,10 +1209,10 @@ namespace GeocachingTourPlanner
 			// 
 			this.label3.AutoSize = true;
 			this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label3.Location = new System.Drawing.Point(3, 57);
+			this.label3.Location = new System.Drawing.Point(3, 55);
 			this.label3.Margin = new System.Windows.Forms.Padding(3);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(56, 21);
+			this.label3.Size = new System.Drawing.Size(56, 20);
 			this.label3.TabIndex = 0;
 			this.label3.Text = "Multi";
 			// 
@@ -1638,10 +1220,10 @@ namespace GeocachingTourPlanner
 			// 
 			this.label4.AutoSize = true;
 			this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label4.Location = new System.Drawing.Point(3, 84);
+			this.label4.Location = new System.Drawing.Point(3, 81);
 			this.label4.Margin = new System.Windows.Forms.Padding(3);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(56, 21);
+			this.label4.Size = new System.Drawing.Size(56, 20);
 			this.label4.TabIndex = 1;
 			this.label4.Text = "Mystery";
 			// 
@@ -1649,10 +1231,10 @@ namespace GeocachingTourPlanner
 			// 
 			this.label9.AutoSize = true;
 			this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label9.Location = new System.Drawing.Point(3, 30);
+			this.label9.Location = new System.Drawing.Point(3, 29);
 			this.label9.Margin = new System.Windows.Forms.Padding(3);
 			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(56, 21);
+			this.label9.Size = new System.Drawing.Size(56, 20);
 			this.label9.TabIndex = 4;
 			this.label9.Text = "Traditional";
 			// 
@@ -1660,10 +1242,10 @@ namespace GeocachingTourPlanner
 			// 
 			this.label10.AutoSize = true;
 			this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label10.Location = new System.Drawing.Point(111, 30);
+			this.label10.Location = new System.Drawing.Point(101, 29);
 			this.label10.Margin = new System.Windows.Forms.Padding(3);
 			this.label10.Name = "label10";
-			this.label10.Size = new System.Drawing.Size(62, 21);
+			this.label10.Size = new System.Drawing.Size(62, 20);
 			this.label10.TabIndex = 7;
 			this.label10.Text = "Earthcache";
 			// 
@@ -1671,10 +1253,10 @@ namespace GeocachingTourPlanner
 			// 
 			this.label11.AutoSize = true;
 			this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label11.Location = new System.Drawing.Point(111, 57);
+			this.label11.Location = new System.Drawing.Point(101, 55);
 			this.label11.Margin = new System.Windows.Forms.Padding(3);
 			this.label11.Name = "label11";
-			this.label11.Size = new System.Drawing.Size(62, 21);
+			this.label11.Size = new System.Drawing.Size(62, 20);
 			this.label11.TabIndex = 8;
 			this.label11.Text = "Letterbox";
 			// 
@@ -1682,139 +1264,42 @@ namespace GeocachingTourPlanner
 			// 
 			this.label14.AutoSize = true;
 			this.label14.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label14.Location = new System.Drawing.Point(111, 84);
+			this.label14.Location = new System.Drawing.Point(101, 81);
 			this.label14.Margin = new System.Windows.Forms.Padding(3);
 			this.label14.Name = "label14";
-			this.label14.Size = new System.Drawing.Size(62, 21);
+			this.label14.Size = new System.Drawing.Size(62, 20);
 			this.label14.TabIndex = 9;
 			this.label14.Text = "Wherigo";
-			// 
-			// TypePriorityvalue
-			// 
-			this.TypePriorityvalue.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.TypePriorityvalue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.TypePriorityvalue.Dock = System.Windows.Forms.DockStyle.Left;
-			this.TypePriorityvalue.FormattingEnabled = true;
-			this.TypePriorityvalue.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.TypePriorityvalue.Location = new System.Drawing.Point(65, 3);
-			this.TypePriorityvalue.MaxLength = 1;
-			this.TypePriorityvalue.Name = "TypePriorityvalue";
-			this.TypePriorityvalue.Size = new System.Drawing.Size(40, 21);
-			this.TypePriorityvalue.Sorted = true;
-			this.TypePriorityvalue.TabIndex = 11;
-			this.TypePriorityvalue.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
 			// 
 			// label5
 			// 
 			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(225, 30);
+			this.label5.Location = new System.Drawing.Point(205, 29);
 			this.label5.Margin = new System.Windows.Forms.Padding(3);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(36, 13);
 			this.label5.TabIndex = 2;
 			this.label5.Text = "Virtual";
 			// 
-			// VirtualValue
-			// 
-			this.VirtualValue.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.VirtualValue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.VirtualValue.FormattingEnabled = true;
-			this.VirtualValue.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.VirtualValue.Location = new System.Drawing.Point(281, 30);
-			this.VirtualValue.MaxLength = 1;
-			this.VirtualValue.Name = "VirtualValue";
-			this.VirtualValue.Size = new System.Drawing.Size(40, 21);
-			this.VirtualValue.Sorted = true;
-			this.VirtualValue.TabIndex = 20;
-			this.VirtualValue.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
 			// label19
 			// 
 			this.label19.AutoSize = true;
-			this.label19.Location = new System.Drawing.Point(225, 57);
+			this.label19.Location = new System.Drawing.Point(205, 55);
 			this.label19.Margin = new System.Windows.Forms.Padding(3);
 			this.label19.Name = "label19";
 			this.label19.Size = new System.Drawing.Size(33, 13);
 			this.label19.TabIndex = 10;
 			this.label19.Text = "Other";
 			// 
-			// OtherTypeValue
-			// 
-			this.OtherTypeValue.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.OtherTypeValue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.OtherTypeValue.FormattingEnabled = true;
-			this.OtherTypeValue.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.OtherTypeValue.Location = new System.Drawing.Point(281, 57);
-			this.OtherTypeValue.MaxLength = 1;
-			this.OtherTypeValue.Name = "OtherTypeValue";
-			this.OtherTypeValue.Size = new System.Drawing.Size(40, 21);
-			this.OtherTypeValue.Sorted = true;
-			this.OtherTypeValue.TabIndex = 21;
-			this.OtherTypeValue.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
 			// label8
 			// 
 			this.label8.AutoSize = true;
-			this.label8.Location = new System.Drawing.Point(225, 84);
+			this.label8.Location = new System.Drawing.Point(205, 81);
 			this.label8.Margin = new System.Windows.Forms.Padding(3);
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(50, 13);
 			this.label8.TabIndex = 3;
 			this.label8.Text = "Webcam";
-			// 
-			// WebcamValue
-			// 
-			this.WebcamValue.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.WebcamValue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.WebcamValue.FormattingEnabled = true;
-			this.WebcamValue.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.WebcamValue.Location = new System.Drawing.Point(281, 84);
-			this.WebcamValue.MaxLength = 1;
-			this.WebcamValue.Name = "WebcamValue";
-			this.WebcamValue.Size = new System.Drawing.Size(40, 21);
-			this.WebcamValue.Sorted = true;
-			this.WebcamValue.TabIndex = 22;
-			this.WebcamValue.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
 			// 
 			// label20
 			// 
@@ -1836,9 +1321,9 @@ namespace GeocachingTourPlanner
 			this.GeocachegrößeGroupBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.GeocachegrößeGroupBox.Controls.Add(this.tableLayoutPanel3);
 			this.GeocachegrößeGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.GeocachegrößeGroupBox.Location = new System.Drawing.Point(3, 211);
+			this.GeocachegrößeGroupBox.Location = new System.Drawing.Point(3, 207);
 			this.GeocachegrößeGroupBox.Name = "GeocachegrößeGroupBox";
-			this.GeocachegrößeGroupBox.Size = new System.Drawing.Size(357, 100);
+			this.GeocachegrößeGroupBox.Size = new System.Drawing.Size(357, 97);
 			this.GeocachegrößeGroupBox.TabIndex = 1;
 			this.GeocachegrößeGroupBox.TabStop = false;
 			this.GeocachegrößeGroupBox.Text = "Geocachesize";
@@ -1854,18 +1339,18 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
 			this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
 			this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-			this.tableLayoutPanel3.Controls.Add(this.RegularValue, 1, 2);
-			this.tableLayoutPanel3.Controls.Add(this.LargeValue, 1, 1);
+			this.tableLayoutPanel3.Controls.Add(this.RegularValue, 0, 2);
 			this.tableLayoutPanel3.Controls.Add(this.label7, 0, 0);
 			this.tableLayoutPanel3.Controls.Add(this.label12, 0, 2);
 			this.tableLayoutPanel3.Controls.Add(this.label16, 0, 1);
-			this.tableLayoutPanel3.Controls.Add(this.GrößenPrioritätValue, 1, 0);
 			this.tableLayoutPanel3.Controls.Add(this.label18, 4, 1);
-			this.tableLayoutPanel3.Controls.Add(this.OtherGrößeValue, 5, 1);
 			this.tableLayoutPanel3.Controls.Add(this.label17, 2, 2);
-			this.tableLayoutPanel3.Controls.Add(this.MicroValue, 3, 2);
 			this.tableLayoutPanel3.Controls.Add(this.label13, 2, 1);
+			this.tableLayoutPanel3.Controls.Add(this.SizePriorityValue, 1, 0);
+			this.tableLayoutPanel3.Controls.Add(this.LargeValue, 1, 1);
 			this.tableLayoutPanel3.Controls.Add(this.SmallValue, 3, 1);
+			this.tableLayoutPanel3.Controls.Add(this.MicroValue, 3, 2);
+			this.tableLayoutPanel3.Controls.Add(this.OtherSizeValue, 5, 1);
 			this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 16);
 			this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -1874,58 +1359,8 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanel3.Size = new System.Drawing.Size(351, 81);
+			this.tableLayoutPanel3.Size = new System.Drawing.Size(351, 78);
 			this.tableLayoutPanel3.TabIndex = 1;
-			// 
-			// RegularValue
-			// 
-			this.RegularValue.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.RegularValue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.RegularValue.Dock = System.Windows.Forms.DockStyle.Left;
-			this.RegularValue.FormattingEnabled = true;
-			this.RegularValue.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.RegularValue.Location = new System.Drawing.Point(53, 57);
-			this.RegularValue.MaxLength = 1;
-			this.RegularValue.Name = "RegularValue";
-			this.RegularValue.Size = new System.Drawing.Size(40, 21);
-			this.RegularValue.Sorted = true;
-			this.RegularValue.TabIndex = 16;
-			this.RegularValue.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
-			// LargeValue
-			// 
-			this.LargeValue.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.LargeValue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.LargeValue.Dock = System.Windows.Forms.DockStyle.Left;
-			this.LargeValue.FormattingEnabled = true;
-			this.LargeValue.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.LargeValue.Location = new System.Drawing.Point(53, 30);
-			this.LargeValue.MaxLength = 1;
-			this.LargeValue.Name = "LargeValue";
-			this.LargeValue.Size = new System.Drawing.Size(40, 21);
-			this.LargeValue.Sorted = true;
-			this.LargeValue.TabIndex = 14;
-			this.LargeValue.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
 			// 
 			// label7
 			// 
@@ -1934,7 +1369,7 @@ namespace GeocachingTourPlanner
 			this.label7.Location = new System.Drawing.Point(3, 3);
 			this.label7.Margin = new System.Windows.Forms.Padding(3);
 			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(44, 21);
+			this.label7.Size = new System.Drawing.Size(44, 20);
 			this.label7.TabIndex = 5;
 			this.label7.Text = "Priority";
 			// 
@@ -1942,10 +1377,10 @@ namespace GeocachingTourPlanner
 			// 
 			this.label12.AutoSize = true;
 			this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label12.Location = new System.Drawing.Point(3, 57);
+			this.label12.Location = new System.Drawing.Point(3, 55);
 			this.label12.Margin = new System.Windows.Forms.Padding(3);
 			this.label12.Name = "label12";
-			this.label12.Size = new System.Drawing.Size(44, 21);
+			this.label12.Size = new System.Drawing.Size(44, 20);
 			this.label12.TabIndex = 0;
 			this.label12.Text = "Regular";
 			// 
@@ -1953,148 +1388,52 @@ namespace GeocachingTourPlanner
 			// 
 			this.label16.AutoSize = true;
 			this.label16.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label16.Location = new System.Drawing.Point(3, 30);
+			this.label16.Location = new System.Drawing.Point(3, 29);
 			this.label16.Margin = new System.Windows.Forms.Padding(3);
 			this.label16.Name = "label16";
-			this.label16.Size = new System.Drawing.Size(44, 21);
+			this.label16.Size = new System.Drawing.Size(44, 20);
 			this.label16.TabIndex = 4;
 			this.label16.Text = "Large";
-			// 
-			// GrößenPrioritätValue
-			// 
-			this.GrößenPrioritätValue.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.GrößenPrioritätValue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.GrößenPrioritätValue.Dock = System.Windows.Forms.DockStyle.Left;
-			this.GrößenPrioritätValue.FormattingEnabled = true;
-			this.GrößenPrioritätValue.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.GrößenPrioritätValue.Location = new System.Drawing.Point(53, 3);
-			this.GrößenPrioritätValue.MaxLength = 1;
-			this.GrößenPrioritätValue.Name = "GrößenPrioritätValue";
-			this.GrößenPrioritätValue.Size = new System.Drawing.Size(40, 21);
-			this.GrößenPrioritätValue.Sorted = true;
-			this.GrößenPrioritätValue.TabIndex = 11;
-			this.GrößenPrioritätValue.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
 			// 
 			// label18
 			// 
 			this.label18.AutoSize = true;
-			this.label18.Location = new System.Drawing.Point(184, 30);
+			this.label18.Location = new System.Drawing.Point(164, 29);
 			this.label18.Margin = new System.Windows.Forms.Padding(3);
 			this.label18.Name = "label18";
 			this.label18.Size = new System.Drawing.Size(33, 13);
 			this.label18.TabIndex = 8;
 			this.label18.Text = "Other";
 			// 
-			// OtherGrößeValue
-			// 
-			this.OtherGrößeValue.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.OtherGrößeValue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.OtherGrößeValue.FormattingEnabled = true;
-			this.OtherGrößeValue.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.OtherGrößeValue.Location = new System.Drawing.Point(223, 30);
-			this.OtherGrößeValue.MaxLength = 1;
-			this.OtherGrößeValue.Name = "OtherGrößeValue";
-			this.OtherGrößeValue.Size = new System.Drawing.Size(40, 21);
-			this.OtherGrößeValue.Sorted = true;
-			this.OtherGrößeValue.TabIndex = 17;
-			this.OtherGrößeValue.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
 			// label17
 			// 
 			this.label17.AutoSize = true;
-			this.label17.Location = new System.Drawing.Point(99, 57);
+			this.label17.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.label17.Location = new System.Drawing.Point(89, 55);
 			this.label17.Margin = new System.Windows.Forms.Padding(3);
 			this.label17.Name = "label17";
-			this.label17.Size = new System.Drawing.Size(33, 13);
+			this.label17.Size = new System.Drawing.Size(33, 20);
 			this.label17.TabIndex = 7;
 			this.label17.Text = "Micro";
-			// 
-			// MicroValue
-			// 
-			this.MicroValue.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.MicroValue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.MicroValue.FormattingEnabled = true;
-			this.MicroValue.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.MicroValue.Location = new System.Drawing.Point(138, 57);
-			this.MicroValue.MaxLength = 1;
-			this.MicroValue.Name = "MicroValue";
-			this.MicroValue.Size = new System.Drawing.Size(40, 21);
-			this.MicroValue.Sorted = true;
-			this.MicroValue.TabIndex = 15;
-			this.MicroValue.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
 			// 
 			// label13
 			// 
 			this.label13.AutoSize = true;
-			this.label13.Location = new System.Drawing.Point(99, 30);
+			this.label13.Location = new System.Drawing.Point(89, 29);
 			this.label13.Margin = new System.Windows.Forms.Padding(3);
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(32, 13);
 			this.label13.TabIndex = 1;
 			this.label13.Text = "Small";
 			// 
-			// SmallValue
-			// 
-			this.SmallValue.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.SmallValue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.SmallValue.FormattingEnabled = true;
-			this.SmallValue.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.SmallValue.Location = new System.Drawing.Point(138, 30);
-			this.SmallValue.MaxLength = 1;
-			this.SmallValue.Name = "SmallValue";
-			this.SmallValue.Size = new System.Drawing.Size(40, 21);
-			this.SmallValue.Sorted = true;
-			this.SmallValue.TabIndex = 18;
-			this.SmallValue.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
 			// TValueungGroupbox
 			// 
 			this.TValueungGroupbox.AutoSize = true;
 			this.TValueungGroupbox.Controls.Add(this.tableLayoutPanel5);
 			this.TValueungGroupbox.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TValueungGroupbox.Location = new System.Drawing.Point(3, 423);
+			this.TValueungGroupbox.Location = new System.Drawing.Point(3, 413);
 			this.TValueungGroupbox.Name = "TValueungGroupbox";
-			this.TValueungGroupbox.Size = new System.Drawing.Size(357, 100);
+			this.TValueungGroupbox.Size = new System.Drawing.Size(357, 97);
 			this.TValueungGroupbox.TabIndex = 3;
 			this.TValueungGroupbox.TabStop = false;
 			this.TValueungGroupbox.Text = "T-Rating";
@@ -2111,27 +1450,27 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
 			this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
 			this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-			this.tableLayoutPanel5.Controls.Add(this.T4Value, 3, 2);
-			this.tableLayoutPanel5.Controls.Add(this.T45Value, 3, 1);
-			this.tableLayoutPanel5.Controls.Add(this.T5Value, 3, 0);
 			this.tableLayoutPanel5.Controls.Add(this.label32, 2, 1);
 			this.tableLayoutPanel5.Controls.Add(this.label33, 2, 2);
 			this.tableLayoutPanel5.Controls.Add(this.label36, 2, 0);
 			this.tableLayoutPanel5.Controls.Add(this.label38, 6, 0);
-			this.tableLayoutPanel5.Controls.Add(this.T2Value, 7, 0);
 			this.tableLayoutPanel5.Controls.Add(this.label39, 6, 1);
-			this.tableLayoutPanel5.Controls.Add(this.T15Value, 7, 1);
 			this.tableLayoutPanel5.Controls.Add(this.label40, 6, 2);
-			this.tableLayoutPanel5.Controls.Add(this.T1Value, 7, 2);
 			this.tableLayoutPanel5.Controls.Add(this.label37, 4, 2);
-			this.tableLayoutPanel5.Controls.Add(this.T25Value, 5, 2);
 			this.tableLayoutPanel5.Controls.Add(this.label34, 4, 0);
-			this.tableLayoutPanel5.Controls.Add(this.T35Value, 5, 0);
 			this.tableLayoutPanel5.Controls.Add(this.label35, 4, 1);
-			this.tableLayoutPanel5.Controls.Add(this.T3Value, 5, 1);
 			this.tableLayoutPanel5.Controls.Add(this.label31, 0, 0);
-			this.tableLayoutPanel5.Controls.Add(this.TPrioritätenValue, 1, 0);
-			this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Left;
+			this.tableLayoutPanel5.Controls.Add(this.TPriorityValue, 1, 0);
+			this.tableLayoutPanel5.Controls.Add(this.T5Value, 3, 0);
+			this.tableLayoutPanel5.Controls.Add(this.T35Value, 5, 0);
+			this.tableLayoutPanel5.Controls.Add(this.T2Value, 7, 0);
+			this.tableLayoutPanel5.Controls.Add(this.T45Value, 3, 1);
+			this.tableLayoutPanel5.Controls.Add(this.T3Value, 5, 1);
+			this.tableLayoutPanel5.Controls.Add(this.T15Value, 7, 1);
+			this.tableLayoutPanel5.Controls.Add(this.T4Value, 3, 2);
+			this.tableLayoutPanel5.Controls.Add(this.T25Value, 5, 2);
+			this.tableLayoutPanel5.Controls.Add(this.T1Value, 7, 2);
+			this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 16);
 			this.tableLayoutPanel5.Name = "tableLayoutPanel5";
 			this.tableLayoutPanel5.RowCount = 3;
@@ -2139,103 +1478,28 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.tableLayoutPanel5.Size = new System.Drawing.Size(330, 81);
+			this.tableLayoutPanel5.Size = new System.Drawing.Size(351, 78);
 			this.tableLayoutPanel5.TabIndex = 1;
-			// 
-			// T4Value
-			// 
-			this.T4Value.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.T4Value.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.T4Value.Dock = System.Windows.Forms.DockStyle.Left;
-			this.T4Value.FormattingEnabled = true;
-			this.T4Value.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.T4Value.Location = new System.Drawing.Point(125, 57);
-			this.T4Value.MaxLength = 1;
-			this.T4Value.Name = "T4Value";
-			this.T4Value.Size = new System.Drawing.Size(40, 21);
-			this.T4Value.Sorted = true;
-			this.T4Value.TabIndex = 18;
-			this.T4Value.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
-			// T45Value
-			// 
-			this.T45Value.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.T45Value.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.T45Value.Dock = System.Windows.Forms.DockStyle.Left;
-			this.T45Value.FormattingEnabled = true;
-			this.T45Value.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.T45Value.Location = new System.Drawing.Point(125, 30);
-			this.T45Value.MaxLength = 1;
-			this.T45Value.Name = "T45Value";
-			this.T45Value.Size = new System.Drawing.Size(40, 21);
-			this.T45Value.Sorted = true;
-			this.T45Value.TabIndex = 16;
-			this.T45Value.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
-			// T5Value
-			// 
-			this.T5Value.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.T5Value.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.T5Value.Dock = System.Windows.Forms.DockStyle.Left;
-			this.T5Value.FormattingEnabled = true;
-			this.T5Value.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.T5Value.Location = new System.Drawing.Point(125, 3);
-			this.T5Value.MaxLength = 1;
-			this.T5Value.Name = "T5Value";
-			this.T5Value.Size = new System.Drawing.Size(40, 21);
-			this.T5Value.Sorted = true;
-			this.T5Value.TabIndex = 14;
-			this.T5Value.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
 			// 
 			// label32
 			// 
 			this.label32.AutoSize = true;
 			this.label32.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label32.Location = new System.Drawing.Point(93, 30);
+			this.label32.Location = new System.Drawing.Point(83, 29);
 			this.label32.Margin = new System.Windows.Forms.Padding(3);
 			this.label32.Name = "label32";
-			this.label32.Size = new System.Drawing.Size(26, 21);
+			this.label32.Size = new System.Drawing.Size(29, 20);
 			this.label32.TabIndex = 0;
-			this.label32.Text = "T45";
+			this.label32.Text = "T4.5";
 			// 
 			// label33
 			// 
 			this.label33.AutoSize = true;
 			this.label33.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label33.Location = new System.Drawing.Point(93, 57);
+			this.label33.Location = new System.Drawing.Point(83, 55);
 			this.label33.Margin = new System.Windows.Forms.Padding(3);
 			this.label33.Name = "label33";
-			this.label33.Size = new System.Drawing.Size(26, 21);
+			this.label33.Size = new System.Drawing.Size(29, 20);
 			this.label33.TabIndex = 1;
 			this.label33.Text = "T4";
 			// 
@@ -2243,216 +1507,72 @@ namespace GeocachingTourPlanner
 			// 
 			this.label36.AutoSize = true;
 			this.label36.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label36.Location = new System.Drawing.Point(93, 3);
+			this.label36.Location = new System.Drawing.Point(83, 3);
 			this.label36.Margin = new System.Windows.Forms.Padding(3);
 			this.label36.Name = "label36";
-			this.label36.Size = new System.Drawing.Size(26, 21);
+			this.label36.Size = new System.Drawing.Size(29, 20);
 			this.label36.TabIndex = 4;
 			this.label36.Text = "T5";
 			// 
 			// label38
 			// 
 			this.label38.AutoSize = true;
-			this.label38.Location = new System.Drawing.Point(252, 3);
+			this.label38.Location = new System.Drawing.Point(225, 3);
 			this.label38.Margin = new System.Windows.Forms.Padding(3);
 			this.label38.Name = "label38";
 			this.label38.Size = new System.Drawing.Size(20, 13);
 			this.label38.TabIndex = 8;
 			this.label38.Text = "T2";
 			// 
-			// T2Value
-			// 
-			this.T2Value.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.T2Value.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.T2Value.FormattingEnabled = true;
-			this.T2Value.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.T2Value.Location = new System.Drawing.Point(287, 3);
-			this.T2Value.MaxLength = 1;
-			this.T2Value.Name = "T2Value";
-			this.T2Value.Size = new System.Drawing.Size(40, 21);
-			this.T2Value.Sorted = true;
-			this.T2Value.TabIndex = 17;
-			this.T2Value.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
 			// label39
 			// 
 			this.label39.AutoSize = true;
-			this.label39.Location = new System.Drawing.Point(252, 30);
+			this.label39.Location = new System.Drawing.Point(225, 29);
 			this.label39.Margin = new System.Windows.Forms.Padding(3);
 			this.label39.Name = "label39";
 			this.label39.Size = new System.Drawing.Size(29, 13);
 			this.label39.TabIndex = 9;
 			this.label39.Text = "T1.5";
 			// 
-			// T15Value
-			// 
-			this.T15Value.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.T15Value.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.T15Value.FormattingEnabled = true;
-			this.T15Value.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.T15Value.Location = new System.Drawing.Point(287, 30);
-			this.T15Value.MaxLength = 1;
-			this.T15Value.Name = "T15Value";
-			this.T15Value.Size = new System.Drawing.Size(40, 21);
-			this.T15Value.Sorted = true;
-			this.T15Value.TabIndex = 19;
-			this.T15Value.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
 			// label40
 			// 
 			this.label40.AutoSize = true;
-			this.label40.Location = new System.Drawing.Point(252, 57);
+			this.label40.Location = new System.Drawing.Point(225, 55);
 			this.label40.Margin = new System.Windows.Forms.Padding(3);
 			this.label40.Name = "label40";
 			this.label40.Size = new System.Drawing.Size(20, 13);
 			this.label40.TabIndex = 10;
 			this.label40.Text = "T1";
 			// 
-			// T1Value
-			// 
-			this.T1Value.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.T1Value.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.T1Value.FormattingEnabled = true;
-			this.T1Value.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.T1Value.Location = new System.Drawing.Point(287, 57);
-			this.T1Value.MaxLength = 1;
-			this.T1Value.Name = "T1Value";
-			this.T1Value.Size = new System.Drawing.Size(40, 21);
-			this.T1Value.Sorted = true;
-			this.T1Value.TabIndex = 21;
-			this.T1Value.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
 			// label37
 			// 
 			this.label37.AutoSize = true;
-			this.label37.Location = new System.Drawing.Point(171, 57);
+			this.label37.Location = new System.Drawing.Point(154, 55);
 			this.label37.Margin = new System.Windows.Forms.Padding(3);
 			this.label37.Name = "label37";
 			this.label37.Size = new System.Drawing.Size(29, 13);
 			this.label37.TabIndex = 7;
 			this.label37.Text = "T2.5";
 			// 
-			// T25Value
-			// 
-			this.T25Value.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.T25Value.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.T25Value.FormattingEnabled = true;
-			this.T25Value.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.T25Value.Location = new System.Drawing.Point(206, 57);
-			this.T25Value.MaxLength = 1;
-			this.T25Value.Name = "T25Value";
-			this.T25Value.Size = new System.Drawing.Size(40, 21);
-			this.T25Value.Sorted = true;
-			this.T25Value.TabIndex = 15;
-			this.T25Value.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
 			// label34
 			// 
 			this.label34.AutoSize = true;
-			this.label34.Location = new System.Drawing.Point(171, 3);
+			this.label34.Location = new System.Drawing.Point(154, 3);
 			this.label34.Margin = new System.Windows.Forms.Padding(3);
 			this.label34.Name = "label34";
 			this.label34.Size = new System.Drawing.Size(29, 13);
 			this.label34.TabIndex = 2;
 			this.label34.Text = "T3.5";
 			// 
-			// T35Value
-			// 
-			this.T35Value.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.T35Value.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.T35Value.FormattingEnabled = true;
-			this.T35Value.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.T35Value.Location = new System.Drawing.Point(206, 3);
-			this.T35Value.MaxLength = 1;
-			this.T35Value.Name = "T35Value";
-			this.T35Value.Size = new System.Drawing.Size(40, 21);
-			this.T35Value.Sorted = true;
-			this.T35Value.TabIndex = 20;
-			this.T35Value.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
 			// label35
 			// 
 			this.label35.AutoSize = true;
-			this.label35.Location = new System.Drawing.Point(171, 30);
+			this.label35.Location = new System.Drawing.Point(154, 29);
 			this.label35.Margin = new System.Windows.Forms.Padding(3);
 			this.label35.Name = "label35";
 			this.label35.Size = new System.Drawing.Size(20, 13);
 			this.label35.TabIndex = 3;
 			this.label35.Text = "T3";
-			// 
-			// T3Value
-			// 
-			this.T3Value.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.T3Value.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.T3Value.FormattingEnabled = true;
-			this.T3Value.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.T3Value.Location = new System.Drawing.Point(206, 30);
-			this.T3Value.MaxLength = 1;
-			this.T3Value.Name = "T3Value";
-			this.T3Value.Size = new System.Drawing.Size(40, 21);
-			this.T3Value.Sorted = true;
-			this.T3Value.TabIndex = 22;
-			this.T3Value.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
 			// 
 			// label31
 			// 
@@ -2464,38 +1584,14 @@ namespace GeocachingTourPlanner
 			this.label31.TabIndex = 5;
 			this.label31.Text = "Priority";
 			// 
-			// TPrioritätenValue
-			// 
-			this.TPrioritätenValue.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-			this.TPrioritätenValue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.TPrioritätenValue.FormattingEnabled = true;
-			this.TPrioritätenValue.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-			this.TPrioritätenValue.Location = new System.Drawing.Point(47, 3);
-			this.TPrioritätenValue.MaxLength = 1;
-			this.TPrioritätenValue.Name = "TPrioritätenValue";
-			this.TPrioritätenValue.Size = new System.Drawing.Size(40, 21);
-			this.TPrioritätenValue.Sorted = true;
-			this.TPrioritätenValue.TabIndex = 11;
-			this.TPrioritätenValue.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
-			// 
 			// Sonstiges
 			// 
 			this.Sonstiges.AutoSize = true;
 			this.Sonstiges.Controls.Add(this.tableLayoutPanel6);
 			this.Sonstiges.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.Sonstiges.Location = new System.Drawing.Point(3, 582);
+			this.Sonstiges.Location = new System.Drawing.Point(3, 567);
 			this.Sonstiges.Name = "Sonstiges";
-			this.Sonstiges.Size = new System.Drawing.Size(357, 49);
+			this.Sonstiges.Size = new System.Drawing.Size(357, 47);
 			this.Sonstiges.TabIndex = 4;
 			this.Sonstiges.TabStop = false;
 			this.Sonstiges.Text = "Other";
@@ -2512,7 +1608,7 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel6.Name = "tableLayoutPanel6";
 			this.tableLayoutPanel6.RowCount = 1;
 			this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel6.Size = new System.Drawing.Size(351, 30);
+			this.tableLayoutPanel6.Size = new System.Drawing.Size(351, 28);
 			this.tableLayoutPanel6.TabIndex = 0;
 			// 
 			// label15
@@ -2522,7 +1618,7 @@ namespace GeocachingTourPlanner
 			this.label15.Location = new System.Drawing.Point(3, 3);
 			this.label15.Margin = new System.Windows.Forms.Padding(3);
 			this.label15.Name = "label15";
-			this.label15.Size = new System.Drawing.Size(274, 24);
+			this.label15.Size = new System.Drawing.Size(274, 22);
 			this.label15.TabIndex = 0;
 			this.label15.Text = "Points substracted for a Needs maintenance attribute";
 			// 
@@ -3209,6 +2305,265 @@ namespace GeocachingTourPlanner
 			this.Autotargetselection.UseVisualStyleBackColor = true;
 			this.Autotargetselection.CheckedChanged += new System.EventHandler(this.Autotargetselection_CheckedChanged);
 			// 
+			// TraditionalValue
+			// 
+			this.TraditionalValue.Location = new System.Drawing.Point(65, 29);
+			this.TraditionalValue.Name = "TraditionalValue";
+			this.TraditionalValue.Size = new System.Drawing.Size(30, 20);
+			this.TraditionalValue.TabIndex = 23;
+			// 
+			// TypePriorityValue
+			// 
+			this.TypePriorityValue.Location = new System.Drawing.Point(65, 3);
+			this.TypePriorityValue.Name = "TypePriorityValue";
+			this.TypePriorityValue.Size = new System.Drawing.Size(30, 20);
+			this.TypePriorityValue.TabIndex = 24;
+			// 
+			// EarthcacheValue
+			// 
+			this.EarthcacheValue.Location = new System.Drawing.Point(169, 29);
+			this.EarthcacheValue.Name = "EarthcacheValue";
+			this.EarthcacheValue.Size = new System.Drawing.Size(30, 20);
+			this.EarthcacheValue.TabIndex = 29;
+			// 
+			// VirtualValue
+			// 
+			this.VirtualValue.Location = new System.Drawing.Point(261, 29);
+			this.VirtualValue.Name = "VirtualValue";
+			this.VirtualValue.Size = new System.Drawing.Size(30, 20);
+			this.VirtualValue.TabIndex = 30;
+			// 
+			// MultiValue
+			// 
+			this.MultiValue.Location = new System.Drawing.Point(65, 55);
+			this.MultiValue.Name = "MultiValue";
+			this.MultiValue.Size = new System.Drawing.Size(30, 20);
+			this.MultiValue.TabIndex = 31;
+			// 
+			// LetterboxValue
+			// 
+			this.LetterboxValue.Location = new System.Drawing.Point(169, 55);
+			this.LetterboxValue.Name = "LetterboxValue";
+			this.LetterboxValue.Size = new System.Drawing.Size(30, 20);
+			this.LetterboxValue.TabIndex = 32;
+			// 
+			// OtherTypeValue
+			// 
+			this.OtherTypeValue.Location = new System.Drawing.Point(261, 55);
+			this.OtherTypeValue.Name = "OtherTypeValue";
+			this.OtherTypeValue.Size = new System.Drawing.Size(30, 20);
+			this.OtherTypeValue.TabIndex = 33;
+			// 
+			// MysteryValue
+			// 
+			this.MysteryValue.Location = new System.Drawing.Point(65, 81);
+			this.MysteryValue.Name = "MysteryValue";
+			this.MysteryValue.Size = new System.Drawing.Size(30, 20);
+			this.MysteryValue.TabIndex = 34;
+			// 
+			// WherigoValue
+			// 
+			this.WherigoValue.Location = new System.Drawing.Point(169, 81);
+			this.WherigoValue.Name = "WherigoValue";
+			this.WherigoValue.Size = new System.Drawing.Size(30, 20);
+			this.WherigoValue.TabIndex = 35;
+			// 
+			// WebcamValue
+			// 
+			this.WebcamValue.Location = new System.Drawing.Point(261, 81);
+			this.WebcamValue.Name = "WebcamValue";
+			this.WebcamValue.Size = new System.Drawing.Size(30, 20);
+			this.WebcamValue.TabIndex = 36;
+			// 
+			// SizePriorityValue
+			// 
+			this.SizePriorityValue.Location = new System.Drawing.Point(53, 3);
+			this.SizePriorityValue.Name = "SizePriorityValue";
+			this.SizePriorityValue.Size = new System.Drawing.Size(30, 20);
+			this.SizePriorityValue.TabIndex = 24;
+			// 
+			// MicroValue
+			// 
+			this.MicroValue.Location = new System.Drawing.Point(128, 55);
+			this.MicroValue.Name = "MicroValue";
+			this.MicroValue.Size = new System.Drawing.Size(30, 20);
+			this.MicroValue.TabIndex = 25;
+			// 
+			// LargeValue
+			// 
+			this.LargeValue.Location = new System.Drawing.Point(53, 29);
+			this.LargeValue.Name = "LargeValue";
+			this.LargeValue.Size = new System.Drawing.Size(30, 20);
+			this.LargeValue.TabIndex = 26;
+			// 
+			// SmallValue
+			// 
+			this.SmallValue.Location = new System.Drawing.Point(128, 29);
+			this.SmallValue.Name = "SmallValue";
+			this.SmallValue.Size = new System.Drawing.Size(30, 20);
+			this.SmallValue.TabIndex = 27;
+			// 
+			// OtherSizeValue
+			// 
+			this.OtherSizeValue.Location = new System.Drawing.Point(203, 29);
+			this.OtherSizeValue.Name = "OtherSizeValue";
+			this.OtherSizeValue.Size = new System.Drawing.Size(30, 20);
+			this.OtherSizeValue.TabIndex = 28;
+			// 
+			// RegularValue
+			// 
+			this.RegularValue.Location = new System.Drawing.Point(53, 55);
+			this.RegularValue.Name = "RegularValue";
+			this.RegularValue.Size = new System.Drawing.Size(30, 20);
+			this.RegularValue.TabIndex = 29;
+			// 
+			// DPriorityValue
+			// 
+			this.DPriorityValue.Location = new System.Drawing.Point(47, 3);
+			this.DPriorityValue.Name = "DPriorityValue";
+			this.DPriorityValue.Size = new System.Drawing.Size(30, 20);
+			this.DPriorityValue.TabIndex = 24;
+			// 
+			// D5Value
+			// 
+			this.D5Value.Location = new System.Drawing.Point(119, 3);
+			this.D5Value.Name = "D5Value";
+			this.D5Value.Size = new System.Drawing.Size(30, 20);
+			this.D5Value.TabIndex = 25;
+			// 
+			// D35Value
+			// 
+			this.D35Value.Location = new System.Drawing.Point(191, 3);
+			this.D35Value.Name = "D35Value";
+			this.D35Value.Size = new System.Drawing.Size(30, 20);
+			this.D35Value.TabIndex = 26;
+			// 
+			// D2Value
+			// 
+			this.D2Value.Location = new System.Drawing.Point(263, 3);
+			this.D2Value.Name = "D2Value";
+			this.D2Value.Size = new System.Drawing.Size(30, 20);
+			this.D2Value.TabIndex = 27;
+			// 
+			// D45Value
+			// 
+			this.D45Value.Location = new System.Drawing.Point(119, 29);
+			this.D45Value.Name = "D45Value";
+			this.D45Value.Size = new System.Drawing.Size(30, 20);
+			this.D45Value.TabIndex = 28;
+			// 
+			// D4Value
+			// 
+			this.D4Value.Location = new System.Drawing.Point(119, 55);
+			this.D4Value.Name = "D4Value";
+			this.D4Value.Size = new System.Drawing.Size(30, 20);
+			this.D4Value.TabIndex = 29;
+			// 
+			// D3Value
+			// 
+			this.D3Value.Location = new System.Drawing.Point(191, 29);
+			this.D3Value.Name = "D3Value";
+			this.D3Value.Size = new System.Drawing.Size(30, 20);
+			this.D3Value.TabIndex = 30;
+			// 
+			// D15Value
+			// 
+			this.D15Value.Location = new System.Drawing.Point(263, 29);
+			this.D15Value.Name = "D15Value";
+			this.D15Value.Size = new System.Drawing.Size(30, 20);
+			this.D15Value.TabIndex = 31;
+			// 
+			// D25Value
+			// 
+			this.D25Value.Location = new System.Drawing.Point(191, 55);
+			this.D25Value.Name = "D25Value";
+			this.D25Value.Size = new System.Drawing.Size(30, 20);
+			this.D25Value.TabIndex = 32;
+			// 
+			// D1Value
+			// 
+			this.D1Value.Location = new System.Drawing.Point(263, 55);
+			this.D1Value.Name = "D1Value";
+			this.D1Value.Size = new System.Drawing.Size(30, 20);
+			this.D1Value.TabIndex = 33;
+			// 
+			// TPriorityValue
+			// 
+			this.TPriorityValue.Location = new System.Drawing.Point(47, 3);
+			this.TPriorityValue.Name = "TPriorityValue";
+			this.TPriorityValue.Size = new System.Drawing.Size(30, 20);
+			this.TPriorityValue.TabIndex = 24;
+			// 
+			// T5Value
+			// 
+			this.T5Value.Location = new System.Drawing.Point(118, 3);
+			this.T5Value.Name = "T5Value";
+			this.T5Value.Size = new System.Drawing.Size(30, 20);
+			this.T5Value.TabIndex = 25;
+			// 
+			// T35Value
+			// 
+			this.T35Value.Location = new System.Drawing.Point(189, 3);
+			this.T35Value.Name = "T35Value";
+			this.T35Value.Size = new System.Drawing.Size(30, 20);
+			this.T35Value.TabIndex = 26;
+			// 
+			// T2Value
+			// 
+			this.T2Value.Location = new System.Drawing.Point(260, 3);
+			this.T2Value.Name = "T2Value";
+			this.T2Value.Size = new System.Drawing.Size(30, 20);
+			this.T2Value.TabIndex = 27;
+			// 
+			// T45Value
+			// 
+			this.T45Value.Location = new System.Drawing.Point(118, 29);
+			this.T45Value.Name = "T45Value";
+			this.T45Value.Size = new System.Drawing.Size(30, 20);
+			this.T45Value.TabIndex = 28;
+			// 
+			// T3Value
+			// 
+			this.T3Value.Location = new System.Drawing.Point(189, 29);
+			this.T3Value.Name = "T3Value";
+			this.T3Value.Size = new System.Drawing.Size(30, 20);
+			this.T3Value.TabIndex = 29;
+			// 
+			// T15Value
+			// 
+			this.T15Value.Location = new System.Drawing.Point(260, 29);
+			this.T15Value.Name = "T15Value";
+			this.T15Value.Size = new System.Drawing.Size(30, 20);
+			this.T15Value.TabIndex = 30;
+			// 
+			// T4Value
+			// 
+			this.T4Value.Location = new System.Drawing.Point(118, 55);
+			this.T4Value.Name = "T4Value";
+			this.T4Value.Size = new System.Drawing.Size(30, 20);
+			this.T4Value.TabIndex = 31;
+			// 
+			// T25Value
+			// 
+			this.T25Value.Location = new System.Drawing.Point(189, 55);
+			this.T25Value.Name = "T25Value";
+			this.T25Value.Size = new System.Drawing.Size(30, 20);
+			this.T25Value.TabIndex = 32;
+			// 
+			// T1Value
+			// 
+			this.T1Value.Location = new System.Drawing.Point(260, 55);
+			this.T1Value.Name = "T1Value";
+			this.T1Value.Size = new System.Drawing.Size(30, 20);
+			this.T1Value.TabIndex = 33;
+			// 
+			// AgeFactorValue
+			// 
+			this.AgeFactorValue.Location = new System.Drawing.Point(283, 3);
+			this.AgeFactorValue.Name = "AgeFactorValue";
+			this.AgeFactorValue.Size = new System.Drawing.Size(30, 20);
+			this.AgeFactorValue.TabIndex = 24;
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3246,6 +2601,7 @@ namespace GeocachingTourPlanner
 			this.RatingprofilesSettingsTabelLayout.PerformLayout();
 			this.groupBox6.ResumeLayout(false);
 			this.tableLayoutPanel8.ResumeLayout(false);
+			this.tableLayoutPanel8.PerformLayout();
 			this.DValueungGroupBox.ResumeLayout(false);
 			this.DValueungGroupBox.PerformLayout();
 			this.tableLayoutPanel4.ResumeLayout(false);
@@ -3345,38 +2701,21 @@ namespace GeocachingTourPlanner
 		private System.Windows.Forms.TableLayoutPanel RatingprofilesSettingsTabelLayout;
 		private System.Windows.Forms.GroupBox groupBox6;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
-		public System.Windows.Forms.ComboBox AlterZahlValue;
 		private System.Windows.Forms.ComboBox AgeValue;
 		private System.Windows.Forms.GroupBox DValueungGroupBox;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
-		public System.Windows.Forms.ComboBox D4Value;
-		public System.Windows.Forms.ComboBox D45Value;
-		public System.Windows.Forms.ComboBox D5Value;
 		private System.Windows.Forms.Label label22;
 		private System.Windows.Forms.Label label23;
 		private System.Windows.Forms.Label label26;
 		private System.Windows.Forms.Label label27;
-		public System.Windows.Forms.ComboBox D25Value;
 		private System.Windows.Forms.Label label28;
-		public System.Windows.Forms.ComboBox D2Value;
 		private System.Windows.Forms.Label label29;
-		public System.Windows.Forms.ComboBox D15Value;
 		private System.Windows.Forms.Label label30;
-		public System.Windows.Forms.ComboBox D1Value;
 		private System.Windows.Forms.Label label24;
-		public System.Windows.Forms.ComboBox D35Value;
 		private System.Windows.Forms.Label label25;
-		public System.Windows.Forms.ComboBox D3Value;
 		private System.Windows.Forms.Label label21;
-		public System.Windows.Forms.ComboBox DPrioritätenValue;
 		private System.Windows.Forms.GroupBox GeocachetypGroupBox;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
-		public System.Windows.Forms.ComboBox WherigoValue;
-		public System.Windows.Forms.ComboBox MysteryValue;
-		public System.Windows.Forms.ComboBox LetterboxValue;
-		public System.Windows.Forms.ComboBox Multivalue;
-		public System.Windows.Forms.ComboBox EarthcacheValue;
-		public System.Windows.Forms.ComboBox Traditionalvalue;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label label4;
@@ -3384,50 +2723,30 @@ namespace GeocachingTourPlanner
 		private System.Windows.Forms.Label label10;
 		private System.Windows.Forms.Label label11;
 		private System.Windows.Forms.Label label14;
-		public System.Windows.Forms.ComboBox TypePriorityvalue;
 		private System.Windows.Forms.Label label5;
-		public System.Windows.Forms.ComboBox VirtualValue;
 		private System.Windows.Forms.Label label19;
-		public System.Windows.Forms.ComboBox OtherTypeValue;
 		private System.Windows.Forms.Label label8;
-		public System.Windows.Forms.ComboBox WebcamValue;
 		private System.Windows.Forms.Label label20;
 		private System.Windows.Forms.GroupBox GeocachegrößeGroupBox;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-		public System.Windows.Forms.ComboBox RegularValue;
-		public System.Windows.Forms.ComboBox LargeValue;
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.Label label12;
 		private System.Windows.Forms.Label label16;
-		public System.Windows.Forms.ComboBox GrößenPrioritätValue;
 		private System.Windows.Forms.Label label18;
-		public System.Windows.Forms.ComboBox OtherGrößeValue;
 		private System.Windows.Forms.Label label17;
-		public System.Windows.Forms.ComboBox MicroValue;
 		private System.Windows.Forms.Label label13;
-		public System.Windows.Forms.ComboBox SmallValue;
 		private System.Windows.Forms.GroupBox TValueungGroupbox;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
-		public System.Windows.Forms.ComboBox T4Value;
-		public System.Windows.Forms.ComboBox T45Value;
-		public System.Windows.Forms.ComboBox T5Value;
 		private System.Windows.Forms.Label label32;
 		private System.Windows.Forms.Label label33;
 		private System.Windows.Forms.Label label36;
 		private System.Windows.Forms.Label label38;
-		public System.Windows.Forms.ComboBox T2Value;
 		private System.Windows.Forms.Label label39;
-		public System.Windows.Forms.ComboBox T15Value;
 		private System.Windows.Forms.Label label40;
-		public System.Windows.Forms.ComboBox T1Value;
 		private System.Windows.Forms.Label label37;
-		public System.Windows.Forms.ComboBox T25Value;
 		private System.Windows.Forms.Label label34;
-		public System.Windows.Forms.ComboBox T35Value;
 		private System.Windows.Forms.Label label35;
-		public System.Windows.Forms.ComboBox T3Value;
 		private System.Windows.Forms.Label label31;
-		public System.Windows.Forms.ComboBox TPrioritätenValue;
 		private System.Windows.Forms.GroupBox Sonstiges;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
 		private System.Windows.Forms.Label label15;
@@ -3484,9 +2803,49 @@ namespace GeocachingTourPlanner
 		public System.Windows.Forms.Label RouterDBStateLabel;
 		private System.Windows.Forms.Button NewRatingprofileDatbaseButton;
 		private System.Windows.Forms.Button NewRoutingprofileDatabaseButton;
+
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel17;
 		private System.Windows.Forms.LinkLabel WikiLabel;
 		private System.Windows.Forms.WebBrowser webBrowser1;
+
+		private System.Windows.Forms.TextBox AgeFactorValue;
+		private System.Windows.Forms.TextBox DPriorityValue;
+		private System.Windows.Forms.TextBox D5Value;
+		private System.Windows.Forms.TextBox D35Value;
+		private System.Windows.Forms.TextBox D2Value;
+		private System.Windows.Forms.TextBox D45Value;
+		private System.Windows.Forms.TextBox D4Value;
+		private System.Windows.Forms.TextBox D3Value;
+		private System.Windows.Forms.TextBox D15Value;
+		private System.Windows.Forms.TextBox D25Value;
+		private System.Windows.Forms.TextBox D1Value;
+		private System.Windows.Forms.TextBox WebcamValue;
+		private System.Windows.Forms.TextBox WherigoValue;
+		private System.Windows.Forms.TextBox MysteryValue;
+		private System.Windows.Forms.TextBox OtherTypeValue;
+		private System.Windows.Forms.TextBox LetterboxValue;
+		private System.Windows.Forms.TextBox MultiValue;
+		private System.Windows.Forms.TextBox VirtualValue;
+		private System.Windows.Forms.TextBox EarthcacheValue;
+		private System.Windows.Forms.TextBox TypePriorityValue;
+		private System.Windows.Forms.TextBox TraditionalValue;
+		private System.Windows.Forms.TextBox RegularValue;
+		private System.Windows.Forms.TextBox SizePriorityValue;
+		private System.Windows.Forms.TextBox LargeValue;
+		private System.Windows.Forms.TextBox SmallValue;
+		private System.Windows.Forms.TextBox MicroValue;
+		private System.Windows.Forms.TextBox OtherSizeValue;
+		private System.Windows.Forms.TextBox TPriorityValue;
+		private System.Windows.Forms.TextBox T5Value;
+		private System.Windows.Forms.TextBox T35Value;
+		private System.Windows.Forms.TextBox T2Value;
+		private System.Windows.Forms.TextBox T45Value;
+		private System.Windows.Forms.TextBox T3Value;
+		private System.Windows.Forms.TextBox T15Value;
+		private System.Windows.Forms.TextBox T4Value;
+		private System.Windows.Forms.TextBox T25Value;
+		private System.Windows.Forms.TextBox T1Value;
+
 	}
 }
 
