@@ -102,6 +102,8 @@ namespace GeocachingTourPlanner
 
 		private void setRouterDBButton_Click(object sender, EventArgs e)
 		{
+			Application.UseWaitCursor=true;
+
 			if (Program.DB.SetDatabaseFilepath(Databases.RouterDB))
 			{
 				using (var stream = new FileInfo(Program.DB.RouterDB_Filepath).OpenRead())
@@ -110,6 +112,8 @@ namespace GeocachingTourPlanner
 				}
 				Fileoperations.Backup(null);
 			}
+
+			Program.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
 		}
 
 		private void GetPQLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -138,100 +142,109 @@ namespace GeocachingTourPlanner
 		#region Update of Rating/Routingprofiles
 
 		public void CreateRatingprofile(object sender, EventArgs e)
-	{
-		Ratingprofile Profile = new Ratingprofile();
-		if (RatingProfileName.Text == null)
 		{
-			MessageBox.Show("Bitte Namen festlegen");
-			return;
-		}
-		try
-		{
-			Profile.Name = RatingProfileName.Text;
-			Profile.TypePriority = int.Parse(TypePriorityValue.Text);
-			Profile.TypeRatings = new List<KeyValuePair<GeocacheType, int>>();
-			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.EarthCache, int.Parse(EarthcacheValue.Text)));
-			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Letterbox, int.Parse(LetterboxValue.Text)));
-			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Multi, int.Parse(MultiValue.Text)));
-			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Mystery, int.Parse(MysteryValue.Text)));
-			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Other, int.Parse(OtherTypeValue.Text)));
-			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Traditional, int.Parse(TraditionalValue.Text)));
-			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Virtual, int.Parse(VirtualValue.Text)));
-			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Webcam, int.Parse(WebcamValue.Text)));
-			Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Wherigo, int.Parse(WherigoValue.Text)));
 
-			Profile.SizePriority = int.Parse(SizePriorityValue.Text);
-			Profile.SizeRatings = new List<KeyValuePair<GeocacheSize, int>>();
-			Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Large, int.Parse(LargeValue.Text)));
-			Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Micro, int.Parse(MicroValue.Text)));
-			Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Other, int.Parse(OtherSizeValue.Text)));
-			Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Regular, int.Parse(RegularValue.Text)));
-			Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Small, int.Parse(SmallValue.Text)));
-
-			Profile.DPriority = int.Parse(DPriorityValue.Text);
-			Profile.DRatings = new List<KeyValuePair<float, int>>();
-			Profile.DRatings.Add(new KeyValuePair<float, int>(1f, int.Parse(D1Value.Text)));
-			Profile.DRatings.Add(new KeyValuePair<float, int>(1.5f, int.Parse(D15Value.Text)));
-			Profile.DRatings.Add(new KeyValuePair<float, int>(2f, int.Parse(D2Value.Text)));
-			Profile.DRatings.Add(new KeyValuePair<float, int>(2.5f, int.Parse(D25Value.Text)));
-			Profile.DRatings.Add(new KeyValuePair<float, int>(3f, int.Parse(D3Value.Text)));
-			Profile.DRatings.Add(new KeyValuePair<float, int>(3.5f, int.Parse(D35Value.Text)));
-			Profile.DRatings.Add(new KeyValuePair<float, int>(4f, int.Parse(D4Value.Text)));
-			Profile.DRatings.Add(new KeyValuePair<float, int>(4.5f, int.Parse(D45Value.Text)));
-			Profile.DRatings.Add(new KeyValuePair<float, int>(5f, int.Parse(D5Value.Text)));
-
-			Profile.TPriority = int.Parse(TPriorityValue.Text);
-			Profile.TRatings = new List<KeyValuePair<float, int>>();
-			Profile.TRatings.Add(new KeyValuePair<float, int>(1f, int.Parse(T1Value.Text)));
-			Profile.TRatings.Add(new KeyValuePair<float, int>(1.5f, int.Parse(T15Value.Text)));
-			Profile.TRatings.Add(new KeyValuePair<float, int>(2f, int.Parse(T2Value.Text)));
-			Profile.TRatings.Add(new KeyValuePair<float, int>(2.5f, int.Parse(T25Value.Text)));
-			Profile.TRatings.Add(new KeyValuePair<float, int>(3f, int.Parse(T3Value.Text)));
-			Profile.TRatings.Add(new KeyValuePair<float, int>(3.5f, int.Parse(T35Value.Text)));
-			Profile.TRatings.Add(new KeyValuePair<float, int>(4f, int.Parse(T4Value.Text)));
-			Profile.TRatings.Add(new KeyValuePair<float, int>(4.5f, int.Parse(T45Value.Text)));
-			Profile.TRatings.Add(new KeyValuePair<float, int>(5f, int.Parse(T5Value.Text)));
-
-			if (!int.TryParse(NMFlagValue.Text.Replace("-", ""), out int Value))
+			SetAllEmptyChildTextboxesToZero(RatingprofilesSettingsTabelLayout);
+			Ratingprofile Profile = new Ratingprofile();
+			if (RatingProfileName.Text == "")
 			{
-				MessageBox.Show("Please write only positive whole numbers into the field with the NMPenalty");
+				MessageBox.Show("Please set a name");
+				return;
 			}
-			else
+			try
 			{
-				Profile.NMPenalty = Value;
-			}
+				Profile.Name = RatingProfileName.Text;
+				Profile.TypePriority = int.Parse(TypePriorityValue.Text);
+				Profile.TypeRatings = new List<KeyValuePair<GeocacheType, int>>();
+				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.EarthCache, int.Parse(EarthcacheValue.Text)));
+				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Letterbox, int.Parse(LetterboxValue.Text)));
+				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Multi, int.Parse(MultiValue.Text)));
+				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Mystery, int.Parse(MysteryValue.Text)));
+				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Other, int.Parse(OtherTypeValue.Text)));
+				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Traditional, int.Parse(TraditionalValue.Text)));
+				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Virtual, int.Parse(VirtualValue.Text)));
+				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Webcam, int.Parse(WebcamValue.Text)));
+				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Wherigo, int.Parse(WherigoValue.Text)));
 
-			if (AgeValue.SelectedItem.ToString() == "multiply with")
+				Profile.SizePriority = int.Parse(SizePriorityValue.Text);
+				Profile.SizeRatings = new List<KeyValuePair<GeocacheSize, int>>();
+				Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Large, int.Parse(LargeValue.Text)));
+				Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Micro, int.Parse(MicroValue.Text)));
+				Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Other, int.Parse(OtherSizeValue.Text)));
+				Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Regular, int.Parse(RegularValue.Text)));
+				Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Small, int.Parse(SmallValue.Text)));
+
+				Profile.DPriority = int.Parse(DPriorityValue.Text);
+				Profile.DRatings = new List<KeyValuePair<float, int>>();
+				Profile.DRatings.Add(new KeyValuePair<float, int>(1f, int.Parse(D1Value.Text)));
+				Profile.DRatings.Add(new KeyValuePair<float, int>(1.5f, int.Parse(D15Value.Text)));
+				Profile.DRatings.Add(new KeyValuePair<float, int>(2f, int.Parse(D2Value.Text)));
+				Profile.DRatings.Add(new KeyValuePair<float, int>(2.5f, int.Parse(D25Value.Text)));
+				Profile.DRatings.Add(new KeyValuePair<float, int>(3f, int.Parse(D3Value.Text)));
+				Profile.DRatings.Add(new KeyValuePair<float, int>(3.5f, int.Parse(D35Value.Text)));
+				Profile.DRatings.Add(new KeyValuePair<float, int>(4f, int.Parse(D4Value.Text)));
+				Profile.DRatings.Add(new KeyValuePair<float, int>(4.5f, int.Parse(D45Value.Text)));
+				Profile.DRatings.Add(new KeyValuePair<float, int>(5f, int.Parse(D5Value.Text)));
+
+				Profile.TPriority = int.Parse(TPriorityValue.Text);
+				Profile.TRatings = new List<KeyValuePair<float, int>>();
+				Profile.TRatings.Add(new KeyValuePair<float, int>(1f, int.Parse(T1Value.Text)));
+				Profile.TRatings.Add(new KeyValuePair<float, int>(1.5f, int.Parse(T15Value.Text)));
+				Profile.TRatings.Add(new KeyValuePair<float, int>(2f, int.Parse(T2Value.Text)));
+				Profile.TRatings.Add(new KeyValuePair<float, int>(2.5f, int.Parse(T25Value.Text)));
+				Profile.TRatings.Add(new KeyValuePair<float, int>(3f, int.Parse(T3Value.Text)));
+				Profile.TRatings.Add(new KeyValuePair<float, int>(3.5f, int.Parse(T35Value.Text)));
+				Profile.TRatings.Add(new KeyValuePair<float, int>(4f, int.Parse(T4Value.Text)));
+				Profile.TRatings.Add(new KeyValuePair<float, int>(4.5f, int.Parse(T45Value.Text)));
+				Profile.TRatings.Add(new KeyValuePair<float, int>(5f, int.Parse(T5Value.Text)));
+
+				if (!int.TryParse(NMFlagValue.Text.Replace("-", ""), out int Value))
+				{
+					MessageBox.Show("Please write only positive whole numbers into the field with the NMPenalty");
+				}
+				else
+				{
+					Profile.NMPenalty = Value;
+				}
+
+				if (AgeValue.SelectedItem.ToString() == "multiply with")
+				{
+					Profile.Yearmode = true;
+				}
+				else
+				{
+					Profile.Yearmode = false;
+				}
+
+				Profile.Yearfactor = int.Parse(AgeFactorValue.Text);
+
+			}
+			catch (FormatException)
 			{
-				Profile.Yearmode = true;
+				MessageBox.Show("Please fill all fields");
+				return;
 			}
-			else
+			catch (NullReferenceException)
 			{
-				Profile.Yearmode = false;
+				MessageBox.Show("Please select something from all comboboxes");
+				return;
 			}
 
-			Profile.Yearfactor = int.Parse(AgeFactorValue.Text);
-
+			//Eintragen des neuen Profils
+			foreach (Ratingprofile BP in Program.Ratingprofiles.Where(x => x.Name == Profile.Name).ToList())//Make sure only one profile with a name exists
+			{
+				Program.Ratingprofiles.Remove(BP);
+			}
+			Program.Ratingprofiles.Add(Profile);
+			//The Dropdownmenu gets updated through an event handler
+			Fileoperations.Backup(Program.Ratingprofiles);
+			EditRatingprofileCombobox.SelectedItem = Profile.Name; //Eventhandler takes care of same profile selected
 		}
-		catch (NullReferenceException)
-		{
-			MessageBox.Show("Please fill all fields");
-			return;
-		}
-
-		//Eintragen des neuen Profils
-		foreach (Ratingprofile BP in Program.Ratingprofiles.Where(x => x.Name == Profile.Name).ToList())//Make sure only one profile with a name exists
-		{
-			Program.Ratingprofiles.Remove(BP);
-		}
-		Program.Ratingprofiles.Add(Profile);
-		//The Dropdownmenu gets updated through an event handler
-		Fileoperations.Backup(Program.Ratingprofiles);
-		EditRatingprofileCombobox.SelectedItem = Profile.Name; //Eventhandler takes care of same profile selected
-	}
 
 		public void CreateRoutingprofile(object sender, EventArgs e)
 		{
+			SetAllEmptyChildTextboxesToZero(RoutingprofilesSettingsTabelLayout);
+
 			Routingprofile Profile = new Routingprofile();
 			if (RoutingProfileName.Text == null)
 			{
@@ -336,7 +349,6 @@ namespace GeocachingTourPlanner
 			Fileoperations.Backup(Program.Routingprofiles);
 		}
 
-
 		private void DeleteRatingprofileButton_Click(object sender, EventArgs e)
 		{
 			Ratingprofile Profile = new Ratingprofile();
@@ -346,10 +358,11 @@ namespace GeocachingTourPlanner
 				return;
 			}
 			Profile.Name = RatingProfileName.Text;
-			foreach (Routingprofile BP in Program.Routingprofiles.Where(x => x.Name == Profile.Name).ToList())
+			foreach (Ratingprofile RP in Program.Ratingprofiles.Where(x => x.Name == Profile.Name).ToList())
 			{
-				Program.Routingprofiles.Remove(BP);
+				Program.Ratingprofiles.Remove(RP);
 			}
+
 			ClearAllChildTextAndComboboxes(RatingprofilesSettingsTabelLayout);
 			ClearAllChildTextAndComboboxes(SaveRatingprofileLayoutPanel);
 			SelectedRatingprofileCombobox.Text = null;
@@ -601,6 +614,7 @@ namespace GeocachingTourPlanner
 			GeocacheTable.Sort(GeocacheTable.Columns["Rating"], ListSortDirection.Descending);
 			Program.DB.MaximalRating = Program.Geocaches[0].Rating;//Da sortierte Liste
 			Program.DB.MinimalRating = Program.Geocaches[Program.Geocaches.Count - 1].Rating;
+			LoadMap();
 			Fileoperations.Backup(Program.Geocaches);
 		}
 
@@ -616,7 +630,8 @@ namespace GeocachingTourPlanner
 				if (SelectedRoutingprofileCombobox.Text.Length == 0)
 				{
 					MessageBox.Show("No Routingprofile set.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					Application.UseWaitCursor = false;
+					Program.RouteCalculationRunning = false;
+					Program.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
 					return;
 				}
 
@@ -636,20 +651,20 @@ namespace GeocachingTourPlanner
 				if (StartpointTextbox.Text.Length == 0)
 				{
 					MessageBox.Show("No Startpoint set. Please type one in or select one with right click on the map", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					Application.UseWaitCursor = false;
+					Program.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
 					return;
 				}
 
 				if (!float.TryParse(StartpointTextbox.Text.Substring(0, StartpointTextbox.Text.IndexOf(";") - 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out StartLat))
 				{
 					MessageBox.Show("Couldn't parse latitude of Startcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					Application.UseWaitCursor = false;
+					Program.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
 					return;
 				}
 				if (!float.TryParse(StartpointTextbox.Text.Substring(StartpointTextbox.Text.IndexOf(";") + 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out StartLon))
 				{
 					MessageBox.Show("Couldn't parse longitude Startcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					Application.UseWaitCursor = false;
+					Program.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
 					return;
 				}
 
@@ -663,7 +678,7 @@ namespace GeocachingTourPlanner
 					}
 					else
 					{
-						Application.UseWaitCursor = false;
+						Program.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
 						return;
 					}
 				}
@@ -673,7 +688,7 @@ namespace GeocachingTourPlanner
 					{
 
 						MessageBox.Show("Couldn't parse latitude of Endcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-						Application.UseWaitCursor = false;
+						Program.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
 						return;
 
 					}
@@ -681,7 +696,7 @@ namespace GeocachingTourPlanner
 					{
 						//Big procedure only once, as the result would be the same
 						MessageBox.Show("Couldn't parse longitude of Endcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-						Application.UseWaitCursor = false;
+						Program.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
 						return;
 					}
 				}
@@ -690,7 +705,7 @@ namespace GeocachingTourPlanner
 				if (StartLat == 0 && StartLon == 0 && EndLat == 0 && EndLon == 0)
 				{
 					MessageBox.Show("Please select a Startingpoint and a Finalpoint", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					Application.UseWaitCursor = false;
+					Program.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
 					return;
 				}
 				#endregion
@@ -754,7 +769,7 @@ namespace GeocachingTourPlanner
 				GroupBox groupBox = new GroupBox();
 				groupBox.Text = OverlayTag;
 				groupBox.Width = 200;
-				groupBox.Height = 80;
+				groupBox.Height = 90;
 
 				TableLayoutPanel Table = new TableLayoutPanel();
 				Table.RowCount = 2;
@@ -782,7 +797,8 @@ namespace GeocachingTourPlanner
 				{
 					SumOfPoints += GC.Rating;
 				}
-				Info.Text = "Geocaches: " + NumberOfGeocaches + "\n Points: " + SumOfPoints;
+				float Length = Program.Routes.First(x => x.Key == OverlayTag).Value1.TotalDistance / 1000;
+				Info.Text = "Geocaches: " + NumberOfGeocaches + "\n Points: " + SumOfPoints + "\n Length in km: " + Length.ToString("#.##");
 				Info.Dock = DockStyle.Fill;
 				Table.Controls.Add(Info, 1, 0);
 
@@ -865,7 +881,7 @@ namespace GeocachingTourPlanner
 
 				Map.Overlays.Add(RouteOverlay);
 				newRouteControlElement(Routetag);
-				Application.UseWaitCursor = false;
+				Program.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
 				Map.Cursor = Cursors.Default;
 			}
 			else
@@ -1236,6 +1252,41 @@ namespace GeocachingTourPlanner
 								if (C3 is TextBox || C3 is ComboBox)
 								{
 									C3.Text = null;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Sets the text of all TextBoxchildren of the specified parent to "0". Does this recursively through 3 layers.
+		/// </summary>
+		/// <param name="parent"></param>
+		private void SetAllEmptyChildTextboxesToZero(Control parent)
+		{
+			foreach (Control C in parent.Controls)
+			{
+				if (C is TextBox && C.Text=="")
+				{
+					C.Text = "0";
+				}
+				else if (C is GroupBox || C is TableLayoutPanel)
+				{
+					foreach (Control C2 in C.Controls)
+					{
+						if (C2 is TextBox && C2.Text == "")
+						{
+							C2.Text = "0";
+						}
+						else if (C2 is GroupBox || C2 is TableLayoutPanel)
+						{
+							foreach (Control C3 in C2.Controls)
+							{
+								if (C3 is TextBox && C3.Text == "")
+								{
+									C3.Text = "0";
 								}
 							}
 						}
