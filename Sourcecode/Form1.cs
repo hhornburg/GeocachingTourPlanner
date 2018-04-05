@@ -861,7 +861,11 @@ namespace GeocachingTourPlanner
 				{
 					GMapMarker GCMarker = null;
 					//Three Categories => Thirds of the Point range
-					if (GC.Rating > (Program.DB.MinimalRating) + 0.66 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
+					if (GC.ForceInclude)
+					{
+						GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.blue_small);
+					}
+					else if (GC.Rating > (Program.DB.MinimalRating) + 0.66 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
 					{
 						GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.green_small);
 						RouteOverlay.Markers.Add(GCMarker);
