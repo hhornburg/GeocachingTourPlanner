@@ -43,6 +43,8 @@ namespace GeocachingTourPlanner
 			GeocacheTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 			Program.Geocaches.ResetBindings();
 
+			//Browser
+			webBrowser1.Navigate(new Uri(Application.StartupPath + "\\first-steps.html"));
 			//Map
 			Map.DisableFocusOnMouseEnter = true;//So Windows put in foreground stay in foreground
 			Map.DragButton = MouseButtons.Left;
