@@ -53,15 +53,17 @@ namespace GeocachingTourPlanner
 			}
 			ImageAttributes attributes = new ImageAttributes();
 			attributes.SetRemapTable(colorMap);
+
+			//Bitmap TypeImage = new Bitmap(); //Has to be 12x12 png
 			
 			Rectangle rect = new Rectangle(0, 0, OriginalMarker.Width, OriginalMarker.Height);
 			Bitmap marker_bmp = new Bitmap(OriginalMarker.Width, OriginalMarker.Height);
 			using (Graphics graphics = Graphics.FromImage(marker_bmp))
 			{
 				graphics.DrawImage(OriginalMarker, rect, 0, 0, rect.Width, rect.Height, GraphicsUnit.Pixel, attributes);
+				//graphics.DrawImage(TypeImage, 3, 3);
 			}
 
-			//TODO Add Cachetype Image
 
 			//Create final marker
 			GMapMarker GCMarker = new GMarkerGoogle(new PointLatLng(geocache.lat, geocache.lon),marker_bmp);

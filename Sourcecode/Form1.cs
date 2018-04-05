@@ -530,7 +530,7 @@ namespace GeocachingTourPlanner
 				{
 					GMapMarker GCMarker = null;
 					//Three Categories => Thirds of the Point range
-					if (GC.Rating > (Program.DB.MinimalRating) + 0.66 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
+					if (GC.Rating > (Program.DB.MinimalRating) + 0.67 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
 					{
 						GCMarker = Markers.GetGeocacheMarker(GC);
 						TopOverlay.Markers.Add(GCMarker);
