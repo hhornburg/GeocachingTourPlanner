@@ -24,6 +24,15 @@ namespace GeocachingTourPlanner
 		List<KeyValuePair<Route, List<KeyValueTriple<Geocache, float, RouterPoint>>>> RoutingData = new List<KeyValuePair<Route, List<KeyValueTriple<Geocache, float, RouterPoint>>>>();
 		List<Geocache> GeocachesOnRoute = new List<Geocache>();
 
+		/// <summary>
+		/// Used to detect islands
+		/// </summary>
+		int FailedCalculations = 0;
+		/// <summary>
+		/// Max number of allowed failed calculations
+		/// </summary>
+		int FailedCalculationsLimit = 10;
+
 		RouterPoint Startpoint_RP;
 		RouterPoint Endpoint_RP;
 		Route InitialRoute;
@@ -73,9 +82,30 @@ namespace GeocachingTourPlanner
 
 			#endregion
 
+			GeocachesNotAlreadyUsed = new List<Geocache>(AllGeocaches);
+
+			#region Removal of geocaches that won't be in route anyways
+			List<Geocache> GeocachesWithNegativePoints = new List<Geocache>();
+			Parallel.ForEach(GeocachesNotAlreadyUsed, GC =>
+			{
+				if (GC.Rating <= 0)
+				{
+					lock (GeocachesWithNegativePoints)
+					{
+						GeocachesWithNegativePoints.Add(GC);
+					}
+				}
+			});
+			foreach(Geocache GC in GeocachesWithNegativePoints)
+			{
+				GeocachesNotAlreadyUsed.Remove(GC);
+			}
+			#endregion
+			
+
 			try
 			{
-				Startpoint_RP = Router1.Resolve(SelectedProfile.ItineroProfile.profile, Startpoint);
+				Startpoint_RP = Router1.Resolve(SelectedProfile.ItineroProfile.profile, Startpoint, 100F);
 			}
 			catch (Itinero.Exceptions.ResolveFailedException)
 			{
@@ -85,7 +115,7 @@ namespace GeocachingTourPlanner
 			}
 			try
 			{
-				Endpoint_RP = Router1.Resolve(SelectedProfile.ItineroProfile.profile, Endpoint);
+				Endpoint_RP = Router1.Resolve(SelectedProfile.ItineroProfile.profile, Endpoint, 100F);
 			}
 			catch (Itinero.Exceptions.ResolveFailedException)
 			{
@@ -110,10 +140,7 @@ namespace GeocachingTourPlanner
 
 			//Empty list as no resolving happenend yet
 			RoutingData.Add(new KeyValuePair<Route, List<KeyValueTriple<Geocache, float, RouterPoint>>>(InitialRoute, new List<KeyValueTriple<Geocache, float, RouterPoint>>()));
-
-
-			GeocachesNotAlreadyUsed = new List<Geocache>(AllGeocaches);
-			
+						
 			Program.MainWindow.DisplayPreliminaryRoute(RoutingData);
 
 			#region Add Geocaches User selected to Include
@@ -140,7 +167,7 @@ namespace GeocachingTourPlanner
 
 				RouteToInsertIn = RoutingData[IndexOfRouteToInsertIn].Key;
 
-				Result<RouterPoint> GeocacheToAddResolveResult = Router1.TryResolve(SelectedProfile.ItineroProfile.profile, GeocacheToAdd.lat, GeocacheToAdd.lon);
+				Result<RouterPoint> GeocacheToAddResolveResult = Router1.TryResolve(SelectedProfile.ItineroProfile.profile, GeocacheToAdd.lat, GeocacheToAdd.lon, 100F);
 				if (!GeocacheToAddResolveResult.IsError)
 				{
 					Route NewPart1 = null;
@@ -148,6 +175,7 @@ namespace GeocachingTourPlanner
 					if (Result1.IsError)
 					{
 						Log.AppendLine("Route calculation with Geocache to include  failed.");
+						FailedCalculations++;
 					}
 					else
 					{
@@ -158,6 +186,7 @@ namespace GeocachingTourPlanner
 						if (Result2.IsError)
 						{
 							Log.AppendLine("Route calculation with Geocache to include  failed.");
+							FailedCalculations++;
 						}
 						else
 						{
@@ -213,7 +242,7 @@ namespace GeocachingTourPlanner
 					if (minDistance < SelectedProfile.MaxDistance * 1000 /2 && minDistance > 0)// Only remove all those that definitely can't be reached
 					{
 						RouterPoint RouterPointOfGeocache = null;
-						Result<RouterPoint> ResolveResult = Router1.TryResolve(SelectedProfile.ItineroProfile.profile, GC.lat, GC.lon);
+						Result<RouterPoint> ResolveResult = Router1.TryResolve(SelectedProfile.ItineroProfile.profile, GC.lat, GC.lon, 100F);
 						if (!ResolveResult.IsError)
 						{
 							RouterPointOfGeocache = ResolveResult.Value;
@@ -222,6 +251,10 @@ namespace GeocachingTourPlanner
 							{
 								RoutingData[h].Value.Add(new KeyValueTriple<Geocache, float, RouterPoint>(GC, minDistance, RouterPointOfGeocache));//Push the resoved location on
 							}
+						}
+						else
+						{
+							FailedCalculations++;
 						}
 					}
 				});
@@ -260,7 +293,8 @@ namespace GeocachingTourPlanner
 		private void DirectionDecision()
 		{
 			GeocachesNotAlreadyUsed.OrderByDescending(x => x.Rating);
-			List<Geocache> GeocachesToRemove = new List<Geocache>();
+
+			List<Geocache> GeocachesToRemove = new List<Geocache>(); //Collects geocaches that couldn't be resolved and deletes them from the list of available geocaches for the whole routing process
 
 			List<DirectionDesignInternalResult> Results = new List<DirectionDesignInternalResult>();
 
@@ -269,7 +303,7 @@ namespace GeocachingTourPlanner
 				bool CacheInReachFound=false;
 				int LocalTargetIndex = GlobalTargetIndex;
 
-				while (!CacheInReachFound)
+				while (!CacheInReachFound && FailedCalculations < FailedCalculationsLimit) 
 				{
 					#region Find closest Route
 					int IndexOfRouteToInsertIn = 0;
@@ -295,7 +329,7 @@ namespace GeocachingTourPlanner
 					{
 						CacheInReachFound = true;
 
-						Result<RouterPoint> GeocacheToAddResolveResult = Router1.TryResolve(SelectedProfile.ItineroProfile.profile, GeocachesNotAlreadyUsed[LocalTargetIndex].lat, GeocachesNotAlreadyUsed[LocalTargetIndex].lon);
+						Result<RouterPoint> GeocacheToAddResolveResult = Router1.TryResolve(SelectedProfile.ItineroProfile.profile, GeocachesNotAlreadyUsed[LocalTargetIndex].lat, GeocachesNotAlreadyUsed[LocalTargetIndex].lon, 100F);
 						Route RouteToInsertIn = RoutingData[IndexOfRouteToInsertIn].Key;
 
 						KeyValueTriple<Geocache, float, RouterPoint> TargetGeocacheKVT = null;
@@ -337,7 +371,7 @@ namespace GeocachingTourPlanner
 										{
 											if (Route.Key != RouteToInsertIn)
 											{
-												if (GetMinimalDistanceToRoute(Route.Key,new Coordinate(geocache.lat,geocache.lon),Program.DB.EveryNthShapepoint) < (SelectedProfile.MaxDistance * 1000 - CurrentRouteDistance) / Program.DB.Divisor + Program.DB.Tolerance)//thus it is still in reach after the calculation
+												if (GetMinimalDistanceToRoute(Route.Key, new Coordinate(geocache.lat, geocache.lon), Program.DB.EveryNthShapepoint) < (SelectedProfile.MaxDistance * 1000 - CurrentRouteDistance) / Program.DB.Divisor + Program.DB.Tolerance)//thus it is still in reach after the calculation
 												{
 													ReachablePoints += geocache.Rating;
 													goto Done; // As I only care if it is reachable, not from where
@@ -356,8 +390,8 @@ namespace GeocachingTourPlanner
 									});
 									#endregion
 									//UNDONE optional recursive call if Route stays too short
-									
-									if (ReachablePoints != 0 || TestRouteDistance>0.8*SelectedProfile.MaxDistance)//Too long to effectively add geocaches close to the route
+
+									if (ReachablePoints != 0 || TestRouteDistance > 0.8 * SelectedProfile.MaxDistance)//Too long to effectively add geocaches close to the route
 									{
 
 
@@ -377,7 +411,16 @@ namespace GeocachingTourPlanner
 										GeocachesToRemove.Add(GeocachesNotAlreadyUsed[LocalTargetIndex]);
 										LocalTargetIndex = Program.DB.RoutefindingWidth + GeocachesToRemove.Count;//The next not processed Geocache
 									}
-								}//Resolving error of Item on Route shouldn't happen
+								}
+								//Resolving error of Item on Route shouldn't happen
+								else
+								{
+									FailedCalculations++;
+								}
+							}
+							else
+							{
+								FailedCalculations++;
 							}
 						}
 						else //Couldn't resolve
@@ -469,7 +512,7 @@ namespace GeocachingTourPlanner
 				IndexOfRouteToInsertIn = 0;
 				GeocachesInRange = 0;
 
-				//Remove all Caches that are not in Range (broad criterium) and meanwhile find best rated geocache (narrow distance criterium). 
+				#region Remove all Caches that are not in Range (broad criterium) and meanwhile find best rated geocache (narrow distance criterium). 
 				//Necessary, as only Caches close to the latest added route are checked from before
 				//Differentiation between narrow and wide criterum in order to make sure that a parallel equally long route is more likely to still be
 				for (int i = 0; i < RoutingData.Count; i++)
@@ -519,6 +562,8 @@ namespace GeocachingTourPlanner
 					}
 				}
 
+				#endregion
+
 				if (GeocacheToAdd != null)
 				{
 					Log.AppendLine("Added: " + GeocacheToAdd.Key.GCCODE);
@@ -535,6 +580,10 @@ namespace GeocachingTourPlanner
 						{
 							NewPart1 = Result1.Value;
 						}
+						else
+						{
+							FailedCalculations++;
+						}
 					}));
 
 					Route NewPart2 = null;
@@ -544,6 +593,10 @@ namespace GeocachingTourPlanner
 						if (!Result2.IsError)
 						{
 							NewPart2 = Result2.Value;
+						}
+						else
+						{
+							FailedCalculations++;
 						}
 					}));
 
@@ -590,7 +643,7 @@ namespace GeocachingTourPlanner
 						}
 						if (CurrentRouteTime / 60 + GeocachesOnRoute.Count * SelectedProfile.TimePerGeocache > SelectedProfile.MaxTime)
 						{
-							CurrentRoutePoints -= (CurrentRouteTime / 60 - SelectedProfile.MaxTime) * SelectedProfile.PenaltyPerExtra10min / 10;
+							CurrentRoutePoints -= ((CurrentRouteTime / 60 + GeocachesOnRoute.Count * SelectedProfile.TimePerGeocache )- SelectedProfile.MaxTime) * SelectedProfile.PenaltyPerExtra10min / 10;
 						}
 						Log.AppendLine("New Points:" + CurrentRoutePoints + " Old Points:" + LastCurrentRoutePoints);
 
@@ -621,9 +674,14 @@ namespace GeocachingTourPlanner
 					Program.MainWindow.DisplayPreliminaryRoute(RoutingData);
 				})).Start();
 
-			} while (GeocachesInRange - 1 > 0);//-1, as the one has been tried to be added to the Route. If the if clause jumped in, it makes no differenc, as -1 is still less than 0
+			} while (GeocachesInRange - 1 > 0 && FailedCalculations<FailedCalculationsLimit);//-1, as the one has been tried to be added to the Route. If the if clause jumped in, it makes no differenc, as -1 is still less than 0
 
-		
+			if (FailedCalculations == FailedCalculationsLimit)
+			{
+				Log.AppendLine("Aborted due to probable island");
+				MessageBox.Show("Couldn't properly calculate route due to a probable island. Please select different Start/Endpoints", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+
 			Route FinalRoute = RoutingData[0].Key;
 
 			for (int i = 1; i < RoutingData.Count; i++)

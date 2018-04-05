@@ -18,12 +18,14 @@ namespace GeocachingTourPlanner
         public static Database DB = new Database();
         public static string Database_Filepath = "Database";
 
-        /// <summary>
-        /// To make backups faster and minimize damage in loss of compatibility, the Profiles and the Geocaches are put in different Databases
-        /// </summary>
-        public static SortableBindingList<Ratingprofile> Ratingprofiles = new SortableBindingList<Ratingprofile>();
-        public static SortableBindingList<Routingprofile> Routingprofiles = new SortableBindingList<Routingprofile>();
-        public static SortableBindingList<Geocache> Geocaches = new SortableBindingList<Geocache>();
+		/// <summary>
+		/// To make backups faster and minimize damage in loss of compatibility, the Profiles and the Geocaches are put in different Databases
+		/// </summary>
+
+		public static SortableBindingList<Ratingprofile> Ratingprofiles { get;set; }
+		public static SortableBindingList<Routingprofile> Routingprofiles { get; set; }
+		public static SortableBindingList<Geocache> Geocaches { get; set; }
+
 
 		// Itinero
 		public static RouterDb RouterDB = new RouterDb();
@@ -40,7 +42,12 @@ namespace GeocachingTourPlanner
 		[STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
+			//Just to make sure they're not empty
+			Ratingprofiles = new SortableBindingList<Ratingprofile>();
+			Routingprofiles = new SortableBindingList<Routingprofile>();
+			Geocaches = new SortableBindingList<Geocache>();
+
+			Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             MainWindow = new Form1();
 
