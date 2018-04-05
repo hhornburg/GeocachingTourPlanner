@@ -275,7 +275,8 @@ namespace GeocachingTourPlanner
 		private void DirectionDecision()
 		{
 			GeocachesNotAlreadyUsed.OrderByDescending(x => x.Rating);
-			List<Geocache> GeocachesToRemove = new List<Geocache>();
+
+			List<Geocache> GeocachesToRemove = new List<Geocache>(); //Collects geocaches that couldn't be resolved and deletes them from the list of available geocaches for the whole routing process
 
 			List<DirectionDesignInternalResult> Results = new List<DirectionDesignInternalResult>();
 
