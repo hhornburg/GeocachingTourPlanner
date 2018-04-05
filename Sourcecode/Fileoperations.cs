@@ -102,11 +102,12 @@ namespace GeocachingTourPlanner
 					}
 				}
 
-				//To make them show up in the menu
-				Program.Ratingprofiles.ListChanged += new ListChangedEventHandler(Program.MainWindow.Ratingprofiles_ListChanged);
-				Program.Ratingprofiles.ResetBindings();
 				Backup(Program.Ratingprofiles);
 			}
+
+			//To make them show up in the menu. Here, as the binding should also happen if none could be loaded
+			Program.Ratingprofiles.ListChanged += new ListChangedEventHandler(Program.MainWindow.Ratingprofiles_ListChanged);
+			Program.Ratingprofiles.ResetBindings();
 		}
 
 		public static void ReadGeocaches()
@@ -612,7 +613,7 @@ namespace GeocachingTourPlanner
 					if (MessageBox.Show("If you selected an existing file it will be overwritten.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
 					{
 						File.Create(StandardFileDialog.FileName);
-						Fileoperations.Backup(Program.Ratingprofiles);
+						Backup(Program.Ratingprofiles);
 						Program.Ratingprofiles = new SortableBindingList<Ratingprofile>();
 						Program.DB.RatingprofileDB_Filepath = StandardFileDialog.FileName;
 					}
