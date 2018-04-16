@@ -182,6 +182,48 @@
   <ItemGroup>
     <None Include="Images\Pin_black.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_ape.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_cito.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_earth.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_event.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_giga.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_letterbox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_mega.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_multi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_mystery.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_traditional.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_unknown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_virtual.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_webcam.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_wherigo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />

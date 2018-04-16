@@ -121,4 +121,46 @@
   <data name="Pin_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\Pin_black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="type_ape" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\CGEO_Symbols_Original\type_ape.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="type_cito" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\CGEO_Symbols_Original\type_cito.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="type_earth" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\CGEO_Symbols_Original\type_earth.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="type_event" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\CGEO_Symbols_Original\type_event.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="type_giga" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\CGEO_Symbols_Original\type_giga.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="type_letterbox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\CGEO_Symbols_Original\type_letterbox.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="type_mega" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\CGEO_Symbols_Original\type_mega.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="type_multi" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\CGEO_Symbols_Original\type_multi.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="type_mystery" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\CGEO_Symbols_Original\type_mystery.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="type_traditional" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\CGEO_Symbols_Original\type_traditional.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="type_unknown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\CGEO_Symbols_Original\type_unknown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="type_virtual" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\CGEO_Symbols_Original\type_virtual.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="type_webcam" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\CGEO_Symbols_Original\type_webcam.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="type_wherigo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\CGEO_Symbols_Original\type_wherigo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

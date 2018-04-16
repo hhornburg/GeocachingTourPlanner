@@ -4,6 +4,7 @@ using GMap.NET.WindowsForms.Markers;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Resources;
@@ -51,17 +52,60 @@ namespace GeocachingTourPlanner
 			{
 				colorMap[0].NewColor = Color.DarkRed;
 			}
-			ImageAttributes attributes = new ImageAttributes();
-			attributes.SetRemapTable(colorMap);
+			ImageAttributes PinAttributes = new ImageAttributes();
+			PinAttributes.SetRemapTable(colorMap);
 
-			//Bitmap TypeImage = new Bitmap(); //Has to be 12x12 png
-			
-			Rectangle rect = new Rectangle(0, 0, OriginalMarker.Width, OriginalMarker.Height);
-			Bitmap marker_bmp = new Bitmap(OriginalMarker.Width, OriginalMarker.Height);
+			Image TypeImage;
+			switch (geocache.Type)
+			{
+				case GeocacheType.EarthCache:
+					TypeImage = Properties.Images.type_earth;
+					break;
+				case GeocacheType.Letterbox:
+					TypeImage = Properties.Images.type_letterbox;
+					break;
+				case GeocacheType.Multi:
+					TypeImage = Properties.Images.type_multi;
+					break;
+				case GeocacheType.Mystery:
+					TypeImage = Properties.Images.type_mystery;
+					break;
+				case GeocacheType.Traditional:
+					TypeImage = Properties.Images.type_traditional;
+					break;
+				case GeocacheType.Virtual:
+					TypeImage = Properties.Images.type_virtual;
+					break;
+				case GeocacheType.Webcam:
+					TypeImage = Properties.Images.type_webcam;
+					break;
+				case GeocacheType.Wherigo:
+					TypeImage = Properties.Images.type_wherigo;
+					break;
+				default:
+					TypeImage = Properties.Images.type_unknown; // Currently events and rare cache tyoes fall under this.
+					break;
+			}
+
+			Rectangle PinRect = new Rectangle(0, 0, Program.DB.MarkerSize, (int)(1.5 * Program.DB.MarkerSize));
+			Rectangle SymbolRect = new Rectangle((int)((Program.DB.MarkerSize - 0.9 * Program.DB.MarkerSize) / 2), (int)((Program.DB.MarkerSize - 0.9 * Program.DB.MarkerSize) / 2), (int)(0.9 * Program.DB.MarkerSize), (int)(0.9 * Program.DB.MarkerSize));
+			Bitmap marker_bmp = new Bitmap(Program.DB.MarkerSize, (int)(1.5 * Program.DB.MarkerSize));
 			using (Graphics graphics = Graphics.FromImage(marker_bmp))
 			{
-				graphics.DrawImage(OriginalMarker, rect, 0, 0, rect.Width, rect.Height, GraphicsUnit.Pixel, attributes);
-				//graphics.DrawImage(TypeImage, 3, 3);
+				// see https://stackoverflow.com/questions/1922040/resize-an-image-c-sharp
+				graphics.CompositingMode = CompositingMode.SourceCopy;
+				graphics.CompositingQuality = CompositingQuality.HighQuality;
+				graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+				graphics.SmoothingMode = SmoothingMode.HighQuality;
+				graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+				PinAttributes.SetWrapMode(WrapMode.TileFlipXY);
+				graphics.DrawImage(OriginalMarker, PinRect, 0, 0, PinRect.Width, PinRect.Height, GraphicsUnit.Pixel, PinAttributes);
+
+				ImageAttributes SymbolAttribute = new ImageAttributes();
+				SymbolAttribute.SetWrapMode(WrapMode.TileFlipXY);
+
+				graphics.DrawImage(TypeImage, SymbolRect, SymbolRect.X, SymbolRect.Y, SymbolRect.Width, SymbolRect.Height, GraphicsUnit.Pixel, PinAttributes);
 			}
 
 

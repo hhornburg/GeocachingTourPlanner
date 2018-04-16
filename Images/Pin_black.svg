@@ -9,13 +9,16 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="14.2875mm"
-   height="19.04999mm"
-   viewBox="0 0 14.2875 19.04999"
+   width="10.054167mm"
+   height="15.081216mm"
+   viewBox="0 0 10.054167 15.081216"
    version="1.1"
    id="svg8"
    inkscape:version="0.92.1 r15371"
-   sodipodi:docname="Pin_black.svg">
+   sodipodi:docname="Pin_black.svg"
+   inkscape:export-filename="C:\Users\Der Schreddah\source\repos\GeocachingTourPlanner\Images\Pin_black.png"
+   inkscape:export-xdpi="96.000221"
+   inkscape:export-ydpi="96.000221">
   <defs
      id="defs2">
     <inkscape:path-effect
@@ -36,9 +39,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.87"
-     inkscape:cx="119.69338"
-     inkscape:cy="37.573466"
+     inkscape:zoom="5"
+     inkscape:cx="4.0711471"
+     inkscape:cy="50.573467"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -57,7 +60,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -65,13 +68,13 @@
      inkscape:label="Ebene 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(2.316284e-8,-282.71251)">
+     transform="translate(2.316284e-8,-290.12087)">
     <circle
        style="fill:#000000;fill-opacity:1;stroke:#150000;stroke-width:0;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
        id="path4488"
-       cx="7.1437502"
-       cy="289.85626"
-       r="7.1437497" />
+       cx="5.0270834"
+       cy="295.14795"
+       r="5.0270829" />
     <path
        sodipodi:type="star"
        style="fill:#000000;fill-opacity:1;stroke:#150000;stroke-width:0;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
@@ -87,13 +90,13 @@
        inkscape:rounded="0"
        inkscape:randomized="0"
        d="m 15.617377,294.36619 -4.884325,8.79763 -5.1768019,8.62876 -5.17680187,-8.62876 -4.88432533,-8.79763 10.0611272,-0.16886 z"
-       inkscape:transform-center-y="1.5265649"
-       transform="matrix(0.68373711,0,0,0.54133935,3.3447356,132.97691)" />
+       inkscape:transform-center-y="1.3569417"
+       transform="matrix(0.47335649,0,0,0.48119058,2.3969967,155.17043)" />
     <circle
        style="fill:#ffffff;fill-opacity:1;stroke:#150000;stroke-width:0;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
        id="path4490"
-       cx="7.1437502"
-       cy="289.85626"
-       r="4.7624993" />
+       cx="5.0270834"
+       cy="295.14792"
+       r="4.2333326" />
   </g>
 </svg>
