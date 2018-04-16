@@ -88,24 +88,27 @@ namespace GeocachingTourPlanner
 			}
 
 			Rectangle PinRect = new Rectangle(0, 0, Program.DB.MarkerSize, (int)(1.5 * Program.DB.MarkerSize));
-			Rectangle SymbolRect = new Rectangle((int)((Program.DB.MarkerSize - 0.9 * Program.DB.MarkerSize) / 2), (int)((Program.DB.MarkerSize - 0.9 * Program.DB.MarkerSize) / 2), (int)(0.9 * Program.DB.MarkerSize), (int)(0.9 * Program.DB.MarkerSize));
+			Rectangle SymbolRect = new Rectangle(0, 0, Program.DB.MarkerSize, Program.DB.MarkerSize);
+
 			Bitmap marker_bmp = new Bitmap(Program.DB.MarkerSize, (int)(1.5 * Program.DB.MarkerSize));
+			marker_bmp.SetResolution(OriginalMarker.HorizontalResolution, OriginalMarker.VerticalResolution);
+
 			using (Graphics graphics = Graphics.FromImage(marker_bmp))
 			{
 				// see https://stackoverflow.com/questions/1922040/resize-an-image-c-sharp
-				graphics.CompositingMode = CompositingMode.SourceCopy;
+				graphics.CompositingMode = CompositingMode.SourceOver;
 				graphics.CompositingQuality = CompositingQuality.HighQuality;
 				graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
 				graphics.SmoothingMode = SmoothingMode.HighQuality;
 				graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
 				PinAttributes.SetWrapMode(WrapMode.TileFlipXY);
-				graphics.DrawImage(OriginalMarker, PinRect, 0, 0, PinRect.Width, PinRect.Height, GraphicsUnit.Pixel, PinAttributes);
+				graphics.DrawImage(OriginalMarker, PinRect, 0, 0, OriginalMarker.Width, OriginalMarker.Height, GraphicsUnit.Pixel, PinAttributes);
 
 				ImageAttributes SymbolAttribute = new ImageAttributes();
 				SymbolAttribute.SetWrapMode(WrapMode.TileFlipXY);
 
-				graphics.DrawImage(TypeImage, SymbolRect, SymbolRect.X, SymbolRect.Y, SymbolRect.Width, SymbolRect.Height, GraphicsUnit.Pixel, PinAttributes);
+				graphics.DrawImage(TypeImage, SymbolRect, 0, 0, TypeImage.Width, TypeImage.Height, GraphicsUnit.Pixel, PinAttributes);
 			}
 
 
