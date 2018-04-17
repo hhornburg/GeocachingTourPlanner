@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,8 +32,12 @@ namespace GeocachingTourPlanner
 		public static RouterDb RouterDB = new RouterDb();
 		public static BindingList<KeyValueTriple<string, Route, List<Geocache>>> Routes = new BindingList<KeyValueTriple<string, Route, List<Geocache>>>();
 
+		//Program Variables
 		public static bool RouteCalculationRunning = false;
-		
+
+		//Cache
+		public static List<KeyValueTriple<Bitmap, GeocacheType, int>> MarkerImageCache = new List<KeyValueTriple<Bitmap, GeocacheType, int>>();
+
 
 		public static Form1 MainWindow;
 
