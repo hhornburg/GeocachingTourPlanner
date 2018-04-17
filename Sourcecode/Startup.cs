@@ -1,4 +1,5 @@
-﻿using Itinero;
+﻿using GMap.NET;
+using Itinero;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,7 +32,12 @@ namespace GeocachingTourPlanner
 			Program.DB.RoutefindingWidth = 4;
 			Program.DB.DisplayLiveCalculation = false;
 
-			Program.MainWindow.LeftTabs.SelectedIndex = 0;
+			//Mapspecific
+			Program.DB.LastMapZoom = 5;
+			Program.DB.LastMapPosition = new PointLatLng(49.0, 8.5);
+			Program.DB.MarkerSize = 16;
+
+		Program.MainWindow.LeftTabs.SelectedIndex = 0;
 		}
 		
 		public static void ReadRemainingDatabases()
@@ -73,6 +79,10 @@ namespace GeocachingTourPlanner
 			if (Program.DB.RoutefindingWidth == 0)
 			{
 				Program.DB.RoutefindingWidth = 3;
+			}
+			if (Program.DB.MarkerSize == 0)
+			{
+				Program.DB.MarkerSize = 16;
 			}
 		}
 	}

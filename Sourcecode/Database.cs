@@ -37,6 +37,7 @@ namespace GeocachingTourPlanner
 		//Mapspecific
 		public double LastMapZoom { get; set;}
 		public PointLatLng LastMapPosition { get; set; }
+		public int MarkerSize { get; set; }
 		/// <summary>
 		/// Minimale Bewertung die ein Geocache in der Aktuellen Liste erreicht. Wird zum Erstellen der Farbcodierung benutzt
 		/// </summary>
