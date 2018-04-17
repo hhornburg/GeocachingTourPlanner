@@ -45,6 +45,7 @@ namespace GeocachingTourPlanner
 
 			//Browser
 			webBrowser1.Navigate(new Uri(Application.StartupPath + "\\first-steps.html"));
+
 			//Map
 			Map.DisableFocusOnMouseEnter = true;//So Windows put in foreground stay in foreground
 			Map.DragButton = MouseButtons.Left;
@@ -57,8 +58,7 @@ namespace GeocachingTourPlanner
 
 		}
 
-
-		private void WikiLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		private void OpenWikiButton_Click(object sender, EventArgs e)
 		{
 			System.Diagnostics.Process.Start("https://github.com/pingurus/GeocachingTourPlanner/wiki");
 		}
@@ -1300,5 +1300,6 @@ namespace GeocachingTourPlanner
 				}
 			}
 		}
+
 	}
 }
