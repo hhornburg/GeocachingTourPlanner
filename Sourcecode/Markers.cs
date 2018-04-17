@@ -58,11 +58,26 @@ namespace GeocachingTourPlanner
 			Image TypeImage;
 			switch (geocache.Type)
 			{
+				case GeocacheType.Ape:
+					TypeImage = Properties.Images.type_ape;
+					break;
+				case GeocacheType.Cito:
+					TypeImage = Properties.Images.type_cito;
+					break;
 				case GeocacheType.EarthCache:
 					TypeImage = Properties.Images.type_earth;
 					break;
+				case GeocacheType.Event:
+					TypeImage = Properties.Images.type_event;
+					break;
+				case GeocacheType.GigaEvent:
+					TypeImage = Properties.Images.type_giga;
+					break;
 				case GeocacheType.Letterbox:
 					TypeImage = Properties.Images.type_letterbox;
+					break;
+				case GeocacheType.MegaEvent:
+					TypeImage = Properties.Images.type_mega;
 					break;
 				case GeocacheType.Multi:
 					TypeImage = Properties.Images.type_multi;

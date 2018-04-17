@@ -36,9 +36,9 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 			this.Map = new GMap.NET.WindowsForms.GMapControl();
 			this.MapTab_SideMenu = new System.Windows.Forms.TableLayoutPanel();
+			this.BestGeocachesCheckbox = new System.Windows.Forms.CheckBox();
 			this.WorstGeocachesCheckbox = new System.Windows.Forms.CheckBox();
 			this.MediumGeocachesCheckbox = new System.Windows.Forms.CheckBox();
-			this.BestGeocachesCheckbox = new System.Windows.Forms.CheckBox();
 			this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
 			this.RateGeocachesButton = new System.Windows.Forms.Button();
 			this.CreateRouteButton = new System.Windows.Forms.Button();
@@ -373,6 +373,20 @@ namespace GeocachingTourPlanner
 			this.MapTab_SideMenu.Size = new System.Drawing.Size(156, 70);
 			this.MapTab_SideMenu.TabIndex = 1;
 			// 
+			// BestGeocachesCheckbox
+			// 
+			this.BestGeocachesCheckbox.AutoSize = true;
+			this.BestGeocachesCheckbox.Checked = true;
+			this.BestGeocachesCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.BestGeocachesCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.BestGeocachesCheckbox.Location = new System.Drawing.Point(3, 3);
+			this.BestGeocachesCheckbox.Name = "BestGeocachesCheckbox";
+			this.BestGeocachesCheckbox.Size = new System.Drawing.Size(150, 17);
+			this.BestGeocachesCheckbox.TabIndex = 1;
+			this.BestGeocachesCheckbox.Text = "Show best Geocaches";
+			this.BestGeocachesCheckbox.UseVisualStyleBackColor = true;
+			this.BestGeocachesCheckbox.CheckedChanged += new System.EventHandler(this.BestCheckbox_CheckedChanged);
+			// 
 			// WorstGeocachesCheckbox
 			// 
 			this.WorstGeocachesCheckbox.AutoSize = true;
@@ -400,20 +414,6 @@ namespace GeocachingTourPlanner
 			this.MediumGeocachesCheckbox.Text = "Show medium Geocaches";
 			this.MediumGeocachesCheckbox.UseVisualStyleBackColor = true;
 			this.MediumGeocachesCheckbox.CheckedChanged += new System.EventHandler(this.MediumCheckbox_CheckedChanged);
-			// 
-			// BestGeocachesCheckbox
-			// 
-			this.BestGeocachesCheckbox.AutoSize = true;
-			this.BestGeocachesCheckbox.Checked = true;
-			this.BestGeocachesCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.BestGeocachesCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.BestGeocachesCheckbox.Location = new System.Drawing.Point(3, 3);
-			this.BestGeocachesCheckbox.Name = "BestGeocachesCheckbox";
-			this.BestGeocachesCheckbox.Size = new System.Drawing.Size(150, 17);
-			this.BestGeocachesCheckbox.TabIndex = 1;
-			this.BestGeocachesCheckbox.Text = "Show best Geocaches";
-			this.BestGeocachesCheckbox.UseVisualStyleBackColor = true;
-			this.BestGeocachesCheckbox.CheckedChanged += new System.EventHandler(this.BestCheckbox_CheckedChanged);
 			// 
 			// tableLayoutPanel10
 			// 
