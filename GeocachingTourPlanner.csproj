@@ -127,7 +127,13 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Properties\Images.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Images.resx</DependentUpon>
+    </Compile>
     <Compile Include="Sourcecode\Fileoperations.cs" />
+    <Compile Include="Sourcecode\Markers.cs" />
     <Compile Include="Sourcecode\Startup.cs" />
     <Compile Include="Sourcecode\AcceptLicenseWindow.cs">
       <SubType>Form</SubType>
@@ -150,6 +156,10 @@
     <Compile Include="Sourcecode\Tourplanning.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Images.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Images.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Sourcecode\AcceptLicenseWindow.resx">
       <DependentUpon>AcceptLicenseWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -161,7 +171,6 @@
     <Folder Include=".git\objects\info\" />
     <Folder Include=".git\objects\pack\" />
     <Folder Include=".git\refs\tags\" />
-    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
@@ -169,6 +178,51 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Pin_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_ape.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_cito.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_earth.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_event.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_giga.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_letterbox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_mega.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_multi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_mystery.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_traditional.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_unknown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_virtual.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_webcam.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CGEO_Symbols_Original\type_wherigo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

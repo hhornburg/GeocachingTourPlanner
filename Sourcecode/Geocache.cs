@@ -58,7 +58,12 @@ namespace GeocachingTourPlanner
         EarthCache,
         Multi,
         Letterbox,
-        Wherigo        
+        Wherigo,
+		Event,
+		MegaEvent,
+		GigaEvent,
+		Ape,
+		Cito
     }
 
     public enum GeocacheSize
