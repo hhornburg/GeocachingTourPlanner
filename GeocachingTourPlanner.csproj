@@ -46,6 +46,7 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup>
     <RootNamespace>GeocachingTourPlanner</RootNamespace>
@@ -58,16 +59,17 @@
       <HintPath>packages\GMap.NET.WindowsForms.1.7.5\lib\net40\GMap.NET.WindowsForms.dll</HintPath>
     </Reference>
     <Reference Include="Itinero, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Itinero.1.4.0-pre38\lib\net45\Itinero.dll</HintPath>
+      <HintPath>packages\Itinero.1.4.0-pre44\lib\net45\Itinero.dll</HintPath>
     </Reference>
     <Reference Include="Itinero.IO.Osm, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Itinero.IO.Osm.1.4.0-pre38\lib\net45\Itinero.IO.Osm.dll</HintPath>
+      <HintPath>packages\Itinero.IO.Osm.1.4.0-pre44\lib\net45\Itinero.IO.Osm.dll</HintPath>
     </Reference>
     <Reference Include="OsmSharp, Version=6.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\OsmSharp.6.0.0\lib\net45\OsmSharp.dll</HintPath>
     </Reference>
     <Reference Include="protobuf-net, Version=2.3.7.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
       <HintPath>packages\protobuf-net.2.3.7\lib\net40\protobuf-net.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Reminiscence, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Reminiscence.1.1.0\lib\net45\Reminiscence.dll</HintPath>
@@ -83,6 +85,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />

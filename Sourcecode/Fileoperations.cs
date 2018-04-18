@@ -8,6 +8,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
@@ -485,7 +486,7 @@ namespace GeocachingTourPlanner
 			}
 		}
 
-		public static bool ImportOSMData()
+		public static void ImportOSMData()
 		{
 			OpenFileDialog StandardFileDialog = new OpenFileDialog
 			{
@@ -517,7 +518,7 @@ namespace GeocachingTourPlanner
 						if (MessageBox.Show("If you selected an existing file it will be overwritten.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
 						{
 							File.Create(NewFileDialog.FileName).Close();
-							Fileoperations.Backup(null);
+							Backup(null);
 							Program.RouterDB = new RouterDb();
 							Program.DB.GeocacheDB_Filepath = StandardFileDialog.FileName;
 						}
@@ -529,33 +530,33 @@ namespace GeocachingTourPlanner
 				} while (retry);
 
 				MessageBox.Show("This might take a while, depending on how big your pbf file is.\n How about getting yourself a coffee?");
-				using (var stream = new FileInfo(StandardFileDialog.FileName).OpenRead())
+				new Thread(new ThreadStart(() =>
 				{
-					Program.RouterDB.LoadOsmData(stream, new Itinero.Profiles.Vehicle[] { Itinero.Osm.Vehicles.Vehicle.Bicycle, Itinero.Osm.Vehicles.Vehicle.Car, Itinero.Osm.Vehicles.Vehicle.Pedestrian });
-				}
-
-				// write the routerdb to disk.
-
-				if (Program.DB.RouterDB_Filepath == null)
-				{
-					Program.DB.RouterDB_Filepath = "OSM.routerdb";
-				}
-				Task Serialize = Task.Factory.StartNew(() =>
-				{
-					//just let it run in background
-					using (var stream = new FileInfo(Program.DB.RouterDB_Filepath).Open(FileMode.Create))
+					using (var stream = new FileInfo(StandardFileDialog.FileName).OpenRead())
 					{
-						Program.RouterDB.Serialize(stream);
+						Program.RouterDB.LoadOsmData(stream, new Itinero.Profiles.Vehicle[] { Itinero.Osm.Vehicles.Vehicle.Bicycle, Itinero.Osm.Vehicles.Vehicle.Car, Itinero.Osm.Vehicles.Vehicle.Pedestrian });
 					}
-				});
-				
-				Backup(null);
 
-				return true;
-			}
-			else
-			{
-				return false;
+					// write the routerdb to disk.
+					if (Program.DB.RouterDB_Filepath == null)
+					{
+						Program.DB.RouterDB_Filepath = "OSM.routerdb";
+					}
+					Task Serialize = Task.Factory.StartNew(() =>
+					{
+						//just let it run in background
+						using (var stream = new FileInfo(Program.DB.RouterDB_Filepath).Open(FileMode.Create))
+						{
+							Program.RouterDB.Serialize(stream);
+						}
+					});
+
+					Backup(null);
+
+					Program.MainWindow.RouterDBStateLabel.Text = "Successfully loaded RouterDB";
+					MessageBox.Show("Successfully imported OSM Data");
+
+				})).Start();
 			}
 		}
 

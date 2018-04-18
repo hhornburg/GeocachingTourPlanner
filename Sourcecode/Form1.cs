@@ -77,10 +77,7 @@ namespace GeocachingTourPlanner
 
 		private void ImportOSMDataButton_Click(object sender, EventArgs e)
 		{
-			if (Fileoperations.ImportOSMData())
-			{
-				RouterDBStateLabel.Text = "Successfully loaded RouterDB";
-			}
+			Fileoperations.ImportOSMData();
 		}
 
 		private void ImportGeocachesButton_Click(object sender, EventArgs e)
