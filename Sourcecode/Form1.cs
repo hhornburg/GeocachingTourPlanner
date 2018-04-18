@@ -19,6 +19,7 @@ using Itinero.IO.Osm;
 using System.Xml;
 using Itinero.LocalGeo;
 using System.Threading;
+using System.Diagnostics;
 
 namespace GeocachingTourPlanner
 {
@@ -61,6 +62,15 @@ namespace GeocachingTourPlanner
 		private void OpenWikiButton_Click(object sender, EventArgs e)
 		{
 			System.Diagnostics.Process.Start("https://github.com/pingurus/GeocachingTourPlanner/wiki");
+		}
+
+		private void webBrowser1_Navigating(object sender, WebBrowserNavigatingEventArgs e)
+		{
+			if (e.Url != new Uri(Application.StartupPath + "\\first-steps.html"))
+			{
+				Process.Start(e.Url.ToString());
+				e.Cancel = true;
+			}
 		}
 
 		#region Overview
@@ -1256,6 +1266,5 @@ namespace GeocachingTourPlanner
 				}
 			}
 		}
-
 	}
 }

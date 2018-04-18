@@ -28,11 +28,21 @@ namespace GeocachingTourPlanner
 		public void Rate(Ratingprofile Profil)
         {
             Rating = 0;
-            Rating += (Profil.TypeRatings.Where(x=>x.Key==Type).First().Value * Profil.TypePriority);
-            Rating += (Profil.SizeRatings.Where(x=>x.Key==Size).First().Value * Profil.SizePriority);
-            Rating += (Profil.DRatings.Where(x =>x.Key==DRating).First().Value * Profil.DPriority);
-            Rating += (Profil.TRatings.Where(x =>x.Key==TRating).First().Value * Profil.TPriority);
-            if (Profil.Yearmode)
+			//So Cachetypes that don't have their own rating don't cause exceptions (Types that aren't rated are defaulted to 0 though!)
+			if (Profil.TypeRatings.Where(x => x.Key == Type).Count() > 0)
+			{
+				Rating += (Profil.TypeRatings.Where(x => x.Key == Type).First().Value * Profil.TypePriority);
+			}
+			else
+			{
+				Rating += (Profil.TypeRatings.Where(x => x.Key == GeocacheType.Other).First().Value * Profil.TypePriority);
+			}
+
+			Rating += (Profil.SizeRatings.Where(x => x.Key == Size).First().Value * Profil.SizePriority);
+			Rating += (Profil.DRatings.Where(x => x.Key == DRating).First().Value * Profil.DPriority);
+			Rating += (Profil.TRatings.Where(x => x.Key == TRating).First().Value * Profil.TPriority);
+
+			if (Profil.Yearmode)
             {
                 Rating += (Profil.Yearfactor * (DateTime.Now.Year - DateHidden.Year));
             }

@@ -56,6 +56,7 @@ namespace GeocachingTourPlanner
 			this.Firststeps = new System.Windows.Forms.TabPage();
 			this.tableLayoutPanel17 = new System.Windows.Forms.TableLayoutPanel();
 			this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+			this.OpenWikiButton = new System.Windows.Forms.Button();
 			this.Overviewpage = new System.Windows.Forms.TabPage();
 			this.NameStateTable = new System.Windows.Forms.TableLayoutPanel();
 			this.StateTableLayout = new System.Windows.Forms.TableLayoutPanel();
@@ -219,7 +220,6 @@ namespace GeocachingTourPlanner
 			this.RoutefindingWidth_Textbox = new System.Windows.Forms.TextBox();
 			this.LiveDisplayRouteCalculationCheckbox = new System.Windows.Forms.CheckBox();
 			this.Autotargetselection = new System.Windows.Forms.CheckBox();
-			this.OpenWikiButton = new System.Windows.Forms.Button();
 			this.UpmostTableLayoutPanel.SuspendLayout();
 			this.Tabcontainer.SuspendLayout();
 			this.MapTab.SuspendLayout();
@@ -607,20 +607,32 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel17.Location = new System.Drawing.Point(0, 0);
 			this.tableLayoutPanel17.Name = "tableLayoutPanel17";
 			this.tableLayoutPanel17.RowCount = 2;
-			this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+			this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
 			this.tableLayoutPanel17.Size = new System.Drawing.Size(386, 544);
 			this.tableLayoutPanel17.TabIndex = 0;
 			// 
 			// webBrowser1
 			// 
-			this.webBrowser1.AllowNavigation = false;
 			this.webBrowser1.AllowWebBrowserDrop = false;
+			this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.webBrowser1.Location = new System.Drawing.Point(3, 3);
 			this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
 			this.webBrowser1.Name = "webBrowser1";
-			this.webBrowser1.Size = new System.Drawing.Size(380, 512);
+			this.webBrowser1.Size = new System.Drawing.Size(380, 508);
 			this.webBrowser1.TabIndex = 1;
+			this.webBrowser1.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.webBrowser1_Navigating);
+			// 
+			// OpenWikiButton
+			// 
+			this.OpenWikiButton.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.OpenWikiButton.Location = new System.Drawing.Point(3, 517);
+			this.OpenWikiButton.Name = "OpenWikiButton";
+			this.OpenWikiButton.Size = new System.Drawing.Size(380, 24);
+			this.OpenWikiButton.TabIndex = 2;
+			this.OpenWikiButton.Text = "Open Wiki in Browser";
+			this.OpenWikiButton.UseVisualStyleBackColor = true;
+			this.OpenWikiButton.Click += new System.EventHandler(this.OpenWikiButton_Click);
 			// 
 			// Overviewpage
 			// 
@@ -2552,17 +2564,6 @@ namespace GeocachingTourPlanner
 			this.Autotargetselection.Text = "Autotargetselection (Default: on)";
 			this.Autotargetselection.UseVisualStyleBackColor = true;
 			this.Autotargetselection.CheckedChanged += new System.EventHandler(this.Autotargetselection_CheckedChanged);
-			// 
-			// OpenWikiButton
-			// 
-			this.OpenWikiButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.OpenWikiButton.Location = new System.Drawing.Point(3, 521);
-			this.OpenWikiButton.Name = "OpenWikiButton";
-			this.OpenWikiButton.Size = new System.Drawing.Size(380, 20);
-			this.OpenWikiButton.TabIndex = 2;
-			this.OpenWikiButton.Text = "Open Wiki in Browser";
-			this.OpenWikiButton.UseVisualStyleBackColor = true;
-			this.OpenWikiButton.Click += new System.EventHandler(this.OpenWikiButton_Click);
 			// 
 			// Form1
 			// 
