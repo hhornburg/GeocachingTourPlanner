@@ -3,7 +3,7 @@ A tool to plan tours to Geocaches based on your own rating system
 
 ### You need to be a premium member to use this tool effectively
   
-## Current Features ([Stable Release 0.9.5](https://github.com/pingurus/GeocachingTourPlanner/releases/)):
+## Current Features ([Stable Release 0.10.0](https://github.com/pingurus/GeocachingTourPlanner/releases/)):
 * Rate Geocaches based on your own rating profiles
 * Display the rated Geocaches with colourcode on the map, click them to see the listing
 * Automatic Route creation:
