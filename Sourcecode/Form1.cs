@@ -19,6 +19,7 @@ using Itinero.IO.Osm;
 using System.Xml;
 using Itinero.LocalGeo;
 using System.Threading;
+using System.Diagnostics;
 
 namespace GeocachingTourPlanner
 {
@@ -45,6 +46,7 @@ namespace GeocachingTourPlanner
 
 			//Browser
 			webBrowser1.Navigate(new Uri(Application.StartupPath + "\\first-steps.html"));
+
 			//Map
 			Map.DisableFocusOnMouseEnter = true;//So Windows put in foreground stay in foreground
 			Map.DragButton = MouseButtons.Left;
@@ -57,10 +59,18 @@ namespace GeocachingTourPlanner
 
 		}
 
-
-		private void WikiLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		private void OpenWikiButton_Click(object sender, EventArgs e)
 		{
 			System.Diagnostics.Process.Start("https://github.com/pingurus/GeocachingTourPlanner/wiki");
+		}
+
+		private void webBrowser1_Navigating(object sender, WebBrowserNavigatingEventArgs e)
+		{
+			if (e.Url != new Uri(Application.StartupPath + "\\first-steps.html"))
+			{
+				Process.Start(e.Url.ToString());
+				e.Cancel = true;
+			}
 		}
 
 		#region Overview
@@ -506,6 +516,8 @@ namespace GeocachingTourPlanner
 		{
 			if (!Map.InvokeRequired)
 			{
+				//TODO make this more intelligent
+
 				//Remove all geocache (and only the geocache!) overlays
 				if (Map.Overlays.Where(x => x.Id == "TopOverlay").Count() > 0)
 				{
@@ -528,45 +540,21 @@ namespace GeocachingTourPlanner
 				{
 					GMapMarker GCMarker = null;
 					//Three Categories => Thirds of the Point range
-					if (GC.Rating > (Program.DB.MinimalRating) + 0.66 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
+					if (GC.Rating > (Program.DB.MinimalRating) + 0.67 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
 					{
-						if (GC.ForceInclude)
-						{
-							GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.blue_small);
-						}
-						else
-						{
-							GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.green_small);
-						}
+						GCMarker = Markers.GetGeocacheMarker(GC);
 						TopOverlay.Markers.Add(GCMarker);
 					}
 					else if (GC.Rating > (Program.DB.MinimalRating) + 0.33 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
 					{
-						if (GC.ForceInclude)
-						{
-							GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.blue_small);
-						}
-						else
-						{
-							GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.yellow_small);
-						}
+						GCMarker = Markers.GetGeocacheMarker(GC);
 						MediumOverlay.Markers.Add(GCMarker);
 					}
 					else
 					{
-						if (GC.ForceInclude)
-						{
-							GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.blue_small);
-						}
-						else
-						{
-							GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.red_small);
-						}
+						GCMarker = Markers.GetGeocacheMarker(GC);
 						LowOverlay.Markers.Add(GCMarker);
 					}
-
-					GCMarker.ToolTipText = GC.GCCODE + "\n" + GC.Name + "\n" + GC.Type + "(" + GC.DateHidden.Date.ToString().Remove(10) + ")\nD-Wertung: " + GC.DRating + "\nT-Wertung: " + GC.TRating + "\nBewertung: " + GC.Rating;
-					GCMarker.Tag = GC.GCCODE;
 				}
 
 				Map.Overlays.Add(LowOverlay);
@@ -859,30 +847,8 @@ namespace GeocachingTourPlanner
 				RouteOverlay.Routes.Add(new GMapRoute(GMAPRoute, Routetag));
 				foreach (Geocache GC in GeocachesOnRoute)
 				{
-					GMapMarker GCMarker = null;
-					//Three Categories => Thirds of the Point range
-					if (GC.ForceInclude)
-					{
-						GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.blue_small);
-					}
-					else if (GC.Rating > (Program.DB.MinimalRating) + 0.66 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
-					{
-						GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.green_small);
-						RouteOverlay.Markers.Add(GCMarker);
-					}
-					else if (GC.Rating > (Program.DB.MinimalRating) + 0.33 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
-					{
-						GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.yellow_small);
-						RouteOverlay.Markers.Add(GCMarker);
-					}
-					else
-					{
-						GCMarker = new GMarkerGoogle(new PointLatLng(GC.lat, GC.lon), GMarkerGoogleType.red_small);
-						RouteOverlay.Markers.Add(GCMarker);
-					}
-
-					GCMarker.ToolTipText = GC.GCCODE + "\n" + GC.Name + "\n" + GC.Type + " (" + GC.DateHidden.Date.ToString().Remove(10) + ")\nD: " + GC.DRating + " T: " + GC.TRating + " " +  GC.Size + "\nPoints: " + GC.Rating;
-					GCMarker.Tag = GC.GCCODE;
+					GMapMarker GCMarker = Markers.GetGeocacheMarker(GC);
+					RouteOverlay.Markers.Add(GCMarker);
 				}
 
 				Map.Overlays.Add(RouteOverlay);

@@ -444,6 +444,15 @@ namespace GeocachingTourPlanner
 							case "Geocache|Earthcache":
 								geocache.Type = GeocacheType.EarthCache;
 								break;
+							case "Geocache|Mega-Event Cache":
+								geocache.Type = GeocacheType.MegaEvent;
+								break;
+							case "Geocache|Event Cache":
+								geocache.Type = GeocacheType.Event;
+								break;
+							case "Geocache|Cache In Trash Out Event":
+								geocache.Type = GeocacheType.Cito;
+								break;
 							default:
 								geocache.Type = GeocacheType.Other;
 								break;
