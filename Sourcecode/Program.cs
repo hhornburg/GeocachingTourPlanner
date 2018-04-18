@@ -62,6 +62,7 @@ namespace GeocachingTourPlanner
 			if (File.Exists(Database_Filepath))//Thus it is not the first start of the program
 			{
 				Fileoperations.ReadMainDatabase();
+				Startup.ReadRemainingDatabases();
 			}
 			else
 			{
@@ -69,8 +70,6 @@ namespace GeocachingTourPlanner
 			}
 
 			MainWindow.UpdateSettingsTextBoxes();
-
-			Startup.ReadRemainingDatabases();
 			Startup.CheckSettings();
 			
 			Application.Run(MainWindow);
