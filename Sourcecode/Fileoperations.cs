@@ -359,25 +359,13 @@ namespace GeocachingTourPlanner
 						Title = "Create new, empty geocachedatabase"
 					};
 
-					bool retry = false;
-					do
+					if (NewFileDialog.ShowDialog() == DialogResult.OK)
 					{
-						retry = false;
-						if (NewFileDialog.ShowDialog() == DialogResult.OK)
-						{
-							if (MessageBox.Show("If you selected an existing file it will be overwritten.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
-							{
-								File.Create(NewFileDialog.FileName).Close();
-								Fileoperations.Backup(Program.Geocaches);
-								Program.Geocaches = new SortableBindingList<Geocache>();
-								Program.DB.GeocacheDB_Filepath = NewFileDialog.FileName;
-							}
-							else
-							{
-								retry = true;
-							}
-						}
-					} while (retry);
+						File.Create(NewFileDialog.FileName).Close();
+						Backup(Program.Geocaches);
+						Program.Geocaches = new SortableBindingList<Geocache>();
+						Program.DB.GeocacheDB_Filepath = NewFileDialog.FileName;
+					}
 				}
 				else if (Importmodus == DialogResult.No)
 				{
@@ -509,54 +497,43 @@ namespace GeocachingTourPlanner
 					Title = "Create new Routerdb file"
 				};
 
-				bool retry = false;
-				do
+				if (NewFileDialog.ShowDialog() == DialogResult.OK)
 				{
-					retry = false;
-					if (NewFileDialog.ShowDialog() == DialogResult.OK)
-					{
-						if (MessageBox.Show("If you selected an existing file it will be overwritten.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
-						{
-							File.Create(NewFileDialog.FileName).Close();
-							Backup(null);
-							Program.RouterDB = new RouterDb();
-							Program.DB.GeocacheDB_Filepath = StandardFileDialog.FileName;
-						}
-						else
-						{
-							retry = true;
-						}
-					}
-				} while (retry);
+					File.Create(NewFileDialog.FileName).Close();
+					Backup(null);
+					Program.RouterDB = new RouterDb();
+					Program.DB.GeocacheDB_Filepath = StandardFileDialog.FileName;
 
-				MessageBox.Show("This might take a while, depending on how big your pbf file is.\n How about getting yourself a coffee?");
-				new Thread(new ThreadStart(() =>
-				{
-					using (var stream = new FileInfo(StandardFileDialog.FileName).OpenRead())
+
+					MessageBox.Show("This might take a while, depending on how big your pbf file is.\n How about getting yourself a coffee?");
+					new Thread(new ThreadStart(() =>
 					{
-						Program.RouterDB.LoadOsmData(stream, new Itinero.Profiles.Vehicle[] { Itinero.Osm.Vehicles.Vehicle.Bicycle, Itinero.Osm.Vehicles.Vehicle.Car, Itinero.Osm.Vehicles.Vehicle.Pedestrian });
-					}
+						using (var stream = new FileInfo(StandardFileDialog.FileName).OpenRead())
+						{
+							Program.RouterDB.LoadOsmData(stream, new Itinero.Profiles.Vehicle[] { Itinero.Osm.Vehicles.Vehicle.Bicycle, Itinero.Osm.Vehicles.Vehicle.Car, Itinero.Osm.Vehicles.Vehicle.Pedestrian });
+						}
 
 					// write the routerdb to disk.
 					if (Program.DB.RouterDB_Filepath == null)
-					{
-						Program.DB.RouterDB_Filepath = "OSM.routerdb";
-					}
-					Task Serialize = Task.Factory.StartNew(() =>
-					{
+						{
+							Program.DB.RouterDB_Filepath = "OSM.routerdb";
+						}
+						Task Serialize = Task.Factory.StartNew(() =>
+						{
 						//just let it run in background
 						using (var stream = new FileInfo(Program.DB.RouterDB_Filepath).Open(FileMode.Create))
-						{
-							Program.RouterDB.Serialize(stream);
-						}
-					});
+							{
+								Program.RouterDB.Serialize(stream);
+							}
+						});
 
-					Backup(null);
+						Backup(null);
 
-					Program.MainWindow.RouterDBStateLabel.Text = "Successfully loaded RouterDB";
-					MessageBox.Show("Successfully imported OSM Data");
+						Program.MainWindow.RouterDBStateLabel.Text = "Successfully loaded RouterDB";
+						MessageBox.Show("Successfully imported OSM Data");
 
-				})).Start();
+					})).Start();
+				}
 			}
 		}
 
@@ -571,25 +548,13 @@ namespace GeocachingTourPlanner
 				Title = "Create new, empty routingprofilesdatabase"
 			};
 
-			bool retry = false;
-			do
+			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
 			{
-				retry = false;
-				if (StandardFileDialog.ShowDialog() == DialogResult.OK)
-				{
-					if (MessageBox.Show("If you selected an existing file it will be overwritten.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
-					{
-						File.Create(StandardFileDialog.FileName);
-						Fileoperations.Backup(Program.Routingprofiles);
-						Program.Routingprofiles = new SortableBindingList<Routingprofile>();
-						Program.DB.RoutingprofileDB_Filepath = StandardFileDialog.FileName;
-					}
-					else
-					{
-						retry = true;
-					}
-				}
-			} while (retry);
+				File.Create(StandardFileDialog.FileName);
+				Backup(Program.Routingprofiles);
+				Program.Routingprofiles = new SortableBindingList<Routingprofile>();
+				Program.DB.RoutingprofileDB_Filepath = StandardFileDialog.FileName;
+			}
 
 			Program.Routingprofiles.ResetBindings();
 		}
@@ -611,17 +576,10 @@ namespace GeocachingTourPlanner
 				retry = false;
 				if (StandardFileDialog.ShowDialog() == DialogResult.OK)
 				{
-					if (MessageBox.Show("If you selected an existing file it will be overwritten.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
-					{
-						File.Create(StandardFileDialog.FileName);
-						Backup(Program.Ratingprofiles);
-						Program.Ratingprofiles = new SortableBindingList<Ratingprofile>();
-						Program.DB.RatingprofileDB_Filepath = StandardFileDialog.FileName;
-					}
-					else
-					{
-						retry = true;
-					}
+					File.Create(StandardFileDialog.FileName);
+					Backup(Program.Ratingprofiles);
+					Program.Ratingprofiles = new SortableBindingList<Ratingprofile>();
+					Program.DB.RatingprofileDB_Filepath = StandardFileDialog.FileName;
 				}
 			} while (retry);
 
