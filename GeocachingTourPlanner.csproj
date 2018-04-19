@@ -46,6 +46,7 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup>
     <RootNamespace>GeocachingTourPlanner</RootNamespace>
@@ -58,10 +59,10 @@
       <HintPath>packages\GMap.NET.WindowsForms.1.7.5\lib\net40\GMap.NET.WindowsForms.dll</HintPath>
     </Reference>
     <Reference Include="Itinero, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Itinero.1.4.0-pre38\lib\net45\Itinero.dll</HintPath>
+      <HintPath>packages\Itinero.1.4.0-pre44\lib\net45\Itinero.dll</HintPath>
     </Reference>
     <Reference Include="Itinero.IO.Osm, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Itinero.IO.Osm.1.4.0-pre38\lib\net45\Itinero.IO.Osm.dll</HintPath>
+      <HintPath>packages\Itinero.IO.Osm.1.4.0-pre44\lib\net45\Itinero.IO.Osm.dll</HintPath>
     </Reference>
     <Reference Include="OsmSharp, Version=6.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\OsmSharp.6.0.0\lib\net45\OsmSharp.dll</HintPath>
@@ -78,6 +79,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Forms" />

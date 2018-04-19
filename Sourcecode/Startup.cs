@@ -37,7 +37,7 @@ namespace GeocachingTourPlanner
 			Program.DB.LastMapPosition = new PointLatLng(49.0, 8.5);
 			Program.DB.MarkerSize = 16;
 
-		Program.MainWindow.LeftTabs.SelectedIndex = 0;
+			Program.MainWindow.LeftTabs.SelectedIndex = 0;
 		}
 		
 		public static void ReadRemainingDatabases()
