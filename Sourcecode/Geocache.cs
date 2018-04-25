@@ -42,7 +42,7 @@ namespace GeocachingTourPlanner
 			Rating += (Profil.DRatings.Where(x => x.Key == DRating).First().Value * Profil.DPriority);
 			Rating += (Profil.TRatings.Where(x => x.Key == TRating).First().Value * Profil.TPriority);
 
-			if (Profil.Yearmode)
+			if (Profil.Yearmode == Yearmode.multiply)
             {
                 Rating += (Profil.Yearfactor * (DateTime.Now.Year - DateHidden.Year));
             }

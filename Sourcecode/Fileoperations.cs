@@ -499,16 +499,24 @@ namespace GeocachingTourPlanner
 					MessageBox.Show("This might take a while, depending on how big your pbf file is.\n How about getting yourself a coffee?");
 					new Thread(new ThreadStart(() =>
 					{
-						using (var stream = new FileInfo(StandardFileDialog.FileName).OpenRead())
+						try
 						{
-							Program.RouterDB.LoadOsmData(stream, new Itinero.Profiles.Vehicle[] { Itinero.Osm.Vehicles.Vehicle.Bicycle, Itinero.Osm.Vehicles.Vehicle.Car, Itinero.Osm.Vehicles.Vehicle.Pedestrian });
+							using (var stream = new FileInfo(StandardFileDialog.FileName).OpenRead())
+							{
+								Program.RouterDB.LoadOsmData(stream, new Itinero.Profiles.Vehicle[] { Itinero.Osm.Vehicles.Vehicle.Bicycle, Itinero.Osm.Vehicles.Vehicle.Car, Itinero.Osm.Vehicles.Vehicle.Pedestrian });
+							}
+						}
+						catch (Exception ex)
+						{
+							MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
 						}
 
-					// write the routerdb to disk.
-					if (Program.DB.RouterDB_Filepath == null)
+						// write the routerdb to disk.
+						if (Program.DB.RouterDB_Filepath == null||Program.DB.RouterDB_Filepath=="")
 						{
-							Program.DB.RouterDB_Filepath = "OSM.routerdb";
+							Program.DB.SetDatabaseFilepath(Databases.RouterDB);
 						}
+
 						Task Serialize = Task.Factory.StartNew(() =>
 						{
 						//just let it run in background

@@ -45,7 +45,15 @@ namespace GeocachingTourPlanner
 			Program.Geocaches.ResetBindings();
 
 			//Browser
-			webBrowser1.Navigate(new Uri(Application.StartupPath + "\\first-steps.html"));
+			try
+			{
+				webBrowser1.Navigate(new Uri(Application.StartupPath + "\\first-steps.html"));
+			}
+			catch (Exception e)
+			{
+				MessageBox.Show("Can't show you the first steps, cause the needed html file is missing.");
+			}
+			
 
 			//Map
 			Map.DisableFocusOnMouseEnter = true;//So Windows put in foreground stay in foreground
@@ -127,13 +135,13 @@ namespace GeocachingTourPlanner
 
 		private void GetPQLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
-			System.Diagnostics.Process.Start("https://www.geocaching.com/pocket/");
+			Process.Start("https://www.geocaching.com/pocket/");
 		}
 
 
 		private void GetPbfLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
-			System.Diagnostics.Process.Start("http://download.geofabrik.de/");
+			Process.Start("http://download.geofabrik.de/");
 		}
 
 		private void NewRatingprofileDatabaseButton_Click(object sender, EventArgs e)
@@ -218,14 +226,20 @@ namespace GeocachingTourPlanner
 
 				if (AgeValue.SelectedItem.ToString() == "multiply with")
 				{
-					Profile.Yearmode = true;
+					Profile.Yearmode = Yearmode.multiply;
 				}
 				else
 				{
-					Profile.Yearmode = false;
+					Profile.Yearmode = Yearmode.square_n_divide;
 				}
 
 				Profile.Yearfactor = int.Parse(AgeFactorValue.Text);
+
+				if (Profile.Yearmode == Yearmode.square_n_divide && Profile.Yearfactor == 0)
+				{
+					MessageBox.Show("Don't you dare to divide by 0!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					return;
+				}
 
 			}
 			catch (FormatException)
@@ -435,7 +449,7 @@ namespace GeocachingTourPlanner
 
 				//Sonstige
 				NMFlagValue.Text = SelectedRatingprofile.NMPenalty.ToString();
-				if (SelectedRatingprofile.Yearmode == true)
+				if (SelectedRatingprofile.Yearmode == Yearmode.multiply)
 				{
 					AgeValue.SelectedItem = AgeValue.Items[0];
 				}
