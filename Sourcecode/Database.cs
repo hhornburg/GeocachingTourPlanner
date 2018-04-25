@@ -106,8 +106,24 @@ namespace GeocachingTourPlanner
 			OpenFileDialog StandardFileDialog = new OpenFileDialog()
 			{
 				InitialDirectory = LastUsedFilepath,
-				Filter = "All files (*.*)|*.*"
+				FilterIndex = 0,
 			};
+
+			switch (DatabaseName)
+			{
+				case Databases.Geocaches:
+					StandardFileDialog.Filter = "gcdb files (*.gcdb)|*.gcdb|All files (*.*)|*.*";
+					break;
+				case Databases.Ratingprofiles:
+					StandardFileDialog.Filter = "ratingprofiles files (*.ratingprf)|*.ratingprf|All files (*.*)|*.*";
+					break;
+				case Databases.Routingprofiles:
+					StandardFileDialog.Filter = "routingprofile files (*.routingprf)|*.routingprf|All files (*.*)|*.*";
+					break;
+				case Databases.RouterDB:
+					StandardFileDialog.Filter = "Routerdb files (*.routerdb)|*.routerdb|All files (*.*)|*.*";
+					break;
+			}
 
 			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
 			{

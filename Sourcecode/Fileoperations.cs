@@ -249,7 +249,7 @@ namespace GeocachingTourPlanner
 			{
 				InitialDirectory = Program.DB.LastUsedFilepath,
 				Filter = "gpx files (*.gpx)|*.gpx|All files (*.*)|*.*",
-				FilterIndex = 1,
+				FilterIndex = 0,
 				RestoreDirectory = true,
 				Title = "Export route as track"
 			};
@@ -339,7 +339,7 @@ namespace GeocachingTourPlanner
 			{
 				InitialDirectory = Program.DB.LastUsedFilepath,
 				Filter = "gpx files (*.gpx)|*.gpx|All files (*.*)|*.*",
-				FilterIndex = 1,
+				FilterIndex = 0,
 				RestoreDirectory = true,
 				Title = "Import geocaches"
 			};
@@ -354,7 +354,7 @@ namespace GeocachingTourPlanner
 					{
 						InitialDirectory = Program.DB.LastUsedFilepath,
 						Filter = "gcdb files (*.gcdb)|*.gcdb|All files (*.*)|*.*",
-						FilterIndex = 1,
+						FilterIndex = 0,
 						RestoreDirectory = true,
 						Title = "Create new, empty geocachedatabase"
 					};
@@ -480,7 +480,7 @@ namespace GeocachingTourPlanner
 			{
 				InitialDirectory = Program.DB.LastUsedFilepath,
 				Filter = "pbf files (*.pbf)|*.pbf|All files (*.*)|*.*",
-				FilterIndex = 2,
+				FilterIndex = 0,
 				RestoreDirectory = true,
 				Title = "Import OSM Data"
 			};
@@ -492,7 +492,7 @@ namespace GeocachingTourPlanner
 				{
 					InitialDirectory = Program.DB.LastUsedFilepath,
 					Filter = "Routerdb files (*.routerdb)|*.routerdb|All files (*.*)|*.*",
-					FilterIndex = 1,
+					FilterIndex = 0,
 					RestoreDirectory = true,
 					Title = "Create new Routerdb file"
 				};
@@ -543,7 +543,7 @@ namespace GeocachingTourPlanner
 			{
 				InitialDirectory = Program.DB.LastUsedFilepath,
 				Filter = "routingprofile files (*.routingprf)|*.routingprf|All files (*.*)|*.*",
-				FilterIndex = 1,
+				FilterIndex = 0,
 				RestoreDirectory = true,
 				Title = "Create new, empty routingprofilesdatabase"
 			};
@@ -565,7 +565,7 @@ namespace GeocachingTourPlanner
 			{
 				InitialDirectory = Program.DB.LastUsedFilepath,
 				Filter = "ratingprofiles files (*.ratingprf)|*.ratingprf|All files (*.*)|*.*",
-				FilterIndex = 1,
+				FilterIndex = 0,
 				RestoreDirectory = true,
 				Title = "Create new, empty ratingprofilesdatabase"
 			};
