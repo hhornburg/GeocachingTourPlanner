@@ -71,11 +71,6 @@ namespace GeocachingTourPlanner
 					}
 				}
 			}
-
-			//To make them show up in the menu
-			Program.Routingprofiles.ListChanged += new ListChangedEventHandler(Program.MainWindow.Routingprofiles_ListChanged);
-			Program.Routingprofiles.ResetBindings();
-
 		}
 
 		public static void ReadRatingprofiles()
@@ -103,10 +98,6 @@ namespace GeocachingTourPlanner
 					}
 				}
 			}
-
-			//To make them show up in the menu. Here, as the binding should also happen if none could be loaded
-			Program.Ratingprofiles.ListChanged += new ListChangedEventHandler(Program.MainWindow.Ratingprofiles_ListChanged);
-			Program.Ratingprofiles.ResetBindings();
 		}
 
 		public static void ReadGeocaches()
@@ -363,7 +354,7 @@ namespace GeocachingTourPlanner
 					{
 						File.Create(NewFileDialog.FileName).Close();
 						Backup(Program.Geocaches);
-						Program.Geocaches = new SortableBindingList<Geocache>();
+						Program.Geocaches.Clear();
 						Program.DB.GeocacheDB_Filepath = NewFileDialog.FileName;
 					}
 				}
@@ -469,7 +460,7 @@ namespace GeocachingTourPlanner
 				{
 					MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
 				}
-				Fileoperations.Backup(Program.Geocaches);
+				Backup(Program.Geocaches);
 				Program.Geocaches.ResetBindings();
 			}
 		}
@@ -552,7 +543,7 @@ namespace GeocachingTourPlanner
 			{
 				File.Create(StandardFileDialog.FileName);
 				Backup(Program.Routingprofiles);
-				Program.Routingprofiles = new SortableBindingList<Routingprofile>();
+				Program.Routingprofiles.Clear();
 				Program.DB.RoutingprofileDB_Filepath = StandardFileDialog.FileName;
 			}
 
@@ -578,7 +569,7 @@ namespace GeocachingTourPlanner
 				{
 					File.Create(StandardFileDialog.FileName);
 					Backup(Program.Ratingprofiles);
-					Program.Ratingprofiles = new SortableBindingList<Ratingprofile>();
+					Program.Ratingprofiles.Clear();
 					Program.DB.RatingprofileDB_Filepath = StandardFileDialog.FileName;
 				}
 			} while (retry);

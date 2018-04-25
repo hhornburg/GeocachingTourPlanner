@@ -2,6 +2,7 @@
 using Itinero;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -39,7 +40,10 @@ namespace GeocachingTourPlanner
 
 			Program.MainWindow.LeftTabs.SelectedIndex = 0;
 		}
-		
+
+		/// <summary>
+		/// Calls the sbroutines for reading each database and sets the list event handlers
+		/// </summary>
 		public static void ReadRemainingDatabases()
 		{
 
@@ -55,6 +59,9 @@ namespace GeocachingTourPlanner
 
 			//Load Ratingprofiles from the File specified in the Database
 			Fileoperations.ReadRatingprofiles();
+			//To make them show up in the menu. Here, as the binding should also happen if none could be loaded
+			Program.Ratingprofiles.ListChanged += new ListChangedEventHandler(Program.MainWindow.Ratingprofiles_ListChanged);
+			Program.Ratingprofiles.ResetBindings();
 
 			//Geocaches
 			Fileoperations.ReadGeocaches();
@@ -62,6 +69,10 @@ namespace GeocachingTourPlanner
 
 			//Routingprofile
 			Fileoperations.ReadRoutingprofiles();
+			//To make them show up in the menu
+			Program.Routingprofiles.ListChanged += new ListChangedEventHandler(Program.MainWindow.Routingprofiles_ListChanged);
+			Program.Routingprofiles.ResetBindings();
+
 			Fileoperations.Backup(null);//so settings get saved in the DB. Nothing else, as it just came from the file
 
 		}

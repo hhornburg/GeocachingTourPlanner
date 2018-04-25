@@ -80,15 +80,16 @@ namespace GeocachingTourPlanner
 			}
 			if(DatabaseFilepath == null || !File.Exists(DatabaseFilepath))//"||" So it doesn't run into exception if it is null
 			{
-				if(MessageBox.Show(new Form { TopMost = true }, "No " + DatabaseName + " found. Do you want to select a file?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+
+				DialogResult dialogResult = new DatabaseFileDialog(DatabaseName).ShowDialog();
+				if (dialogResult == DialogResult.Retry)
 				{
-					if (SetDatabaseFilepath(DatabaseName))
-					{
-						return true;
-					}
+					return true;
 				}
-				return false;
-				
+				else
+				{
+					return false;
+				}
 			}
 			else
 			{

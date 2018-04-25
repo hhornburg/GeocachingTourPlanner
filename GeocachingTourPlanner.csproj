@@ -134,6 +134,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Images.resx</DependentUpon>
     </Compile>
+    <Compile Include="Sourcecode\DatabaseFileDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sourcecode\DatabaseFileDialog.Designer.cs">
+      <DependentUpon>DatabaseFileDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Sourcecode\Fileoperations.cs" />
     <Compile Include="Sourcecode\Markers.cs" />
     <Compile Include="Sourcecode\Startup.cs" />
@@ -164,6 +170,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Sourcecode\AcceptLicenseWindow.resx">
       <DependentUpon>AcceptLicenseWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sourcecode\DatabaseFileDialog.resx">
+      <DependentUpon>DatabaseFileDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sourcecode\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
