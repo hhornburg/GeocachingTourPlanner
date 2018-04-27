@@ -1158,7 +1158,16 @@ namespace GeocachingTourPlanner
 			Program.DB.DisplayLiveCalculation = LiveDisplayRouteCalculationCheckbox.Checked;
 			Fileoperations.Backup(null);
 		}
-		
+
+
+		private void MarkerSizeTrackBar_Scroll(object sender, EventArgs e)
+		{
+			Program.MarkerImageCache.Clear();
+			Program.DB.MarkerSize = MarkerSizeTrackBar.Value;
+			LoadMap();
+			Fileoperations.Backup(null);
+		}
+
 		public void UpdateSettingsTextBoxes()
 		{
 			if (Program.DB.Divisor == 0)
@@ -1170,6 +1179,7 @@ namespace GeocachingTourPlanner
 			ToleranceTextBox.Text = Program.DB.Tolerance.ToString();
 			RoutefindingWidth_Textbox.Text = Program.DB.RoutefindingWidth.ToString();
 			Autotargetselection.Checked = Program.DB.Autotargetselection;
+			MarkerSizeTrackBar.Value = Program.DB.MarkerSize;
 			/*LiveDisplayRouteCalculationCheckbox.Checked = Program.DB.DisplayLiveCalculation;*/
 		}
 
@@ -1177,7 +1187,7 @@ namespace GeocachingTourPlanner
 
 		#endregion
 
-
+		#region helpers
 		//UNDONE Attach this to EVERY Dropdownlist
 		private void Dropdown_SelectedIndexChanged(object sender, EventArgs e)
 		{
@@ -1276,6 +1286,14 @@ namespace GeocachingTourPlanner
 					}
 				}
 			}
+		}
+		#endregion
+
+		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			Fileoperations.Backup(Program.Geocaches);
+			Fileoperations.Backup(Program.Ratingprofiles);
+			Fileoperations.Backup(Program.Routingprofiles);
 		}
 	}
 }

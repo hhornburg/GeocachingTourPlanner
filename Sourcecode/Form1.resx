@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="RatingprofileInfoLabel.Text" xml:space="preserve">
+    <value>The Ratingprofile determines how many points a geocache has. 
+The priority decides how important a property is to you, 10 means it is very important, 0 means that you don't care. 
+It goes similarly for the values a property can take, 10 means you think it is great, 0 means it's neither good nor bad and -10 means that you dislike it strongly. 
+BEWARE: Geocaches that have negative points won't be added to route suggestions.</value>
+  </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>25</value>
   </metadata>
