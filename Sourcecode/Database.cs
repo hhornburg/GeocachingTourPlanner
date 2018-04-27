@@ -56,11 +56,11 @@ namespace GeocachingTourPlanner
 
 		#region Methods
 		/// <summary>
-		/// checks if a DatabaseFilepath and the associated file exist. If it is not the case it asks wether the user wants to select a database file. Returns true if a file exists in the end.
+		/// checks if a DatabaseFilepath and the associated file exist.
 		/// </summary>
 		/// <param name="DatabaseFilepath"></param>
 		/// <param name="DatabaseName"></param>
-		public bool CheckDatabaseFilepath(Databases DatabaseName)
+		public bool IsFilepathSet(Databases DatabaseName)
 		{
 			string DatabaseFilepath=null;
 			switch (DatabaseName)
@@ -80,16 +80,7 @@ namespace GeocachingTourPlanner
 			}
 			if(DatabaseFilepath == null || !File.Exists(DatabaseFilepath))//"||" So it doesn't run into exception if it is null
 			{
-
-				DialogResult dialogResult = new DatabaseFileDialog(DatabaseName).ShowDialog();
-				if (dialogResult == DialogResult.Retry)
-				{
-					return true;
-				}
-				else
-				{
-					return false;
-				}
+				return false;
 			}
 			else
 			{
@@ -102,7 +93,7 @@ namespace GeocachingTourPlanner
 		/// </summary>
 		/// <param name="DatabaseName"></param>
 		/// <returns></returns>
-		public bool SetDatabaseFilepath(Databases DatabaseName)
+		public bool OpenExistingDBFile(Databases DatabaseName)
 		{
 			OpenFileDialog StandardFileDialog = new OpenFileDialog()
 			{

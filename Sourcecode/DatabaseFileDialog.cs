@@ -14,7 +14,12 @@ namespace GeocachingTourPlanner
 	{
 		Databases ThisDB;
 
-		public DatabaseFileDialog(Databases Database)
+		/// <summary>
+		/// Use only with .ShowDialog(). Returns OK if a database is set.
+		/// </summary>
+		/// <param name="Database">Database for which thiis dialog is shown</param>
+		/// <param name="AllowImport">Defaults to true. If  false, the import button is removed</param>
+		public DatabaseFileDialog(Databases Database, bool AllowImport = true)
 		{
 			InitializeComponent();
 
@@ -22,7 +27,14 @@ namespace GeocachingTourPlanner
 			{
 				case Databases.Geocaches:
 					MessageText.Text = "Couldn't find a geocaches database.";
-					New_ImportButton.Text = "Import Pocket query";
+					if (AllowImport)
+					{
+						New_ImportButton.Text = "Import Pocket query";
+					}
+					else
+					{
+						New_ImportButton.Dispose();
+					}
 					break;
 				case Databases.Ratingprofiles:
 					MessageText.Text = "Couldn't find a ratingprofiles database.";
@@ -34,15 +46,28 @@ namespace GeocachingTourPlanner
 					break;
 				case Databases.RouterDB:
 					MessageText.Text = "Couldn't find a RouterDB database.";
-					New_ImportButton.Text = "Import .pbf File";
-					break;
+					if (AllowImport)
+					{
+						New_ImportButton.Text = "Import .pbf File";
+					}
+					else
+					{
+						New_ImportButton.Dispose();
+					}
+			break;
 			}
 		}
 
-		private void SetButton_Click(object sender, EventArgs e)
+		private void OpenButton_Click(object sender, EventArgs e)
 		{
-			Program.DB.SetDatabaseFilepath(ThisDB);
-			DialogResult = DialogResult.Retry;
+			if (Program.DB.OpenExistingDBFile(ThisDB))
+			{
+				DialogResult = DialogResult.OK;
+			}
+			else
+			{
+				DialogResult = DialogResult.Cancel;
+			}
 		}
 
 		private void New_ImportButton_Click(object sender, EventArgs e)

@@ -45,11 +45,14 @@ namespace GeocachingTourPlanner
 			}
 		}
 
+		/// <summary>
+		/// Reads routingprofiles from the filepath specified in the database. Only checks wether it is set, but takes no action if not
+		/// </summary>
 		public static void ReadRoutingprofiles()
 		{
 			Program.Routingprofiles.Clear();
 			StreamReader RPReader = null;
-			if (Program.DB.CheckDatabaseFilepath(Databases.Routingprofiles))//returns true if the user has set a valid database
+			if (Program.DB.IsFilepathSet(Databases.Routingprofiles))//returns true if the user has set a valid database
 			{
 				try
 				{
@@ -73,11 +76,14 @@ namespace GeocachingTourPlanner
 			}
 		}
 
+		/// <summary>
+		/// Reads ratingprofiles from file specified in the database. Only checks wether it is set, but takes no action if not
+		/// </summary>
 		public static void ReadRatingprofiles()
 		{
 			Program.Ratingprofiles.Clear();
 			StreamReader BPReader = null;
-			if (Program.DB.CheckDatabaseFilepath(Databases.Ratingprofiles))//returns true if the user has set a valid database
+			if (Program.DB.IsFilepathSet(Databases.Ratingprofiles))//returns true if the user has set a valid database
 			{
 				try
 				{
@@ -100,12 +106,15 @@ namespace GeocachingTourPlanner
 			}
 		}
 
+		/// <summary>
+		/// Reads geocaches from file specified in the database. Only checks wether it is set, but takes no action if not
+		/// </summary>
 		public static void ReadGeocaches()
 		{
 			Program.Geocaches.Clear();
 			StreamReader GCReader = null;
 
-			if (Program.DB.CheckDatabaseFilepath(Databases.Geocaches))//returns true if the user has set a valid database
+			if (Program.DB.IsFilepathSet(Databases.Geocaches))//returns true if the user has set a valid database
 			{
 				try
 				{
@@ -144,14 +153,14 @@ namespace GeocachingTourPlanner
 			//Aus Performancegrnden nicht alles
 			if (ExtraBackup == Program.Geocaches)
 			{
-				if (Program.DB.CheckDatabaseFilepath(Databases.Geocaches))
+
+				if (Program.DB.IsFilepathSet(Databases.Geocaches))
 				{
 					TextWriter GeocachesWriter = null;
 					try
 					{
 						GeocachesWriter = new StreamWriter(Program.DB.GeocacheDB_Filepath);
 						GeocachesSerializer.Serialize(GeocachesWriter, Program.Geocaches);
-						return true;
 					}
 					catch
 					{
@@ -170,7 +179,7 @@ namespace GeocachingTourPlanner
 
 			else if (ExtraBackup == Program.Routingprofiles)
 			{
-				if (Program.DB.CheckDatabaseFilepath(Databases.Routingprofiles))
+				if (Program.DB.IsFilepathSet(Databases.Routingprofiles))
 				{
 					TextWriter RoutingprofileWriter = null;
 					try
@@ -195,14 +204,13 @@ namespace GeocachingTourPlanner
 
 			else if (ExtraBackup == Program.Ratingprofiles)
 			{
-				if (Program.DB.CheckDatabaseFilepath(Databases.Ratingprofiles))
+				if (Program.DB.IsFilepathSet(Databases.Ratingprofiles))
 				{
-					TextWriter BewertungsprofileWriter = null;
+					TextWriter RatingprofileWriter = null;
 					try
 					{
-						BewertungsprofileWriter = new StreamWriter(Program.DB.RatingprofileDB_Filepath);
-						RatingprofilesSerializer.Serialize(BewertungsprofileWriter, Program.Ratingprofiles);
-						return true;
+						RatingprofileWriter = new StreamWriter(Program.DB.RatingprofileDB_Filepath);
+						RatingprofilesSerializer.Serialize(RatingprofileWriter, Program.Ratingprofiles);
 					}
 					catch (IOException)
 					{
@@ -212,9 +220,9 @@ namespace GeocachingTourPlanner
 					finally
 					{
 
-						if (BewertungsprofileWriter != null)
+						if (RatingprofileWriter != null)
 						{
-							BewertungsprofileWriter.Close();
+							RatingprofileWriter.Close();
 						}
 					}
 				}
@@ -352,8 +360,11 @@ namespace GeocachingTourPlanner
 
 					if (NewFileDialog.ShowDialog() == DialogResult.OK)
 					{
-						File.Create(NewFileDialog.FileName).Close();
+						//Save the curent geocaches to the current file, so no data is lost. Nothing happens if there are no geocaches
 						Backup(Program.Geocaches);
+
+						//Create new database File
+						File.Create(NewFileDialog.FileName).Close();
 						Program.Geocaches.Clear();
 						Program.DB.GeocacheDB_Filepath = NewFileDialog.FileName;
 					}
@@ -362,7 +373,7 @@ namespace GeocachingTourPlanner
 				{
 					//Do nothing
 				}
-				else
+				else // a.k.a cancel
 				{
 					return;
 				}
@@ -514,7 +525,7 @@ namespace GeocachingTourPlanner
 						// write the routerdb to disk.
 						if (Program.DB.RouterDB_Filepath == null||Program.DB.RouterDB_Filepath=="")
 						{
-							Program.DB.SetDatabaseFilepath(Databases.RouterDB);
+							Program.DB.OpenExistingDBFile(Databases.RouterDB);
 						}
 
 						Task Serialize = Task.Factory.StartNew(() =>

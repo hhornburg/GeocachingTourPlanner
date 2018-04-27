@@ -63,7 +63,7 @@
 			this.CancelButton.Name = "CancelButton";
 			this.CancelButton.Size = new System.Drawing.Size(75, 23);
 			this.CancelButton.TabIndex = 0;
-			this.CancelButton.Text = "Cancel";
+			this.CancelButton.Text = "Ignore";
 			this.CancelButton.UseVisualStyleBackColor = true;
 			this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
 			// 
@@ -82,13 +82,13 @@
 			// 
 			this.SetButton.AutoSize = true;
 			this.SetButton.Dock = System.Windows.Forms.DockStyle.Right;
-			this.SetButton.Location = new System.Drawing.Point(77, 91);
+			this.SetButton.Location = new System.Drawing.Point(53, 91);
 			this.SetButton.Name = "SetButton";
-			this.SetButton.Size = new System.Drawing.Size(73, 24);
+			this.SetButton.Size = new System.Drawing.Size(97, 24);
 			this.SetButton.TabIndex = 2;
-			this.SetButton.Text = "Set Filepath";
+			this.SetButton.Text = "Open existing file";
 			this.SetButton.UseVisualStyleBackColor = true;
-			this.SetButton.Click += new System.EventHandler(this.SetButton_Click);
+			this.SetButton.Click += new System.EventHandler(this.OpenButton_Click);
 			// 
 			// MessageText
 			// 

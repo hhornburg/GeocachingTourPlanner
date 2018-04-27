@@ -95,7 +95,7 @@ namespace GeocachingTourPlanner
 
 		private void setGeocachedatabaseButton_Click(object sender, EventArgs e)
 		{
-			if (Program.DB.SetDatabaseFilepath(Databases.Geocaches))
+			if (Program.DB.OpenExistingDBFile(Databases.Geocaches))
 			{
 				Fileoperations.ReadGeocaches();
 			}
@@ -103,7 +103,7 @@ namespace GeocachingTourPlanner
 
 		private void setRoutingprofiledatabaseButton_Click(object sender, EventArgs e)
 		{
-			if (Program.DB.SetDatabaseFilepath(Databases.Routingprofiles))
+			if (Program.DB.OpenExistingDBFile(Databases.Routingprofiles))
 			{
 				Fileoperations.ReadRoutingprofiles();
 			}
@@ -111,7 +111,7 @@ namespace GeocachingTourPlanner
 
 		private void setRatingprofiledatabaseButton_Click(object sender, EventArgs e)
 		{
-			if (Program.DB.SetDatabaseFilepath(Databases.Ratingprofiles))
+			if (Program.DB.OpenExistingDBFile(Databases.Ratingprofiles))
 			{
 				Fileoperations.ReadRatingprofiles();
 			}
@@ -121,7 +121,7 @@ namespace GeocachingTourPlanner
 		{
 			Application.UseWaitCursor=true;
 
-			if (Program.DB.SetDatabaseFilepath(Databases.RouterDB))
+			if (Program.DB.OpenExistingDBFile(Databases.RouterDB))
 			{
 				using (var stream = new FileInfo(Program.DB.RouterDB_Filepath).OpenRead())
 				{
