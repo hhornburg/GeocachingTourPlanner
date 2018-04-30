@@ -46,33 +46,33 @@ namespace GeocachingTourPlanner
 		/// </summary>
 		public static void ReadRemainingDatabases()
 		{
-
-			if (Program.DB.RouterDB_Filepath != null)
+			try
 			{
-				using (var stream = new FileInfo(Program.DB.RouterDB_Filepath).OpenRead())
+				if (Program.DB.RouterDB_Filepath != null)
 				{
-					Program.RouterDB = RouterDb.Deserialize(stream);
-				}
+					using (var stream = new FileInfo(Program.DB.RouterDB_Filepath).OpenRead())
+					{
+						Program.RouterDB = RouterDb.Deserialize(stream);
+					}
 
-				Program.MainWindow.RouterDBStateLabel.Text = "Successfully loaded RouterDB";
+					Program.MainWindow.RouterDBStateLabel.Text = "Successfully loaded RouterDB";
+				}
 			}
+			catch (Exception)
+			{
+				MessageBox.Show("Failed to read RouterDB", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			
 
 			//Load Ratingprofiles from the File specified in the Database
 			Fileoperations.ReadRatingprofiles();
-			//To make them show up in the menu. Here, as the binding should also happen if none could be loaded
-			Program.Ratingprofiles.ListChanged += new ListChangedEventHandler(Program.MainWindow.Ratingprofiles_ListChanged);
-			Program.Ratingprofiles.ResetBindings();
-
+			
 			//Geocaches
 			Fileoperations.ReadGeocaches();
-			Program.MainWindow.GeocacheTable.DataSource = Program.Geocaches;
-
+			
 			//Routingprofile
 			Fileoperations.ReadRoutingprofiles();
-			//To make them show up in the menu
-			Program.Routingprofiles.ListChanged += new ListChangedEventHandler(Program.MainWindow.Routingprofiles_ListChanged);
-			Program.Routingprofiles.ResetBindings();
-
+			
 			Fileoperations.Backup(null);//so settings get saved in the DB. Nothing else, as it just came from the file
 
 		}
@@ -95,6 +95,20 @@ namespace GeocachingTourPlanner
 			{
 				Program.DB.MarkerSize = 16;
 			}
+		}
+
+		public static void BindLists()
+		{
+			//To make them show up in the menu. Here, as the binding should also happen if none could be loaded
+			Program.Ratingprofiles.ListChanged += new ListChangedEventHandler(Program.MainWindow.Ratingprofiles_ListChanged);
+			Program.Ratingprofiles.ResetBindings();
+
+			Program.MainWindow.GeocacheTable.DataSource = Program.Geocaches;
+
+			//To make them show up in the menu
+			Program.Routingprofiles.ListChanged += new ListChangedEventHandler(Program.MainWindow.Routingprofiles_ListChanged);
+			Program.Routingprofiles.ResetBindings();
+
 		}
 	}
 }

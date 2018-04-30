@@ -222,13 +222,15 @@ namespace GeocachingTourPlanner
 
 			if (Program.DB.Autotargetselection)
 			{
+				Program.MainWindow.UpdateStatus("Starting Autotargetselection", 10);
 				DateTime StartDirectionDecision = DateTime.Now;
 				DirectionDecision();
 				Log.AppendLine("Directiondecision took " + (DateTime.Now - StartDirectionDecision).TotalSeconds + " seconds");
 
 				//Program.MainWindow.DisplayPreliminaryRoute(RoutingData);
 			}
-					
+
+			Program.MainWindow.UpdateStatus("Starting calculation of geocache positions", 30);
 			#region Checking if geocaches are in reach and resolving all
 			DateTime ResolvingTime = DateTime.Now;
 			//NO Parallelisation of this part, since then synchronisation would be necessary to prevent Geocaches from appearing multiple times in the Range of the Initail route which consists only of one segment
@@ -264,6 +266,7 @@ namespace GeocachingTourPlanner
 
 			File.AppendAllText("Routerlog.txt", Log.ToString());
 
+			Program.MainWindow.UpdateStatus("Started filling route with geocaches", 50);
 			KeyValuePair<Route, List<Geocache>> Result = CalculateRouteToEnd();
 
 			Log = new StringBuilder();
@@ -272,6 +275,7 @@ namespace GeocachingTourPlanner
 			File.AppendAllText("Routerlog.txt", Log.ToString());
 			
 			Program.MainWindow.AddFinalRoute(Result, profile);
+			Program.MainWindow.UpdateStatus("Route calculation done", 100);
 			Application.UseWaitCursor = false;
 			Program.RouteCalculationRunning = false;
 

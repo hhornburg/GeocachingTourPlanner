@@ -154,6 +154,18 @@ namespace GeocachingTourPlanner
 			Fileoperations.NewRoutingprofileDatabase();
 		}
 
+		delegate void SetRouterDBLabel_delegate(string text);
+		public void SetRouterDBLabel(string text)
+		{
+			if (!RouterDBStateLabel.InvokeRequired)
+			{
+				RouterDBStateLabel.Text = text;
+			}
+			else
+			{
+				Invoke(new SetRouterDBLabel_delegate(SetRouterDBLabel), text);
+			}
+		}
 		#endregion
 
 		#region Update of Rating/Routingprofiles
@@ -630,6 +642,7 @@ namespace GeocachingTourPlanner
 		{
 			if (!Program.RouteCalculationRunning && !Program.ImportOfOSMDataRunning)
 			{
+				UpdateStatus("Started Route Calculation");
 				Program.RouteCalculationRunning = true;
 				Application.UseWaitCursor = true;
 
@@ -1204,6 +1217,7 @@ namespace GeocachingTourPlanner
 
 		}
 
+		ToolTip ProgressTooltip = new ToolTip();
 		delegate void UpdateStatusDelegate(string message, int progress = 0);
 		public void UpdateStatus(string message, int progress = 0)
 		{
@@ -1219,7 +1233,7 @@ namespace GeocachingTourPlanner
 				else if (ProgressBar.Value == 100)//Thus the previous operation has finished
 				{
 					ProgressBar.Value = 0;
-					ProgressBar.MouseHover -= (sender, e) => ShowTooltip(message, sender);
+					ProgressBar.MouseHover += (sender, e) => ShowTooltip(message, sender);
 				}
 				StatusLabel.Text = message;
 			}
@@ -1231,8 +1245,7 @@ namespace GeocachingTourPlanner
 
 		private void ShowTooltip(string message, object control)
 		{
-			ToolTip toolTip = new ToolTip();
-			toolTip.Show(message, ProgressBar);
+			ProgressTooltip.Show(message, ProgressBar);
 		}
 
 		#region helpers

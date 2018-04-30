@@ -73,6 +73,7 @@ namespace GeocachingTourPlanner
 
 			MainWindow.UpdateSettingsTextBoxes();
 			Startup.CheckSettings();
+			Startup.BindLists();
 
 			MainWindow.UpdateStatus("startup completed");
 

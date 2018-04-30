@@ -18,9 +18,6 @@ namespace GeocachingTourPlanner
 		/// </summary>
 		public Database()
 		{
-			GeocacheDB_Filepath = "Geocaches";
-			RatingprofileDB_Filepath = "Ratingprofiles";
-			RoutingprofileDB_Filepath = "Routingprofiles";
 		}
 
 		/// <summary>

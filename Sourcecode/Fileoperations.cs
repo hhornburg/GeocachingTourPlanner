@@ -61,7 +61,7 @@ namespace GeocachingTourPlanner
 					RPReader.Close();
 
 					Program.MainWindow.UpdateStatus("Successfully read routingprofiles");
-					Backup(Program.Routingprofiles);
+					Program.Routingprofiles.ResetBindings();
 				}
 				catch (Exception)
 				{
@@ -89,11 +89,11 @@ namespace GeocachingTourPlanner
 				try
 				{
 					BPReader = new StreamReader(Program.DB.RatingprofileDB_Filepath);
-					Program.Ratingprofiles= (SortableBindingList<Ratingprofile>)RoutingprofilesSerializer.Deserialize(BPReader);
+					Program.Ratingprofiles= (SortableBindingList<Ratingprofile>)RatingprofilesSerializer.Deserialize(BPReader);
 					BPReader.Close();
 
 					Program.MainWindow.UpdateStatus("Successfully read ratingprofiles");
-					Backup(Program.Ratingprofiles);
+					Program.Ratingprofiles.ResetBindings();
 				}
 				catch (Exception)
 				{
@@ -534,9 +534,12 @@ namespace GeocachingTourPlanner
 						catch (Exception ex)
 						{
 							MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+							Program.ImportOfOSMDataRunning = false;
+							Program.MainWindow.UpdateStatus("Import of OSM Data failed",100);
+							return;
 						}
+						Program.MainWindow.UpdateStatus("Import of OSM Data finished", 100);
 						Program.ImportOfOSMDataRunning = false;
-						Program.MainWindow.UpdateStatus("Import of OSM Data finished");
 
 						// write the routerdb to disk.
 						if (Program.DB.RouterDB_Filepath == null||Program.DB.RouterDB_Filepath=="")
@@ -555,7 +558,7 @@ namespace GeocachingTourPlanner
 
 						Backup(null);
 
-						Program.MainWindow.RouterDBStateLabel.Text = "Successfully loaded RouterDB";
+						Program.MainWindow.SetRouterDBLabel("RouterDB set");
 						MessageBox.Show("Successfully imported OSM Data");
 
 					})).Start();
