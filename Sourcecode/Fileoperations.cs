@@ -60,6 +60,7 @@ namespace GeocachingTourPlanner
 					Program.Routingprofiles = (SortableBindingList<Routingprofile>)RoutingprofilesSerializer.Deserialize(RPReader);
 					RPReader.Close();
 
+					Program.MainWindow.UpdateStatus("Successfully read routingprofiles");
 					Backup(Program.Routingprofiles);
 				}
 				catch (Exception)
@@ -88,8 +89,10 @@ namespace GeocachingTourPlanner
 				try
 				{
 					BPReader = new StreamReader(Program.DB.RatingprofileDB_Filepath);
+					Program.Ratingprofiles= (SortableBindingList<Ratingprofile>)RoutingprofilesSerializer.Deserialize(BPReader);
 					BPReader.Close();
 
+					Program.MainWindow.UpdateStatus("Successfully read ratingprofiles");
 					Backup(Program.Ratingprofiles);
 				}
 				catch (Exception)
@@ -107,11 +110,11 @@ namespace GeocachingTourPlanner
 		}
 
 		/// <summary>
-		/// Reads geocaches from file specified in the database. Only checks wether it is set, but takes no action if not
+		/// Reads geocaches from database file specified in the main database. Only checks wether it is set, but takes no action if not
 		/// </summary>
 		public static void ReadGeocaches()
 		{
-			Program.Geocaches.Clear();
+			Program.Geocaches.Clear(); 
 			StreamReader GCReader = null;
 
 			if (Program.DB.IsFilepathSet(Databases.Geocaches))//returns true if the user has set a valid database
@@ -125,6 +128,9 @@ namespace GeocachingTourPlanner
 					Program.Geocaches.OrderByDescending(x => x.Rating);
 					Program.DB.MaximalRating = Program.Geocaches[0].Rating;//Possible since list is sorted
 					Program.DB.MinimalRating = Program.Geocaches[Program.Geocaches.Count - 1].Rating;
+
+					Program.MainWindow.UpdateStatus("Successfully read geocaches");
+
 				}
 
 				catch (Exception)
@@ -465,11 +471,15 @@ namespace GeocachingTourPlanner
 						{
 							//Nothing in the moment, would be good if it would update the Geocaches
 						}
+
+
+						Program.MainWindow.UpdateStatus("Successfully imported geocaches");
 					}
 				}
 				catch (Exception ex)
 				{
 					MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+					Program.MainWindow.UpdateStatus("Import of geocaches failed");
 				}
 				Backup(Program.Geocaches);
 				Program.Geocaches.ResetBindings();
@@ -508,12 +518,16 @@ namespace GeocachingTourPlanner
 
 
 					MessageBox.Show("This might take a while, depending on how big your pbf file is.\n How about getting yourself a coffee?");
+
 					new Thread(new ThreadStart(() =>
 					{
+						Program.ImportOfOSMDataRunning = true;
 						try
 						{
 							using (var stream = new FileInfo(StandardFileDialog.FileName).OpenRead())
 							{
+
+								Program.MainWindow.UpdateStatus("Import of OSM Data in progress",50);
 								Program.RouterDB.LoadOsmData(stream, new Itinero.Profiles.Vehicle[] { Itinero.Osm.Vehicles.Vehicle.Bicycle, Itinero.Osm.Vehicles.Vehicle.Car, Itinero.Osm.Vehicles.Vehicle.Pedestrian });
 							}
 						}
@@ -521,6 +535,8 @@ namespace GeocachingTourPlanner
 						{
 							MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
 						}
+						Program.ImportOfOSMDataRunning = false;
+						Program.MainWindow.UpdateStatus("Import of OSM Data finished");
 
 						// write the routerdb to disk.
 						if (Program.DB.RouterDB_Filepath == null||Program.DB.RouterDB_Filepath=="")
@@ -566,6 +582,7 @@ namespace GeocachingTourPlanner
 				Program.DB.RoutingprofileDB_Filepath = StandardFileDialog.FileName;
 			}
 
+			Program.MainWindow.UpdateStatus("Created new Routingprofiledatabase");
 			Program.Routingprofiles.ResetBindings();
 		}
 
@@ -593,6 +610,7 @@ namespace GeocachingTourPlanner
 				}
 			} while (retry);
 
+			Program.MainWindow.UpdateStatus("Created new Routingprofledatabase");
 			Program.Ratingprofiles.ResetBindings();
 		}
 

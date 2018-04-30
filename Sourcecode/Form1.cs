@@ -69,7 +69,7 @@ namespace GeocachingTourPlanner
 
 		private void OpenWikiButton_Click(object sender, EventArgs e)
 		{
-			System.Diagnostics.Process.Start("https://github.com/pingurus/GeocachingTourPlanner/wiki");
+			Process.Start("https://github.com/pingurus/GeocachingTourPlanner/wiki");
 		}
 
 		private void webBrowser1_Navigating(object sender, WebBrowserNavigatingEventArgs e)
@@ -258,6 +258,7 @@ namespace GeocachingTourPlanner
 			{
 				Program.Ratingprofiles.Remove(BP);
 			}
+			UpdateStatus("Ratingprofile saved");
 			Program.Ratingprofiles.Add(Profile);
 			//The Dropdownmenu gets updated through an event handler
 			Fileoperations.Backup(Program.Ratingprofiles);
@@ -266,7 +267,7 @@ namespace GeocachingTourPlanner
 
 		public void CreateRoutingprofile(object sender, EventArgs e)
 		{
-			SetAllEmptyChildTextboxesToZero(RoutingprofilesSettingsTabelLayout);
+			SetAllEmptyChildTextboxesToZero(RoutingprofilesSettingsTableLayout);
 
 			Routingprofile Profile = new Routingprofile();
 			if (RoutingProfileName.Text == null)
@@ -309,6 +310,7 @@ namespace GeocachingTourPlanner
 				Profile.RoutesOfthisType = BP.RoutesOfthisType;
 				Program.Routingprofiles.Remove(BP);
 			}
+			UpdateStatus("Routingprofile saved");
 			Program.Routingprofiles.Add(Profile);
 			//The Dropdownmenu is updated via an event handler
 			Fileoperations.Backup(Program.Routingprofiles);
@@ -362,13 +364,16 @@ namespace GeocachingTourPlanner
 			}
 			Profile.Name = RoutingProfileName.Text;
 
-			ClearAllChildTextAndComboboxes(RoutingprofilesSettingsTabelLayout);
+			ClearAllChildTextAndComboboxes(RoutingprofilesSettingsTableLayout);
 			ClearAllChildTextAndComboboxes(SaveRoutingProfileTableLayout);
 			SelectedRoutingprofileCombobox.Text = null;
+
 			foreach (Routingprofile BP in Program.Routingprofiles.Where(x => x.Name == Profile.Name).ToList())
 			{
 				Program.Routingprofiles.Remove(BP);
 			}
+
+			UpdateStatus("Routingprofile deleted");
 			Fileoperations.Backup(Program.Routingprofiles);
 		}
 
@@ -389,6 +394,7 @@ namespace GeocachingTourPlanner
 			ClearAllChildTextAndComboboxes(RatingprofilesSettingsTabelLayout);
 			ClearAllChildTextAndComboboxes(SaveRatingprofileLayoutPanel);
 			SelectedRatingprofileCombobox.Text = null;
+			UpdateStatus("deleted ratingprofile");
 			Fileoperations.Backup(Program.Ratingprofiles);
 		}
 
@@ -622,7 +628,7 @@ namespace GeocachingTourPlanner
 
 		private void CreateRouteButtonClick(object sender, EventArgs e)
 		{
-			if (!Program.RouteCalculationRunning)
+			if (!Program.RouteCalculationRunning && !Program.ImportOfOSMDataRunning)
 			{
 				Program.RouteCalculationRunning = true;
 				Application.UseWaitCursor = true;
@@ -716,6 +722,9 @@ namespace GeocachingTourPlanner
 					new Tourplanning().GetRoute_Recursive(SelectedProfile, Program.Geocaches.ToList(), new Coordinate(StartLat, StartLon), new Coordinate(EndLat, EndLon), GeocachesToInclude);
 				}
 				)).Start();
+			}else if (Program.ImportOfOSMDataRunning)
+			{
+				MessageBox.Show("Please wait until the OSM Data is imported.");
 			}
 		}
 
@@ -1187,6 +1196,45 @@ namespace GeocachingTourPlanner
 
 		#endregion
 
+		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			Fileoperations.Backup(Program.Geocaches);
+			Fileoperations.Backup(Program.Ratingprofiles);
+			Fileoperations.Backup(Program.Routingprofiles);
+
+		}
+
+		delegate void UpdateStatusDelegate(string message, int progress = 0);
+		public void UpdateStatus(string message, int progress = 0)
+		{
+			if (!StatusLabel.InvokeRequired)
+			{
+				File.AppendAllText("Log.txt", message + "\n");
+				if (progress != 0)//If the status changes while this is still processing and the new one isn't time consuming (currently there are only two time consuming methods, which cannot run simultaneously), the tooltip still chows the old information, so one can still check what happens
+				{
+
+					ProgressBar.MouseHover += (sender, e) => ShowTooltip(message, sender);
+					ProgressBar.Value = progress;
+				}
+				else if (ProgressBar.Value == 100)//Thus the previous operation has finished
+				{
+					ProgressBar.Value = 0;
+					ProgressBar.MouseHover -= (sender, e) => ShowTooltip(message, sender);
+				}
+				StatusLabel.Text = message;
+			}
+			else
+			{
+				Invoke(new UpdateStatusDelegate(UpdateStatus),new object[]{ message, progress});
+			}
+		}
+
+		private void ShowTooltip(string message, object control)
+		{
+			ToolTip toolTip = new ToolTip();
+			toolTip.Show(message, ProgressBar);
+		}
+
 		#region helpers
 		//UNDONE Attach this to EVERY Dropdownlist
 		private void Dropdown_SelectedIndexChanged(object sender, EventArgs e)
@@ -1261,7 +1309,7 @@ namespace GeocachingTourPlanner
 		{
 			foreach (Control C in parent.Controls)
 			{
-				if (C is TextBox && C.Text=="")
+				if (C is TextBox && C.Text == "")
 				{
 					C.Text = "0";
 				}
@@ -1289,11 +1337,5 @@ namespace GeocachingTourPlanner
 		}
 		#endregion
 
-		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-		{
-			Fileoperations.Backup(Program.Geocaches);
-			Fileoperations.Backup(Program.Ratingprofiles);
-			Fileoperations.Backup(Program.Routingprofiles);
-		}
 	}
 }
