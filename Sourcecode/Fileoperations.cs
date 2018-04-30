@@ -514,7 +514,7 @@ namespace GeocachingTourPlanner
 					File.Create(NewFileDialog.FileName).Close();
 					Backup(null);
 					Program.RouterDB = new RouterDb();
-					Program.DB.GeocacheDB_Filepath = StandardFileDialog.FileName;
+					Program.DB.RouterDB_Filepath = NewFileDialog.FileName;
 
 
 					MessageBox.Show("This might take a while, depending on how big your pbf file is.\n How about getting yourself a coffee?");
