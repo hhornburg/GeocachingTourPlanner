@@ -278,7 +278,6 @@ namespace GeocachingTourPlanner
 			Program.MainWindow.UpdateStatus("Route calculation done", 100);
 			Application.UseWaitCursor = false;
 			Program.RouteCalculationRunning = false;
-
 		}
 
 		#region Subroutines

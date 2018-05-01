@@ -58,6 +58,8 @@ namespace GeocachingTourPlanner
 				{
 					RPReader = new StreamReader(Program.DB.RoutingprofileDB_Filepath);
 					Program.Routingprofiles = (SortableBindingList<Routingprofile>)RoutingprofilesSerializer.Deserialize(RPReader);
+					//Deserializing makes the lists lose their bindings
+					Startup.BindLists();
 					RPReader.Close();
 
 					Program.MainWindow.UpdateStatus("Successfully read routingprofiles");
@@ -90,6 +92,8 @@ namespace GeocachingTourPlanner
 				{
 					BPReader = new StreamReader(Program.DB.RatingprofileDB_Filepath);
 					Program.Ratingprofiles= (SortableBindingList<Ratingprofile>)RatingprofilesSerializer.Deserialize(BPReader);
+					//Deserializing makes the lists lose their bindings
+					Startup.BindLists();
 					BPReader.Close();
 
 					Program.MainWindow.UpdateStatus("Successfully read ratingprofiles");
@@ -395,85 +399,88 @@ namespace GeocachingTourPlanner
 
 					foreach (XElement elem in RootElement.Elements(gpx + "wpt"))
 					{
-						Geocache geocache = new Geocache { };
-
-						geocache.lat = float.Parse(elem.FirstAttribute.ToString().Replace("\"", "").Replace("lat=", ""), CultureInfo.InvariantCulture);
-						geocache.lon = float.Parse(elem.LastAttribute.ToString().Replace("\"", "").Replace("lon=", ""), CultureInfo.InvariantCulture);
-						geocache.GCCODE = (string)elem.Element(gpx + "name").Value;
-						geocache.Name = (string)elem.Element(gpx + "urlname").Value;
 						XElement CacheDetails = elem.Element(groundspeak + "cache");
-						geocache.DRating = float.Parse(CacheDetails.Element(groundspeak + "difficulty").Value.ToString(), CultureInfo.InvariantCulture);
-						geocache.TRating = float.Parse(CacheDetails.Element(groundspeak + "terrain").Value.ToString(), CultureInfo.InvariantCulture);
-						geocache.NeedsMaintenance = CacheDetails.Element(groundspeak + "attributes").Elements().ToList().Exists(x => x.FirstAttribute.Value == 42.ToString());
-						geocache.DateHidden = DateTime.Parse(elem.Element(gpx + "time").Value.ToString());
-						switch (elem.Element(gpx + "type").Value)
+						if (CacheDetails != null)//Thus the waipoint is a geocache
 						{
-							case "Geocache|Unknown Cache":
-								geocache.Type = GeocacheType.Mystery;
-								break;
-							case "Geocache|Traditional Cache":
-								geocache.Type = GeocacheType.Traditional;
-								break;
-							case "Geocache|Multi-cache":
-								geocache.Type = GeocacheType.Multi;
-								break;
-							case "Geocache|Virtual Cache":
-								geocache.Type = GeocacheType.Virtual;
-								break;
-							case "Geocache|Wherigo Cache":
-								geocache.Type = GeocacheType.Wherigo;
-								break;
-							case "Geocache|Webcam Cache":
-								geocache.Type = GeocacheType.Webcam;
-								break;
-							case "Geocache|Letterbox Hybrid":
-								geocache.Type = GeocacheType.Letterbox;
-								break;
-							case "Geocache|Earthcache":
-								geocache.Type = GeocacheType.EarthCache;
-								break;
-							case "Geocache|Mega-Event Cache":
-								geocache.Type = GeocacheType.MegaEvent;
-								break;
-							case "Geocache|Event Cache":
-								geocache.Type = GeocacheType.Event;
-								break;
-							case "Geocache|Cache In Trash Out Event":
-								geocache.Type = GeocacheType.Cito;
-								break;
-							default:
-								geocache.Type = GeocacheType.Other;
-								break;
-						}
-						switch (CacheDetails.Element(groundspeak + "container").Value)
-						{
-							case "Large":
-								geocache.Size = GeocacheSize.Large;
-								break;
-							case "Regular":
-								geocache.Size = GeocacheSize.Regular;
-								break;
-							case "Small":
-								geocache.Size = GeocacheSize.Small;
-								break;
-							case "Micro":
-								geocache.Size = GeocacheSize.Micro;
-								break;
-							default:
-								geocache.Size = GeocacheSize.Other;
-								break;
-						}
-						if (!Program.Geocaches.Any(x => x.GCCODE == geocache.GCCODE))
-						{
-							Program.Geocaches.Add(geocache);
-						}
-						else
-						{
-							//Nothing in the moment, would be good if it would update the Geocaches
-						}
+							Geocache geocache = new Geocache { };
+
+							geocache.lat = float.Parse(elem.FirstAttribute.ToString().Replace("\"", "").Replace("lat=", ""), CultureInfo.InvariantCulture);
+							geocache.lon = float.Parse(elem.LastAttribute.ToString().Replace("\"", "").Replace("lon=", ""), CultureInfo.InvariantCulture);
+							geocache.GCCODE = (string)elem.Element(gpx + "name").Value;
+							geocache.Name = (string)elem.Element(gpx + "urlname").Value;
+							geocache.DRating = float.Parse(CacheDetails.Element(groundspeak + "difficulty").Value.ToString(), CultureInfo.InvariantCulture);
+							geocache.TRating = float.Parse(CacheDetails.Element(groundspeak + "terrain").Value.ToString(), CultureInfo.InvariantCulture);
+							geocache.NeedsMaintenance = CacheDetails.Element(groundspeak + "attributes").Elements().ToList().Exists(x => x.FirstAttribute.Value == 42.ToString());
+							geocache.DateHidden = DateTime.Parse(elem.Element(gpx + "time").Value.ToString());
+							switch (elem.Element(gpx + "type").Value)
+							{
+								case "Geocache|Unknown Cache":
+									geocache.Type = GeocacheType.Mystery;
+									break;
+								case "Geocache|Traditional Cache":
+									geocache.Type = GeocacheType.Traditional;
+									break;
+								case "Geocache|Multi-cache":
+									geocache.Type = GeocacheType.Multi;
+									break;
+								case "Geocache|Virtual Cache":
+									geocache.Type = GeocacheType.Virtual;
+									break;
+								case "Geocache|Wherigo Cache":
+									geocache.Type = GeocacheType.Wherigo;
+									break;
+								case "Geocache|Webcam Cache":
+									geocache.Type = GeocacheType.Webcam;
+									break;
+								case "Geocache|Letterbox Hybrid":
+									geocache.Type = GeocacheType.Letterbox;
+									break;
+								case "Geocache|Earthcache":
+									geocache.Type = GeocacheType.EarthCache;
+									break;
+								case "Geocache|Mega-Event Cache":
+									geocache.Type = GeocacheType.MegaEvent;
+									break;
+								case "Geocache|Event Cache":
+									geocache.Type = GeocacheType.Event;
+									break;
+								case "Geocache|Cache In Trash Out Event":
+									geocache.Type = GeocacheType.Cito;
+									break;
+								default:
+									geocache.Type = GeocacheType.Other;
+									break;
+							}
+							switch (CacheDetails.Element(groundspeak + "container").Value)
+							{
+								case "Large":
+									geocache.Size = GeocacheSize.Large;
+									break;
+								case "Regular":
+									geocache.Size = GeocacheSize.Regular;
+									break;
+								case "Small":
+									geocache.Size = GeocacheSize.Small;
+									break;
+								case "Micro":
+									geocache.Size = GeocacheSize.Micro;
+									break;
+								default:
+									geocache.Size = GeocacheSize.Other;
+									break;
+							}
+							if (!Program.Geocaches.Any(x => x.GCCODE == geocache.GCCODE))
+							{
+								Program.Geocaches.Add(geocache);
+							}
+							else
+							{
+								//Nothing in the moment, would be good if it would update the Geocaches
+							}
 
 
-						Program.MainWindow.UpdateStatus("Successfully imported geocaches");
+							Program.MainWindow.UpdateStatus("Successfully imported geocaches");
+						}
 					}
 				}
 				catch (Exception ex)

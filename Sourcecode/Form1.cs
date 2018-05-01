@@ -91,6 +91,7 @@ namespace GeocachingTourPlanner
 		private void ImportGeocachesButton_Click(object sender, EventArgs e)
 		{
 			Fileoperations.ImportGeocaches();
+			LoadMap();
 		}
 
 		private void setGeocachedatabaseButton_Click(object sender, EventArgs e)
@@ -98,6 +99,7 @@ namespace GeocachingTourPlanner
 			if (Program.DB.OpenExistingDBFile(Databases.Geocaches))
 			{
 				Fileoperations.ReadGeocaches();
+				LoadMap();
 			}
 		}
 
@@ -130,7 +132,8 @@ namespace GeocachingTourPlanner
 				Fileoperations.Backup(null);
 			}
 
-			Program.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
+			Program.RouteCalculationRunning = false;
+			Application.UseWaitCursor = false;
 		}
 
 		private void GetPQLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -636,8 +639,7 @@ namespace GeocachingTourPlanner
 			LoadMap();
 			Fileoperations.Backup(Program.Geocaches);
 		}
-
-
+		
 		private void CreateRouteButtonClick(object sender, EventArgs e)
 		{
 			if (!Program.RouteCalculationRunning && !Program.ImportOfOSMDataRunning)
@@ -888,6 +890,7 @@ namespace GeocachingTourPlanner
 				newRouteControlElement(Routetag);
 				Program.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
 				Map.Cursor = Cursors.Default;
+				LoadMap();
 			}
 			else
 			{
@@ -927,6 +930,7 @@ namespace GeocachingTourPlanner
 					DisplayPreliminaryRouteDelegate dg = new DisplayPreliminaryRouteDelegate(DisplayPreliminaryRoute);
 					BeginInvoke(dg, new object[] { RoutingData });
 				}
+				LoadMap();
 			}
 		}
 
@@ -935,6 +939,7 @@ namespace GeocachingTourPlanner
 			Program.Routes.Remove(Program.Routes.First(x => x.Key == OverlayTag));
 			Map.Overlays.Remove(Map.Overlays.First(x => x.Id == OverlayTag));
 			((Button)sender).Parent.Parent.Dispose();//=The Groupbox
+			LoadMap();
 		}
 
 		private void Export_Click(string OverlayTag)
@@ -952,6 +957,7 @@ namespace GeocachingTourPlanner
 			{
 				Map.Overlays.First(x => x.Id == Overlaytag).IsVisibile = false;
 			}
+			LoadMap();
 		}
 		#endregion
 
