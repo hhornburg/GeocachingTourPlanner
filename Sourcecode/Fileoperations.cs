@@ -153,6 +153,31 @@ namespace GeocachingTourPlanner
 			}
 		}
 
+		/// <summary>
+		/// Reads the set RouterDB in a new thread
+		/// </summary>
+		public static void ReadRouterDB()
+		{
+			new Thread(new ThreadStart(() =>
+			{
+				try
+				{
+					Program.MainWindow.UpdateStatus("Loading RouterDB in progress", 99);
+					using (var stream = new FileInfo(Program.DB.RouterDB_Filepath).OpenRead())
+					{
+						Program.RouterDB = RouterDb.Deserialize(stream);
+					}
+					Backup(null);
+
+					Program.MainWindow.SetRouterDBLabel("Successfully loaded RouterDB");
+					Program.MainWindow.UpdateStatus("Successfully loaded RouterDB", 100);
+				}
+				catch (Exception)
+				{
+					MessageBox.Show("Failed to read RouterDB", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+			})).Start();
+		}
 
 		/// <summary>
 		/// The main Database gets saved anyways specify which otherList should be saved alongside. Returns true on success
@@ -533,8 +558,7 @@ namespace GeocachingTourPlanner
 						{
 							using (var stream = new FileInfo(StandardFileDialog.FileName).OpenRead())
 							{
-
-								Program.MainWindow.UpdateStatus("Import of OSM Data in progress",50);
+								Program.MainWindow.UpdateStatus("Import of OSM Data in progress", 99);
 								Program.RouterDB.LoadOsmData(stream, new Itinero.Profiles.Vehicle[] { Itinero.Osm.Vehicles.Vehicle.Bicycle, Itinero.Osm.Vehicles.Vehicle.Car, Itinero.Osm.Vehicles.Vehicle.Pedestrian });
 							}
 						}

@@ -418,7 +418,7 @@ namespace GeocachingTourPlanner
 								//Resolving error of Item on Route shouldn't happen
 								else
 								{
-									FailedCalculations++;
+									FailedCalculations++;// Island detection
 								}
 							}
 							else
@@ -430,12 +430,20 @@ namespace GeocachingTourPlanner
 						{
 							GeocachesToRemove.Add(GeocachesNotAlreadyUsed[LocalTargetIndex]);
 							LocalTargetIndex = Program.DB.RoutefindingWidth + GeocachesToRemove.Count;//The next not processed Geocache
+							if (LocalTargetIndex >= GeocachesNotAlreadyUsed.Count)
+							{
+								break;
+							}
 						}
 					}
 					else //The Cache is not in reach;
 					{
 						GeocachesToRemove.Add(GeocachesNotAlreadyUsed[LocalTargetIndex]);
 						LocalTargetIndex = Program.DB.RoutefindingWidth + GeocachesToRemove.Count;//The next not processed Geocache
+						if (LocalTargetIndex >= GeocachesNotAlreadyUsed.Count)
+						{
+							break;
+						}
 					}
 				}
 			}
