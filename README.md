@@ -18,4 +18,4 @@ A tool to plan tours to Geocaches based on your own rating system
 * Start the .exe file
 
 ### More info in the [wiki](https://github.com/pingurus/GeocachingTourPlanner/wiki)
-<a href="https://www.worldflagcounter.com/details/egw"><img src="https://www.worldflagcounter.com/egw/" alt="Flag Counter"></a>
+<a href="https://info.flagcounter.com/SLT5"><img src="https://s01.flagcounter.com/count2/SLT5/bg_FFFFFF/txt_000000/border_CCCCCC/columns_5/maxflags_20/viewers_0/labels_1/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
