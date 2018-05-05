@@ -5,6 +5,7 @@ using Itinero;
 using Itinero.LocalGeo;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -102,8 +103,7 @@ namespace GeocachingTourPlanner
 			}
 			CompleteRouteData.TotalDistance = InitialRoute.TotalDistance;
 			CompleteRouteData.TotalTime = InitialRoute.TotalTime;
-
-
+			
 			//Empty list as no resolving happenend yet
 			CompleteRouteData.partialRoutes.Add(new PartialRoute(InitialRoute, new List<GeocacheRoutingInformation>()));
 			#endregion
@@ -208,6 +208,7 @@ namespace GeocachingTourPlanner
 			List<Geocache> GeocachesToRemove = new List<Geocache>(); //Collects geocaches that couldn't be resolved and deletes them from the list of available geocaches for the whole routing process
 			List<RouteData> Suggestions = new List<RouteData>();
 
+			int NumberofRouteslongerthanlimit = 0;
 
 			int FirstGeocacheNotUsedAsSuggestionBase = 0;
 			for (int SuggestionNumber = 0; SuggestionNumber < Program.DB.RoutefindingWidth; SuggestionNumber++)
@@ -218,7 +219,7 @@ namespace GeocachingTourPlanner
 				int SuggestedCacheIndex = FirstGeocacheNotUsedAsSuggestionBase;
 
 				//Add geocaches to suggested route, as long as the route is shorter than half the allowed length, but also make sure it won't get longer than three quarters 
-				while (SuggestionRouteData.TotalDistance < 0.5 * SuggestionRouteData.Profile.MaxDistance * 1000)
+				while (SuggestionRouteData.TotalDistance < 0.5 * SuggestionRouteData.Profile.MaxDistance * 1000 && SuggestedCacheIndex<GeocachesToConsider.Count)
 				{
 					Geocache SuggestedCache = GeocachesToConsider[SuggestedCacheIndex];
 
@@ -238,7 +239,7 @@ namespace GeocachingTourPlanner
 					#endregion
 
 					//Check if the Cache seems to be in range. 0.7 * Remaining Distance, since the roads to the cache are quite surely not in a straight line and we want to fill up to 0.75 only
-					if (MinEstimatedRouteLength < 0.7 * (SuggestionRouteData.Profile.MaxDistance * 1000 - (SuggestionRouteData.TotalDistance - SuggestionRouteData.partialRoutes[IndexOfRouteToInsertIn].partialRoute.TotalDistance)))
+					if (MinEstimatedRouteLength < Program.DB.PercentageOfRemainingDistance * 0.75 * (SuggestionRouteData.Profile.MaxDistance * 1000 - (SuggestionRouteData.TotalDistance - SuggestionRouteData.partialRoutes[IndexOfRouteToInsertIn].partialRoute.TotalDistance)))
 					{
 						Result<RouterPoint> GeocacheToAddResolveResult = Router1.TryResolve(SuggestionRouteData.Profile.ItineroProfile.profile, SuggestedCache.lat, SuggestedCache.lon, SearchDistanceInMeters);
 						Route RouteToInsertIn = SuggestionRouteData.partialRoutes[IndexOfRouteToInsertIn].partialRoute;
@@ -262,6 +263,10 @@ namespace GeocachingTourPlanner
 									SuggestionRouteData.AddGeocacheOnRoute(SuggestedCache);
 
 								}//Else just skip this cache. 
+								else
+								{
+									NumberofRouteslongerthanlimit++;
+								}
 							}
 						}
 						else //Couldn't resolve
@@ -282,7 +287,7 @@ namespace GeocachingTourPlanner
 				{
 					foreach (PartialRoute Route in SuggestionRouteData.partialRoutes)
 					{
-						if (EstimateRouteLengthIfInserted(Route.partialRoute, new Coordinate(geocache.lat, geocache.lon)) < 0.9 * (SuggestionRouteData.Profile.MaxDistance * 1000 - (SuggestionRouteData.TotalDistance - Route.partialRoute.TotalDistance)))
+						if (EstimateRouteLengthIfInserted(Route.partialRoute, new Coordinate(geocache.lat, geocache.lon)) < Program.DB.PercentageOfRemainingDistance * (SuggestionRouteData.Profile.MaxDistance * 1000 - (SuggestionRouteData.TotalDistance - Route.partialRoute.TotalDistance)))
 						{
 							ReachablePoints += geocache.Rating;
 							break;//It suffices that the cache is in reach of one partial route
@@ -294,6 +299,8 @@ namespace GeocachingTourPlanner
 
 				FirstGeocacheNotUsedAsSuggestionBase++;//Since we want multiple suggestions, which can only happen if we start from different points
 			}
+
+			Debug.WriteLine(NumberofRouteslongerthanlimit + " Routes have been to long.");
 
 			if (Suggestions.Count != 0)
 			{
@@ -351,7 +358,7 @@ namespace GeocachingTourPlanner
 				#region Filter Geocaches
 				/*Remove all Caches that definitely are not in Range (estimated distance, which is the shortest possible distance, bigger than distance set).
 				 *Meanwhile find best rated geocache and the route it is the closest to.
-				 *Only allow 0.9* the distance set, as the roads are most definitely not straight. 
+				 *Only allow apercentage of the distance set, as the roads are most definitely not straight. 
 				 *For the case they are, there is another routine that picks up the caches that are directly on the route. 
 				*/
 				for (int CurrentPartialRouteIndex = 0; CurrentPartialRouteIndex < CompleteRouteData.partialRoutes.Count; CurrentPartialRouteIndex++)
@@ -369,7 +376,7 @@ namespace GeocachingTourPlanner
 						{
 							GeocachesToRemove.Add(CurrentGeocache);
 						}
-						else if (CurrentGeocache.EstimatedDistanceIfInserted < 0.9 * (CompleteRouteData.Profile.MaxDistance * 1000 - (CompleteRouteData.TotalDistance - CurrentPartialRoute.partialRoute.TotalDistance)))
+						else if (CurrentGeocache.EstimatedDistanceIfInserted < Program.DB.PercentageOfRemainingDistance * (CompleteRouteData.Profile.MaxDistance * 1000 - (CompleteRouteData.TotalDistance - CurrentPartialRoute.partialRoute.TotalDistance)))
 						{
 							/* If no cache is set as next geocache to insert
 							 * If the cache we stumbled accross is rated better than the old best geocache
@@ -569,6 +576,7 @@ namespace GeocachingTourPlanner
 				if (!RouteCalculationResult2.IsError)
 				{
 					NewPart2 = RouteCalculationResult2.Value;
+					FailedRouteCalculations--;//To make sure error isn't thrown when x geocaches create error, but only if there are more geocaches in row that cause error than not
 				}
 				//Resolving error of Item on Route shouldn't happen
 				else
@@ -712,5 +720,13 @@ namespace GeocachingTourPlanner
 			}
 		}
 		#endregion
+
+		public static void AddToRoutingLog(string Message)
+		{
+			new Thread(new ThreadStart(() =>
+			{
+				File.AppendAllText("Routerlog.txt", "[" + DateTime.Now + "]: " + Message + "\n");
+			}));
+		}
 	}
 }

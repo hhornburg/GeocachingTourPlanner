@@ -1123,40 +1123,25 @@ namespace GeocachingTourPlanner
 			}
 		}
 
-		private void DivisorTextBox_TextChanged(object sender, EventArgs e)
+		private void PercentageOFRemainingDistance_TextChanged(object sender, EventArgs e)
 		{
-			if (int.TryParse(DivisorTextBox.Text, out int Value))
+			if (int.TryParse(PercentageOFRemainingDistance.Text, out int Value))
 			{
-				if (Value == 0)
+				if (Value > 100)
 				{
-					MessageBox.Show("Can't divide through 0");
+					MessageBox.Show("Percentage can't be bigger than 100");
 				}
 				else
 				{
 
-					Program.DB.Divisor = Value;
+					Program.DB.PercentageOfRemainingDistance = Value/100;
 					Fileoperations.Backup(null);
 				}
 			}
-			else if(DivisorTextBox.Text.Length!=0)
+			else if(PercentageOFRemainingDistance.Text.Length!=0)
 			{
 				MessageBox.Show("Enter valid integers only.");
 			}
-		}
-
-		private void ToleranceTextBox_TextChanged(object sender, EventArgs e)
-		{
-			if (int.TryParse(ToleranceTextBox.Text, out int Value))
-			{
-				Program.DB.Tolerance = Value;
-				Fileoperations.Backup(null);
-
-			}
-			else if (ToleranceTextBox.Text.Length != 0)
-			{
-				MessageBox.Show("Enter valid integers only.");
-			}
-			
 		}
 
 		private void RoutefindingWidth_Textbox_TextChanged(object sender, EventArgs e)
@@ -1167,7 +1152,7 @@ namespace GeocachingTourPlanner
 				Fileoperations.Backup(null);
 
 			}
-			else if (ToleranceTextBox.Text.Length != 0)
+			else if (RoutefindingWidth_Textbox.Text.Length != 0)
 			{
 				MessageBox.Show("Enter valid integers only.");
 			}
@@ -1196,13 +1181,12 @@ namespace GeocachingTourPlanner
 
 		public void UpdateSettingsTextBoxes()
 		{
-			if (Program.DB.Divisor == 0)
+			if (Program.DB.PercentageOfRemainingDistance == 0)
 			{
-				Program.DB.Divisor = 3;//Here agian, as this would be fatal.
+				Program.DB.PercentageOfRemainingDistance = 0.75f;
 			}
 			EveryNthPointTextBox.Text = Program.DB.EveryNthShapepoint.ToString();
-			DivisorTextBox.Text = Program.DB.Divisor.ToString();
-			ToleranceTextBox.Text = Program.DB.Tolerance.ToString();
+			PercentageOFRemainingDistance.Text = (Program.DB.PercentageOfRemainingDistance*100).ToString();
 			RoutefindingWidth_Textbox.Text = Program.DB.RoutefindingWidth.ToString();
 			Autotargetselection.Checked = Program.DB.Autotargetselection;
 			MarkerSizeTrackBar.Value = Program.DB.MarkerSize;

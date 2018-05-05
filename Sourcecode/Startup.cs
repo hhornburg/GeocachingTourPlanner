@@ -28,8 +28,7 @@ namespace GeocachingTourPlanner
 			//Set default settings
 			Program.DB.EveryNthShapepoint = 1;
 			Program.DB.Autotargetselection = true;
-			Program.DB.Tolerance = 200;
-			Program.DB.Divisor = 5;
+			Program.DB.PercentageOfRemainingDistance = 0.75f;
 			Program.DB.RoutefindingWidth = 4;
 			Program.DB.DisplayLiveCalculation = false;
 
@@ -67,9 +66,9 @@ namespace GeocachingTourPlanner
 			{
 				Program.DB.EveryNthShapepoint = 5;
 			}
-			if (Program.DB.Divisor == 0)
+			if (Program.DB.PercentageOfRemainingDistance == 0)
 			{
-				Program.DB.Divisor = 5;
+				Program.DB.PercentageOfRemainingDistance = 0.75f;
 			}
 			if (Program.DB.RoutefindingWidth == 0)
 			{
