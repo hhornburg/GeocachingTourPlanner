@@ -20,6 +20,7 @@ using System.Xml;
 using Itinero.LocalGeo;
 using System.Threading;
 using System.Diagnostics;
+using System.Drawing.Drawing2D;
 
 namespace GeocachingTourPlanner
 {
@@ -864,18 +865,19 @@ namespace GeocachingTourPlanner
 				string Routetag = profile.Name + " Route " + (profile.RoutesOfthisType + 1);
 
 				Program.Routes.Add(new KeyValueTriple<string, Route, List<Geocache>>(Routetag, Result.Key, Result.Value));
-				List<PointLatLng> GMAPRoute = new List<PointLatLng>();
+				List<PointLatLng> LatLongPointList = new List<PointLatLng>();
 
 				foreach (Coordinate COO in FinalRoute.Shape)
 				{
-					GMAPRoute.Add(new PointLatLng(COO.Latitude, COO.Longitude));
+					LatLongPointList.Add(new PointLatLng(COO.Latitude, COO.Longitude));
 				}
 
 
 				profile.RoutesOfthisType++;
 
 				GMapOverlay RouteOverlay = new GMapOverlay(Routetag);
-				RouteOverlay.Routes.Add(new GMapRoute(GMAPRoute, Routetag));
+				GMapRoute Route = new GMapRoute(LatLongPointList, Routetag);
+				RouteOverlay.Routes.Add(Route);
 				foreach (Geocache GC in GeocachesOnRoute)
 				{
 					GMapMarker GCMarker = Markers.GetGeocacheMarker(GC);

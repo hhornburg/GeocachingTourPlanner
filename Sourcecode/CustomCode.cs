@@ -350,6 +350,7 @@ namespace GeocachingTourPlanner
 		}
 	}
 
+	/*
 	public static class CustomExtensions
 	{
 		public static object DeepCopy(this object ObjectToClone)
@@ -365,11 +366,11 @@ namespace GeocachingTourPlanner
 					//No deeper copy possible
 					if (property.PropertyType.IsValueType || property.PropertyType.IsEnum || property.PropertyType.Equals(typeof(System.String)))
 					{
-						property.SetValue(DeepCopy, property.GetValue(ObjectToClone));
+						property.SetValue(DeepCopy, property.GetValue(ObjectToClone,null));
 					}
 					else // Deeper Copy possible
 					{
-						object PropertyObject = property.GetValue(ObjectToClone);
+						object PropertyObject = property.GetValue(ObjectToClone,null);
 						if (PropertyObject == null)
 						{
 							//If it is null no deeper digging is needed and the value can be set to null
@@ -385,5 +386,5 @@ namespace GeocachingTourPlanner
 
 			return DeepCopy;
 		}
-	}
+	}*/
 }
