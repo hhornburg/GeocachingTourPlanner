@@ -49,7 +49,7 @@ namespace GeocachingTourPlanner
 			{
 				webBrowser1.Navigate(new Uri(Application.StartupPath + "\\first-steps.html"));
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
 				MessageBox.Show("Can't show you the first steps, cause the needed html file is missing.");
 			}
@@ -1229,7 +1229,7 @@ namespace GeocachingTourPlanner
 		{
 			if (!StatusLabel.InvokeRequired)
 			{
-				File.AppendAllText("Log.txt", message + "\n");
+				File.AppendAllText("Log.txt", "[" + DateTime.Now + "]: " + message + "\n");
 				if (progress != 0)//If the status changes while this is still processing and the new one isn't time consuming (currently there are only two time consuming methods, which cannot run simultaneously), the tooltip still chows the old information, so one can still check what happens
 				{
 

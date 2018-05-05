@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
@@ -346,6 +347,43 @@ namespace GeocachingTourPlanner
 					return null;
 			}
 
+		}
+	}
+
+	public static class CustomExtensions
+	{
+		public static object DeepCopy(this object ObjectToClone)
+		{
+			Type ObjectToCloneType = ObjectToClone.GetType();
+			object DeepCopy = Activator.CreateInstance(ObjectToCloneType);
+			PropertyInfo[] properties = ObjectToCloneType.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+
+			foreach(PropertyInfo property in properties)
+			{
+				if (property.CanWrite)
+				{
+					//No deeper copy possible
+					if (property.PropertyType.IsValueType || property.PropertyType.IsEnum || property.PropertyType.Equals(typeof(System.String)))
+					{
+						property.SetValue(DeepCopy, property.GetValue(ObjectToClone));
+					}
+					else // Deeper Copy possible
+					{
+						object PropertyObject = property.GetValue(ObjectToClone);
+						if (PropertyObject == null)
+						{
+							//If it is null no deeper digging is needed and the value can be set to null
+							property.SetValue(DeepCopy, null);
+						}
+						else //call recursively
+						{
+							property.SetValue(DeepCopy, PropertyObject.DeepCopy());
+						}
+					}
+				}
+			}
+
+			return DeepCopy;
 		}
 	}
 }
