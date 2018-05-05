@@ -121,19 +121,10 @@ namespace GeocachingTourPlanner
 
 		private void setRouterDBButton_Click(object sender, EventArgs e)
 		{
-			Application.UseWaitCursor=true;
-
 			if (Program.DB.OpenExistingDBFile(Databases.RouterDB))
 			{
-				using (var stream = new FileInfo(Program.DB.RouterDB_Filepath).OpenRead())
-				{
-					Program.RouterDB = RouterDb.Deserialize(stream);
-				}
-				Fileoperations.Backup(null);
+				Fileoperations.ReadRouterDB();
 			}
-
-			Program.RouteCalculationRunning = false;
-			Application.UseWaitCursor = false;
 		}
 
 		private void GetPQLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -637,6 +628,7 @@ namespace GeocachingTourPlanner
 			Program.DB.MaximalRating = Program.Geocaches[0].Rating;//Da sortierte Liste
 			Program.DB.MinimalRating = Program.Geocaches[Program.Geocaches.Count - 1].Rating;
 			LoadMap();
+			UpdateStatus("Geocaches rated");
 			Fileoperations.Backup(Program.Geocaches);
 		}
 		
@@ -793,17 +785,18 @@ namespace GeocachingTourPlanner
 
 				GroupBox groupBox = new GroupBox();
 				groupBox.Text = OverlayTag;
-				groupBox.Width = 200;
-				groupBox.Height = 90;
+				groupBox.AutoSize = true;
+				groupBox.Dock = DockStyle.Fill;
 
 				TableLayoutPanel Table = new TableLayoutPanel();
 				Table.RowCount = 2;
 				Table.ColumnCount = 2;
-				Table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 0.5f));
-				Table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 0.5f));
-				Table.RowStyles.Add(new RowStyle(SizeType.Percent, 0.5f));
-				Table.RowStyles.Add(new RowStyle(SizeType.Percent, 0.5f));
+				Table.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+				Table.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+				Table.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+				Table.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 				Table.Dock = DockStyle.Fill;
+				Table.AutoSize = true;
 				groupBox.Controls.Add(Table);
 
 				CheckBox RouteControl = new CheckBox();
@@ -823,20 +816,23 @@ namespace GeocachingTourPlanner
 					SumOfPoints += GC.Rating;
 				}
 				float Length = Program.Routes.First(x => x.Key == OverlayTag).Value1.TotalDistance / 1000;
-				Info.Text = "Geocaches: " + NumberOfGeocaches + "\n Points: " + SumOfPoints + "\n Length in km: " + Length.ToString("#.##");
+				Info.Text = "Geocaches: " + NumberOfGeocaches + "\nPoints: " + SumOfPoints + "\nLength in km: " + Length.ToString("#.##");
 				Info.Dock = DockStyle.Fill;
+				Info.AutoSize = true;
 				Table.Controls.Add(Info, 1, 0);
 
 				Button DeleteButton = new Button();
 				DeleteButton.Text = "Delete";
 				DeleteButton.Click += (sender, e) => DeleteButton_Click(sender, e, OverlayTag);
 				DeleteButton.Dock = DockStyle.Fill;
+				DeleteButton.Height = 20;
 				Table.Controls.Add(DeleteButton, 0, 1);
 
 				Button ExportButton = new Button();
 				ExportButton.Text = "Export";
 				ExportButton.Click += (sender, e) => Export_Click(OverlayTag);
 				ExportButton.Dock = DockStyle.Fill;
+				ExportButton.Height = 20;
 				Table.Controls.Add(ExportButton, 1, 1);
 
 				MapTab_SideMenu.RowCount++;

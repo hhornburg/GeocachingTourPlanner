@@ -46,23 +46,7 @@ namespace GeocachingTourPlanner
 		/// </summary>
 		public static void ReadRemainingDatabases()
 		{
-			try
-			{
-				if (Program.DB.RouterDB_Filepath != null)
-				{
-					using (var stream = new FileInfo(Program.DB.RouterDB_Filepath).OpenRead())
-					{
-						Program.RouterDB = RouterDb.Deserialize(stream);
-					}
-
-					Program.MainWindow.RouterDBStateLabel.Text = "Successfully loaded RouterDB";
-				}
-			}
-			catch (Exception)
-			{
-				MessageBox.Show("Failed to read RouterDB", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-			
+			Fileoperations.ReadRouterDB();//Same thread, so it is ready when the program starts
 
 			//Load Ratingprofiles from the File specified in the Database
 			Fileoperations.ReadRatingprofiles();
