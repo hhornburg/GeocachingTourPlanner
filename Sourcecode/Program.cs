@@ -30,7 +30,7 @@ namespace GeocachingTourPlanner
 
 		// Itinero
 		public static RouterDb RouterDB = new RouterDb();
-		public static BindingList<KeyValueTriple<string, Route, List<Geocache>>> Routes = new BindingList<KeyValueTriple<string, Route, List<Geocache>>>();
+		public static BindingList<KeyValuePair<string, Tourplanning.RouteData>> Routes = new BindingList<KeyValuePair<string, Tourplanning.RouteData>>();
 
 		//Program Variables
 		public static bool RouteCalculationRunning = false;

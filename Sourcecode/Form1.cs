@@ -809,15 +809,17 @@ namespace GeocachingTourPlanner
 				Table.Controls.Add(RouteControl, 0, 0);
 
 				Label Info = new Label();
-				List<Geocache> GeocachesOnRoute = Program.Routes.First(x => x.Key == OverlayTag).Value2;
+				Tourplanning.RouteData ThisRouteData = Program.Routes.First(x => x.Key == OverlayTag).Value;
+				List<Geocache> GeocachesOnRoute = ThisRouteData.GeocachesOnRoute();
 				int NumberOfGeocaches = GeocachesOnRoute.Count;
 				float SumOfPoints = 0;
 				foreach (Geocache GC in GeocachesOnRoute)
 				{
 					SumOfPoints += GC.Rating;
 				}
-				float Length = Program.Routes.First(x => x.Key == OverlayTag).Value1.TotalDistance / 1000;
-				Info.Text = "Geocaches: " + NumberOfGeocaches + "\nPoints: " + SumOfPoints + "\nLength in km: " + Length.ToString("#.##");
+				float Length = ThisRouteData.TotalDistance / 1000;
+				TimeSpan TimeNeeded = TimeSpan.FromSeconds(ThisRouteData.TotalTime) + TimeSpan.FromMinutes(GeocachesOnRoute.Count * ThisRouteData.Profile.TimePerGeocache); 
+				Info.Text = "Geocaches: " + NumberOfGeocaches + "\nPoints: " + SumOfPoints + "\nLength in km: " + Length.ToString("#.##") + "\n Time needed in min:" + TimeNeeded.TotalMinutes;
 				Info.Dock = DockStyle.Fill;
 				Info.AutoSize = true;
 				Table.Controls.Add(Info, 1, 0);
@@ -848,8 +850,8 @@ namespace GeocachingTourPlanner
 			}
 		}
 
-		delegate void AddFinalRouteDelegate(KeyValuePair<Route, List<Geocache>> Result, Routingprofile profile);
-		public void AddFinalRoute(KeyValuePair<Route, List<Geocache>> Result, Routingprofile profile)
+		delegate void AddFinalRouteDelegate(Tourplanning.RouteData Result);
+		public void AddFinalRoute(Tourplanning.RouteData Result)
 		{
 			if (Map.InvokeRequired == false)
 			{
@@ -858,13 +860,19 @@ namespace GeocachingTourPlanner
 					Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "PreliminaryRoute"));//Remove the live displayed routes
 				}
 
-				Route FinalRoute = Result.Key;
-				List<Geocache> GeocachesOnRoute = Result.Value; //Should be the same but anyways.
+				Route FinalRoute = Result.partialRoutes[0].partialRoute;
+
+				for (int i = 1; i < Result.partialRoutes.Count; i++)
+				{
+					FinalRoute = FinalRoute.Concatenate(Result.partialRoutes[i].partialRoute);
+				}
+
+				List<Geocache> GeocachesOnRoute = Result.GeocachesOnRoute();
 
 				//Name of the route which will be used for all further referencing
-				string Routetag = profile.Name + " Route " + (profile.RoutesOfthisType + 1);
+				string Routetag = Result.Profile.Name + " Route " + (Result.Profile.RoutesOfthisType + 1);
 
-				Program.Routes.Add(new KeyValueTriple<string, Route, List<Geocache>>(Routetag, Result.Key, Result.Value));
+				Program.Routes.Add(new KeyValuePair<string, Tourplanning.RouteData>(Routetag, Result));
 				List<PointLatLng> LatLongPointList = new List<PointLatLng>();
 
 				foreach (Coordinate COO in FinalRoute.Shape)
@@ -872,8 +880,7 @@ namespace GeocachingTourPlanner
 					LatLongPointList.Add(new PointLatLng(COO.Latitude, COO.Longitude));
 				}
 
-
-				profile.RoutesOfthisType++;
+				Result.Profile.RoutesOfthisType++;
 
 				GMapOverlay RouteOverlay = new GMapOverlay(Routetag);
 				GMapRoute Route = new GMapRoute(LatLongPointList, Routetag);
@@ -893,7 +900,7 @@ namespace GeocachingTourPlanner
 			else
 			{
 				AddFinalRouteDelegate dg = new AddFinalRouteDelegate(AddFinalRoute);
-				BeginInvoke(dg,new object[]{ Result,profile});
+				BeginInvoke(dg, Result);
 			}
 		}
 

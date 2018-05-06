@@ -15,7 +15,7 @@ using System.Windows.Forms;
 
 namespace GeocachingTourPlanner
 {
-	class Tourplanning
+	public class Tourplanning
 	{
 		/// <summary>
 		/// Used to detect islands
@@ -103,7 +103,7 @@ namespace GeocachingTourPlanner
 			}
 			CompleteRouteData.TotalDistance = InitialRoute.TotalDistance;
 			CompleteRouteData.TotalTime = InitialRoute.TotalTime;
-			
+
 			//Empty list as no resolving happenend yet
 			CompleteRouteData.partialRoutes.Add(new PartialRoute(InitialRoute, new List<GeocacheRoutingInformation>()));
 			#endregion
@@ -115,7 +115,7 @@ namespace GeocachingTourPlanner
 			if (Program.DB.Autotargetselection)
 			{
 				Program.MainWindow.UpdateStatus("Starting Autotargetselection", 10);
-				CompleteRouteData=DirectionDecision(CompleteRouteData,GeocachesNotAlreadyUsed);
+				CompleteRouteData = DirectionDecision(CompleteRouteData, GeocachesNotAlreadyUsed);
 
 				DisplayPreliminaryRoute(CompleteRouteData);
 			}
@@ -129,8 +129,7 @@ namespace GeocachingTourPlanner
 
 			//TODO Add geocaches that lie directly on route
 
-			KeyValuePair<Route, List<Geocache>> Result = CreateResultingRoute(CompleteRouteData);
-			Program.MainWindow.AddFinalRoute(Result, profile);
+			Program.MainWindow.AddFinalRoute(CompleteRouteData);
 			Program.MainWindow.UpdateStatus("Route calculation done", 100);
 			Application.UseWaitCursor = false;
 			Program.RouteCalculationRunning = false;
@@ -189,7 +188,7 @@ namespace GeocachingTourPlanner
 				Result<RouterPoint> GeocacheToAddResolveResult = Router1.TryResolve(CompleteRouteData.Profile.ItineroProfile.profile, GeocacheToAdd.lat, GeocacheToAdd.lon, 100F);
 				if (!GeocacheToAddResolveResult.IsError)
 				{
-					Result<Tuple<Route,Route>> RoutingResult = GetPartialRoutes(CompleteRouteData, RouteToInsertIn, GeocacheToAddResolveResult.Value);
+					Result<Tuple<Route, Route>> RoutingResult = GetPartialRoutes(CompleteRouteData, RouteToInsertIn, GeocacheToAddResolveResult.Value);
 					if (!RoutingResult.IsError)
 					{
 						CompleteRouteData = ReplaceRoute(CompleteRouteData, RoutingResult.Value.Item1, RoutingResult.Value.Item2, IndexOfRouteToInsertIn);
@@ -212,13 +211,13 @@ namespace GeocachingTourPlanner
 			int FirstGeocacheNotUsedAsSuggestionBase = 0;
 			for (int SuggestionNumber = 0; SuggestionNumber < Program.DB.RoutefindingWidth; SuggestionNumber++)
 			{
-				RouteData SuggestionRouteData = (RouteData)CompleteRouteData.DeepCopy();
+				RouteData SuggestionRouteData = CompleteRouteData.DeepCopy();
 				Suggestions.Add(SuggestionRouteData);
 
 				int SuggestedCacheIndex = FirstGeocacheNotUsedAsSuggestionBase;
 
 				//Add geocaches to suggested route, as long as the route is shorter than half the allowed length, but also make sure it won't get longer than three quarters 
-				while (SuggestionRouteData.TotalDistance < 0.5 * SuggestionRouteData.Profile.MaxDistance * 1000 && SuggestedCacheIndex<GeocachesToConsider.Count)
+				while (SuggestionRouteData.TotalDistance < 0.5 * SuggestionRouteData.Profile.MaxDistance * 1000 && SuggestedCacheIndex < GeocachesToConsider.Count)
 				{
 					Geocache SuggestedCache = GeocachesToConsider[SuggestedCacheIndex];
 
@@ -256,7 +255,7 @@ namespace GeocachingTourPlanner
 								float NewDistance = SuggestionRouteData.TotalDistance - RouteToInsertIn.TotalDistance + RoutingResult.Value.Item1.TotalDistance + RoutingResult.Value.Item1.TotalDistance;
 								float NewTime = SuggestionRouteData.TotalTime - RouteToInsertIn.TotalTime + RoutingResult.Value.Item1.TotalTime + RoutingResult.Value.Item1.TotalTime;
 
-								if (NewDistance < 0.75 * SuggestionRouteData.Profile.MaxDistance *1000 && NewTime < 0.75 * SuggestionRouteData.Profile.MaxTime*60)
+								if (NewDistance < 0.75 * SuggestionRouteData.Profile.MaxDistance * 1000 && NewTime < 0.75 * SuggestionRouteData.Profile.MaxTime * 60)
 								{
 									SuggestionRouteData = ReplaceRoute(SuggestionRouteData, RoutingResult.Value.Item1, RoutingResult.Value.Item2, IndexOfRouteToInsertIn);
 									SuggestionRouteData.AddGeocacheOnRoute(SuggestedCache);
@@ -320,7 +319,7 @@ namespace GeocachingTourPlanner
 					float MinEstimatedRouteLength = EstimateRouteLengthIfInserted(CompleteRouteData.partialRoutes[CurrentPartialrouteIndex].partialRoute, new Coordinate(GC.lat, GC.lon));
 
 					//Only exclude those that definitely can't be reached
-					if (MinEstimatedRouteLength <(CompleteRouteData.Profile.MaxDistance * 1000 - (CompleteRouteData.TotalDistance - CompleteRouteData.partialRoutes[CurrentPartialrouteIndex].partialRoute.TotalDistance)))
+					if (MinEstimatedRouteLength < (CompleteRouteData.Profile.MaxDistance * 1000 - (CompleteRouteData.TotalDistance - CompleteRouteData.partialRoutes[CurrentPartialrouteIndex].partialRoute.TotalDistance)))
 					{
 						//TODO Cache Routerpoints to improve performance when geocaches get added to multiple routes
 						RouterPoint RouterPointOfGeocache = null;
@@ -455,23 +454,18 @@ namespace GeocachingTourPlanner
 			return CompleteRouteData;
 		}
 
-		private KeyValuePair<Route,List<Geocache>> CreateResultingRoute(RouteData CompleteRouteData)
-		{
-			Route FinalRoute = CompleteRouteData.partialRoutes[0].partialRoute;
-
-			for (int i = 1; i < CompleteRouteData.partialRoutes.Count; i++)
-			{
-				FinalRoute = FinalRoute.Concatenate(CompleteRouteData.partialRoutes[i].partialRoute);
-			}
-
-			return new KeyValuePair<Route, List<Geocache>>(FinalRoute, CompleteRouteData.GeocachesOnRoute());
-		}
-
 		private void DisplayPreliminaryRoute(RouteData CompleteRouteData)
 		{
 			new Thread(new ThreadStart(() =>
 			{
-				Program.MainWindow.DisplayPreliminaryRoute(CreateResultingRoute(CompleteRouteData).Key);
+				Route PreliminaryRoute = CompleteRouteData.partialRoutes[0].partialRoute;
+
+				for (int i = 1; i < CompleteRouteData.partialRoutes.Count; i++)
+				{
+					PreliminaryRoute = PreliminaryRoute.Concatenate(CompleteRouteData.partialRoutes[i].partialRoute);
+				}
+
+				Program.MainWindow.DisplayPreliminaryRoute(PreliminaryRoute);
 			})).Start();
 		}
 		#endregion
@@ -612,7 +606,7 @@ namespace GeocachingTourPlanner
 		#endregion
 
 		#region structs
-		class RouteData
+		public class RouteData
 		{
 			public List<PartialRoute> partialRoutes { get; set; }
 			private List<Geocache> _GeocachesOnRoute { get; set; }
@@ -650,11 +644,11 @@ namespace GeocachingTourPlanner
 			public RouteData DeepCopy()
 			{
 				RouteData _DeepCopy = new RouteData();
-				foreach(PartialRoute partialRoute in partialRoutes)
+				foreach (PartialRoute partialRoute in partialRoutes)
 				{
 					_DeepCopy.partialRoutes.Add(partialRoute.DeepCopy());
 				}
-				foreach(Geocache geocache in _GeocachesOnRoute)
+				foreach (Geocache geocache in _GeocachesOnRoute)
 				{
 					_DeepCopy.AddGeocacheOnRoute(geocache);//No deeper copy needed, as geocaches won't be changed
 				}
@@ -666,14 +660,14 @@ namespace GeocachingTourPlanner
 			}
 		}
 
-		class PartialRoute
+		public class PartialRoute
 		{
 			public Route partialRoute { get; set; }
 			/// <summary>
 			/// geocaches that are in reach from this partial route. NOT THOSE ON THE ROUTE
 			/// </summary>
 			public List<GeocacheRoutingInformation> GeocachesInReach { get; set; }
-			
+
 			public PartialRoute(Route partialRoute, List<GeocacheRoutingInformation> GeocachesInReach)
 			{
 				this.partialRoute = partialRoute;
@@ -688,7 +682,7 @@ namespace GeocachingTourPlanner
 			{
 				PartialRoute _DeepCopy = new PartialRoute();
 				_DeepCopy.partialRoute = partialRoute;//No deeper copy needed since partial route won't be changed
-				foreach(GeocacheRoutingInformation geocacheRoutingInfo in GeocachesInReach)
+				foreach (GeocacheRoutingInformation geocacheRoutingInfo in GeocachesInReach)
 				{
 					_DeepCopy.GeocachesInReach.Add(new GeocacheRoutingInformation(geocacheRoutingInfo));
 				}
@@ -696,7 +690,7 @@ namespace GeocachingTourPlanner
 			}
 		}
 
-		class GeocacheRoutingInformation
+		public class GeocacheRoutingInformation
 		{
 			/// <summary>
 			/// Always use the position of the geocache for the shortest distance calculations
@@ -736,13 +730,5 @@ namespace GeocachingTourPlanner
 			}
 		}
 		#endregion
-
-		public static void AddToRoutingLog(string Message)
-		{
-			new Thread(new ThreadStart(() =>
-			{
-				File.AppendAllText("Routerlog.txt", "[" + DateTime.Now + "]: " + Message + "\n");
-			}));
-		}
 	}
 }
