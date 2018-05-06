@@ -349,6 +349,14 @@ namespace GeocachingTourPlanner
 			return CompleteRouteData;
 		}
 
+		/// <summary>
+		/// Only use to lock GeeocacheToAdd in AddGeocacheToThatImportRating
+		/// </summary>
+		private readonly object GeocacheToAddLocker = null;
+		/// <summary>
+		/// Only use to lock RouteToInsertIn in AddGeocacheToThatImportRating
+		/// </summary>
+		private readonly object RouteToInsertInLocker = null;
 		private RouteData AddGeocachesThatImproveRating(RouteData CompleteRouteData)
 		{
 			//ALWAYS keep RoutingDataList sorted by the way it came. It determines the direction of the route.
@@ -357,6 +365,7 @@ namespace GeocachingTourPlanner
 			///////////////////////////////////////////////////////////////////////////////////////
 			//TAKE CARE RouteDistance is in m, MaxDistance in km!!!
 			////////////////////////////////////////////////////////////////////////////////
+
 			GeocacheRoutingInformation GeocacheToAdd = null;
 			do
 			{
@@ -372,44 +381,61 @@ namespace GeocachingTourPlanner
 				 *For the case they are, there is another routine that picks up the caches that are directly on the route. 
 				*/
 				Debug.WriteLine("Started Filtering Geocaches");
-				for (int CurrentPartialRouteIndex = 0; CurrentPartialRouteIndex < CompleteRouteData.partialRoutes.Count; CurrentPartialRouteIndex++)
-				{
-					PartialRoute CurrentPartialRoute = CompleteRouteData.partialRoutes[CurrentPartialRouteIndex];
-					List<GeocacheRoutingInformation> GeocachesToRemove = new List<GeocacheRoutingInformation>();
-					foreach (GeocacheRoutingInformation CurrentGeocache in CurrentPartialRoute.GeocachesInReach)
-					{
+				Parallel.For(0, CompleteRouteData.partialRoutes.Count, CurrentPartialRouteIndex =>
+				 {
+					 PartialRoute CurrentPartialRoute = CompleteRouteData.partialRoutes[CurrentPartialRouteIndex];
+					 List<GeocacheRoutingInformation> GeocachesToRemove = new List<GeocacheRoutingInformation>();
+					 foreach (GeocacheRoutingInformation CurrentGeocache in CurrentPartialRoute.GeocachesInReach)
+					 {
 						//(CompleteRouteData.TotalDistance-CurrentPartialRoute.partialRoute.TotalDistance) since the latter part will be replaced
 						if (CurrentGeocache.EstimatedDistanceIfInserted > (CompleteRouteData.Profile.MaxDistance * 1000 - (CompleteRouteData.TotalDistance - CurrentPartialRoute.partialRoute.TotalDistance)))
-						{
-							GeocachesToRemove.Add(CurrentGeocache);
-						}
-						else if (CompleteRouteData.GeocachesOnRoute().Contains(CurrentGeocache.geocache))
-						{
-							GeocachesToRemove.Add(CurrentGeocache);
-						}
-						else if (CurrentGeocache.EstimatedDistanceIfInserted < Program.DB.PercentageOfRemainingDistance * (CompleteRouteData.Profile.MaxDistance * 1000 - (CompleteRouteData.TotalDistance - CurrentPartialRoute.partialRoute.TotalDistance)))
-						{
+						 {
+							 GeocachesToRemove.Add(CurrentGeocache);
+						 }
+						 else if (CompleteRouteData.GeocachesOnRoute().Contains(CurrentGeocache.geocache))
+						 {
+							 GeocachesToRemove.Add(CurrentGeocache);
+						 }
+						 else if (CurrentGeocache.EstimatedDistanceIfInserted < Program.DB.PercentageOfRemainingDistance * (CompleteRouteData.Profile.MaxDistance * 1000 - (CompleteRouteData.TotalDistance - CurrentPartialRoute.partialRoute.TotalDistance)))
+						 {
 							/* If no cache is set as next geocache to insert
 							 * If the cache we stumbled accross is rated better than the old best geocache
 							 * If They are the same geocache but from a different route, take the one that is shorter
 							*/
-							if (GeocacheToAdd == null || CurrentGeocache.geocache.Rating > GeocacheToAdd.geocache.Rating || (CurrentGeocache.geocache == GeocacheToAdd.geocache && CurrentGeocache.EstimatedDistanceIfInserted < GeocacheToAdd.EstimatedDistanceIfInserted))
-							{
-								GeocacheToAdd = CurrentGeocache;
-								RouteToInsertIn = CurrentPartialRoute.partialRoute;
-								IndexOfRouteToInsertIn = CurrentPartialRouteIndex;
-							}
-						}
-					}
+							 if (GeocacheToAdd == null || CurrentGeocache.geocache.Rating > GeocacheToAdd.geocache.Rating || (CurrentGeocache.geocache == GeocacheToAdd.geocache && CurrentGeocache.EstimatedDistanceIfInserted < GeocacheToAdd.EstimatedDistanceIfInserted))
+							 {
+								 lock (GeocacheToAddLocker)//Since one can't lock GeocacheToAdd directly, since it is not the same object that is locked and unlocked
+								 {
+									 GeocacheToAdd = CurrentGeocache;
+								 }
+								 lock (RouteToInsertInLocker)//See above
+								 {
+									 RouteToInsertIn = CurrentPartialRoute.partialRoute;
+								 }
+								 IndexOfRouteToInsertIn = CurrentPartialRouteIndex;
+								 
+							 }
+						 }
+					 }
 
 					//Remove all geocaches that can't be reached or are already used
 					foreach (GeocacheRoutingInformation Geocache_Info in GeocachesToRemove)
-					{
-						CurrentPartialRoute.GeocachesInReach.Remove(Geocache_Info);
-					}
-				}
+					 {
+						 CurrentPartialRoute.GeocachesInReach.Remove(Geocache_Info);
+					 }
+				 });
 				#endregion
 				Debug.WriteLine("Ended filtering Geocaches");
+
+				if (CompleteRouteData.TotalTime > CompleteRouteData.Profile.MaxTime * 60)
+				{
+					//if the penalty even without the extra time needed for the way is higher than the rating, then exit this module completely. It is unlikely that a geocache even further away with a higher rating will be worth it
+					if ((CompleteRouteData.Profile.TimePerGeocache * 60 + (CompleteRouteData.TotalTime - CompleteRouteData.Profile.MaxTime)) * CompleteRouteData.Profile.PenaltyPerExtra10min / 600 > GeocacheToAdd.geocache.Rating)
+					{
+						GeocacheToAdd = null;
+					}
+				}
+
 				if (GeocacheToAdd != null)
 				{
 					Result<Tuple<Route, Route>> RoutingResult = GetPartialRoutes(CompleteRouteData, RouteToInsertIn, GeocacheToAdd.ResolvedCoordinates);
@@ -437,6 +463,7 @@ namespace GeocachingTourPlanner
 							CompleteRouteData = ReplaceRoute(CompleteRouteData, RoutingResult.Value.Item1, RoutingResult.Value.Item2, IndexOfRouteToInsertIn);
 							CompleteRouteData.AddGeocacheOnRoute(GeocacheToAdd.geocache);
 							CompleteRouteData.TotalPoints = NewRoutePoints;//Overwrites the addition automatically made in the lne before, to make sure the 
+							DisplayPreliminaryRoute(CompleteRouteData);
 						}
 						else
 						{
