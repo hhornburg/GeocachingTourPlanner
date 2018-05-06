@@ -108,8 +108,7 @@ namespace GeocachingTourPlanner
 			CompleteRouteData.partialRoutes.Add(new PartialRoute(InitialRoute, new List<GeocacheRoutingInformation>()));
 			#endregion
 
-			//TODO
-			//Program.MainWindow.DisplayPreliminaryRoute(RoutingData);
+			DisplayPreliminaryRoute(CompleteRouteData);
 
 			AddGeocachesToRoute(CompleteRouteData, GeocachesToInclude);
 
@@ -118,7 +117,7 @@ namespace GeocachingTourPlanner
 				Program.MainWindow.UpdateStatus("Starting Autotargetselection", 10);
 				CompleteRouteData=DirectionDecision(CompleteRouteData,GeocachesNotAlreadyUsed);
 
-				//Program.MainWindow.DisplayPreliminaryRoute(RoutingData);
+				DisplayPreliminaryRoute(CompleteRouteData);
 			}
 
 			Program.MainWindow.UpdateStatus("Starting calculation of geocache positions", 30);
@@ -348,10 +347,11 @@ namespace GeocachingTourPlanner
 			///////////////////////////////////////////////////////////////////////////////////////
 			//TAKE CARE RouteDistance is in m, MaxDistance in km!!!
 			////////////////////////////////////////////////////////////////////////////////
+			GeocacheRoutingInformation GeocacheToAdd = null;
 			do
 			{
 				//Values
-				GeocacheRoutingInformation GeocacheToAdd = null;
+				GeocacheToAdd = null;
 				Route RouteToInsertIn = null;
 				int IndexOfRouteToInsertIn = -1;
 
@@ -361,6 +361,7 @@ namespace GeocachingTourPlanner
 				 *Only allow apercentage of the distance set, as the roads are most definitely not straight. 
 				 *For the case they are, there is another routine that picks up the caches that are directly on the route. 
 				*/
+				Debug.WriteLine("Started Filtering Geocaches");
 				for (int CurrentPartialRouteIndex = 0; CurrentPartialRouteIndex < CompleteRouteData.partialRoutes.Count; CurrentPartialRouteIndex++)
 				{
 					PartialRoute CurrentPartialRoute = CompleteRouteData.partialRoutes[CurrentPartialRouteIndex];
@@ -398,7 +399,7 @@ namespace GeocachingTourPlanner
 					}
 				}
 				#endregion
-
+				Debug.WriteLine("Ended filtering Geocaches");
 				if (GeocacheToAdd != null)
 				{
 					Result<Tuple<Route, Route>> RoutingResult = GetPartialRoutes(CompleteRouteData, RouteToInsertIn, GeocacheToAdd.ResolvedCoordinates);
@@ -422,14 +423,21 @@ namespace GeocachingTourPlanner
 
 						if (NewRoutePoints > CompleteRouteData.TotalPoints)
 						{
+							Debug.WriteLine("Added " + GeocacheToAdd.geocache);
 							CompleteRouteData = ReplaceRoute(CompleteRouteData, RoutingResult.Value.Item1, RoutingResult.Value.Item2, IndexOfRouteToInsertIn);
 							CompleteRouteData.AddGeocacheOnRoute(GeocacheToAdd.geocache);
 							CompleteRouteData.TotalPoints = NewRoutePoints;//Overwrites the addition automatically made in the lne before, to make sure the 
 						}
 						else
 						{
+							Debug.WriteLine("Made calculation for nothing. Geocache made points less");
 							CompleteRouteData.partialRoutes[IndexOfRouteToInsertIn].GeocachesInReach.Remove(GeocacheToAdd);//As the geocache doesn't help from this route
 						}
+					}
+					else
+					{
+						Debug.WriteLine("Routing was errounous. Island detection score:" + FailedRouteCalculations);
+						CompleteRouteData.partialRoutes[IndexOfRouteToInsertIn].GeocachesInReach.Remove(GeocacheToAdd);//Since trying to route to it results in an error
 					}
 				}
 				else
@@ -437,7 +445,7 @@ namespace GeocachingTourPlanner
 					break;//since there are no more geocaches to be added
 				}
 
-			} while (FailedRouteCalculations < FailedRouteCalculationsLimit);//-1, as the one has been tried to be added to the Route. If the if clause jumped in, it makes no differenc, as -1 is still less than 0
+			} while (FailedRouteCalculations < FailedRouteCalculationsLimit && GeocacheToAdd != null);
 
 			if (FailedRouteCalculations == FailedRouteCalculationsLimit)
 			{
@@ -457,6 +465,14 @@ namespace GeocachingTourPlanner
 			}
 
 			return new KeyValuePair<Route, List<Geocache>>(FinalRoute, CompleteRouteData.GeocachesOnRoute());
+		}
+
+		private void DisplayPreliminaryRoute(RouteData CompleteRouteData)
+		{
+			new Thread(new ThreadStart(() =>
+			{
+				Program.MainWindow.DisplayPreliminaryRoute(CreateResultingRoute(CompleteRouteData).Key);
+			})).Start();
 		}
 		#endregion
 

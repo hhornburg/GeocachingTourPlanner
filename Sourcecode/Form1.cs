@@ -898,8 +898,8 @@ namespace GeocachingTourPlanner
 		}
 
 		//Doesn't work, kills performance
-		delegate void DisplayPreliminaryRouteDelegate(List<KeyValuePair<Route, List<KeyValueTriple<Geocache, float, RouterPoint>>>> RoutingData);
-		public void DisplayPreliminaryRoute(List<KeyValuePair<Route, List<KeyValueTriple<Geocache, float, RouterPoint>>>> RoutingData)
+		delegate void DisplayPreliminaryRouteDelegate(Route PreliminaryRoute);
+		public void DisplayPreliminaryRoute(Route PreliminaryRoute)
 		{
 			if (Program.DB.DisplayLiveCalculation)
 			{
@@ -912,13 +912,10 @@ namespace GeocachingTourPlanner
 
 					List<PointLatLng> GMAPRoute = new List<PointLatLng>();
 
-					foreach (KeyValuePair<Route, List<KeyValueTriple<Geocache, float, RouterPoint>>> route in RoutingData)
-					{
-						foreach (Coordinate COO in route.Key.Shape)
+						foreach (Coordinate COO in PreliminaryRoute.Shape)
 						{
 							GMAPRoute.Add(new PointLatLng(COO.Latitude, COO.Longitude));
 						}
-					}
 					GMapOverlay RouteOverlay = new GMapOverlay("PreliminaryRoute");
 					RouteOverlay.Routes.Add(new GMapRoute(GMAPRoute, "PreliminaryRoute"));
 					Program.MainWindow.Map.Overlays.Add(RouteOverlay);
@@ -926,7 +923,7 @@ namespace GeocachingTourPlanner
 				else
 				{
 					DisplayPreliminaryRouteDelegate dg = new DisplayPreliminaryRouteDelegate(DisplayPreliminaryRoute);
-					BeginInvoke(dg, new object[] { RoutingData });
+					BeginInvoke(dg, PreliminaryRoute);
 				}
 				LoadMap();
 			}
