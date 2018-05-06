@@ -819,7 +819,7 @@ namespace GeocachingTourPlanner
 				}
 				float Length = ThisRouteData.TotalDistance / 1000;
 				TimeSpan TimeNeeded = TimeSpan.FromSeconds(ThisRouteData.TotalTime) + TimeSpan.FromMinutes(GeocachesOnRoute.Count * ThisRouteData.Profile.TimePerGeocache); 
-				Info.Text = "Geocaches: " + NumberOfGeocaches + "\nPoints: " + SumOfPoints + "\nLength in km: " + Length.ToString("#.##") + "\n Time needed in min:" + TimeNeeded.TotalMinutes;
+				Info.Text = "Geocaches: " + NumberOfGeocaches + "\nPoints: " + SumOfPoints + "\nLength in km: " + Length.ToString("#.##") + "\n Time in min:" + TimeNeeded.TotalMinutes.ToString("#.");
 				Info.Dock = DockStyle.Fill;
 				Info.AutoSize = true;
 				Table.Controls.Add(Info, 1, 0);

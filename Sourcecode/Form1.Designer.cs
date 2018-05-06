@@ -321,8 +321,8 @@ namespace GeocachingTourPlanner
 			// tableLayoutPanel1
 			// 
 			this.tableLayoutPanel1.ColumnCount = 2;
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
 			this.tableLayoutPanel1.Controls.Add(this.Map, 1, 0);
 			this.tableLayoutPanel1.Controls.Add(this.MapTab_SideMenu, 0, 0);
 			this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel10, 0, 1);
@@ -332,7 +332,6 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel1.RowCount = 2;
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
 			this.tableLayoutPanel1.Size = new System.Drawing.Size(974, 524);
 			this.tableLayoutPanel1.TabIndex = 2;
 			// 
@@ -345,7 +344,7 @@ namespace GeocachingTourPlanner
 			this.Map.GrayScaleMode = false;
 			this.Map.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
 			this.Map.LevelsKeepInMemmory = 5;
-			this.Map.Location = new System.Drawing.Point(203, 3);
+			this.Map.Location = new System.Drawing.Point(165, 3);
 			this.Map.MarkersEnabled = true;
 			this.Map.MaxZoom = 18;
 			this.Map.MinZoom = 5;
@@ -359,7 +358,7 @@ namespace GeocachingTourPlanner
 			this.Map.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
 			this.Map.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
 			this.Map.ShowTileGridLines = false;
-			this.Map.Size = new System.Drawing.Size(768, 418);
+			this.Map.Size = new System.Drawing.Size(806, 418);
 			this.Map.TabIndex = 2;
 			this.Map.Zoom = 0D;
 			this.Map.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.Map_OnMarkerClick);
@@ -372,6 +371,7 @@ namespace GeocachingTourPlanner
 			// 
 			// MapTab_SideMenu
 			// 
+			this.MapTab_SideMenu.AutoScroll = true;
 			this.MapTab_SideMenu.AutoSize = true;
 			this.MapTab_SideMenu.ColumnCount = 1;
 			this.MapTab_SideMenu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -386,7 +386,7 @@ namespace GeocachingTourPlanner
 			this.MapTab_SideMenu.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.MapTab_SideMenu.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.MapTab_SideMenu.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.MapTab_SideMenu.Size = new System.Drawing.Size(194, 69);
+			this.MapTab_SideMenu.Size = new System.Drawing.Size(156, 69);
 			this.MapTab_SideMenu.TabIndex = 1;
 			// 
 			// BestGeocachesCheckbox
@@ -397,7 +397,7 @@ namespace GeocachingTourPlanner
 			this.BestGeocachesCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.BestGeocachesCheckbox.Location = new System.Drawing.Point(3, 3);
 			this.BestGeocachesCheckbox.Name = "BestGeocachesCheckbox";
-			this.BestGeocachesCheckbox.Size = new System.Drawing.Size(188, 17);
+			this.BestGeocachesCheckbox.Size = new System.Drawing.Size(150, 17);
 			this.BestGeocachesCheckbox.TabIndex = 1;
 			this.BestGeocachesCheckbox.Text = "Show best Geocaches";
 			this.BestGeocachesCheckbox.UseVisualStyleBackColor = true;
@@ -411,7 +411,7 @@ namespace GeocachingTourPlanner
 			this.WorstGeocachesCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.WorstGeocachesCheckbox.Location = new System.Drawing.Point(3, 49);
 			this.WorstGeocachesCheckbox.Name = "WorstGeocachesCheckbox";
-			this.WorstGeocachesCheckbox.Size = new System.Drawing.Size(188, 17);
+			this.WorstGeocachesCheckbox.Size = new System.Drawing.Size(150, 17);
 			this.WorstGeocachesCheckbox.TabIndex = 2;
 			this.WorstGeocachesCheckbox.Text = "Show worst Geocaches";
 			this.WorstGeocachesCheckbox.UseVisualStyleBackColor = true;
@@ -425,7 +425,7 @@ namespace GeocachingTourPlanner
 			this.MediumGeocachesCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.MediumGeocachesCheckbox.Location = new System.Drawing.Point(3, 26);
 			this.MediumGeocachesCheckbox.Name = "MediumGeocachesCheckbox";
-			this.MediumGeocachesCheckbox.Size = new System.Drawing.Size(188, 17);
+			this.MediumGeocachesCheckbox.Size = new System.Drawing.Size(150, 17);
 			this.MediumGeocachesCheckbox.TabIndex = 0;
 			this.MediumGeocachesCheckbox.Text = "Show medium Geocaches";
 			this.MediumGeocachesCheckbox.UseVisualStyleBackColor = true;
