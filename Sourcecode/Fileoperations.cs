@@ -290,7 +290,7 @@ namespace GeocachingTourPlanner
 			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
 			{
 
-				KeyValueTriple<string, Route, List<Geocache>> RouteToSeialize = Program.Routes.First(x => x.Key == OverlayTag);
+				KeyValuePair<string, Tourplanning.RouteData> RouteToSeialize = Program.Routes.First(x => x.Key == OverlayTag);
 
 				XmlDocument GPX = new XmlDocument();
 
@@ -311,7 +311,7 @@ namespace GeocachingTourPlanner
 				creator.Value = "GeocachingTourPlanner";
 				root.Attributes.Append(creator);
 
-				foreach (Geocache GC in RouteToSeialize.Value2)
+				foreach (Geocache GC in RouteToSeialize.Value.GeocachesOnRoute())
 				{
 					XmlElement wpt = GPX.CreateElement("wpt");
 					//Coordinates
@@ -345,7 +345,15 @@ namespace GeocachingTourPlanner
 				track.AppendChild(name);
 
 				XmlNode tracksegment = GPX.CreateElement("trkseg");
-				foreach (Coordinate COO in RouteToSeialize.Value1.Shape)
+
+				Route FinalRoute = RouteToSeialize.Value.partialRoutes[0].partialRoute;
+
+				for (int i = 1; i < RouteToSeialize.Value.partialRoutes.Count; i++)
+				{
+					FinalRoute = FinalRoute.Concatenate(RouteToSeialize.Value.partialRoutes[i].partialRoute);
+				}
+
+				foreach (Coordinate COO in FinalRoute.Shape)
 				{
 					XmlNode trackpoint = GPX.CreateElement("trkpt");
 
