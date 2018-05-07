@@ -129,10 +129,11 @@ namespace GeocachingTourPlanner
 
 			//TODO Add geocaches that lie directly on route
 
+			Program.RouteCalculationRunning = false;//To make sure not another preliminary route is displayed
 			Program.MainWindow.AddFinalRoute(CompleteRouteData);
 			Program.MainWindow.UpdateStatus("Route calculation done", 100);
 			Application.UseWaitCursor = false;
-			Program.RouteCalculationRunning = false;
+			
 		}
 
 		//REDESIGNED
@@ -209,112 +210,103 @@ namespace GeocachingTourPlanner
 			int NumberofRouteslongerthanlimit = 0;
 
 			int FirstGeocacheNotUsedAsSuggestionBase = Program.DB.RoutefindingWidth+1;
-			Parallel.For(0, Program.DB.RoutefindingWidth, NumberOfSuggestions =>
-		   {
-			   RouteData SuggestionRouteData;
-			   lock (CompleteRouteData)
+			try
+			{
+				Parallel.For(0, Program.DB.RoutefindingWidth, NumberOfSuggestions =>
 			   {
-				   SuggestionRouteData = CompleteRouteData.DeepCopy();
-			   }
-			   lock (Suggestions)
-			   {
-				   Suggestions.Add(SuggestionRouteData);
-			   }
-
-			   int SuggestedCacheIndex = FirstGeocacheNotUsedAsSuggestionBase;
-
-			   //Add geocaches to suggested route, as long as the route is shorter than half the allowed length, but also make sure it won't get longer than three quarters. Also Make sure not more than three quarters of the allowed time are used up
-			   while (SuggestionRouteData.TotalDistance < 0.5 * SuggestionRouteData.Profile.MaxDistance * 1000
-					&& SuggestionRouteData.TotalTime < 0.75 * SuggestionRouteData.Profile.MaxTime * 60
-					&& SuggestedCacheIndex < GeocachesToConsider.Count)
-			   {
-				   Geocache SuggestedCache = GeocachesToConsider[SuggestedCacheIndex];
-
-				   #region Find shortest resulting route if cache is inserted Route
-				   int IndexOfRouteToInsertIn = 0;
-				   float MinEstimatedRouteLength = -1;
-				   for (int PartialRouteIndex = 0; PartialRouteIndex < SuggestionRouteData.partialRoutes.Count; PartialRouteIndex++)//Thus each partial route
+				   RouteData SuggestionRouteData;
+				   lock (CompleteRouteData)
 				   {
-					   float Length = EstimateRouteLengthIfInserted(SuggestionRouteData.partialRoutes[PartialRouteIndex].partialRoute, new Coordinate(SuggestedCache.lat, SuggestedCache.lon));
-					   //Whether this is the route the geocache is currently closest to
-					   if (MinEstimatedRouteLength < 0 || Length < MinEstimatedRouteLength)
-					   {
-						   IndexOfRouteToInsertIn = PartialRouteIndex;
-						   MinEstimatedRouteLength = Length;
-					   }
+					   SuggestionRouteData = CompleteRouteData.DeepCopy();
 				   }
-				   #endregion
-
-				   //Check if the Cache seems to be in range. Percentage * 0.75 * Remaining Distance, since the roads to the cache are quite surely not in a straight line and we want to fill up to 0.75 only
-				   if (MinEstimatedRouteLength < Program.DB.PercentageOfRemainingDistance * 0.75 * (SuggestionRouteData.Profile.MaxDistance * 1000 - (SuggestionRouteData.TotalDistance - SuggestionRouteData.partialRoutes[IndexOfRouteToInsertIn].partialRoute.TotalDistance)))
+				   lock (Suggestions)
 				   {
-					   Result<RouterPoint> GeocacheToAddResolveResult = Router1.TryResolve(SuggestionRouteData.Profile.ItineroProfile.profile, SuggestedCache.lat, SuggestedCache.lon, SearchDistanceInMeters);
-					   Route RouteToInsertIn = SuggestionRouteData.partialRoutes[IndexOfRouteToInsertIn].partialRoute;
+					   Suggestions.Add(SuggestionRouteData);
+				   }
 
-					   GeocacheRoutingInformation SuggestionBaseCache_Info;
-					   if (!GeocacheToAddResolveResult.IsError)
+				   int SuggestedCacheIndex = NumberOfSuggestions;
+
+				   //Add geocaches to suggested route, as long as the route is shorter than the min allowed length, but also make sure it doesn't get too long in time and distance
+				   while (SuggestionRouteData.TotalDistance < Program.DB.PercentageOfDistanceInAutoTargetselection_Min * SuggestionRouteData.Profile.MaxDistance * 1000
+							&& SuggestedCacheIndex < GeocachesToConsider.Count)
+				   {
+					   Geocache SuggestedCache = GeocachesToConsider[SuggestedCacheIndex];
+
+					   #region Find shortest resulting route if cache is inserted Route
+					   int IndexOfRouteToInsertIn = 0;
+					   float MinEstimatedRouteLength = -1;
+					   for (int PartialRouteIndex = 0; PartialRouteIndex < SuggestionRouteData.partialRoutes.Count; PartialRouteIndex++)//Thus each partial route
 					   {
-						   SuggestionBaseCache_Info = new GeocacheRoutingInformation(SuggestedCache, MinEstimatedRouteLength, GeocacheToAddResolveResult.Value);
-
-						   Result<Tuple<Route, Route>> RoutingResult = GetPartialRoutes(SuggestionRouteData, RouteToInsertIn, SuggestionBaseCache_Info.ResolvedCoordinates);
-						   if (!RoutingResult.IsError)
+						   float Length = EstimateRouteLengthIfInserted(SuggestionRouteData.partialRoutes[PartialRouteIndex].partialRoute, new Coordinate(SuggestedCache.lat, SuggestedCache.lon));
+						   //Whether this is the route the geocache is currently closest to
+						   if (MinEstimatedRouteLength < 0 || Length < MinEstimatedRouteLength)
 						   {
-							   // So one doesn't have to iterate through all routes
-							   //TestRouteDistance, as one doesn't know wether this on is taken
-							   float NewDistance = SuggestionRouteData.TotalDistance - RouteToInsertIn.TotalDistance + RoutingResult.Value.Item1.TotalDistance + RoutingResult.Value.Item1.TotalDistance;
-							   float NewTime = SuggestionRouteData.TotalTime - RouteToInsertIn.TotalTime + RoutingResult.Value.Item1.TotalTime + RoutingResult.Value.Item1.TotalTime;
+							   IndexOfRouteToInsertIn = PartialRouteIndex;
+							   MinEstimatedRouteLength = Length;
+						   }
+					   }
+					   #endregion
 
-							   if (NewDistance < 0.75 * SuggestionRouteData.Profile.MaxDistance * 1000 && NewTime < 0.75 * SuggestionRouteData.Profile.MaxTime * 60)
-							   {
-								   SuggestionRouteData = ReplaceRoute(SuggestionRouteData, RoutingResult.Value.Item1, RoutingResult.Value.Item2, IndexOfRouteToInsertIn);
-								   SuggestionRouteData.AddGeocacheOnRoute(SuggestedCache);
+					   //Check if the Cache seems to be in range. Error_Percentage * Max_Percentage * Remaining Distance, since the roads to the cache are quite surely not in a straight line and we want to fill up to the percentage only
+					   if (MinEstimatedRouteLength < Program.DB.PercentageOfRemainingDistance * Program.DB.PercentageOfDistanceInAutoTargetselection_Max * (SuggestionRouteData.Profile.MaxDistance * 1000 - (SuggestionRouteData.TotalDistance - SuggestionRouteData.partialRoutes[IndexOfRouteToInsertIn].partialRoute.TotalDistance)))
+					   {
+						   Result<RouterPoint> GeocacheToAddResolveResult = Router1.TryResolve(SuggestionRouteData.Profile.ItineroProfile.profile, SuggestedCache.lat, SuggestedCache.lon, SearchDistanceInMeters);
+						   Route RouteToInsertIn = SuggestionRouteData.partialRoutes[IndexOfRouteToInsertIn].partialRoute;
 
-							   }//Else just skip this cache. 
-							   else
+						   GeocacheRoutingInformation SuggestionBaseCache_Info;
+						   if (!GeocacheToAddResolveResult.IsError)
+						   {
+							   SuggestionBaseCache_Info = new GeocacheRoutingInformation(SuggestedCache, MinEstimatedRouteLength, GeocacheToAddResolveResult.Value);
+
+							   Result<Tuple<Route, Route>> RoutingResult = GetPartialRoutes(SuggestionRouteData, RouteToInsertIn, SuggestionBaseCache_Info.ResolvedCoordinates);
+							   if (!RoutingResult.IsError)
 							   {
-								   NumberofRouteslongerthanlimit++;
+								   // So one doesn't have to iterate through all routes
+								   //TestRouteDistance, as one doesn't know wether this on is taken
+								   float NewDistance = SuggestionRouteData.TotalDistance - RouteToInsertIn.TotalDistance + RoutingResult.Value.Item1.TotalDistance + RoutingResult.Value.Item1.TotalDistance;
+								   float NewTime = SuggestionRouteData.TotalTime - RouteToInsertIn.TotalTime + RoutingResult.Value.Item1.TotalTime + RoutingResult.Value.Item1.TotalTime;
+
+								   if (NewDistance < Program.DB.PercentageOfDistanceInAutoTargetselection_Max * SuggestionRouteData.Profile.MaxDistance * 1000 && NewTime < Program.DB.PercentageOfDistanceInAutoTargetselection_Max * SuggestionRouteData.Profile.MaxTime * 60)
+								   {
+									   Debug.WriteLine("Added Geocache in DirectionDecision");
+									   SuggestionRouteData = ReplaceRoute(SuggestionRouteData, RoutingResult.Value.Item1, RoutingResult.Value.Item2, IndexOfRouteToInsertIn);
+									   SuggestionRouteData.AddGeocacheOnRoute(SuggestedCache);
+
+								   }//Else just skip this cache. 
+								   else
+								   {
+									   NumberofRouteslongerthanlimit++;
+								   }
+							   }
+						   }
+						   else //Couldn't resolve
+						   {
+							   if (SuggestedCacheIndex == FirstGeocacheNotUsedAsSuggestionBase)
+							   {
+								   FirstGeocacheNotUsedAsSuggestionBase++;//To avoid using the same cache as base twice
+								   SuggestedCacheIndex = FirstGeocacheNotUsedAsSuggestionBase--;//Since ++ will happen
+							   }
+							   lock (GeocachesToConsider)
+							   {
+								   GeocachesToConsider.RemoveAt(SuggestedCacheIndex);//Since it will never be possible to resolve it
 							   }
 						   }
 					   }
-					   else //Couldn't resolve
-					   {
-						   if (SuggestedCacheIndex == FirstGeocacheNotUsedAsSuggestionBase)
-						   {
-							   FirstGeocacheNotUsedAsSuggestionBase++;//To avoid using the same cache as base twice
-							   SuggestedCacheIndex = FirstGeocacheNotUsedAsSuggestionBase--;//Since ++ will happen
-						   }
-						   lock (GeocachesToConsider)
-						   {
-							   GeocachesToConsider.RemoveAt(SuggestedCacheIndex);//Since it will never be possible to resolve it
-						   }
-					   }
-				   }
-				   SuggestedCacheIndex++;
-			   }
-
-			   #region Find geocaches in reach
-			   float ReachablePoints = 0;
-			   Parallel.ForEach(GeocachesToConsider, geocache =>
-			   {
-				   foreach (PartialRoute Route in SuggestionRouteData.partialRoutes)
-				   {
-					   if (EstimateRouteLengthIfInserted(Route.partialRoute, new Coordinate(geocache.lat, geocache.lon)) < Program.DB.PercentageOfRemainingDistance * (SuggestionRouteData.Profile.MaxDistance * 1000 - (SuggestionRouteData.TotalDistance - Route.partialRoute.TotalDistance)))
-					   {
-						   ReachablePoints += geocache.Rating;
-						   break;//It suffices that the cache is in reach of one partial route
-					   }
+					   SuggestedCacheIndex++;
 				   }
 			   });
-			   SuggestionRouteData.ReachablePointsAfterDirectionDecision = ReachablePoints + SuggestionRouteData.TotalPoints;
-			   #endregion
-		   });
-
+			}
+			catch (Exception)
+			{
+				Suggestions.Clear();//Since it jumps back and creates new objects
+				Debug.WriteLine("At least one exception has been caused.");
+			}
 			Debug.WriteLine(NumberofRouteslongerthanlimit + " Routes have been to long.");
 
 			if (Suggestions.Count != 0)
 			{
 				//Return best suggestion
-				return Suggestions.Find(x => x.ReachablePointsAfterDirectionDecision == Suggestions.Max(y => y.ReachablePointsAfterDirectionDecision));
+				return Suggestions.Find(x => x.TotalPoints == Suggestions.Max(y => y.TotalPoints));
 			}
 			//If no suggestion has been found, just return the uncanged original Data
 			return CompleteRouteData;
@@ -352,11 +344,11 @@ namespace GeocachingTourPlanner
 		/// <summary>
 		/// Only use to lock GeeocacheToAdd in AddGeocacheToThatImportRating
 		/// </summary>
-		private readonly object GeocacheToAddLocker = null;
+		private readonly object GeocacheToAddLocker = new object();
 		/// <summary>
 		/// Only use to lock RouteToInsertIn in AddGeocacheToThatImportRating
 		/// </summary>
-		private readonly object RouteToInsertInLocker = null;
+		private readonly object RouteToInsertInLocker = new object();
 		private RouteData AddGeocachesThatImproveRating(RouteData CompleteRouteData)
 		{
 			//ALWAYS keep RoutingDataList sorted by the way it came. It determines the direction of the route.
@@ -380,7 +372,6 @@ namespace GeocachingTourPlanner
 				 *Only allow apercentage of the distance set, as the roads are most definitely not straight. 
 				 *For the case they are, there is another routine that picks up the caches that are directly on the route. 
 				*/
-				Debug.WriteLine("Started Filtering Geocaches");
 				Parallel.For(0, CompleteRouteData.partialRoutes.Count, CurrentPartialRouteIndex =>
 				 {
 					 PartialRoute CurrentPartialRoute = CompleteRouteData.partialRoutes[CurrentPartialRouteIndex];
@@ -425,7 +416,6 @@ namespace GeocachingTourPlanner
 					 }
 				 });
 				#endregion
-				Debug.WriteLine("Ended filtering Geocaches");
 
 				if (CompleteRouteData.TotalTime > CompleteRouteData.Profile.MaxTime * 60)
 				{
@@ -433,6 +423,15 @@ namespace GeocachingTourPlanner
 					if ((CompleteRouteData.Profile.TimePerGeocache * 60 + (CompleteRouteData.TotalTime - CompleteRouteData.Profile.MaxTime)) * CompleteRouteData.Profile.PenaltyPerExtra10min / 600 > GeocacheToAdd.geocache.Rating)
 					{
 						GeocacheToAdd = null;
+						Debug.WriteLine("Ended Filling up route prematurely because of used up time on route");
+					}
+				}else if(CompleteRouteData.TotalDistance > CompleteRouteData.Profile.MaxDistance * 1000)
+					{
+					//if the penalty even without the extra dstance needed for the real way is higher than the rating, then exit this module completely. It is unlikely that a geocache even further away with a higher rating will be worth it
+					if ((GeocacheToAdd.EstimatedDistanceIfInserted+CompleteRouteData.TotalDistance - CompleteRouteData.Profile.MaxDistance*1000) * CompleteRouteData.Profile.PenaltyPerExtraKM /1000> GeocacheToAdd.geocache.Rating)
+					{
+						GeocacheToAdd = null;
+						Debug.WriteLine("Ended Filling up route prematurely because of used up distance on route");
 					}
 				}
 
@@ -661,7 +660,6 @@ namespace GeocachingTourPlanner
 			/// sum of all the ratings of the geocaches on the route
 			/// </summary>
 			public float TotalPoints { get; set; }
-			public float ReachablePointsAfterDirectionDecision { get; set; }
 
 			public void AddGeocacheOnRoute(Geocache geocache)
 			{

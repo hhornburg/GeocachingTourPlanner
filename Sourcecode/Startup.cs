@@ -29,6 +29,8 @@ namespace GeocachingTourPlanner
 			Program.DB.EveryNthShapepoint = 1;
 			Program.DB.Autotargetselection = true;
 			Program.DB.PercentageOfRemainingDistance = 0.75f;
+			Program.DB.PercentageOfDistanceInAutoTargetselection_Max = 0.9f;
+			Program.DB.PercentageOfDistanceInAutoTargetselection_Min = 0.75f;
 			Program.DB.RoutefindingWidth = 4;
 			Program.DB.DisplayLiveCalculation = false;
 
@@ -69,6 +71,14 @@ namespace GeocachingTourPlanner
 			if (Program.DB.PercentageOfRemainingDistance == 0)
 			{
 				Program.DB.PercentageOfRemainingDistance = 0.75f;
+			}
+			if (Program.DB.PercentageOfDistanceInAutoTargetselection_Max == 0)
+			{
+				Program.DB.PercentageOfDistanceInAutoTargetselection_Max = 0.9f;
+			}
+			if (Program.DB.PercentageOfDistanceInAutoTargetselection_Min == 0)
+			{
+				Program.DB.PercentageOfDistanceInAutoTargetselection_Min = 0.75f;
 			}
 			if (Program.DB.RoutefindingWidth == 0)
 			{

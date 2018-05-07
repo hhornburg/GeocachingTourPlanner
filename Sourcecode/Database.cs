@@ -47,6 +47,8 @@ namespace GeocachingTourPlanner
 		public bool Autotargetselection { get; set; }
 		public int EveryNthShapepoint { get; set; }
 		public float PercentageOfRemainingDistance { get; set; }
+		public float PercentageOfDistanceInAutoTargetselection_Max { get; set; }
+		public float PercentageOfDistanceInAutoTargetselection_Min { get; set; }
 		public int RoutefindingWidth { get; set; }
 		public bool DisplayLiveCalculation { get; set; }
 

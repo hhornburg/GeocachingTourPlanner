@@ -855,7 +855,7 @@ namespace GeocachingTourPlanner
 		{
 			if (Map.InvokeRequired == false)
 			{
-				if(Map.Overlays.Count(x => x.Id == "PreliminaryRoute") > 0)
+				while(Map.Overlays.Count(x => x.Id == "PreliminaryRoute") > 0)
 				{
 					Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "PreliminaryRoute"));//Remove the live displayed routes
 				}
@@ -908,11 +908,11 @@ namespace GeocachingTourPlanner
 		delegate void DisplayPreliminaryRouteDelegate(Route PreliminaryRoute);
 		public void DisplayPreliminaryRoute(Route PreliminaryRoute)
 		{
-			if (Program.DB.DisplayLiveCalculation)
+			if (Program.DB.DisplayLiveCalculation && Program.RouteCalculationRunning)//If the calculation is not running anymore, the thread was late and no route should be displayed
 			{
 				if (Map.InvokeRequired == false)
 				{
-					if (Program.MainWindow.Map.Overlays.Count(x => x.Id == "PreliminaryRoute") != 0)
+					while (Program.MainWindow.Map.Overlays.Count(x => x.Id == "PreliminaryRoute") != 0)
 					{
 						Program.MainWindow.Map.Overlays.Remove(Program.MainWindow.Map.Overlays.First(x => x.Id == "PreliminaryRoute"));
 					}
@@ -1134,10 +1134,15 @@ namespace GeocachingTourPlanner
 				if (Value > 100)
 				{
 					MessageBox.Show("Percentage can't be bigger than 100");
+					AutotargetselectionMaxTextBox.Text = 100.ToString();
+				}
+				else if (Value < 0)
+				{
+					MessageBox.Show("Percentage can't be smaller than 0");
+					PercentageOFRemainingDistance.Text = 0.ToString();
 				}
 				else
 				{
-
 					Program.DB.PercentageOfRemainingDistance = Value/100;
 					Fileoperations.Backup(null);
 				}
@@ -1147,6 +1152,95 @@ namespace GeocachingTourPlanner
 				MessageBox.Show("Enter valid integers only.");
 			}
 		}
+
+		#region Autotargetselection Max
+		bool AutotargetselectionMax_TextChanged = false;
+		private void AutotargetselectionMaxTextbox_TextChanged(object sender, EventArgs e)
+		{
+			AutotargetselectionMax_TextChanged = true;
+
+		}
+
+		private void AutotargetselectionMaxTextBox_Leave(object sender, EventArgs e)
+		{
+			if (AutotargetselectionMax_TextChanged)
+			{
+				if (int.TryParse(AutotargetselectionMaxTextBox.Text, out int Value))
+				{
+					if (Value > 100)
+					{
+						MessageBox.Show("Percentage can't be bigger than 100");
+						AutotargetselectionMaxTextBox.Text = 100.ToString();
+					}
+					else if (Value < 0)
+					{
+						MessageBox.Show("Percentage can't be smaller than 0");
+						AutotargetselectionMaxTextBox.Text = (Program.DB.PercentageOfDistanceInAutoTargetselection_Min * 100 + 1).ToString();
+					}
+					else if (Value < 100 * Program.DB.PercentageOfDistanceInAutoTargetselection_Min)
+					{
+						MessageBox.Show("Percentage can't be smaller than that of the Minimum");
+						AutotargetselectionMaxTextBox.Text = (Program.DB.PercentageOfDistanceInAutoTargetselection_Min * 100 + 1).ToString();
+					}
+					else
+					{
+
+						Program.DB.PercentageOfDistanceInAutoTargetselection_Max = Value / 100;
+						Fileoperations.Backup(null);
+					}
+				}
+				else if (AutotargetselectionMaxTextBox.Text.Length != 0)
+				{
+					MessageBox.Show("Enter valid integers only.");
+				}
+			}
+			AutotargetselectionMax_TextChanged = false;
+		}
+		#endregion
+
+		#region Autotargetselection Min
+		bool AutotargetselectionMin_TextChanged = false;
+		private void AutotargetselectionMinTextBox_TextChanged(object sender, EventArgs e)
+		{
+			AutotargetselectionMin_TextChanged = true;
+		}
+
+		private void AutotargetselectionMinTextBox_Leave(object sender, EventArgs e)
+		{
+			if (AutotargetselectionMin_TextChanged)
+			{
+				if (int.TryParse(AutotargetselectionMinTextBox.Text, out int Value))
+				{
+					if (Value > 100)
+					{
+						MessageBox.Show("Percentage can't be bigger than 100");
+						AutotargetselectionMaxTextBox.Text = (Program.DB.PercentageOfDistanceInAutoTargetselection_Max * 100 - 1).ToString();
+					}
+					else if (Value < 0)
+					{
+						MessageBox.Show("Percentage can't be smaller than 0");
+						AutotargetselectionMaxTextBox.Text = 0.ToString();
+					}
+					else if (Value > 100 * Program.DB.PercentageOfDistanceInAutoTargetselection_Max * 100)
+					{
+						MessageBox.Show("Percentage can't be bigger than that of the Maximum");
+						AutotargetselectionMaxTextBox.Text = (Program.DB.PercentageOfDistanceInAutoTargetselection_Max - 1).ToString();
+					}
+					else
+					{
+
+						Program.DB.PercentageOfDistanceInAutoTargetselection_Min = Value / 100;
+						Fileoperations.Backup(null);
+					}
+				}
+				else if (AutotargetselectionMinTextBox.Text.Length != 0)
+				{
+					MessageBox.Show("Enter valid integers only.");
+				}
+			}
+			AutotargetselectionMin_TextChanged = false;
+		}
+		#endregion
 
 		private void RoutefindingWidth_Textbox_TextChanged(object sender, EventArgs e)
 		{
@@ -1194,6 +1288,8 @@ namespace GeocachingTourPlanner
 			RoutefindingWidth_Textbox.Text = Program.DB.RoutefindingWidth.ToString();
 			Autotargetselection.Checked = Program.DB.Autotargetselection;
 			MarkerSizeTrackBar.Value = Program.DB.MarkerSize;
+			AutotargetselectionMinTextBox.Text= (Program.DB.PercentageOfDistanceInAutoTargetselection_Min * 100).ToString();
+			AutotargetselectionMaxTextBox.Text = (Program.DB.PercentageOfDistanceInAutoTargetselection_Max * 100).ToString();
 			/*LiveDisplayRouteCalculationCheckbox.Checked = Program.DB.DisplayLiveCalculation;*/
 		}
 
@@ -1342,5 +1438,6 @@ namespace GeocachingTourPlanner
 		}
 		#endregion
 
+		
 	}
 }
