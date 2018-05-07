@@ -656,5 +656,70 @@ namespace GeocachingTourPlanner
 			Program.Ratingprofiles.ResetBindings();
 		}
 
+		public static class Routerlog
+		{
+			public static void AddMainInformation(string Message)
+			{
+				File.AppendAllText("Routerlog.txt", "[" + DateTime.Now + "]:\t" + Message + "\n");
+			}
+
+			public static void AddSubInformation(string Message)
+			{
+				File.AppendAllText("Routerlog.txt", "[" + DateTime.Now + "]:\t\t" + Message + "\n");
+			}
+
+			public static void AddMainSection(string Message)
+			{
+				File.AppendAllText("Routerlog.txt", "[" + DateTime.Now + "]:\t====================" + Message + "====================\n");
+			}
+
+			public static void AddSubSection(string Message)
+			{
+				File.AppendAllText("Routerlog.txt", "[" + DateTime.Now + "]:\t==========" + Message + "==========\n");
+			}
+
+			public class LogCollector
+			{
+				private StringBuilder Logs = new StringBuilder();
+
+				/// <summary>
+				/// Used when parallel threads are running to make sure logs are sensible
+				/// </summary>
+				/// <param name="ThreadName"></param>
+				public LogCollector(string ThreadName)
+				{
+					Logs.Append("[" + DateTime.Now + "]:\t-----Log for Thread " + ThreadName + "---------------");
+				}
+
+				public void AddMainInformation(string Message)
+				{
+					Logs.Append("[" + DateTime.Now + "]:\t|" + Message + "\n");
+				}
+
+				public void AddSubInformation(string Message)
+				{
+					Logs.Append("[" + DateTime.Now + "]:\t|\t" + Message + "\n");
+				}
+
+				public void AddMainSection(string Message)
+				{
+					Logs.Append("[" + DateTime.Now + "]:\t|====================" + Message + "====================\n");
+				}
+
+				public void AddSubSection(string Message)
+				{
+					Logs.Append("[" + DateTime.Now + "]:\t|==========" + Message + "==========\n");
+				}
+				/// <summary>
+				/// Writes Logs to file
+				/// </summary>
+				public void Write()
+				{
+					Logs.Append("[" + DateTime.Now + "]:\t-----End of Log for this Thread---------------\n");
+					File.AppendAllText("Routerlog.txt", Logs.ToString());
+				}
+			} 
+
+		}
 	}
 }
