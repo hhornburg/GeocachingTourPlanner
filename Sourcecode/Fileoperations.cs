@@ -511,7 +511,6 @@ namespace GeocachingTourPlanner
 								//Nothing in the moment, would be good if it would update the Geocaches
 							}
 
-
 							Program.MainWindow.UpdateStatus("Successfully imported geocaches");
 						}
 					}

@@ -450,15 +450,15 @@ namespace GeocachingTourPlanner
 				D5Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 5).Value.ToString();
 
 				//T
-				T1Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 1).Value.ToString();
-				T15Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 1.5).Value.ToString();
-				T2Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 2).Value.ToString();
-				T25Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 2.5).Value.ToString();
-				T3Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 3).Value.ToString();
-				T35Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 3.5).Value.ToString();
-				T4Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 4).Value.ToString();
-				T45Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 4.5).Value.ToString();
-				T5Value.Text =SelectedRatingprofile.DRatings.First(x => x.Key == 5).Value.ToString();
+				T1Value.Text =SelectedRatingprofile.TRatings.First(x => x.Key == 1).Value.ToString();
+				T15Value.Text =SelectedRatingprofile.TRatings.First(x => x.Key == 1.5).Value.ToString();
+				T2Value.Text =SelectedRatingprofile.TRatings.First(x => x.Key == 2).Value.ToString();
+				T25Value.Text =SelectedRatingprofile.TRatings.First(x => x.Key == 2.5).Value.ToString();
+				T3Value.Text =SelectedRatingprofile.TRatings.First(x => x.Key == 3).Value.ToString();
+				T35Value.Text =SelectedRatingprofile.TRatings.First(x => x.Key == 3.5).Value.ToString();
+				T4Value.Text =SelectedRatingprofile.TRatings.First(x => x.Key == 4).Value.ToString();
+				T45Value.Text =SelectedRatingprofile.TRatings.First(x => x.Key == 4.5).Value.ToString();
+				T5Value.Text =SelectedRatingprofile.TRatings.First(x => x.Key == 5).Value.ToString();
 
 				//Sonstige
 				NMFlagValue.Text = SelectedRatingprofile.NMPenalty.ToString();
