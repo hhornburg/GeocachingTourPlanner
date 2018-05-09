@@ -96,6 +96,7 @@ namespace GeocachingTourPlanner
 			Program.Ratingprofiles.ListChanged += new ListChangedEventHandler(Program.MainWindow.Ratingprofiles_ListChanged);
 			Program.Ratingprofiles.ResetBindings();
 
+			Program.Geocaches.ListChanged += new ListChangedEventHandler(Program.MainWindow.Geocaches_ListChanged);
 			Program.MainWindow.GeocacheTable.DataSource = Program.Geocaches;
 
 			//To make them show up in the menu

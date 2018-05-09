@@ -361,6 +361,11 @@ namespace GeocachingTourPlanner
 			RoutingprofilesStateLabel.Text = Program.Routingprofiles.Count.ToString() + " Routingprofiles loaded";
 		}
 
+		public void Geocaches_ListChanged(object sender, ListChangedEventArgs e)
+		{
+			GeocachesStateLabel.Text = Program.Geocaches.Count.ToString() + " Geocaches loaded";
+		}
+
 		private void DeleteRoutingprofileButton_Click(object sender, EventArgs e)
 		{
 			Routingprofile Profile = new Routingprofile();
