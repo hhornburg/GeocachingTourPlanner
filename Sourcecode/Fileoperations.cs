@@ -687,7 +687,7 @@ namespace GeocachingTourPlanner
 				/// <param name="ThreadName"></param>
 				public LogCollector(string ThreadName)
 				{
-					Logs.Append("[" + DateTime.Now + "]:\t-----Log for Thread " + ThreadName + "---------------");
+					Logs.Append("[" + DateTime.Now + "]:\t-----Log for Thread " + ThreadName + "---------------\n");
 				}
 
 				public void AddMainInformation(string Message)
