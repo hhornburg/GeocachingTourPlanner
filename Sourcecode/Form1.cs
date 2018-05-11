@@ -1118,46 +1118,7 @@ namespace GeocachingTourPlanner
 		#endregion
 
 		#region Settings
-		private void EveryNthPointTextBox_TextChanged(object sender, EventArgs e)
-		{
-
-			if(int.TryParse(EveryNthPointTextBox.Text,out int Value)){
-				Program.DB.EveryNthShapepoint = Value;
-				Fileoperations.Backup(null);
-
-			}
-			else if(EveryNthPointTextBox.Text.Length!=0)
-			{
-				MessageBox.Show("Enter valid integers only.");
-			}
-		}
-
-		private void PercentageOFRemainingDistance_TextChanged(object sender, EventArgs e)
-		{
-			if (int.TryParse(PercentageOFRemainingDistance.Text, out int Value))
-			{
-				if (Value > 100)
-				{
-					MessageBox.Show("Percentage can't be bigger than 100");
-					AutotargetselectionMaxTextBox.Text = 100.ToString();
-				}
-				else if (Value < 0)
-				{
-					MessageBox.Show("Percentage can't be smaller than 0");
-					PercentageOFRemainingDistance.Text = 0.ToString();
-				}
-				else
-				{
-					Program.DB.PercentageOfRemainingDistance = Value/100;
-					Fileoperations.Backup(null);
-				}
-			}
-			else if(PercentageOFRemainingDistance.Text.Length!=0)
-			{
-				MessageBox.Show("Enter valid integers only.");
-			}
-		}
-
+		
 		#region Autotargetselection Max
 		bool AutotargetselectionMax_TextChanged = false;
 		private void AutotargetselectionMaxTextbox_TextChanged(object sender, EventArgs e)
@@ -1284,18 +1245,12 @@ namespace GeocachingTourPlanner
 
 		public void UpdateSettingsTextBoxes()
 		{
-			if (Program.DB.PercentageOfRemainingDistance == 0)
-			{
-				Program.DB.PercentageOfRemainingDistance = 0.75f;
-			}
-			EveryNthPointTextBox.Text = Program.DB.EveryNthShapepoint.ToString();
-			PercentageOFRemainingDistance.Text = (Program.DB.PercentageOfRemainingDistance*100).ToString();
 			RoutefindingWidth_Textbox.Text = Program.DB.RoutefindingWidth.ToString();
 			Autotargetselection.Checked = Program.DB.Autotargetselection;
 			MarkerSizeTrackBar.Value = Program.DB.MarkerSize;
 			AutotargetselectionMinTextBox.Text= (Program.DB.PercentageOfDistanceInAutoTargetselection_Min * 100).ToString();
 			AutotargetselectionMaxTextBox.Text = (Program.DB.PercentageOfDistanceInAutoTargetselection_Max * 100).ToString();
-			/*LiveDisplayRouteCalculationCheckbox.Checked = Program.DB.DisplayLiveCalculation;*/
+			LiveDisplayRouteCalculationCheckbox.Checked = Program.DB.DisplayLiveCalculation;
 		}
 
 

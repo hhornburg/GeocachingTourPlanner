@@ -26,9 +26,7 @@ namespace GeocachingTourPlanner
 			}
 
 			//Set default settings
-			Program.DB.EveryNthShapepoint = 1;
 			Program.DB.Autotargetselection = true;
-			Program.DB.PercentageOfRemainingDistance = 0.75f;
 			Program.DB.PercentageOfDistanceInAutoTargetselection_Max = 0.9f;
 			Program.DB.PercentageOfDistanceInAutoTargetselection_Min = 0.75f;
 			Program.DB.RoutefindingWidth = 4;
@@ -64,14 +62,6 @@ namespace GeocachingTourPlanner
 
 		public static void CheckSettings()
 		{
-			if (Program.DB.EveryNthShapepoint == 0)
-			{
-				Program.DB.EveryNthShapepoint = 5;
-			}
-			if (Program.DB.PercentageOfRemainingDistance == 0)
-			{
-				Program.DB.PercentageOfRemainingDistance = 0.75f;
-			}
 			if (Program.DB.PercentageOfDistanceInAutoTargetselection_Max == 0)
 			{
 				Program.DB.PercentageOfDistanceInAutoTargetselection_Max = 0.9f;

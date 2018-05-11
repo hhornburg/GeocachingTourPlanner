@@ -212,10 +212,6 @@ namespace GeocachingTourPlanner
 			this.SettingsTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
 			this.RoutingsettingsGroupbox = new System.Windows.Forms.GroupBox();
 			this.RoutingSettingsTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-			this.label56 = new System.Windows.Forms.Label();
-			this.label57 = new System.Windows.Forms.Label();
-			this.EveryNthPointTextBox = new System.Windows.Forms.TextBox();
-			this.PercentageOFRemainingDistance = new System.Windows.Forms.TextBox();
 			this.label59 = new System.Windows.Forms.Label();
 			this.RoutefindingWidth_Textbox = new System.Windows.Forms.TextBox();
 			this.Autotargetselection = new System.Windows.Forms.CheckBox();
@@ -2456,10 +2452,6 @@ namespace GeocachingTourPlanner
 			this.RoutingSettingsTableLayoutPanel.ColumnCount = 2;
 			this.RoutingSettingsTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
 			this.RoutingSettingsTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-			this.RoutingSettingsTableLayoutPanel.Controls.Add(this.label56, 0, 3);
-			this.RoutingSettingsTableLayoutPanel.Controls.Add(this.label57, 0, 4);
-			this.RoutingSettingsTableLayoutPanel.Controls.Add(this.EveryNthPointTextBox, 1, 3);
-			this.RoutingSettingsTableLayoutPanel.Controls.Add(this.PercentageOFRemainingDistance, 1, 4);
 			this.RoutingSettingsTableLayoutPanel.Controls.Add(this.label59, 0, 2);
 			this.RoutingSettingsTableLayoutPanel.Controls.Add(this.RoutefindingWidth_Textbox, 1, 2);
 			this.RoutingSettingsTableLayoutPanel.Controls.Add(this.Autotargetselection, 0, 0);
@@ -2471,7 +2463,7 @@ namespace GeocachingTourPlanner
 			this.RoutingSettingsTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.RoutingSettingsTableLayoutPanel.Location = new System.Drawing.Point(3, 16);
 			this.RoutingSettingsTableLayoutPanel.Name = "RoutingSettingsTableLayoutPanel";
-			this.RoutingSettingsTableLayoutPanel.RowCount = 7;
+			this.RoutingSettingsTableLayoutPanel.RowCount = 5;
 			this.RoutingSettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.RoutingSettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.RoutingSettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -2481,49 +2473,6 @@ namespace GeocachingTourPlanner
 			this.RoutingSettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.RoutingSettingsTableLayoutPanel.Size = new System.Drawing.Size(380, 251);
 			this.RoutingSettingsTableLayoutPanel.TabIndex = 0;
-			// 
-			// label56
-			// 
-			this.label56.AutoSize = true;
-			this.label56.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label56.Location = new System.Drawing.Point(3, 81);
-			this.label56.Margin = new System.Windows.Forms.Padding(3);
-			this.label56.Name = "label56";
-			this.label56.Size = new System.Drawing.Size(298, 39);
-			this.label56.TabIndex = 0;
-			this.label56.Text = "Look at every nth trackpoint to determine wether a geocache is in range of the ro" +
-    "ute. Values range, but calculate with 25 points per km. (Default: 1)";
-			// 
-			// label57
-			// 
-			this.label57.AutoSize = true;
-			this.label57.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label57.Location = new System.Drawing.Point(3, 126);
-			this.label57.Margin = new System.Windows.Forms.Padding(3);
-			this.label57.Name = "label57";
-			this.label57.Size = new System.Drawing.Size(298, 52);
-			this.label57.TabIndex = 1;
-			this.label57.Text = "What percentage of remaining distnace should be allowed to be filled up by lowest" +
-    " possible distance to the next geocache?\r\nThe higher the value, the CPU heavier." +
-    " (Default 75)";
-			// 
-			// EveryNthPointTextBox
-			// 
-			this.EveryNthPointTextBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-			this.EveryNthPointTextBox.Location = new System.Drawing.Point(307, 90);
-			this.EveryNthPointTextBox.Name = "EveryNthPointTextBox";
-			this.EveryNthPointTextBox.Size = new System.Drawing.Size(69, 20);
-			this.EveryNthPointTextBox.TabIndex = 3;
-			this.EveryNthPointTextBox.TextChanged += new System.EventHandler(this.EveryNthPointTextBox_TextChanged);
-			// 
-			// PercentageOFRemainingDistance
-			// 
-			this.PercentageOFRemainingDistance.Anchor = System.Windows.Forms.AnchorStyles.Left;
-			this.PercentageOFRemainingDistance.Location = new System.Drawing.Point(307, 142);
-			this.PercentageOFRemainingDistance.Name = "PercentageOFRemainingDistance";
-			this.PercentageOFRemainingDistance.Size = new System.Drawing.Size(69, 20);
-			this.PercentageOFRemainingDistance.TabIndex = 4;
-			this.PercentageOFRemainingDistance.TextChanged += new System.EventHandler(this.PercentageOFRemainingDistance_TextChanged);
 			// 
 			// label59
 			// 
@@ -2578,7 +2527,7 @@ namespace GeocachingTourPlanner
 			// 
 			this.AutotargetSelectionMaxDistanceLabel.AutoSize = true;
 			this.AutotargetSelectionMaxDistanceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.AutotargetSelectionMaxDistanceLabel.Location = new System.Drawing.Point(3, 184);
+			this.AutotargetSelectionMaxDistanceLabel.Location = new System.Drawing.Point(3, 81);
 			this.AutotargetSelectionMaxDistanceLabel.Margin = new System.Windows.Forms.Padding(3);
 			this.AutotargetSelectionMaxDistanceLabel.Name = "AutotargetSelectionMaxDistanceLabel";
 			this.AutotargetSelectionMaxDistanceLabel.Size = new System.Drawing.Size(298, 26);
@@ -2590,10 +2539,10 @@ namespace GeocachingTourPlanner
 			// 
 			this.AutotargetselectionMinLabel.AutoSize = true;
 			this.AutotargetselectionMinLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.AutotargetselectionMinLabel.Location = new System.Drawing.Point(3, 216);
+			this.AutotargetselectionMinLabel.Location = new System.Drawing.Point(3, 113);
 			this.AutotargetselectionMinLabel.Margin = new System.Windows.Forms.Padding(3);
 			this.AutotargetselectionMinLabel.Name = "AutotargetselectionMinLabel";
-			this.AutotargetselectionMinLabel.Size = new System.Drawing.Size(298, 32);
+			this.AutotargetselectionMinLabel.Size = new System.Drawing.Size(298, 135);
 			this.AutotargetselectionMinLabel.TabIndex = 12;
 			this.AutotargetselectionMinLabel.Text = "What percentage of the total distance and time should be used up *at least* in Au" +
     "totargetselection?";
@@ -2601,7 +2550,7 @@ namespace GeocachingTourPlanner
 			// AutotargetselectionMaxTextBox
 			// 
 			this.AutotargetselectionMaxTextBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-			this.AutotargetselectionMaxTextBox.Location = new System.Drawing.Point(307, 187);
+			this.AutotargetselectionMaxTextBox.Location = new System.Drawing.Point(307, 84);
 			this.AutotargetselectionMaxTextBox.Name = "AutotargetselectionMaxTextBox";
 			this.AutotargetselectionMaxTextBox.Size = new System.Drawing.Size(70, 20);
 			this.AutotargetselectionMaxTextBox.TabIndex = 13;
@@ -2610,8 +2559,7 @@ namespace GeocachingTourPlanner
 			// 
 			// AutotargetselectionMinTextBox
 			// 
-			this.AutotargetselectionMinTextBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-			this.AutotargetselectionMinTextBox.Location = new System.Drawing.Point(307, 222);
+			this.AutotargetselectionMinTextBox.Location = new System.Drawing.Point(307, 113);
 			this.AutotargetselectionMinTextBox.Name = "AutotargetselectionMinTextBox";
 			this.AutotargetselectionMinTextBox.Size = new System.Drawing.Size(70, 20);
 			this.AutotargetselectionMinTextBox.TabIndex = 14;
@@ -2945,10 +2893,6 @@ namespace GeocachingTourPlanner
 		private System.Windows.Forms.TableLayoutPanel SettingsTableLayoutPanel;
 		private System.Windows.Forms.GroupBox RoutingsettingsGroupbox;
 		private System.Windows.Forms.TableLayoutPanel RoutingSettingsTableLayoutPanel;
-		private System.Windows.Forms.Label label56;
-		private System.Windows.Forms.Label label57;
-		private System.Windows.Forms.TextBox EveryNthPointTextBox;
-		private System.Windows.Forms.TextBox PercentageOFRemainingDistance;
 		private System.Windows.Forms.Label label59;
 		private System.Windows.Forms.TextBox RoutefindingWidth_Textbox;
 		private System.Windows.Forms.CheckBox LiveDisplayRouteCalculationCheckbox;
