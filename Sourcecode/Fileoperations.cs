@@ -175,6 +175,7 @@ namespace GeocachingTourPlanner
 				catch (Exception)
 				{
 					MessageBox.Show("Failed to read RouterDB", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					Program.MainWindow.UpdateStatus("failed loading RouterDB", 100);
 				}
 			})).Start();
 		}
