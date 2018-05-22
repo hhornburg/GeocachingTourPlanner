@@ -556,6 +556,8 @@ namespace GeocachingTourPlanner
 			this.StartpointTextbox.Name = "StartpointTextbox";
 			this.StartpointTextbox.Size = new System.Drawing.Size(316, 20);
 			this.StartpointTextbox.TabIndex = 8;
+			this.StartpointTextbox.TextChanged += new System.EventHandler(this.StartpointTextbox_TextChanged);
+			this.StartpointTextbox.Leave += new System.EventHandler(this.StartpointTextbox_Leave);
 			// 
 			// EndpointTextbox
 			// 
@@ -564,6 +566,8 @@ namespace GeocachingTourPlanner
 			this.EndpointTextbox.Name = "EndpointTextbox";
 			this.EndpointTextbox.Size = new System.Drawing.Size(316, 20);
 			this.EndpointTextbox.TabIndex = 9;
+			this.EndpointTextbox.TextChanged += new System.EventHandler(this.EndpointTextbox_TextChanged);
+			this.EndpointTextbox.Leave += new System.EventHandler(this.EndpointTextbox_Leave);
 			// 
 			// GeocachesTab
 			// 
@@ -2533,7 +2537,7 @@ namespace GeocachingTourPlanner
 			this.AutotargetSelectionMaxDistanceLabel.Size = new System.Drawing.Size(298, 26);
 			this.AutotargetSelectionMaxDistanceLabel.TabIndex = 11;
 			this.AutotargetSelectionMaxDistanceLabel.Text = "What percentage of the total distance should be used up *at most* in Autotargetse" +
-    "lection";
+    "lection (Default 90)";
 			// 
 			// AutotargetselectionMinLabel
 			// 
@@ -2545,7 +2549,7 @@ namespace GeocachingTourPlanner
 			this.AutotargetselectionMinLabel.Size = new System.Drawing.Size(298, 135);
 			this.AutotargetselectionMinLabel.TabIndex = 12;
 			this.AutotargetselectionMinLabel.Text = "What percentage of the total distance and time should be used up *at least* in Au" +
-    "totargetselection?";
+    "totargetselection? (Default 75)";
 			// 
 			// AutotargetselectionMaxTextBox
 			// 
