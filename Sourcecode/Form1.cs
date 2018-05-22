@@ -837,7 +837,7 @@ namespace GeocachingTourPlanner
 					else
 					{
 
-						Program.DB.PercentageOfDistanceInAutoTargetselection_Max = Value / 100;
+						Program.DB.PercentageOfDistanceInAutoTargetselection_Max = (Value / 100f);
 						Fileoperations.Backup(null);
 					}
 				}
@@ -866,22 +866,22 @@ namespace GeocachingTourPlanner
 					if (Value > 100)
 					{
 						MessageBox.Show("Percentage can't be bigger than 100");
-						AutotargetselectionMaxTextBox.Text = (Program.DB.PercentageOfDistanceInAutoTargetselection_Max * 100 - 1).ToString();
+						AutotargetselectionMinTextBox.Text = (Program.DB.PercentageOfDistanceInAutoTargetselection_Max * 100 - 1).ToString();
 					}
 					else if (Value < 0)
 					{
 						MessageBox.Show("Percentage can't be smaller than 0");
-						AutotargetselectionMaxTextBox.Text = 0.ToString();
+						AutotargetselectionMinTextBox.Text = 0.ToString();
 					}
 					else if (Value > 100 * Program.DB.PercentageOfDistanceInAutoTargetselection_Max * 100)
 					{
 						MessageBox.Show("Percentage can't be bigger than that of the Maximum");
-						AutotargetselectionMaxTextBox.Text = (Program.DB.PercentageOfDistanceInAutoTargetselection_Max - 1).ToString();
+						AutotargetselectionMinTextBox.Text = (Program.DB.PercentageOfDistanceInAutoTargetselection_Max - 1).ToString();
 					}
 					else
 					{
 
-						Program.DB.PercentageOfDistanceInAutoTargetselection_Min = Value / 100;
+						Program.DB.PercentageOfDistanceInAutoTargetselection_Min = (Value / 100f);
 						Fileoperations.Backup(null);
 					}
 				}
