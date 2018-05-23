@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
@@ -18,15 +13,15 @@ namespace GeocachingTourPlanner
 	/// <typeparam name="K"></typeparam>
 	/// <typeparam name="V"></typeparam>
 	[Serializable]
-	public class KeyValuePair<K, V>
+	public class SerializableKeyValuePair<K, V>
 	{
 		public K Key { get; set; }
 		public V Value { get; set; }
-		public KeyValuePair()
+		public SerializableKeyValuePair()
 		{
 
 		}
-		public KeyValuePair(K Key, V Value)
+		public SerializableKeyValuePair(K Key, V Value)
 		{
 			this.Key = Key;
 			this.Value = Value;

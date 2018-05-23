@@ -31,7 +31,7 @@ namespace GeocachingTourPlanner
 			InitializeComponent();
 
 			//Tabelleneinstellungen
-			GeocacheTable.DataSource = Program.Geocaches;
+			GeocacheTable.DataSource = App.Geocaches;
 			GeocacheTable.Columns["GCCODE"].DisplayIndex = 0;
 			GeocacheTable.Columns["Name"].DisplayIndex = 1;
 			GeocacheTable.Columns["lat"].DisplayIndex = 2;
@@ -43,7 +43,7 @@ namespace GeocachingTourPlanner
 			GeocacheTable.Columns["Rating"].DisplayIndex = GeocacheTable.ColumnCount - 1;
 			GeocacheTable.Columns["ForceInclude"].DisplayIndex = GeocacheTable.ColumnCount - 1;
 			GeocacheTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-			Program.Geocaches.ResetBindings();
+			App.Geocaches.ResetBindings();
 
 			//Browser
 			try
@@ -100,7 +100,7 @@ namespace GeocachingTourPlanner
 
 		private void setGeocachedatabaseButton_Click(object sender, EventArgs e)
 		{
-			if (Program.DB.OpenExistingDBFile(Databases.Geocaches))
+			if (App.DB.OpenExistingDBFile(Databases.Geocaches))
 			{
 				Fileoperations.ReadGeocaches();
 				LoadMap();
@@ -109,7 +109,7 @@ namespace GeocachingTourPlanner
 
 		private void setRoutingprofiledatabaseButton_Click(object sender, EventArgs e)
 		{
-			if (Program.DB.OpenExistingDBFile(Databases.Routingprofiles))
+			if (App.DB.OpenExistingDBFile(Databases.Routingprofiles))
 			{
 				Fileoperations.ReadRoutingprofiles();
 			}
@@ -117,7 +117,7 @@ namespace GeocachingTourPlanner
 
 		private void setRatingprofiledatabaseButton_Click(object sender, EventArgs e)
 		{
-			if (Program.DB.OpenExistingDBFile(Databases.Ratingprofiles))
+			if (App.DB.OpenExistingDBFile(Databases.Ratingprofiles))
 			{
 				Fileoperations.ReadRatingprofiles();
 			}
@@ -125,7 +125,7 @@ namespace GeocachingTourPlanner
 
 		private void setRouterDBButton_Click(object sender, EventArgs e)
 		{
-			if (Program.DB.OpenExistingDBFile(Databases.RouterDB))
+			if (App.DB.OpenExistingDBFile(Databases.RouterDB))
 			{
 				Fileoperations.ReadRouterDB();
 			}
@@ -167,48 +167,48 @@ namespace GeocachingTourPlanner
 			{
 				Profile.Name = RatingProfileName.Text;
 				Profile.TypePriority = int.Parse(TypePriorityValue.Text);
-				Profile.TypeRatings = new List<KeyValuePair<GeocacheType, int>>();
-				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.EarthCache, int.Parse(EarthcacheValue.Text)));
-				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Letterbox, int.Parse(LetterboxValue.Text)));
-				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Multi, int.Parse(MultiValue.Text)));
-				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Mystery, int.Parse(MysteryValue.Text)));
-				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Other, int.Parse(OtherTypeValue.Text)));
-				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Traditional, int.Parse(TraditionalValue.Text)));
-				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Virtual, int.Parse(VirtualValue.Text)));
-				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Webcam, int.Parse(WebcamValue.Text)));
-				Profile.TypeRatings.Add(new KeyValuePair<GeocacheType, int>(GeocacheType.Wherigo, int.Parse(WherigoValue.Text)));
+				Profile.TypeRatings = new List<SerializableKeyValuePair<GeocacheType, int>>();
+				Profile.TypeRatings.Add(new SerializableKeyValuePair<GeocacheType, int>(GeocacheType.EarthCache, int.Parse(EarthcacheValue.Text)));
+				Profile.TypeRatings.Add(new SerializableKeyValuePair<GeocacheType, int>(GeocacheType.Letterbox, int.Parse(LetterboxValue.Text)));
+				Profile.TypeRatings.Add(new SerializableKeyValuePair<GeocacheType, int>(GeocacheType.Multi, int.Parse(MultiValue.Text)));
+				Profile.TypeRatings.Add(new SerializableKeyValuePair<GeocacheType, int>(GeocacheType.Mystery, int.Parse(MysteryValue.Text)));
+				Profile.TypeRatings.Add(new SerializableKeyValuePair<GeocacheType, int>(GeocacheType.Other, int.Parse(OtherTypeValue.Text)));
+				Profile.TypeRatings.Add(new SerializableKeyValuePair<GeocacheType, int>(GeocacheType.Traditional, int.Parse(TraditionalValue.Text)));
+				Profile.TypeRatings.Add(new SerializableKeyValuePair<GeocacheType, int>(GeocacheType.Virtual, int.Parse(VirtualValue.Text)));
+				Profile.TypeRatings.Add(new SerializableKeyValuePair<GeocacheType, int>(GeocacheType.Webcam, int.Parse(WebcamValue.Text)));
+				Profile.TypeRatings.Add(new SerializableKeyValuePair<GeocacheType, int>(GeocacheType.Wherigo, int.Parse(WherigoValue.Text)));
 
 				Profile.SizePriority = int.Parse(SizePriorityValue.Text);
-				Profile.SizeRatings = new List<KeyValuePair<GeocacheSize, int>>();
-				Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Large, int.Parse(LargeValue.Text)));
-				Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Micro, int.Parse(MicroValue.Text)));
-				Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Other, int.Parse(OtherSizeValue.Text)));
-				Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Regular, int.Parse(RegularValue.Text)));
-				Profile.SizeRatings.Add(new KeyValuePair<GeocacheSize, int>(GeocacheSize.Small, int.Parse(SmallValue.Text)));
+				Profile.SizeRatings = new List<SerializableKeyValuePair<GeocacheSize, int>>();
+				Profile.SizeRatings.Add(new SerializableKeyValuePair<GeocacheSize, int>(GeocacheSize.Large, int.Parse(LargeValue.Text)));
+				Profile.SizeRatings.Add(new SerializableKeyValuePair<GeocacheSize, int>(GeocacheSize.Micro, int.Parse(MicroValue.Text)));
+				Profile.SizeRatings.Add(new SerializableKeyValuePair<GeocacheSize, int>(GeocacheSize.Other, int.Parse(OtherSizeValue.Text)));
+				Profile.SizeRatings.Add(new SerializableKeyValuePair<GeocacheSize, int>(GeocacheSize.Regular, int.Parse(RegularValue.Text)));
+				Profile.SizeRatings.Add(new SerializableKeyValuePair<GeocacheSize, int>(GeocacheSize.Small, int.Parse(SmallValue.Text)));
 
 				Profile.DPriority = int.Parse(DPriorityValue.Text);
-				Profile.DRatings = new List<KeyValuePair<float, int>>();
-				Profile.DRatings.Add(new KeyValuePair<float, int>(1f, int.Parse(D1Value.Text)));
-				Profile.DRatings.Add(new KeyValuePair<float, int>(1.5f, int.Parse(D15Value.Text)));
-				Profile.DRatings.Add(new KeyValuePair<float, int>(2f, int.Parse(D2Value.Text)));
-				Profile.DRatings.Add(new KeyValuePair<float, int>(2.5f, int.Parse(D25Value.Text)));
-				Profile.DRatings.Add(new KeyValuePair<float, int>(3f, int.Parse(D3Value.Text)));
-				Profile.DRatings.Add(new KeyValuePair<float, int>(3.5f, int.Parse(D35Value.Text)));
-				Profile.DRatings.Add(new KeyValuePair<float, int>(4f, int.Parse(D4Value.Text)));
-				Profile.DRatings.Add(new KeyValuePair<float, int>(4.5f, int.Parse(D45Value.Text)));
-				Profile.DRatings.Add(new KeyValuePair<float, int>(5f, int.Parse(D5Value.Text)));
+				Profile.DRatings = new List<SerializableKeyValuePair<float, int>>();
+				Profile.DRatings.Add(new SerializableKeyValuePair<float, int>(1f, int.Parse(D1Value.Text)));
+				Profile.DRatings.Add(new SerializableKeyValuePair<float, int>(1.5f, int.Parse(D15Value.Text)));
+				Profile.DRatings.Add(new SerializableKeyValuePair<float, int>(2f, int.Parse(D2Value.Text)));
+				Profile.DRatings.Add(new SerializableKeyValuePair<float, int>(2.5f, int.Parse(D25Value.Text)));
+				Profile.DRatings.Add(new SerializableKeyValuePair<float, int>(3f, int.Parse(D3Value.Text)));
+				Profile.DRatings.Add(new SerializableKeyValuePair<float, int>(3.5f, int.Parse(D35Value.Text)));
+				Profile.DRatings.Add(new SerializableKeyValuePair<float, int>(4f, int.Parse(D4Value.Text)));
+				Profile.DRatings.Add(new SerializableKeyValuePair<float, int>(4.5f, int.Parse(D45Value.Text)));
+				Profile.DRatings.Add(new SerializableKeyValuePair<float, int>(5f, int.Parse(D5Value.Text)));
 
 				Profile.TPriority = int.Parse(TPriorityValue.Text);
-				Profile.TRatings = new List<KeyValuePair<float, int>>();
-				Profile.TRatings.Add(new KeyValuePair<float, int>(1f, int.Parse(T1Value.Text)));
-				Profile.TRatings.Add(new KeyValuePair<float, int>(1.5f, int.Parse(T15Value.Text)));
-				Profile.TRatings.Add(new KeyValuePair<float, int>(2f, int.Parse(T2Value.Text)));
-				Profile.TRatings.Add(new KeyValuePair<float, int>(2.5f, int.Parse(T25Value.Text)));
-				Profile.TRatings.Add(new KeyValuePair<float, int>(3f, int.Parse(T3Value.Text)));
-				Profile.TRatings.Add(new KeyValuePair<float, int>(3.5f, int.Parse(T35Value.Text)));
-				Profile.TRatings.Add(new KeyValuePair<float, int>(4f, int.Parse(T4Value.Text)));
-				Profile.TRatings.Add(new KeyValuePair<float, int>(4.5f, int.Parse(T45Value.Text)));
-				Profile.TRatings.Add(new KeyValuePair<float, int>(5f, int.Parse(T5Value.Text)));
+				Profile.TRatings = new List<SerializableKeyValuePair<float, int>>();
+				Profile.TRatings.Add(new SerializableKeyValuePair<float, int>(1f, int.Parse(T1Value.Text)));
+				Profile.TRatings.Add(new SerializableKeyValuePair<float, int>(1.5f, int.Parse(T15Value.Text)));
+				Profile.TRatings.Add(new SerializableKeyValuePair<float, int>(2f, int.Parse(T2Value.Text)));
+				Profile.TRatings.Add(new SerializableKeyValuePair<float, int>(2.5f, int.Parse(T25Value.Text)));
+				Profile.TRatings.Add(new SerializableKeyValuePair<float, int>(3f, int.Parse(T3Value.Text)));
+				Profile.TRatings.Add(new SerializableKeyValuePair<float, int>(3.5f, int.Parse(T35Value.Text)));
+				Profile.TRatings.Add(new SerializableKeyValuePair<float, int>(4f, int.Parse(T4Value.Text)));
+				Profile.TRatings.Add(new SerializableKeyValuePair<float, int>(4.5f, int.Parse(T45Value.Text)));
+				Profile.TRatings.Add(new SerializableKeyValuePair<float, int>(5f, int.Parse(T5Value.Text)));
 
 				if (!int.TryParse(NMFlagValue.Text.Replace("-", ""), out int Value))
 				{
@@ -232,7 +232,7 @@ namespace GeocachingTourPlanner
 
 				if (Profile.Yearmode == Yearmode.square_n_divide && Profile.Yearfactor == 0)
 				{
-					MessageBox.Show("Don't you dare to divide by 0!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					MessageBox.Show("Don't you dare to divide by 0!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 					return;
 				}
 
@@ -249,14 +249,14 @@ namespace GeocachingTourPlanner
 			}
 
 			//Eintragen des neuen Profils
-			foreach (Ratingprofile BP in Program.Ratingprofiles.Where(x => x.Name == Profile.Name).ToList())//Make sure only one profile with a name exists
+			foreach (Ratingprofile BP in App.Ratingprofiles.Where(x => x.Name == Profile.Name).ToList())//Make sure only one profile with a name exists
 			{
-				Program.Ratingprofiles.Remove(BP);
+				App.Ratingprofiles.Remove(BP);
 			}
 			UpdateStatus("Ratingprofile saved");
-			Program.Ratingprofiles.Add(Profile);
+			App.Ratingprofiles.Add(Profile);
 			//The Dropdownmenu gets updated through an event handler
-			Fileoperations.Backup(Program.Ratingprofiles);
+			Fileoperations.Backup(App.Ratingprofiles);
 			EditRatingprofileCombobox.SelectedItem = Profile.Name; //Eventhandler takes care of same profile selected
 		}
 
@@ -284,31 +284,31 @@ namespace GeocachingTourPlanner
 				Profile.ItineroProfile = new SerializableItineroProfile(VehicleCombobox.Text, MetricCombobox.Text);
 				if (Profile.ItineroProfile.profile == null)
 				{
-					MessageBox.Show("Please select valid Values for the Vehicle and Mode", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					MessageBox.Show("Please select valid Values for the Vehicle and Mode", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 					return;
 				}
 			}
 			catch (NullReferenceException)
 			{
-				MessageBox.Show("Please fill all fields", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show("Please fill all fields", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 				return;
 			}
 			catch (FormatException)
 			{
-				MessageBox.Show("Some fields are filled with incompatible Values", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show("Some fields are filled with incompatible Values", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 				return;
 			}
 
 			//Eintragen des neuen Profils
-			foreach (Routingprofile BP in Program.Routingprofiles.Where(x => x.Name == Profile.Name).ToList())
+			foreach (Routingprofile BP in App.Routingprofiles.Where(x => x.Name == Profile.Name).ToList())
 			{
 				Profile.RoutesOfthisType = BP.RoutesOfthisType;
-				Program.Routingprofiles.Remove(BP);
+				App.Routingprofiles.Remove(BP);
 			}
 			UpdateStatus("Routingprofile saved");
-			Program.Routingprofiles.Add(Profile);
+			App.Routingprofiles.Add(Profile);
 			//The Dropdownmenu is updated via an event handler
-			Fileoperations.Backup(Program.Routingprofiles);
+			Fileoperations.Backup(App.Routingprofiles);
 			EditRoutingprofileCombobox.SelectedItem = Profile.Name; //Eventhandler takes care of same selection in comboboxes
 
 		}
@@ -327,13 +327,13 @@ namespace GeocachingTourPlanner
 			ClearAllChildTextAndComboboxes(SaveRoutingProfileTableLayout);
 			SelectedRoutingprofileCombobox.Text = null;
 
-			foreach (Routingprofile BP in Program.Routingprofiles.Where(x => x.Name == Profile.Name).ToList())
+			foreach (Routingprofile BP in App.Routingprofiles.Where(x => x.Name == Profile.Name).ToList())
 			{
-				Program.Routingprofiles.Remove(BP);
+				App.Routingprofiles.Remove(BP);
 			}
 
 			UpdateStatus("Routingprofile deleted");
-			Fileoperations.Backup(Program.Routingprofiles);
+			Fileoperations.Backup(App.Routingprofiles);
 		}
 
 		private void DeleteRatingprofileButton_Click(object sender, EventArgs e)
@@ -345,21 +345,21 @@ namespace GeocachingTourPlanner
 				return;
 			}
 			Profile.Name = RatingProfileName.Text;
-			foreach (Ratingprofile RP in Program.Ratingprofiles.Where(x => x.Name == Profile.Name).ToList())
+			foreach (Ratingprofile RP in App.Ratingprofiles.Where(x => x.Name == Profile.Name).ToList())
 			{
-				Program.Ratingprofiles.Remove(RP);
+				App.Ratingprofiles.Remove(RP);
 			}
 
 			ClearAllChildTextAndComboboxes(RatingprofilesSettingsTabelLayout);
 			ClearAllChildTextAndComboboxes(SaveRatingprofileLayoutPanel);
 			SelectedRatingprofileCombobox.Text = null;
 			UpdateStatus("deleted ratingprofile");
-			Fileoperations.Backup(Program.Ratingprofiles);
+			Fileoperations.Backup(App.Ratingprofiles);
 		}
 
 		private void Ratingprofile_Click(object sender, EventArgs e)
 		{
-			Ratingprofile SelectedRatingprofile = Program.Ratingprofiles.First(x => x.Name == ((ComboBox)sender).Text);
+			Ratingprofile SelectedRatingprofile = App.Ratingprofiles.First(x => x.Name == ((ComboBox)sender).Text);
 
 			try
 			{
@@ -426,17 +426,17 @@ namespace GeocachingTourPlanner
 			}
 			catch (Exception)
 			{
-				DialogResult aw = MessageBox.Show("Es scheint einen Fehler in der Datei zu diesem Profil zu geben. Wollen sie es Löschen?", "Fehler", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+				DialogResult aw = MessageBox.Show("Es scheint einen Fehler in der Datei zu diesem Profil zu geben. Wollen sie es Löschen?", "Fehler", MessageBoxButton.YesNo, MessageBoxImage.Error);
 				if (aw == DialogResult.Yes)
 				{
-					Program.Ratingprofiles.Remove(SelectedRatingprofile);
+					App.Ratingprofiles.Remove(SelectedRatingprofile);
 				}
 			}
 		}
 
 		private void Routingprofile_Click(object sender, EventArgs e)
 		{
-			Routingprofile SelectedRoutingprofile = Program.Routingprofiles.First(x => x.Name == ((ComboBox)sender).Text);
+			Routingprofile SelectedRoutingprofile = App.Routingprofiles.First(x => x.Name == ((ComboBox)sender).Text);
 
 			try
 			{
@@ -491,41 +491,41 @@ namespace GeocachingTourPlanner
 				return;
 			}
 
-			Ratingprofile bewertungsprofil = Program.Ratingprofiles.First(x => x.Name == SelectedRatingprofileCombobox.Text);
-			foreach (Geocache GC in Program.Geocaches)
+			Ratingprofile bewertungsprofil = App.Ratingprofiles.First(x => x.Name == SelectedRatingprofileCombobox.Text);
+			foreach (Geocache GC in App.Geocaches)
 			{
 				GC.Rate(bewertungsprofil);
 			}
-			Program.Geocaches.OrderByDescending(x => x.Rating);
+			App.Geocaches.OrderByDescending(x => x.Rating);
 			GeocacheTable.Sort(GeocacheTable.Columns["Rating"], ListSortDirection.Descending);
-			Program.DB.MaximalRating = Program.Geocaches[0].Rating;//Da sortierte Liste
-			Program.DB.MinimalRating = Program.Geocaches[Program.Geocaches.Count - 1].Rating;
+			App.DB.MaximalRating = App.Geocaches[0].Rating;//Da sortierte Liste
+			App.DB.MinimalRating = App.Geocaches[App.Geocaches.Count - 1].Rating;
 			LoadMap();
 			UpdateStatus("Geocaches rated");
-			Fileoperations.Backup(Program.Geocaches);
+			Fileoperations.Backup(App.Geocaches);
 		}
 		
 		private void CreateRouteButtonClick(object sender, EventArgs e)
 		{
-			if (!Program.RouteCalculationRunning && !Program.ImportOfOSMDataRunning)
+			if (!App.RouteCalculationRunning && !App.ImportOfOSMDataRunning)
 			{
 				UpdateStatus("Started Route Calculation");
-				Program.RouteCalculationRunning = true;
+				App.RouteCalculationRunning = true;
 				Application.UseWaitCursor = true;
 
 				#region get values
 				if (SelectedRoutingprofileCombobox.Text.Length == 0)
 				{
-					MessageBox.Show("No Routingprofile set.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					Program.RouteCalculationRunning = false;
-					Program.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
+					MessageBox.Show("No Routingprofile set.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+					App.RouteCalculationRunning = false;
+					App.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
 					return;
 				}
 
-				Routingprofile SelectedProfile = Program.Routingprofiles.First(x => x.Name == SelectedRoutingprofileCombobox.Text);
+				Routingprofile SelectedProfile = App.Routingprofiles.First(x => x.Name == SelectedRoutingprofileCombobox.Text);
 
 				List<Geocache> GeocachesToInclude = new List<Geocache>();
-				foreach (Geocache GC in Program.Geocaches.Where(x => x.ForceInclude))
+				foreach (Geocache GC in App.Geocaches.Where(x => x.ForceInclude))
 				{
 					GeocachesToInclude.Add(GC);
 				}
@@ -537,27 +537,27 @@ namespace GeocachingTourPlanner
 
 				if (StartpointTextbox.Text.Length == 0)
 				{
-					MessageBox.Show("No Startpoint set. Please type one in or select one with right click on the map", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					Program.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
+					MessageBox.Show("No Startpoint set. Please type one in or select one with right click on the map", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+					App.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
 					return;
 				}
 
 				if (!float.TryParse(StartpointTextbox.Text.Substring(0, StartpointTextbox.Text.IndexOf(";") - 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out StartLat))
 				{
-					MessageBox.Show("Couldn't parse latitude of Startcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					Program.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
+					MessageBox.Show("Couldn't parse latitude of Startcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+					App.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
 					return;
 				}
 				if (!float.TryParse(StartpointTextbox.Text.Substring(StartpointTextbox.Text.IndexOf(";") + 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out StartLon))
 				{
-					MessageBox.Show("Couldn't parse longitude Startcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					Program.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
+					MessageBox.Show("Couldn't parse longitude Startcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+					App.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
 					return;
 				}
 
 				if (EndpointTextbox.Text.Length == 0)
 				{
-					if (MessageBox.Show("No Endpoint set. Do you want to set Startpoint as Endpoint as well?", "Question", MessageBoxButtons.YesNo) == DialogResult.Yes)
+					if (MessageBox.Show("No Endpoint set. Do you want to set Startpoint as Endpoint as well?", "Question", MessageBoxButton.YesNo) == DialogResult.Yes)
 					{
 						EndLat = StartLat;
 						EndLon = StartLon;
@@ -565,7 +565,7 @@ namespace GeocachingTourPlanner
 					}
 					else
 					{
-						Program.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
+						App.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
 						return;
 					}
 				}
@@ -574,16 +574,16 @@ namespace GeocachingTourPlanner
 					if (!float.TryParse(EndpointTextbox.Text.Substring(0, EndpointTextbox.Text.IndexOf(";") - 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out EndLat))
 					{
 
-						MessageBox.Show("Couldn't parse latitude of Endcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-						Program.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
+						MessageBox.Show("Couldn't parse latitude of Endcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+						App.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
 						return;
 
 					}
 					if (!float.TryParse(EndpointTextbox.Text.Substring(EndpointTextbox.Text.IndexOf(";") + 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out EndLon))
 					{
 						//Big procedure only once, as the result would be the same
-						MessageBox.Show("Couldn't parse longitude of Endcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-						Program.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
+						MessageBox.Show("Couldn't parse longitude of Endcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+						App.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
 						return;
 					}
 				}
@@ -591,18 +591,18 @@ namespace GeocachingTourPlanner
 				//Check if Start and Endpoint have been selected
 				if (StartLat == 0 && StartLon == 0 && EndLat == 0 && EndLon == 0)
 				{
-					MessageBox.Show("Please select a Startingpoint and a Finalpoint", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					Program.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
+					MessageBox.Show("Please select a Startingpoint and a Finalpoint", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+					App.RouteCalculationRunning = false;  Application.UseWaitCursor = false;
 					return;
 				}
 				#endregion
 
 				new Thread(new ThreadStart(() =>
 				{
-					new Tourplanning().GetRoute_Recursive(SelectedProfile, Program.Geocaches.ToList(), new Coordinate(StartLat, StartLon), new Coordinate(EndLat, EndLon), GeocachesToInclude);
+					new Tourplanning().GetRoute_Recursive(SelectedProfile, App.Geocaches.ToList(), new Coordinate(StartLat, StartLon), new Coordinate(EndLat, EndLon), GeocachesToInclude);
 				}
 				)).Start();
-			}else if (Program.ImportOfOSMDataRunning)
+			}else if (App.ImportOfOSMDataRunning)
 			{
 				MessageBox.Show("Please wait until the OSM Data is imported.");
 			}
@@ -682,7 +682,7 @@ namespace GeocachingTourPlanner
 		#region Routes
 		private void DeleteButton_Click(object sender, EventArgs e, string OverlayTag)
 		{
-			Program.Routes.Remove(Program.Routes.First(x => x.Key == OverlayTag));
+			App.Routes.Remove(App.Routes.First(x => x.Key == OverlayTag));
 			Map.Overlays.Remove(Map.Overlays.First(x => x.Id == OverlayTag));
 			((Button)sender).Parent.Parent.Dispose();//=The Groupbox
 			LoadMap();
@@ -719,7 +719,7 @@ namespace GeocachingTourPlanner
 		{
 			if (Mapdragging)//So calculation only kicks in if dragging is over
 			{
-				Program.DB.LastMapPosition = Map.Position;
+				App.DB.LastMapPosition = Map.Position;
 				Fileoperations.Backup(null);
 				Mapdragging = false;
 			}
@@ -732,8 +732,8 @@ namespace GeocachingTourPlanner
 		
 		private void Map_OnMapZoomChanged()
 		{
-			Program.DB.LastMapPosition = Map.Position;//Since you can change position when zooming
-			Program.DB.LastMapZoom = Map.Zoom;
+			App.DB.LastMapPosition = Map.Position;//Since you can change position when zooming
+			App.DB.LastMapZoom = Map.Zoom;
 			Fileoperations.Backup(null);
 		}
 		
@@ -757,7 +757,7 @@ namespace GeocachingTourPlanner
 				MenuItem SetStartpoint = new MenuItem("Set Startpoint here");
 				SetStartpoint.Click += (new_sender, new_e) => this.SetStartpoint(item.Position);
 
-				Geocache geocache = Program.Geocaches.First(x => x.GCCODE == item.Tag.ToString());
+				Geocache geocache = App.Geocaches.First(x => x.GCCODE == item.Tag.ToString());
 				MenuItem SetForceInclude = new MenuItem("ForceInclude");
 				if (geocache.ForceInclude)
 				{
@@ -827,17 +827,17 @@ namespace GeocachingTourPlanner
 					else if (Value < 0)
 					{
 						MessageBox.Show("Percentage can't be smaller than 0");
-						AutotargetselectionMaxTextBox.Text = (Program.DB.PercentageOfDistanceInAutoTargetselection_Min * 100 + 1).ToString();
+						AutotargetselectionMaxTextBox.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Min * 100 + 1).ToString();
 					}
-					else if (Value < 100 * Program.DB.PercentageOfDistanceInAutoTargetselection_Min)
+					else if (Value < 100 * App.DB.PercentageOfDistanceInAutoTargetselection_Min)
 					{
 						MessageBox.Show("Percentage can't be smaller than that of the Minimum");
-						AutotargetselectionMaxTextBox.Text = (Program.DB.PercentageOfDistanceInAutoTargetselection_Min * 100 + 1).ToString();
+						AutotargetselectionMaxTextBox.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Min * 100 + 1).ToString();
 					}
 					else
 					{
 
-						Program.DB.PercentageOfDistanceInAutoTargetselection_Max = (Value / 100f);
+						App.DB.PercentageOfDistanceInAutoTargetselection_Max = (Value / 100f);
 						Fileoperations.Backup(null);
 					}
 				}
@@ -866,22 +866,22 @@ namespace GeocachingTourPlanner
 					if (Value > 100)
 					{
 						MessageBox.Show("Percentage can't be bigger than 100");
-						AutotargetselectionMinTextBox.Text = (Program.DB.PercentageOfDistanceInAutoTargetselection_Max * 100 - 1).ToString();
+						AutotargetselectionMinTextBox.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Max * 100 - 1).ToString();
 					}
 					else if (Value < 0)
 					{
 						MessageBox.Show("Percentage can't be smaller than 0");
 						AutotargetselectionMinTextBox.Text = 0.ToString();
 					}
-					else if (Value > 100 * Program.DB.PercentageOfDistanceInAutoTargetselection_Max * 100)
+					else if (Value > 100 * App.DB.PercentageOfDistanceInAutoTargetselection_Max * 100)
 					{
 						MessageBox.Show("Percentage can't be bigger than that of the Maximum");
-						AutotargetselectionMinTextBox.Text = (Program.DB.PercentageOfDistanceInAutoTargetselection_Max - 1).ToString();
+						AutotargetselectionMinTextBox.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Max - 1).ToString();
 					}
 					else
 					{
 
-						Program.DB.PercentageOfDistanceInAutoTargetselection_Min = (Value / 100f);
+						App.DB.PercentageOfDistanceInAutoTargetselection_Min = (Value / 100f);
 						Fileoperations.Backup(null);
 					}
 				}
@@ -898,7 +898,7 @@ namespace GeocachingTourPlanner
 		{
 			if (int.TryParse(RoutefindingWidth_Textbox.Text, out int Value))
 			{
-				Program.DB.RoutefindingWidth = Value;
+				App.DB.RoutefindingWidth = Value;
 				Fileoperations.Backup(null);
 
 			}
@@ -910,19 +910,19 @@ namespace GeocachingTourPlanner
 
 		private void Autotargetselection_CheckedChanged(object sender, EventArgs e)
 		{
-			Program.DB.Autotargetselection = Autotargetselection.Checked;
+			App.DB.Autotargetselection = Autotargetselection.Checked;
 		}
 		
 		private void LiveDisplayRouteCalculationCheckbox_CheckedChanged(object sender, EventArgs e)
 		{
-			Program.DB.DisplayLiveCalculation = LiveDisplayRouteCalculationCheckbox.Checked;
+			App.DB.DisplayLiveCalculation = LiveDisplayRouteCalculationCheckbox.Checked;
 			Fileoperations.Backup(null);
 		}
 		
 		private void MarkerSizeTrackBar_Scroll(object sender, EventArgs e)
 		{
-			Program.MarkerImageCache.Clear();
-			Program.DB.MarkerSize = MarkerSizeTrackBar.Value;
+			App.MarkerImageCache.Clear();
+			App.DB.MarkerSize = MarkerSizeTrackBar.Value;
 			LoadMap();
 			Fileoperations.Backup(null);
 		}
@@ -930,9 +930,9 @@ namespace GeocachingTourPlanner
 
 		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			Fileoperations.Backup(Program.Geocaches);
-			Fileoperations.Backup(Program.Ratingprofiles);
-			Fileoperations.Backup(Program.Routingprofiles);
+			Fileoperations.Backup(App.Geocaches);
+			Fileoperations.Backup(App.Ratingprofiles);
+			Fileoperations.Backup(App.Routingprofiles);
 
 		}
 		#endregion
@@ -988,12 +988,12 @@ namespace GeocachingTourPlanner
 		#region Methods
 		public void UpdateSettingsTextBoxes()
 		{
-			RoutefindingWidth_Textbox.Text = Program.DB.RoutefindingWidth.ToString();
-			Autotargetselection.Checked = Program.DB.Autotargetselection;
-			MarkerSizeTrackBar.Value = Program.DB.MarkerSize;
-			AutotargetselectionMinTextBox.Text = (Program.DB.PercentageOfDistanceInAutoTargetselection_Min * 100).ToString();
-			AutotargetselectionMaxTextBox.Text = (Program.DB.PercentageOfDistanceInAutoTargetselection_Max * 100).ToString();
-			LiveDisplayRouteCalculationCheckbox.Checked = Program.DB.DisplayLiveCalculation;
+			RoutefindingWidth_Textbox.Text = App.DB.RoutefindingWidth.ToString();
+			Autotargetselection.Checked = App.DB.Autotargetselection;
+			MarkerSizeTrackBar.Value = App.DB.MarkerSize;
+			AutotargetselectionMinTextBox.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Min * 100).ToString();
+			AutotargetselectionMaxTextBox.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Max * 100).ToString();
+			LiveDisplayRouteCalculationCheckbox.Checked = App.DB.DisplayLiveCalculation;
 		}
 
 		#region Map
@@ -1025,16 +1025,16 @@ namespace GeocachingTourPlanner
 				GMapOverlay TopOverlay = new GMapOverlay("TopOverlay");
 				GMapOverlay MediumOverlay = new GMapOverlay("MediumOverlay");
 				GMapOverlay LowOverlay = new GMapOverlay("LowOverlay");
-				foreach (Geocache GC in Program.Geocaches)
+				foreach (Geocache GC in App.Geocaches)
 				{
 					GMapMarker GCMarker = null;
 					//Three Categories => Thirds of the Point range
-					if (GC.Rating > (Program.DB.MinimalRating) + 0.67 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
+					if (GC.Rating > (App.DB.MinimalRating) + 0.67 * (App.DB.MaximalRating - App.DB.MinimalRating))
 					{
 						GCMarker = Markers.GetGeocacheMarker(GC);
 						TopOverlay.Markers.Add(GCMarker);
 					}
-					else if (GC.Rating > (Program.DB.MinimalRating) + 0.33 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
+					else if (GC.Rating > (App.DB.MinimalRating) + 0.33 * (App.DB.MaximalRating - App.DB.MinimalRating))
 					{
 						GCMarker = Markers.GetGeocacheMarker(GC);
 						MediumOverlay.Markers.Add(GCMarker);
@@ -1056,17 +1056,17 @@ namespace GeocachingTourPlanner
 				WorstCheckbox_CheckedChanged(null, null);
 
 				//Set Views
-				if (Program.DB.LastMapZoom == 0)
+				if (App.DB.LastMapZoom == 0)
 				{
-					Program.DB.LastMapZoom = 5;
+					App.DB.LastMapZoom = 5;
 				}
-				Map.Zoom = Program.DB.LastMapZoom;
+				Map.Zoom = App.DB.LastMapZoom;
 
-				if (Program.DB.LastMapPosition.IsEmpty)//Equals that the user hasn't seen the map before (fixes #2)
+				if (App.DB.LastMapPosition.IsEmpty)//Equals that the user hasn't seen the map before (fixes #2)
 				{
-					Program.DB.LastMapPosition = new PointLatLng(49.0, 8.5);
+					App.DB.LastMapPosition = new PointLatLng(49.0, 8.5);
 				}
-				Map.Position = Program.DB.LastMapPosition;
+				Map.Position = App.DB.LastMapPosition;
 			}
 			else
 			{
@@ -1158,7 +1158,7 @@ namespace GeocachingTourPlanner
 				Table.Controls.Add(RouteControl, 0, 0);
 
 				Label Info = new Label();
-				Tourplanning.RouteData ThisRouteData = Program.Routes.First(x => x.Key == OverlayTag).Value;
+				Tourplanning.RouteData ThisRouteData = App.Routes.First(x => x.Key == OverlayTag).Value;
 				List<Geocache> GeocachesOnRoute = ThisRouteData.GeocachesOnRoute();
 				int NumberOfGeocaches = GeocachesOnRoute.Count;
 				float SumOfPoints = 0;
@@ -1221,7 +1221,7 @@ namespace GeocachingTourPlanner
 				//Name of the route which will be used for all further referencing
 				string Routetag = Result.Profile.Name + " Route " + (Result.Profile.RoutesOfthisType + 1);
 
-				Program.Routes.Add(new KeyValuePair<string, Tourplanning.RouteData>(Routetag, Result));
+				App.Routes.Add(new SerializableKeyValuePair<string, Tourplanning.RouteData>(Routetag, Result));
 				List<PointLatLng> LatLongPointList = new List<PointLatLng>();
 
 				foreach (Coordinate COO in FinalRoute.Shape)
@@ -1242,7 +1242,7 @@ namespace GeocachingTourPlanner
 
 				Map.Overlays.Add(RouteOverlay);
 				newRouteControlElement(Routetag);
-				Program.RouteCalculationRunning = false; Application.UseWaitCursor = false;
+				App.RouteCalculationRunning = false; Application.UseWaitCursor = false;
 				Map.Cursor = Cursors.Default;
 				LoadMap();
 			}
@@ -1256,13 +1256,13 @@ namespace GeocachingTourPlanner
 		delegate void DisplayPreliminaryRouteDelegate(Route PreliminaryRoute);
 		public void DisplayPreliminaryRoute(Route PreliminaryRoute)
 		{
-			if (Program.DB.DisplayLiveCalculation && Program.RouteCalculationRunning)//If the calculation is not running anymore, the thread was late and no route should be displayed
+			if (App.DB.DisplayLiveCalculation && App.RouteCalculationRunning)//If the calculation is not running anymore, the thread was late and no route should be displayed
 			{
 				if (Map.InvokeRequired == false)
 				{
-					while (Program.MainWindow.Map.Overlays.Count(x => x.Id == "PreliminaryRoute") != 0)
+					while (App.MainWindow.Map.Overlays.Count(x => x.Id == "PreliminaryRoute") != 0)
 					{
-						Program.MainWindow.Map.Overlays.Remove(Program.MainWindow.Map.Overlays.First(x => x.Id == "PreliminaryRoute"));
+						App.MainWindow.Map.Overlays.Remove(App.MainWindow.Map.Overlays.First(x => x.Id == "PreliminaryRoute"));
 					}
 
 					List<PointLatLng> GMAPRoute = new List<PointLatLng>();
@@ -1273,7 +1273,7 @@ namespace GeocachingTourPlanner
 					}
 					GMapOverlay RouteOverlay = new GMapOverlay("PreliminaryRoute");
 					RouteOverlay.Routes.Add(new GMapRoute(GMAPRoute, "PreliminaryRoute"));
-					Program.MainWindow.Map.Overlays.Add(RouteOverlay);
+					App.MainWindow.Map.Overlays.Add(RouteOverlay);
 				}
 				else
 				{
@@ -1296,12 +1296,12 @@ namespace GeocachingTourPlanner
 			EditRatingprofileCombobox.Items.Clear();
 			SelectedRatingprofileCombobox.Items.Clear();
 
-			foreach (Ratingprofile profile in Program.Ratingprofiles)
+			foreach (Ratingprofile profile in App.Ratingprofiles)
 			{
 				EditRatingprofileCombobox.Items.Add(profile.Name);
 				SelectedRatingprofileCombobox.Items.Add(profile.Name);
 			}
-			RatingprofilesStateLabel.Text = Program.Ratingprofiles.Count.ToString() + " Ratingprofiles loaded";
+			RatingprofilesStateLabel.Text = App.Ratingprofiles.Count.ToString() + " Ratingprofiles loaded";
 		}
 
 		/// <summary>
@@ -1314,18 +1314,18 @@ namespace GeocachingTourPlanner
 			EditRoutingprofileCombobox.Items.Clear();
 			SelectedRoutingprofileCombobox.Items.Clear();
 
-			foreach (Routingprofile profile in Program.Routingprofiles)
+			foreach (Routingprofile profile in App.Routingprofiles)
 			{
 				EditRoutingprofileCombobox.Items.Add(profile.Name);
 				SelectedRoutingprofileCombobox.Items.Add(profile.Name);
 			}
 
-			RoutingprofilesStateLabel.Text = Program.Routingprofiles.Count.ToString() + " Routingprofiles loaded";
+			RoutingprofilesStateLabel.Text = App.Routingprofiles.Count.ToString() + " Routingprofiles loaded";
 		}
 
 		public void Geocaches_ListChanged(object sender, ListChangedEventArgs e)
 		{
-			GeocachesStateLabel.Text = Program.Geocaches.Count.ToString() + " Geocaches loaded";
+			GeocachesStateLabel.Text = App.Geocaches.Count.ToString() + " Geocaches loaded";
 		}
 		#endregion
 

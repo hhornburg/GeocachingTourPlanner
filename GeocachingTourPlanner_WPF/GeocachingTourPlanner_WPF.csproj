@@ -127,7 +127,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="LicenseWindow.xaml.cs">
+    <Compile Include="Sourcecode\LicenseWindow.xaml.cs">
       <DependentUpon>LicenseWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sourcecode\CustomCode.cs" />
@@ -147,12 +147,11 @@
     </Compile>
     <Compile Include="Sourcecode\Geocache.cs" />
     <Compile Include="Sourcecode\Markers.cs" />
-    <Compile Include="Sourcecode\Program.cs" />
     <Compile Include="Sourcecode\Ratingprofile.cs" />
     <Compile Include="Sourcecode\Routingprofil.cs" />
     <Compile Include="Sourcecode\Startup.cs" />
     <Compile Include="Sourcecode\Tourplanning.cs" />
-    <Page Include="LicenseWindow.xaml">
+    <Page Include="Sourcecode\LicenseWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

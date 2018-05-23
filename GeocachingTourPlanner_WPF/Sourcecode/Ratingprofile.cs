@@ -9,13 +9,13 @@ namespace GeocachingTourPlanner
     public class Ratingprofile
     {
         public string Name { get; set; }
-        public List<KeyValuePair<GeocacheType, int>> TypeRatings { get; set;}
+        public List<SerializableKeyValuePair<GeocacheType, int>> TypeRatings { get; set;}
         public int TypePriority { get; set; }
-        public List<KeyValuePair<GeocacheSize, int>> SizeRatings { get; set;}
+        public List<SerializableKeyValuePair<GeocacheSize, int>> SizeRatings { get; set;}
         public int SizePriority { get; set; }
-        public List<KeyValuePair<float, int>> DRatings { get; set;}
+        public List<SerializableKeyValuePair<float, int>> DRatings { get; set;}
         public int DPriority { get; set; }
-        public List<KeyValuePair<float, int>> TRatings { get; set;}
+        public List<SerializableKeyValuePair<float, int>> TRatings { get; set;}
         public int TPriority { get; set; }
         public int Yearfactor { get; set; }
         public Yearmode Yearmode { get; set; }

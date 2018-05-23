@@ -60,7 +60,7 @@ namespace GeocachingTourPlanner
 
 		private void OpenButton_Click(object sender, EventArgs e)
 		{
-			if (Program.DB.OpenExistingDBFile(ThisDB))
+			if (App.DB.OpenExistingDBFile(ThisDB))
 			{
 				DialogResult = DialogResult.OK;
 			}

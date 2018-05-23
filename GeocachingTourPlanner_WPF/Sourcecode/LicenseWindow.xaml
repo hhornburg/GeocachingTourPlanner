@@ -18,8 +18,8 @@
         </ScrollViewer>
         
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-            <Button>Decline</Button>
-            <Button>Accept</Button>
+            <Button MinWidth="80" Click="Decline">Decline</Button>
+            <Button MinWidth="80" Click="Accept">Accept</Button>
         </StackPanel>
     </Grid>
 </Window>

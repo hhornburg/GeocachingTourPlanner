@@ -10,6 +10,7 @@ using System.Linq;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
+using GeocachingTourPlanner_WPF;
 
 namespace GeocachingTourPlanner
 {
@@ -24,23 +25,23 @@ namespace GeocachingTourPlanner
 			{
 				GeocacheCategory = Category.ForceInclude;
 			}
-			else if (geocache.Rating > (Program.DB.MinimalRating) + 0.83 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
+			else if (geocache.Rating > (App.DB.MinimalRating) + 0.83 * (App.DB.MaximalRating - App.DB.MinimalRating))
 			{
 				GeocacheCategory = Category.Best_Good;
 			}
-			else if (geocache.Rating > (Program.DB.MinimalRating) + 0.67 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
+			else if (geocache.Rating > (App.DB.MinimalRating) + 0.67 * (App.DB.MaximalRating - App.DB.MinimalRating))
 			{
 				GeocacheCategory = Category.Best_Bad;
 			}
-			else if (geocache.Rating > (Program.DB.MinimalRating) + 0.5 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
+			else if (geocache.Rating > (App.DB.MinimalRating) + 0.5 * (App.DB.MaximalRating - App.DB.MinimalRating))
 			{
 				GeocacheCategory = Category.Medium_Good;
 			}
-			else if (geocache.Rating > (Program.DB.MinimalRating) + 0.33 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
+			else if (geocache.Rating > (App.DB.MinimalRating) + 0.33 * (App.DB.MaximalRating - App.DB.MinimalRating))
 			{
 				GeocacheCategory = Category.Medium_Bad;
 			}
-			else if (geocache.Rating > (Program.DB.MinimalRating) + 0.16 * (Program.DB.MaximalRating - Program.DB.MinimalRating))
+			else if (geocache.Rating > (App.DB.MinimalRating) + 0.16 * (App.DB.MaximalRating - App.DB.MinimalRating))
 			{
 				GeocacheCategory = Category.Worst_Good;
 			}
@@ -49,9 +50,9 @@ namespace GeocachingTourPlanner
 				GeocacheCategory = Category.Worst_Bad;
 			}
 
-			if (Program.MarkerImageCache.Where(x => x.Value1 == geocache.Type && x.Value2 == (int)GeocacheCategory).Count() > 0)
+			if (App.MarkerImageCache.Where(x => x.Value1 == geocache.Type && x.Value2 == (int)GeocacheCategory).Count() > 0)
 			{
-				marker_bmp = Program.MarkerImageCache.Find(x => x.Value1 == geocache.Type && x.Value2 == (int)GeocacheCategory).Key;
+				marker_bmp = App.MarkerImageCache.Find(x => x.Value1 == geocache.Type && x.Value2 == (int)GeocacheCategory).Key;
 			}
 			else
 			{
@@ -136,10 +137,10 @@ namespace GeocachingTourPlanner
 						break;
 				}
 
-				Rectangle PinRect = new Rectangle(0, 0, Program.DB.MarkerSize, (int)(1.5 * Program.DB.MarkerSize));
-				Rectangle SymbolRect = new Rectangle(0, 0, Program.DB.MarkerSize, Program.DB.MarkerSize);
+				Rectangle PinRect = new Rectangle(0, 0, App.DB.MarkerSize, (int)(1.5 * App.DB.MarkerSize));
+				Rectangle SymbolRect = new Rectangle(0, 0, App.DB.MarkerSize, App.DB.MarkerSize);
 
-				marker_bmp = new Bitmap(Program.DB.MarkerSize, (int)(1.5 * Program.DB.MarkerSize));
+				marker_bmp = new Bitmap(App.DB.MarkerSize, (int)(1.5 * App.DB.MarkerSize));
 				marker_bmp.SetResolution(OriginalMarker.HorizontalResolution, OriginalMarker.VerticalResolution);
 
 				using (Graphics graphics = Graphics.FromImage(marker_bmp))
@@ -160,7 +161,7 @@ namespace GeocachingTourPlanner
 					graphics.DrawImage(TypeImage, SymbolRect, 0, 0, TypeImage.Width, TypeImage.Height, GraphicsUnit.Pixel, PinAttributes);
 				}
 
-				Program.MarkerImageCache.Add(new KeyValueTriple<Bitmap, GeocacheType, int>(marker_bmp, geocache.Type, (int)GeocacheCategory));
+				App.MarkerImageCache.Add(new KeyValueTriple<Bitmap, GeocacheType, int>(marker_bmp, geocache.Type, (int)GeocacheCategory));
 			}
 
 			//Create final marker

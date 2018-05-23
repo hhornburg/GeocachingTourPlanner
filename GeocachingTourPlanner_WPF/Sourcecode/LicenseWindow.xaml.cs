@@ -19,9 +19,23 @@ namespace GeocachingTourPlanner_WPF
 	/// </summary>
 	public partial class LicenseWindow : Window
 	{
+		public bool AcceptedLicense = false;
+
 		public LicenseWindow()
 		{
 			InitializeComponent();
+		}
+
+		private void Decline(object sender, RoutedEventArgs e)
+		{
+			AcceptedLicense = false;
+			Close();
+		}
+
+		private void Accept(object sender, RoutedEventArgs e)
+		{
+			AcceptedLicense = true;
+			Close();
 		}
 	}
 }
