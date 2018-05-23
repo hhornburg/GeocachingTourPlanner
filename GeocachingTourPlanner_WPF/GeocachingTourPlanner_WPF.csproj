@@ -136,12 +136,6 @@
     <Compile Include="Sourcecode\CustomCode.cs" />
     <Compile Include="Sourcecode\Database.cs" />
     <Compile Include="Sourcecode\Fileoperations.cs" />
-    <Compile Include="Sourcecode\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Sourcecode\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Sourcecode\Geocache.cs" />
     <Compile Include="Sourcecode\Markers.cs" />
     <Compile Include="Sourcecode\Ratingprofile.cs" />
@@ -195,9 +189,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Sourcecode\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
