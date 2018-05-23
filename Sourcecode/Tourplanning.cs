@@ -244,9 +244,333 @@ namespace GeocachingTourPlanner
 
 		}
 
-		#region Subroutines
+        public void GetRoute_Alternative(Routingprofile profile, List<Geocache> AllGeocaches, Coordinate Startpoint, Coordinate Endpoint, List<Geocache> GeocachesToInclude)
+        {
+            DateTime StartTime = DateTime.Now;
+            Log.AppendLine("\n  ==========New Route Calculation========== \n");
+            Log.AppendLine("Current Time:" + StartTime);
+            Log.AppendLine("Profile: " + profile.Name);
 
-		private struct DirectionDesignInternalResult
+
+            SelectedProfile = profile;
+
+            #region Create Routers
+            if (Program.RouterDB.IsEmpty)
+            {
+                if (Program.DB.RouterDB_Filepath != null)
+                {
+                    using (var stream = new FileInfo(Program.DB.RouterDB_Filepath).OpenRead())
+                    {
+                        Program.RouterDB = RouterDb.Deserialize(stream);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Import or set RouterDB before creating route!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.UseWaitCursor = false;
+                    return;
+                }
+            }
+            //One for every thread
+            Router1 = new Router(Program.RouterDB);
+            Router2 = new Router(Program.RouterDB);
+
+            #endregion
+
+            try
+            {
+                Startpoint_RP = Router1.Resolve(SelectedProfile.ItineroProfile.profile, Startpoint);
+            }
+            catch (Itinero.Exceptions.ResolveFailedException)
+            {
+                MessageBox.Show("Please select a Startingpoint close to a road");
+                Application.UseWaitCursor = false;
+                return;
+            }
+            try
+            {
+                Endpoint_RP = Router1.Resolve(SelectedProfile.ItineroProfile.profile, Endpoint);
+            }
+            catch (Itinero.Exceptions.ResolveFailedException)
+            {
+                MessageBox.Show("Please select an Endpoint close to a road");
+                Application.UseWaitCursor = false;
+                return;
+            }
+
+            // Determine highest rating
+            float maxRating = 0;
+            foreach (Geocache currentGeocache in AllGeocaches)
+            {
+                if (currentGeocache.Rating > maxRating)
+                    maxRating = currentGeocache.Rating;
+            }
+            // Set arbitrary minimum rating a Geocache needs to be considered. Should be done by UI.
+            float minRating = maxRating / 2;
+            foreach (Geocache currentGeocache in AllGeocaches)
+            {
+                if (currentGeocache.Rating < minRating)
+                    AllGeocaches.Remove(currentGeocache);
+            }
+
+
+            // Calculate all starting and ending partial routes
+            List<System.Collections.Generic.KeyValuePair<Geocache, Route>> startGeocaches = new List<System.Collections.Generic.KeyValuePair<Geocache, Route>>();
+            List<System.Collections.Generic.KeyValuePair<Geocache, Route>> endGeocaches = new List<System.Collections.Generic.KeyValuePair<Geocache, Route>>();
+            foreach (Geocache geocache in AllGeocaches)
+            {
+                Route startRoute = (Router1.Calculate(SelectedProfile.ItineroProfile.profile, Startpoint_RP.Latitude, Startpoint_RP.Longitude, geocache.lat, geocache.lon));
+                System.Collections.Generic.KeyValuePair<Geocache, Route> startPair = new System.Collections.Generic.KeyValuePair<Geocache, Route>(geocache, startRoute);
+                startGeocaches.Add(startPair);
+                Route endRoute = (Router1.Calculate(SelectedProfile.ItineroProfile.profile, geocache.lat, geocache.lon, Endpoint_RP.Latitude, Endpoint_RP.Longitude));
+                System.Collections.Generic.KeyValuePair<Geocache, Route> endPair = new System.Collections.Generic.KeyValuePair<Geocache, Route>(geocache, startRoute);
+                endGeocaches.Add(endPair);
+            }
+
+            // Calculate all partial routes - could be highly accelerated by multithreading
+            //List<KeyValueTriple<Geocache, Route, Geocache>> possibleRoutes = new List<KeyValueTriple<Geocache, Route, Geocache>>();
+            Dictionary<Geocache, List<System.Collections.Generic.KeyValuePair<Geocache, Route>>> possibleRoutes = new Dictionary<Geocache, List<System.Collections.Generic.KeyValuePair<Geocache, Route>>>();
+            foreach (Geocache startGeocache in AllGeocaches)
+            {
+                List<System.Collections.Generic.KeyValuePair<Geocache, Route>> currentRoutes = new List<System.Collections.Generic.KeyValuePair<Geocache, Route>>();
+                foreach (Geocache endGeocache in AllGeocaches)
+                {
+                    Route route = Router1.Calculate(SelectedProfile.ItineroProfile.profile, startGeocache.lat, startGeocache.lon, endGeocache.lat, endGeocache.lon);
+                    var targetPair = new System.Collections.Generic.KeyValuePair<Geocache, Route>(endGeocache, route);
+                    currentRoutes.Add(targetPair);
+                }
+                possibleRoutes.Add(startGeocache, currentRoutes);
+            }
+
+            #region uselessSort
+            /* Atm sorting can't improve performance... 
+            // Sort all parial Routes by given preferences [atm hardcoded: consider time and quality of geocaches, where quality shall be maximized and time only is a non-optimized limiting value]
+            // define sorting function
+            int sortByRating(Geocache geocache1, Geocache geocache2)
+            {
+                float difference = geocache1.Rating - geocache2.Rating;
+                if (difference < 0)
+                    return -1;
+                else if (difference > 0)
+                    return 1;
+                else
+                    return 0;
+            }
+            
+            // sort by rating of reachable geocaches
+            */
+            #endregion
+
+
+            // Increase number of geocaches until time limit is reached
+
+            //int remainingTime = SelectedProfile.MaxTime;
+            int count = 0;
+            List<Route> finalRoute(int remainingTime, int remainingGeocaches, Geocache parentGeocache, )
+            {
+
+            }
+            /*
+            while (remainingTime <= SelectedProfile.MaxTime)
+            {
+                count++;
+                if (count == 1)
+                {
+
+                    finalRoutes
+                }
+            }*/
+
+
+            /*
+            
+            // Calculate all possible partial routes
+            int GeocachesCount = AllGeocaches.Count;
+            Route[,] routeMatrix = new Route[GeocachesCount,GeocachesCount];
+            routeMatrix = null;
+            //Addressing routeMatrix with [i,j], j must be >= i
+            for (int i = 0; i < GeocachesCount; i++)
+            {
+                float startLon = AllGeocaches[i].lon;
+                float startLat = AllGeocaches[i].lat;
+                for (int j = i; j < GeocachesCount; j++)
+                {
+                    float targetLon = AllGeocaches[j].lon;
+                    float targetLat = AllGeocaches[j].lat;
+                    try
+                    {
+                        routeMatrix[i, j] = Router1.Calculate(SelectedProfile.ItineroProfile.profile, startLat, startLon, targetLat, targetLon);
+                    }
+                    catch (Itinero.Exceptions.ResolveFailedException)
+                    {
+                        routeMatrix[i, j] = null;
+                    }
+                }
+            }
+
+            //Calculate routes to start and endpoint
+            Route[] 
+
+            // Determine best route; optimized for score and time
+            List<Route> finalRouteParts;
+
+
+            */
+
+            /*
+            //Calculate initial Route
+            try
+            {
+                InitialRoute = Router1.Calculate(SelectedProfile.ItineroProfile.profile, Startpoint_RP, Endpoint_RP);
+            }
+            catch (Itinero.Exceptions.RouteNotFoundException)
+            {
+                MessageBox.Show("Can't calculate a route between start and endpoint. Please change your selection");
+                Application.UseWaitCursor = false;
+                return;
+            }
+            CurrentRouteDistance = InitialRoute.TotalDistance;
+            CurrentRouteTime = InitialRoute.TotalTime;
+
+            //Empty list as no resolving happenend yet
+            RoutingData.Add(new KeyValuePair<Route, List<KeyValueTriple<Geocache, float, RouterPoint>>>(InitialRoute, new List<KeyValueTriple<Geocache, float, RouterPoint>>()));
+
+
+            GeocachesNotAlreadyUsed = new List<Geocache>(AllGeocaches);
+
+            Program.MainWindow.DisplayPreliminaryRoute(RoutingData);
+
+            #region Add Geocaches User selected to Include
+            foreach (Geocache GeocacheToAdd in GeocachesToInclude)
+            {
+                int IndexOfRouteToInsertIn = -1;
+                Route RouteToInsertIn = null;
+                GeocachesNotAlreadyUsed.Remove(GeocacheToAdd);//As it is either added or not reachble
+
+                //find which partial route it is closest to. Shouldm't tkae too long as there are only few partial routes at this point
+                float MinDistance = -1;
+                for (int i = 0; i < RoutingData.Count; i++)//Thus each partial route ?? Ther e is only one partial route ??
+                {
+                    for (int k = 0; k < RoutingData[i].Key.Shape.Length; k += Program.DB.EveryNthShapepoint)
+                    {
+                        float Distance = Coordinate.DistanceEstimateInMeter(RoutingData[i].Key.Shape[k], new Coordinate(GeocacheToAdd.lat, GeocacheToAdd.lon));
+                        if (MinDistance < 0 || Distance < MinDistance)
+                        {
+                            IndexOfRouteToInsertIn = i;
+                            MinDistance = Distance;
+                        }
+                    }
+                }
+
+                RouteToInsertIn = RoutingData[IndexOfRouteToInsertIn].Key;
+
+                Result<RouterPoint> GeocacheToAddResolveResult = Router1.TryResolve(SelectedProfile.ItineroProfile.profile, GeocacheToAdd.lat, GeocacheToAdd.lon);
+                if (!GeocacheToAddResolveResult.IsError)
+                {
+                    Route NewPart1 = null;
+                    Result<Route> Result1 = Router1.TryCalculate(SelectedProfile.ItineroProfile.profile, Router1.Resolve(SelectedProfile.ItineroProfile.profile, RouteToInsertIn.Shape[0]), GeocacheToAddResolveResult.Value);
+                    if (Result1.IsError)
+                    {
+                        Log.AppendLine("Route calculation with Geocache to include  failed.");
+                    }
+                    else
+                    {
+                        NewPart1 = Result1.Value;
+
+                        Route NewPart2 = null;
+                        Result<Route> Result2 = Router2.TryCalculate(SelectedProfile.ItineroProfile.profile, GeocacheToAddResolveResult.Value, Router2.Resolve(SelectedProfile.ItineroProfile.profile, RouteToInsertIn.Shape[RouteToInsertIn.Shape.Length - 1]));
+                        if (Result2.IsError)
+                        {
+                            Log.AppendLine("Route calculation with Geocache to include  failed.");
+                        }
+                        else
+                        {
+                            NewPart2 = Result2.Value;
+                            // So one doesn't have to iterate through all routes
+                            CurrentRouteDistance -= RouteToInsertIn.TotalDistance;
+                            CurrentRouteDistance += NewPart1.TotalDistance;
+                            CurrentRouteDistance += NewPart2.TotalDistance;
+
+                            CurrentRouteTime -= RouteToInsertIn.TotalTime;
+                            CurrentRouteTime += NewPart1.TotalTime;
+                            CurrentRouteTime += NewPart2.TotalTime;
+
+                            CurrentRoutePoints += GeocacheToAdd.Rating;
+
+                            RoutingData.RemoveAt(IndexOfRouteToInsertIn);
+                            RoutingData.InsertRange(IndexOfRouteToInsertIn, new List<KeyValuePair<Route, List<KeyValueTriple<Geocache, float, RouterPoint>>>>()
+                            {
+								//Add empty Lists as resolving didn't happen yet
+								new KeyValuePair<Route, List<KeyValueTriple<Geocache, float,RouterPoint>>>(NewPart1, new List<KeyValueTriple<Geocache, float, RouterPoint>>()),
+                                new KeyValuePair<Route, List<KeyValueTriple<Geocache, float,RouterPoint>>>(NewPart2, new List<KeyValueTriple<Geocache, float, RouterPoint>>())
+                            });
+                            GeocachesOnRoute.Add(GeocacheToAdd);
+                        }
+
+                    }
+                }
+            }
+            #endregion
+
+            File.AppendAllText("Routerlog.txt", Log.ToString());
+            Log.Clear();
+
+            if (Program.DB.Autotargetselection)
+            {
+                DateTime StartDirectionDecision = DateTime.Now;
+                DirectionDecision();
+                Log.AppendLine("Directiondecision took " + (DateTime.Now - StartDirectionDecision).TotalSeconds + " seconds");
+
+                //Program.MainWindow.DisplayPreliminaryRoute(RoutingData);
+            }
+
+            #region Checking if geocaches are in reach and resolving all
+            DateTime ResolvingTime = DateTime.Now;
+            //NO Parallelisation of this part, since then synchronisation would be necessary to prevent Geocaches from appearing multiple times in the Range of the Initail route which consists only of one segment
+            for (int h = 0; h < RoutingData.Count; h++)
+            {
+                //This way the Geocache can be added to multiple partial routes, but no multiple times to the same one
+                Parallel.ForEach(GeocachesNotAlreadyUsed, GC =>
+                {
+                    float minDistance = GetMinimalDistanceToRoute(RoutingData[h].Key, new Coordinate(GC.lat, GC.lon), Program.DB.EveryNthShapepoint);
+
+                    if (minDistance < SelectedProfile.MaxDistance * 1000 / 2 && minDistance > 0)// Only remove all those that definitely can't be reached
+                    {
+                        RouterPoint RouterPointOfGeocache = null;
+                        Result<RouterPoint> ResolveResult = Router1.TryResolve(SelectedProfile.ItineroProfile.profile, GC.lat, GC.lon);
+                        if (!ResolveResult.IsError)
+                        {
+                            RouterPointOfGeocache = ResolveResult.Value;
+                            RouterPointOfGeocache = ResolveResult.Value;
+                            lock (RoutingData)
+                            {
+                                RoutingData[h].Value.Add(new KeyValueTriple<Geocache, float, RouterPoint>(GC, minDistance, RouterPointOfGeocache));//Push the resoved location on
+                            }
+                        }
+                    }
+                });
+            }
+            Log.AppendLine("Resolving took " + (DateTime.Now - ResolvingTime).TotalSeconds + " seconds");
+            #endregion
+
+            File.AppendAllText("Routerlog.txt", Log.ToString());
+
+            KeyValuePair<Route, List<Geocache>> Result = CalculateRouteToEnd();
+
+            Log = new StringBuilder();
+            Log.AppendLine("Time after routing finished:" + DateTime.Now);
+            Log.AppendLine("Route calculation took " + (DateTime.Now - StartTime).TotalSeconds + " seconds");
+            File.AppendAllText("Routerlog.txt", Log.ToString());
+
+            Program.MainWindow.AddFinalRoute(Result, profile);
+            Application.UseWaitCursor = false;
+
+*/
+        }
+
+        #region Subroutines
+
+        private struct DirectionDesignInternalResult
 		{
 			public float ReachablePoints { get; set; }
 			public int IndexOfRouteToReplace;
