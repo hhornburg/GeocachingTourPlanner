@@ -30,10 +30,11 @@ namespace GeocachingTourPlanner
 
 		// Itinero
 		public static RouterDb RouterDB = new RouterDb();
-		public static BindingList<KeyValueTriple<string, Route, List<Geocache>>> Routes = new BindingList<KeyValueTriple<string, Route, List<Geocache>>>();
+		public static BindingList<KeyValuePair<string, Tourplanning.RouteData>> Routes = new BindingList<KeyValuePair<string, Tourplanning.RouteData>>();
 
 		//Program Variables
 		public static bool RouteCalculationRunning = false;
+		public static bool ImportOfOSMDataRunning = false;
 
 		//Cache
 		public static List<KeyValueTriple<Bitmap, GeocacheType, int>> MarkerImageCache = new List<KeyValueTriple<Bitmap, GeocacheType, int>>();
@@ -59,6 +60,7 @@ namespace GeocachingTourPlanner
 			//select the Overview Tab
 			MainWindow.LeftTabs.SelectedIndex = 1;
 
+			MainWindow.UpdateStatus("Started reading databases");
 			if (File.Exists(Database_Filepath))//Thus it is not the first start of the program
 			{
 				Fileoperations.ReadMainDatabase();
@@ -71,6 +73,7 @@ namespace GeocachingTourPlanner
 
 			MainWindow.UpdateSettingsTextBoxes();
 			Startup.CheckSettings();
+			Startup.BindLists();
 			
 			Application.Run(MainWindow);
         }

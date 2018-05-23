@@ -31,6 +31,7 @@ namespace GeocachingTourPlanner
         /// </summary>
         private void InitializeComponent()
         {
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
 			this.UpmostTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
 			this.Tabcontainer = new System.Windows.Forms.TabControl();
 			this.MapTab = new System.Windows.Forms.TabPage();
@@ -79,7 +80,7 @@ namespace GeocachingTourPlanner
 			this.Ratingprofiles = new System.Windows.Forms.TabPage();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.RatingprofilesSettingsTabelLayout = new System.Windows.Forms.TableLayoutPanel();
-			this.groupBox6 = new System.Windows.Forms.GroupBox();
+			this.AgeGroupBox = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
 			this.AgeFactorValue = new System.Windows.Forms.TextBox();
 			this.AgeValue = new System.Windows.Forms.ComboBox();
@@ -127,7 +128,7 @@ namespace GeocachingTourPlanner
 			this.label19 = new System.Windows.Forms.Label();
 			this.label8 = new System.Windows.Forms.Label();
 			this.TraditionalValue = new System.Windows.Forms.TextBox();
-			this.label20 = new System.Windows.Forms.Label();
+			this.RatingprofileInfoLabel = new System.Windows.Forms.Label();
 			this.GeocachegrößeGroupBox = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
 			this.RegularValue = new System.Windows.Forms.TextBox();
@@ -164,7 +165,7 @@ namespace GeocachingTourPlanner
 			this.T4Value = new System.Windows.Forms.TextBox();
 			this.T25Value = new System.Windows.Forms.TextBox();
 			this.T1Value = new System.Windows.Forms.TextBox();
-			this.Sonstiges = new System.Windows.Forms.GroupBox();
+			this.Other = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
 			this.label15 = new System.Windows.Forms.Label();
 			this.NMFlagValue = new System.Windows.Forms.TextBox();
@@ -182,7 +183,7 @@ namespace GeocachingTourPlanner
 			this.button2 = new System.Windows.Forms.Button();
 			this.label52 = new System.Windows.Forms.Label();
 			this.RoutingProfileName = new System.Windows.Forms.TextBox();
-			this.RoutingprofilesSettingsTabelLayout = new System.Windows.Forms.TableLayoutPanel();
+			this.RoutingprofilesSettingsTableLayout = new System.Windows.Forms.TableLayoutPanel();
 			this.RoutingCoreGroupbox = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
 			this.label45 = new System.Windows.Forms.Label();
@@ -208,19 +209,24 @@ namespace GeocachingTourPlanner
 			this.label53 = new System.Windows.Forms.Label();
 			this.EditRoutingprofileCombobox = new System.Windows.Forms.ComboBox();
 			this.Settings = new System.Windows.Forms.TabPage();
-			this.tableLayoutPanel15 = new System.Windows.Forms.TableLayoutPanel();
+			this.SettingsTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
 			this.RoutingsettingsGroupbox = new System.Windows.Forms.GroupBox();
-			this.tableLayoutPanel16 = new System.Windows.Forms.TableLayoutPanel();
-			this.label56 = new System.Windows.Forms.Label();
-			this.label57 = new System.Windows.Forms.Label();
-			this.label58 = new System.Windows.Forms.Label();
-			this.EveryNthPointTextBox = new System.Windows.Forms.TextBox();
-			this.DivisorTextBox = new System.Windows.Forms.TextBox();
-			this.ToleranceTextBox = new System.Windows.Forms.TextBox();
+			this.RoutingSettingsTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
 			this.label59 = new System.Windows.Forms.Label();
 			this.RoutefindingWidth_Textbox = new System.Windows.Forms.TextBox();
-			this.LiveDisplayRouteCalculationCheckbox = new System.Windows.Forms.CheckBox();
 			this.Autotargetselection = new System.Windows.Forms.CheckBox();
+			this.LiveDisplayRouteCalculationCheckbox = new System.Windows.Forms.CheckBox();
+			this.AutotargetSelectionMaxDistanceLabel = new System.Windows.Forms.Label();
+			this.AutotargetselectionMinLabel = new System.Windows.Forms.Label();
+			this.AutotargetselectionMaxTextBox = new System.Windows.Forms.TextBox();
+			this.AutotargetselectionMinTextBox = new System.Windows.Forms.TextBox();
+			this.Display_groupBox = new System.Windows.Forms.GroupBox();
+			this.DisplaySettingsTableLayoutSettings = new System.Windows.Forms.TableLayoutPanel();
+			this.IconSizeLabel = new System.Windows.Forms.Label();
+			this.MarkerSizeTrackBar = new System.Windows.Forms.TrackBar();
+			this.StatusbarTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+			this.StatusLabel = new System.Windows.Forms.Label();
+			this.ProgressBar = new System.Windows.Forms.ProgressBar();
 			this.UpmostTableLayoutPanel.SuspendLayout();
 			this.Tabcontainer.SuspendLayout();
 			this.MapTab.SuspendLayout();
@@ -238,7 +244,7 @@ namespace GeocachingTourPlanner
 			this.Ratingprofiles.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.RatingprofilesSettingsTabelLayout.SuspendLayout();
-			this.groupBox6.SuspendLayout();
+			this.AgeGroupBox.SuspendLayout();
 			this.tableLayoutPanel8.SuspendLayout();
 			this.DValueungGroupBox.SuspendLayout();
 			this.tableLayoutPanel4.SuspendLayout();
@@ -248,13 +254,13 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel3.SuspendLayout();
 			this.TValueungGroupbox.SuspendLayout();
 			this.tableLayoutPanel5.SuspendLayout();
-			this.Sonstiges.SuspendLayout();
+			this.Other.SuspendLayout();
 			this.tableLayoutPanel6.SuspendLayout();
 			this.tableLayoutPanel2.SuspendLayout();
 			this.SaveRatingprofileLayoutPanel.SuspendLayout();
 			this.Routingprofiles.SuspendLayout();
 			this.SaveRoutingProfileTableLayout.SuspendLayout();
-			this.RoutingprofilesSettingsTabelLayout.SuspendLayout();
+			this.RoutingprofilesSettingsTableLayout.SuspendLayout();
 			this.RoutingCoreGroupbox.SuspendLayout();
 			this.tableLayoutPanel11.SuspendLayout();
 			this.DistanceGroupBox.SuspendLayout();
@@ -263,9 +269,13 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel13.SuspendLayout();
 			this.tableLayoutPanel14.SuspendLayout();
 			this.Settings.SuspendLayout();
-			this.tableLayoutPanel15.SuspendLayout();
+			this.SettingsTableLayoutPanel.SuspendLayout();
 			this.RoutingsettingsGroupbox.SuspendLayout();
-			this.tableLayoutPanel16.SuspendLayout();
+			this.RoutingSettingsTableLayoutPanel.SuspendLayout();
+			this.Display_groupBox.SuspendLayout();
+			this.DisplaySettingsTableLayoutSettings.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.MarkerSizeTrackBar)).BeginInit();
+			this.StatusbarTableLayoutPanel.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// UpmostTableLayoutPanel
@@ -275,12 +285,14 @@ namespace GeocachingTourPlanner
 			this.UpmostTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.UpmostTableLayoutPanel.Controls.Add(this.Tabcontainer, 1, 0);
 			this.UpmostTableLayoutPanel.Controls.Add(this.LeftTabs, 0, 0);
+			this.UpmostTableLayoutPanel.Controls.Add(this.StatusbarTableLayoutPanel, 0, 1);
 			this.UpmostTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.UpmostTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
 			this.UpmostTableLayoutPanel.Name = "UpmostTableLayoutPanel";
-			this.UpmostTableLayoutPanel.RowCount = 1;
+			this.UpmostTableLayoutPanel.RowCount = 2;
 			this.UpmostTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.UpmostTableLayoutPanel.Size = new System.Drawing.Size(1388, 576);
+			this.UpmostTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+			this.UpmostTableLayoutPanel.Size = new System.Drawing.Size(1388, 610);
 			this.UpmostTableLayoutPanel.TabIndex = 2;
 			// 
 			// Tabcontainer
@@ -288,10 +300,11 @@ namespace GeocachingTourPlanner
 			this.Tabcontainer.Controls.Add(this.MapTab);
 			this.Tabcontainer.Controls.Add(this.GeocachesTab);
 			this.Tabcontainer.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.Tabcontainer.Location = new System.Drawing.Point(403, 3);
+			this.Tabcontainer.Location = new System.Drawing.Point(400, 0);
+			this.Tabcontainer.Margin = new System.Windows.Forms.Padding(0);
 			this.Tabcontainer.Name = "Tabcontainer";
 			this.Tabcontainer.SelectedIndex = 0;
-			this.Tabcontainer.Size = new System.Drawing.Size(982, 570);
+			this.Tabcontainer.Size = new System.Drawing.Size(988, 590);
 			this.Tabcontainer.TabIndex = 3;
 			// 
 			// MapTab
@@ -300,7 +313,7 @@ namespace GeocachingTourPlanner
 			this.MapTab.Location = new System.Drawing.Point(4, 22);
 			this.MapTab.Name = "MapTab";
 			this.MapTab.Padding = new System.Windows.Forms.Padding(3);
-			this.MapTab.Size = new System.Drawing.Size(974, 544);
+			this.MapTab.Size = new System.Drawing.Size(980, 564);
 			this.MapTab.TabIndex = 1;
 			this.MapTab.Text = "Map";
 			this.MapTab.UseVisualStyleBackColor = true;
@@ -308,19 +321,18 @@ namespace GeocachingTourPlanner
 			// tableLayoutPanel1
 			// 
 			this.tableLayoutPanel1.ColumnCount = 2;
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
 			this.tableLayoutPanel1.Controls.Add(this.Map, 1, 0);
 			this.tableLayoutPanel1.Controls.Add(this.MapTab_SideMenu, 0, 0);
 			this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel10, 0, 1);
 			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-			this.tableLayoutPanel1.RowCount = 3;
+			this.tableLayoutPanel1.RowCount = 2;
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(968, 538);
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(974, 558);
 			this.tableLayoutPanel1.TabIndex = 2;
 			// 
 			// Map
@@ -332,7 +344,7 @@ namespace GeocachingTourPlanner
 			this.Map.GrayScaleMode = false;
 			this.Map.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
 			this.Map.LevelsKeepInMemmory = 5;
-			this.Map.Location = new System.Drawing.Point(203, 3);
+			this.Map.Location = new System.Drawing.Point(165, 3);
 			this.Map.MarkersEnabled = true;
 			this.Map.MaxZoom = 18;
 			this.Map.MinZoom = 5;
@@ -346,7 +358,7 @@ namespace GeocachingTourPlanner
 			this.Map.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
 			this.Map.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
 			this.Map.ShowTileGridLines = false;
-			this.Map.Size = new System.Drawing.Size(762, 412);
+			this.Map.Size = new System.Drawing.Size(806, 452);
 			this.Map.TabIndex = 2;
 			this.Map.Zoom = 0D;
 			this.Map.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.Map_OnMarkerClick);
@@ -359,19 +371,22 @@ namespace GeocachingTourPlanner
 			// 
 			// MapTab_SideMenu
 			// 
+			this.MapTab_SideMenu.AutoScroll = true;
+			this.MapTab_SideMenu.AutoSize = true;
 			this.MapTab_SideMenu.ColumnCount = 1;
 			this.MapTab_SideMenu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.MapTab_SideMenu.Controls.Add(this.BestGeocachesCheckbox, 0, 1);
 			this.MapTab_SideMenu.Controls.Add(this.WorstGeocachesCheckbox, 0, 3);
 			this.MapTab_SideMenu.Controls.Add(this.MediumGeocachesCheckbox, 0, 2);
+			this.MapTab_SideMenu.Dock = System.Windows.Forms.DockStyle.Top;
 			this.MapTab_SideMenu.Location = new System.Drawing.Point(3, 3);
 			this.MapTab_SideMenu.Name = "MapTab_SideMenu";
 			this.MapTab_SideMenu.RowCount = 4;
 			this.MapTab_SideMenu.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.MapTab_SideMenu.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.MapTab_SideMenu.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.MapTab_SideMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.MapTab_SideMenu.Size = new System.Drawing.Size(156, 70);
+			this.MapTab_SideMenu.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.MapTab_SideMenu.Size = new System.Drawing.Size(156, 69);
 			this.MapTab_SideMenu.TabIndex = 1;
 			// 
 			// BestGeocachesCheckbox
@@ -396,7 +411,7 @@ namespace GeocachingTourPlanner
 			this.WorstGeocachesCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.WorstGeocachesCheckbox.Location = new System.Drawing.Point(3, 49);
 			this.WorstGeocachesCheckbox.Name = "WorstGeocachesCheckbox";
-			this.WorstGeocachesCheckbox.Size = new System.Drawing.Size(150, 18);
+			this.WorstGeocachesCheckbox.Size = new System.Drawing.Size(150, 17);
 			this.WorstGeocachesCheckbox.TabIndex = 2;
 			this.WorstGeocachesCheckbox.Text = "Show worst Geocaches";
 			this.WorstGeocachesCheckbox.UseVisualStyleBackColor = true;
@@ -434,22 +449,22 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel10.Controls.Add(this.StartpointTextbox, 0, 1);
 			this.tableLayoutPanel10.Controls.Add(this.EndpointTextbox, 0, 3);
 			this.tableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tableLayoutPanel10.Location = new System.Drawing.Point(3, 421);
+			this.tableLayoutPanel10.Location = new System.Drawing.Point(3, 461);
 			this.tableLayoutPanel10.Name = "tableLayoutPanel10";
 			this.tableLayoutPanel10.RowCount = 4;
 			this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
 			this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
 			this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
 			this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.tableLayoutPanel10.Size = new System.Drawing.Size(962, 94);
+			this.tableLayoutPanel10.Size = new System.Drawing.Size(968, 94);
 			this.tableLayoutPanel10.TabIndex = 3;
 			// 
 			// RateGeocachesButton
 			// 
 			this.RateGeocachesButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.RateGeocachesButton.Location = new System.Drawing.Point(643, 70);
+			this.RateGeocachesButton.Location = new System.Drawing.Point(647, 70);
 			this.RateGeocachesButton.Name = "RateGeocachesButton";
-			this.RateGeocachesButton.Size = new System.Drawing.Size(316, 21);
+			this.RateGeocachesButton.Size = new System.Drawing.Size(318, 21);
 			this.RateGeocachesButton.TabIndex = 0;
 			this.RateGeocachesButton.Text = "Rate Geocaches";
 			this.RateGeocachesButton.UseVisualStyleBackColor = true;
@@ -458,9 +473,9 @@ namespace GeocachingTourPlanner
 			// CreateRouteButton
 			// 
 			this.CreateRouteButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.CreateRouteButton.Location = new System.Drawing.Point(323, 70);
+			this.CreateRouteButton.Location = new System.Drawing.Point(325, 70);
 			this.CreateRouteButton.Name = "CreateRouteButton";
-			this.CreateRouteButton.Size = new System.Drawing.Size(314, 21);
+			this.CreateRouteButton.Size = new System.Drawing.Size(316, 21);
 			this.CreateRouteButton.TabIndex = 1;
 			this.CreateRouteButton.Text = "Create Route";
 			this.CreateRouteButton.UseVisualStyleBackColor = true;
@@ -472,9 +487,9 @@ namespace GeocachingTourPlanner
 			this.SelectedRoutingprofileCombobox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
 			this.SelectedRoutingprofileCombobox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.SelectedRoutingprofileCombobox.FormattingEnabled = true;
-			this.SelectedRoutingprofileCombobox.Location = new System.Drawing.Point(323, 23);
+			this.SelectedRoutingprofileCombobox.Location = new System.Drawing.Point(325, 23);
 			this.SelectedRoutingprofileCombobox.Name = "SelectedRoutingprofileCombobox";
-			this.SelectedRoutingprofileCombobox.Size = new System.Drawing.Size(314, 21);
+			this.SelectedRoutingprofileCombobox.Size = new System.Drawing.Size(316, 21);
 			this.SelectedRoutingprofileCombobox.TabIndex = 2;
 			this.SelectedRoutingprofileCombobox.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
 			// 
@@ -484,9 +499,9 @@ namespace GeocachingTourPlanner
 			this.SelectedRatingprofileCombobox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
 			this.SelectedRatingprofileCombobox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.SelectedRatingprofileCombobox.FormattingEnabled = true;
-			this.SelectedRatingprofileCombobox.Location = new System.Drawing.Point(643, 23);
+			this.SelectedRatingprofileCombobox.Location = new System.Drawing.Point(647, 23);
 			this.SelectedRatingprofileCombobox.Name = "SelectedRatingprofileCombobox";
-			this.SelectedRatingprofileCombobox.Size = new System.Drawing.Size(316, 21);
+			this.SelectedRatingprofileCombobox.Size = new System.Drawing.Size(318, 21);
 			this.SelectedRatingprofileCombobox.TabIndex = 3;
 			this.SelectedRatingprofileCombobox.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
 			// 
@@ -494,10 +509,10 @@ namespace GeocachingTourPlanner
 			// 
 			this.label1.AutoSize = true;
 			this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label1.Location = new System.Drawing.Point(323, 3);
+			this.label1.Location = new System.Drawing.Point(325, 3);
 			this.label1.Margin = new System.Windows.Forms.Padding(3);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(314, 14);
+			this.label1.Size = new System.Drawing.Size(316, 14);
 			this.label1.TabIndex = 4;
 			this.label1.Text = "Select Routingprofile";
 			// 
@@ -505,10 +520,10 @@ namespace GeocachingTourPlanner
 			// 
 			this.label41.AutoSize = true;
 			this.label41.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label41.Location = new System.Drawing.Point(643, 3);
+			this.label41.Location = new System.Drawing.Point(647, 3);
 			this.label41.Margin = new System.Windows.Forms.Padding(3);
 			this.label41.Name = "label41";
-			this.label41.Size = new System.Drawing.Size(316, 14);
+			this.label41.Size = new System.Drawing.Size(318, 14);
 			this.label41.TabIndex = 5;
 			this.label41.Text = "SelectRatingprofiles";
 			// 
@@ -519,7 +534,7 @@ namespace GeocachingTourPlanner
 			this.label42.Location = new System.Drawing.Point(3, 3);
 			this.label42.Margin = new System.Windows.Forms.Padding(3);
 			this.label42.Name = "label42";
-			this.label42.Size = new System.Drawing.Size(314, 14);
+			this.label42.Size = new System.Drawing.Size(316, 14);
 			this.label42.TabIndex = 6;
 			this.label42.Text = "Startpoint";
 			// 
@@ -530,7 +545,7 @@ namespace GeocachingTourPlanner
 			this.label43.Location = new System.Drawing.Point(3, 50);
 			this.label43.Margin = new System.Windows.Forms.Padding(3);
 			this.label43.Name = "label43";
-			this.label43.Size = new System.Drawing.Size(314, 14);
+			this.label43.Size = new System.Drawing.Size(316, 14);
 			this.label43.TabIndex = 7;
 			this.label43.Text = "Endpoint";
 			// 
@@ -539,16 +554,20 @@ namespace GeocachingTourPlanner
 			this.StartpointTextbox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.StartpointTextbox.Location = new System.Drawing.Point(3, 23);
 			this.StartpointTextbox.Name = "StartpointTextbox";
-			this.StartpointTextbox.Size = new System.Drawing.Size(314, 20);
+			this.StartpointTextbox.Size = new System.Drawing.Size(316, 20);
 			this.StartpointTextbox.TabIndex = 8;
+			this.StartpointTextbox.TextChanged += new System.EventHandler(this.StartpointTextbox_TextChanged);
+			this.StartpointTextbox.Leave += new System.EventHandler(this.StartpointTextbox_Leave);
 			// 
 			// EndpointTextbox
 			// 
 			this.EndpointTextbox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.EndpointTextbox.Location = new System.Drawing.Point(3, 70);
 			this.EndpointTextbox.Name = "EndpointTextbox";
-			this.EndpointTextbox.Size = new System.Drawing.Size(314, 20);
+			this.EndpointTextbox.Size = new System.Drawing.Size(316, 20);
 			this.EndpointTextbox.TabIndex = 9;
+			this.EndpointTextbox.TextChanged += new System.EventHandler(this.EndpointTextbox_TextChanged);
+			this.EndpointTextbox.Leave += new System.EventHandler(this.EndpointTextbox_Leave);
 			// 
 			// GeocachesTab
 			// 
@@ -556,7 +575,7 @@ namespace GeocachingTourPlanner
 			this.GeocachesTab.Location = new System.Drawing.Point(4, 22);
 			this.GeocachesTab.Name = "GeocachesTab";
 			this.GeocachesTab.Padding = new System.Windows.Forms.Padding(3);
-			this.GeocachesTab.Size = new System.Drawing.Size(974, 544);
+			this.GeocachesTab.Size = new System.Drawing.Size(980, 564);
 			this.GeocachesTab.TabIndex = 0;
 			this.GeocachesTab.Text = "Geocaches";
 			this.GeocachesTab.UseVisualStyleBackColor = true;
@@ -571,7 +590,7 @@ namespace GeocachingTourPlanner
 			this.GeocacheTable.Location = new System.Drawing.Point(3, 3);
 			this.GeocacheTable.Name = "GeocacheTable";
 			this.GeocacheTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.GeocacheTable.Size = new System.Drawing.Size(968, 538);
+			this.GeocacheTable.Size = new System.Drawing.Size(974, 558);
 			this.GeocacheTable.TabIndex = 0;
 			// 
 			// LeftTabs
@@ -582,10 +601,11 @@ namespace GeocachingTourPlanner
 			this.LeftTabs.Controls.Add(this.Routingprofiles);
 			this.LeftTabs.Controls.Add(this.Settings);
 			this.LeftTabs.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LeftTabs.Location = new System.Drawing.Point(3, 3);
+			this.LeftTabs.Location = new System.Drawing.Point(0, 0);
+			this.LeftTabs.Margin = new System.Windows.Forms.Padding(0);
 			this.LeftTabs.Name = "LeftTabs";
 			this.LeftTabs.SelectedIndex = 0;
-			this.LeftTabs.Size = new System.Drawing.Size(394, 570);
+			this.LeftTabs.Size = new System.Drawing.Size(400, 590);
 			this.LeftTabs.TabIndex = 2;
 			// 
 			// Firststeps
@@ -593,7 +613,7 @@ namespace GeocachingTourPlanner
 			this.Firststeps.Controls.Add(this.tableLayoutPanel17);
 			this.Firststeps.Location = new System.Drawing.Point(4, 22);
 			this.Firststeps.Name = "Firststeps";
-			this.Firststeps.Size = new System.Drawing.Size(386, 544);
+			this.Firststeps.Size = new System.Drawing.Size(392, 564);
 			this.Firststeps.TabIndex = 4;
 			this.Firststeps.Text = "First steps";
 			this.Firststeps.UseVisualStyleBackColor = true;
@@ -610,7 +630,7 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel17.RowCount = 2;
 			this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-			this.tableLayoutPanel17.Size = new System.Drawing.Size(386, 544);
+			this.tableLayoutPanel17.Size = new System.Drawing.Size(392, 564);
 			this.tableLayoutPanel17.TabIndex = 0;
 			// 
 			// webBrowser1
@@ -620,16 +640,16 @@ namespace GeocachingTourPlanner
 			this.webBrowser1.Location = new System.Drawing.Point(3, 3);
 			this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
 			this.webBrowser1.Name = "webBrowser1";
-			this.webBrowser1.Size = new System.Drawing.Size(380, 508);
+			this.webBrowser1.Size = new System.Drawing.Size(386, 528);
 			this.webBrowser1.TabIndex = 1;
 			this.webBrowser1.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.webBrowser1_Navigating);
 			// 
 			// OpenWikiButton
 			// 
 			this.OpenWikiButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.OpenWikiButton.Location = new System.Drawing.Point(3, 517);
+			this.OpenWikiButton.Location = new System.Drawing.Point(3, 537);
 			this.OpenWikiButton.Name = "OpenWikiButton";
-			this.OpenWikiButton.Size = new System.Drawing.Size(380, 24);
+			this.OpenWikiButton.Size = new System.Drawing.Size(386, 24);
 			this.OpenWikiButton.TabIndex = 2;
 			this.OpenWikiButton.Text = "Open Wiki in Browser";
 			this.OpenWikiButton.UseVisualStyleBackColor = true;
@@ -641,7 +661,7 @@ namespace GeocachingTourPlanner
 			this.Overviewpage.Location = new System.Drawing.Point(4, 22);
 			this.Overviewpage.Name = "Overviewpage";
 			this.Overviewpage.Padding = new System.Windows.Forms.Padding(3);
-			this.Overviewpage.Size = new System.Drawing.Size(386, 544);
+			this.Overviewpage.Size = new System.Drawing.Size(392, 564);
 			this.Overviewpage.TabIndex = 2;
 			this.Overviewpage.Text = "Overview";
 			this.Overviewpage.UseVisualStyleBackColor = true;
@@ -658,7 +678,7 @@ namespace GeocachingTourPlanner
 			this.NameStateTable.RowCount = 2;
 			this.NameStateTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
 			this.NameStateTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
-			this.NameStateTable.Size = new System.Drawing.Size(380, 538);
+			this.NameStateTable.Size = new System.Drawing.Size(386, 558);
 			this.NameStateTable.TabIndex = 0;
 			// 
 			// StateTableLayout
@@ -683,7 +703,7 @@ namespace GeocachingTourPlanner
 			this.StateTableLayout.Controls.Add(this.NewRatingprofileDatbaseButton, 2, 2);
 			this.StateTableLayout.Controls.Add(this.NewRoutingprofileDatabaseButton, 2, 4);
 			this.StateTableLayout.Dock = System.Windows.Forms.DockStyle.Top;
-			this.StateTableLayout.Location = new System.Drawing.Point(3, 56);
+			this.StateTableLayout.Location = new System.Drawing.Point(3, 58);
 			this.StateTableLayout.Name = "StateTableLayout";
 			this.StateTableLayout.RowCount = 9;
 			this.StateTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -695,17 +715,17 @@ namespace GeocachingTourPlanner
 			this.StateTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.StateTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.StateTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.StateTableLayout.Size = new System.Drawing.Size(374, 479);
+			this.StateTableLayout.Size = new System.Drawing.Size(380, 461);
 			this.StateTableLayout.TabIndex = 2;
 			// 
 			// GeocachesStateLabel
 			// 
 			this.GeocachesStateLabel.AutoSize = true;
 			this.GeocachesStateLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.GeocachesStateLabel.Location = new System.Drawing.Point(5, 5);
-			this.GeocachesStateLabel.Margin = new System.Windows.Forms.Padding(5);
+			this.GeocachesStateLabel.Location = new System.Drawing.Point(3, 3);
+			this.GeocachesStateLabel.Margin = new System.Windows.Forms.Padding(3);
 			this.GeocachesStateLabel.Name = "GeocachesStateLabel";
-			this.GeocachesStateLabel.Size = new System.Drawing.Size(130, 13);
+			this.GeocachesStateLabel.Size = new System.Drawing.Size(136, 13);
 			this.GeocachesStateLabel.TabIndex = 1;
 			this.GeocachesStateLabel.Text = "0 Geocaches loaded";
 			this.GeocachesStateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -714,10 +734,10 @@ namespace GeocachingTourPlanner
 			// 
 			this.RatingprofilesStateLabel.AutoSize = true;
 			this.RatingprofilesStateLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.RatingprofilesStateLabel.Location = new System.Drawing.Point(5, 65);
-			this.RatingprofilesStateLabel.Margin = new System.Windows.Forms.Padding(5);
+			this.RatingprofilesStateLabel.Location = new System.Drawing.Point(3, 65);
+			this.RatingprofilesStateLabel.Margin = new System.Windows.Forms.Padding(3);
 			this.RatingprofilesStateLabel.Name = "RatingprofilesStateLabel";
-			this.RatingprofilesStateLabel.Size = new System.Drawing.Size(130, 13);
+			this.RatingprofilesStateLabel.Size = new System.Drawing.Size(136, 13);
 			this.RatingprofilesStateLabel.TabIndex = 2;
 			this.RatingprofilesStateLabel.Text = "0 Ratingprofiles loaded";
 			this.RatingprofilesStateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -726,10 +746,10 @@ namespace GeocachingTourPlanner
 			// 
 			this.RoutingprofilesStateLabel.AutoSize = true;
 			this.RoutingprofilesStateLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.RoutingprofilesStateLabel.Location = new System.Drawing.Point(5, 125);
-			this.RoutingprofilesStateLabel.Margin = new System.Windows.Forms.Padding(5);
+			this.RoutingprofilesStateLabel.Location = new System.Drawing.Point(3, 125);
+			this.RoutingprofilesStateLabel.Margin = new System.Windows.Forms.Padding(3);
 			this.RoutingprofilesStateLabel.Name = "RoutingprofilesStateLabel";
-			this.RoutingprofilesStateLabel.Size = new System.Drawing.Size(130, 13);
+			this.RoutingprofilesStateLabel.Size = new System.Drawing.Size(136, 13);
 			this.RoutingprofilesStateLabel.TabIndex = 3;
 			this.RoutingprofilesStateLabel.Text = "0 Routingprofiles loaded";
 			this.RoutingprofilesStateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -738,10 +758,10 @@ namespace GeocachingTourPlanner
 			// 
 			this.RouterDBStateLabel.AutoSize = true;
 			this.RouterDBStateLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.RouterDBStateLabel.Location = new System.Drawing.Point(5, 185);
-			this.RouterDBStateLabel.Margin = new System.Windows.Forms.Padding(5);
+			this.RouterDBStateLabel.Location = new System.Drawing.Point(3, 185);
+			this.RouterDBStateLabel.Margin = new System.Windows.Forms.Padding(3);
 			this.RouterDBStateLabel.Name = "RouterDBStateLabel";
-			this.RouterDBStateLabel.Size = new System.Drawing.Size(130, 13);
+			this.RouterDBStateLabel.Size = new System.Drawing.Size(136, 13);
 			this.RouterDBStateLabel.TabIndex = 4;
 			this.RouterDBStateLabel.Text = "No RouterDB loaded";
 			this.RouterDBStateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -749,11 +769,10 @@ namespace GeocachingTourPlanner
 			// SetGeocacheDBButton
 			// 
 			this.SetGeocacheDBButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.SetGeocacheDBButton.Location = new System.Drawing.Point(143, 2);
-			this.SetGeocacheDBButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.SetGeocacheDBButton.Location = new System.Drawing.Point(145, 3);
 			this.SetGeocacheDBButton.Name = "SetGeocacheDBButton";
 			this.StateTableLayout.SetRowSpan(this.SetGeocacheDBButton, 2);
-			this.SetGeocacheDBButton.Size = new System.Drawing.Size(110, 56);
+			this.SetGeocacheDBButton.Size = new System.Drawing.Size(112, 56);
 			this.SetGeocacheDBButton.TabIndex = 1;
 			this.SetGeocacheDBButton.Text = "Set Geocache Database";
 			this.SetGeocacheDBButton.UseVisualStyleBackColor = true;
@@ -762,11 +781,10 @@ namespace GeocachingTourPlanner
 			// ImportPQButton
 			// 
 			this.ImportPQButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.ImportPQButton.Location = new System.Drawing.Point(259, 2);
-			this.ImportPQButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.ImportPQButton.Location = new System.Drawing.Point(263, 3);
 			this.ImportPQButton.Name = "ImportPQButton";
 			this.StateTableLayout.SetRowSpan(this.ImportPQButton, 2);
-			this.ImportPQButton.Size = new System.Drawing.Size(112, 56);
+			this.ImportPQButton.Size = new System.Drawing.Size(114, 56);
 			this.ImportPQButton.TabIndex = 2;
 			this.ImportPQButton.Text = "Import Pocket Query";
 			this.ImportPQButton.UseVisualStyleBackColor = true;
@@ -775,11 +793,11 @@ namespace GeocachingTourPlanner
 			// SetRatingprofileDBButton
 			// 
 			this.SetRatingprofileDBButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.SetRatingprofileDBButton.Location = new System.Drawing.Point(143, 62);
+			this.SetRatingprofileDBButton.Location = new System.Drawing.Point(145, 64);
 			this.SetRatingprofileDBButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.SetRatingprofileDBButton.Name = "SetRatingprofileDBButton";
 			this.StateTableLayout.SetRowSpan(this.SetRatingprofileDBButton, 2);
-			this.SetRatingprofileDBButton.Size = new System.Drawing.Size(110, 56);
+			this.SetRatingprofileDBButton.Size = new System.Drawing.Size(112, 56);
 			this.SetRatingprofileDBButton.TabIndex = 3;
 			this.SetRatingprofileDBButton.Text = "Set Ratingprofile Database";
 			this.SetRatingprofileDBButton.UseVisualStyleBackColor = true;
@@ -788,11 +806,11 @@ namespace GeocachingTourPlanner
 			// SetRoutingprofileDBButton
 			// 
 			this.SetRoutingprofileDBButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.SetRoutingprofileDBButton.Location = new System.Drawing.Point(143, 122);
+			this.SetRoutingprofileDBButton.Location = new System.Drawing.Point(145, 124);
 			this.SetRoutingprofileDBButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.SetRoutingprofileDBButton.Name = "SetRoutingprofileDBButton";
 			this.StateTableLayout.SetRowSpan(this.SetRoutingprofileDBButton, 2);
-			this.SetRoutingprofileDBButton.Size = new System.Drawing.Size(110, 56);
+			this.SetRoutingprofileDBButton.Size = new System.Drawing.Size(112, 56);
 			this.SetRoutingprofileDBButton.TabIndex = 5;
 			this.SetRoutingprofileDBButton.Text = "Set Routingprofile Database";
 			this.SetRoutingprofileDBButton.UseVisualStyleBackColor = true;
@@ -800,12 +818,13 @@ namespace GeocachingTourPlanner
 			// 
 			// SetRouterDBButton
 			// 
+			this.SetRouterDBButton.AutoSize = true;
 			this.SetRouterDBButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.SetRouterDBButton.Location = new System.Drawing.Point(143, 182);
+			this.SetRouterDBButton.Location = new System.Drawing.Point(145, 184);
 			this.SetRouterDBButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.SetRouterDBButton.Name = "SetRouterDBButton";
 			this.StateTableLayout.SetRowSpan(this.SetRouterDBButton, 2);
-			this.SetRouterDBButton.Size = new System.Drawing.Size(110, 56);
+			this.SetRouterDBButton.Size = new System.Drawing.Size(112, 56);
 			this.SetRouterDBButton.TabIndex = 7;
 			this.SetRouterDBButton.Text = "Set Router Database";
 			this.SetRouterDBButton.UseVisualStyleBackColor = true;
@@ -813,12 +832,13 @@ namespace GeocachingTourPlanner
 			// 
 			// ImportPbfButton
 			// 
+			this.ImportPbfButton.AutoSize = true;
 			this.ImportPbfButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.ImportPbfButton.Location = new System.Drawing.Point(259, 182);
+			this.ImportPbfButton.Location = new System.Drawing.Point(263, 184);
 			this.ImportPbfButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.ImportPbfButton.Name = "ImportPbfButton";
 			this.StateTableLayout.SetRowSpan(this.ImportPbfButton, 2);
-			this.ImportPbfButton.Size = new System.Drawing.Size(112, 56);
+			this.ImportPbfButton.Size = new System.Drawing.Size(114, 56);
 			this.ImportPbfButton.TabIndex = 8;
 			this.ImportPbfButton.Text = "Import .pbf file";
 			this.ImportPbfButton.UseVisualStyleBackColor = true;
@@ -828,10 +848,10 @@ namespace GeocachingTourPlanner
 			// 
 			this.GetPQLabel.AutoSize = true;
 			this.GetPQLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.GetPQLabel.Location = new System.Drawing.Point(3, 25);
-			this.GetPQLabel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.GetPQLabel.Location = new System.Drawing.Point(3, 22);
+			this.GetPQLabel.Margin = new System.Windows.Forms.Padding(3);
 			this.GetPQLabel.Name = "GetPQLabel";
-			this.GetPQLabel.Size = new System.Drawing.Size(134, 33);
+			this.GetPQLabel.Size = new System.Drawing.Size(136, 37);
 			this.GetPQLabel.TabIndex = 0;
 			this.GetPQLabel.TabStop = true;
 			this.GetPQLabel.Text = "Get Pocket Query";
@@ -842,10 +862,10 @@ namespace GeocachingTourPlanner
 			// 
 			this.GetPbfLabel.AutoSize = true;
 			this.GetPbfLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.GetPbfLabel.Location = new System.Drawing.Point(3, 205);
-			this.GetPbfLabel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.GetPbfLabel.Location = new System.Drawing.Point(3, 204);
+			this.GetPbfLabel.Margin = new System.Windows.Forms.Padding(3);
 			this.GetPbfLabel.Name = "GetPbfLabel";
-			this.GetPbfLabel.Size = new System.Drawing.Size(134, 33);
+			this.GetPbfLabel.Size = new System.Drawing.Size(136, 35);
 			this.GetPbfLabel.TabIndex = 5;
 			this.GetPbfLabel.TabStop = true;
 			this.GetPbfLabel.Text = "Get OSM pbf file";
@@ -855,10 +875,10 @@ namespace GeocachingTourPlanner
 			// NewRatingprofileDatbaseButton
 			// 
 			this.NewRatingprofileDatbaseButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.NewRatingprofileDatbaseButton.Location = new System.Drawing.Point(259, 63);
+			this.NewRatingprofileDatbaseButton.Location = new System.Drawing.Point(263, 65);
 			this.NewRatingprofileDatbaseButton.Name = "NewRatingprofileDatbaseButton";
 			this.StateTableLayout.SetRowSpan(this.NewRatingprofileDatbaseButton, 2);
-			this.NewRatingprofileDatbaseButton.Size = new System.Drawing.Size(112, 54);
+			this.NewRatingprofileDatbaseButton.Size = new System.Drawing.Size(114, 54);
 			this.NewRatingprofileDatbaseButton.TabIndex = 4;
 			this.NewRatingprofileDatbaseButton.Text = "New, empty Database";
 			this.NewRatingprofileDatbaseButton.UseVisualStyleBackColor = true;
@@ -867,10 +887,10 @@ namespace GeocachingTourPlanner
 			// NewRoutingprofileDatabaseButton
 			// 
 			this.NewRoutingprofileDatabaseButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.NewRoutingprofileDatabaseButton.Location = new System.Drawing.Point(259, 123);
+			this.NewRoutingprofileDatabaseButton.Location = new System.Drawing.Point(263, 125);
 			this.NewRoutingprofileDatabaseButton.Name = "NewRoutingprofileDatabaseButton";
 			this.StateTableLayout.SetRowSpan(this.NewRoutingprofileDatabaseButton, 2);
-			this.NewRoutingprofileDatabaseButton.Size = new System.Drawing.Size(112, 54);
+			this.NewRoutingprofileDatabaseButton.Size = new System.Drawing.Size(114, 54);
 			this.NewRoutingprofileDatabaseButton.TabIndex = 6;
 			this.NewRoutingprofileDatabaseButton.Text = "New, empty Database";
 			this.NewRoutingprofileDatabaseButton.UseVisualStyleBackColor = true;
@@ -885,7 +905,7 @@ namespace GeocachingTourPlanner
 			this.NameLabel.Location = new System.Drawing.Point(5, 5);
 			this.NameLabel.Margin = new System.Windows.Forms.Padding(5);
 			this.NameLabel.Name = "NameLabel";
-			this.NameLabel.Size = new System.Drawing.Size(370, 43);
+			this.NameLabel.Size = new System.Drawing.Size(376, 45);
 			this.NameLabel.TabIndex = 0;
 			this.NameLabel.Text = "GeocachingTourPlanner";
 			this.NameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -897,7 +917,7 @@ namespace GeocachingTourPlanner
 			this.Ratingprofiles.Location = new System.Drawing.Point(4, 22);
 			this.Ratingprofiles.Name = "Ratingprofiles";
 			this.Ratingprofiles.Padding = new System.Windows.Forms.Padding(3);
-			this.Ratingprofiles.Size = new System.Drawing.Size(386, 544);
+			this.Ratingprofiles.Size = new System.Drawing.Size(392, 564);
 			this.Ratingprofiles.TabIndex = 0;
 			this.Ratingprofiles.Text = "Ratingprofiles";
 			this.Ratingprofiles.UseVisualStyleBackColor = true;
@@ -909,7 +929,7 @@ namespace GeocachingTourPlanner
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panel1.Location = new System.Drawing.Point(3, 3);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(380, 508);
+			this.panel1.Size = new System.Drawing.Size(386, 528);
 			this.panel1.TabIndex = 10;
 			// 
 			// RatingprofilesSettingsTabelLayout
@@ -917,43 +937,44 @@ namespace GeocachingTourPlanner
 			this.RatingprofilesSettingsTabelLayout.AutoSize = true;
 			this.RatingprofilesSettingsTabelLayout.ColumnCount = 1;
 			this.RatingprofilesSettingsTabelLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.RatingprofilesSettingsTabelLayout.Controls.Add(this.groupBox6, 0, 6);
+			this.RatingprofilesSettingsTabelLayout.Controls.Add(this.AgeGroupBox, 0, 6);
 			this.RatingprofilesSettingsTabelLayout.Controls.Add(this.DValueungGroupBox, 0, 4);
 			this.RatingprofilesSettingsTabelLayout.Controls.Add(this.GeocachetypGroupBox, 0, 2);
-			this.RatingprofilesSettingsTabelLayout.Controls.Add(this.label20, 0, 0);
+			this.RatingprofilesSettingsTabelLayout.Controls.Add(this.RatingprofileInfoLabel, 0, 0);
 			this.RatingprofilesSettingsTabelLayout.Controls.Add(this.GeocachegrößeGroupBox, 0, 3);
 			this.RatingprofilesSettingsTabelLayout.Controls.Add(this.TValueungGroupbox, 0, 5);
-			this.RatingprofilesSettingsTabelLayout.Controls.Add(this.Sonstiges, 0, 7);
+			this.RatingprofilesSettingsTabelLayout.Controls.Add(this.Other, 0, 7);
 			this.RatingprofilesSettingsTabelLayout.Controls.Add(this.tableLayoutPanel2, 0, 1);
 			this.RatingprofilesSettingsTabelLayout.Dock = System.Windows.Forms.DockStyle.Top;
 			this.RatingprofilesSettingsTabelLayout.Location = new System.Drawing.Point(0, 0);
 			this.RatingprofilesSettingsTabelLayout.Name = "RatingprofilesSettingsTabelLayout";
 			this.RatingprofilesSettingsTabelLayout.RowCount = 8;
 			this.RatingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.RatingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-			this.RatingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23.80916F));
-			this.RatingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19.04658F));
-			this.RatingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19.04975F));
-			this.RatingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19.04717F));
-			this.RatingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.523665F));
-			this.RatingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.523665F));
-			this.RatingprofilesSettingsTabelLayout.Size = new System.Drawing.Size(363, 617);
+			this.RatingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.RatingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.RatingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.RatingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.RatingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.RatingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.RatingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.RatingprofilesSettingsTabelLayout.Size = new System.Drawing.Size(369, 683);
 			this.RatingprofilesSettingsTabelLayout.TabIndex = 4;
 			// 
-			// groupBox6
+			// AgeGroupBox
 			// 
-			this.groupBox6.AutoSize = true;
-			this.groupBox6.Controls.Add(this.tableLayoutPanel8);
-			this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.groupBox6.Location = new System.Drawing.Point(3, 516);
-			this.groupBox6.Name = "groupBox6";
-			this.groupBox6.Size = new System.Drawing.Size(357, 45);
-			this.groupBox6.TabIndex = 5;
-			this.groupBox6.TabStop = false;
-			this.groupBox6.Text = "Age";
+			this.AgeGroupBox.AutoSize = true;
+			this.AgeGroupBox.Controls.Add(this.tableLayoutPanel8);
+			this.AgeGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.AgeGroupBox.Location = new System.Drawing.Point(3, 581);
+			this.AgeGroupBox.Name = "AgeGroupBox";
+			this.AgeGroupBox.Size = new System.Drawing.Size(363, 46);
+			this.AgeGroupBox.TabIndex = 5;
+			this.AgeGroupBox.TabStop = false;
+			this.AgeGroupBox.Text = "Age";
 			// 
 			// tableLayoutPanel8
 			// 
+			this.tableLayoutPanel8.AutoSize = true;
 			this.tableLayoutPanel8.ColumnCount = 2;
 			this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
 			this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
@@ -963,13 +984,13 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 16);
 			this.tableLayoutPanel8.Name = "tableLayoutPanel8";
 			this.tableLayoutPanel8.RowCount = 1;
-			this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel8.Size = new System.Drawing.Size(351, 26);
+			this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.tableLayoutPanel8.Size = new System.Drawing.Size(357, 27);
 			this.tableLayoutPanel8.TabIndex = 0;
 			// 
 			// AgeFactorValue
 			// 
-			this.AgeFactorValue.Location = new System.Drawing.Point(283, 3);
+			this.AgeFactorValue.Location = new System.Drawing.Point(288, 3);
 			this.AgeFactorValue.Name = "AgeFactorValue";
 			this.AgeFactorValue.Size = new System.Drawing.Size(30, 20);
 			this.AgeFactorValue.TabIndex = 24;
@@ -992,9 +1013,9 @@ namespace GeocachingTourPlanner
 			this.DValueungGroupBox.AutoSize = true;
 			this.DValueungGroupBox.Controls.Add(this.tableLayoutPanel4);
 			this.DValueungGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.DValueungGroupBox.Location = new System.Drawing.Point(3, 310);
+			this.DValueungGroupBox.Location = new System.Drawing.Point(3, 375);
 			this.DValueungGroupBox.Name = "DValueungGroupBox";
-			this.DValueungGroupBox.Size = new System.Drawing.Size(357, 97);
+			this.DValueungGroupBox.Size = new System.Drawing.Size(363, 97);
 			this.DValueungGroupBox.TabIndex = 2;
 			this.DValueungGroupBox.TabStop = false;
 			this.DValueungGroupBox.Text = "D-Rating";
@@ -1040,7 +1061,7 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.tableLayoutPanel4.Size = new System.Drawing.Size(351, 78);
+			this.tableLayoutPanel4.Size = new System.Drawing.Size(357, 78);
 			this.tableLayoutPanel4.TabIndex = 1;
 			// 
 			// label22
@@ -1221,10 +1242,10 @@ namespace GeocachingTourPlanner
 			this.GeocachetypGroupBox.AutoSize = true;
 			this.GeocachetypGroupBox.Controls.Add(this.tableLayoutPanel7);
 			this.GeocachetypGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.GeocachetypGroupBox.Location = new System.Drawing.Point(3, 78);
+			this.GeocachetypGroupBox.Location = new System.Drawing.Point(3, 143);
 			this.GeocachetypGroupBox.Name = "GeocachetypGroupBox";
 			this.GeocachetypGroupBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.GeocachetypGroupBox.Size = new System.Drawing.Size(357, 123);
+			this.GeocachetypGroupBox.Size = new System.Drawing.Size(363, 123);
 			this.GeocachetypGroupBox.TabIndex = 0;
 			this.GeocachetypGroupBox.TabStop = false;
 			this.GeocachetypGroupBox.Text = "Geocachetype";
@@ -1270,7 +1291,7 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanel7.Size = new System.Drawing.Size(351, 104);
+			this.tableLayoutPanel7.Size = new System.Drawing.Size(357, 104);
 			this.tableLayoutPanel7.TabIndex = 0;
 			// 
 			// WebcamValue
@@ -1450,19 +1471,17 @@ namespace GeocachingTourPlanner
 			this.TraditionalValue.Size = new System.Drawing.Size(30, 20);
 			this.TraditionalValue.TabIndex = 23;
 			// 
-			// label20
+			// RatingprofileInfoLabel
 			// 
-			this.label20.AutoSize = true;
-			this.RatingprofilesSettingsTabelLayout.SetColumnSpan(this.label20, 2);
-			this.label20.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label20.Location = new System.Drawing.Point(3, 3);
-			this.label20.Margin = new System.Windows.Forms.Padding(3);
-			this.label20.Name = "label20";
-			this.label20.Size = new System.Drawing.Size(357, 39);
-			this.label20.TabIndex = 6;
-			this.label20.Text = "You can rate everything from 0-9 Points. For each Geocache the selected value get" +
-    "s multiplied with the selected priority of the category and in the end everythin" +
-    "g gets added.";
+			this.RatingprofileInfoLabel.AutoSize = true;
+			this.RatingprofilesSettingsTabelLayout.SetColumnSpan(this.RatingprofileInfoLabel, 2);
+			this.RatingprofileInfoLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.RatingprofileInfoLabel.Location = new System.Drawing.Point(3, 3);
+			this.RatingprofileInfoLabel.Margin = new System.Windows.Forms.Padding(3);
+			this.RatingprofileInfoLabel.Name = "RatingprofileInfoLabel";
+			this.RatingprofileInfoLabel.Size = new System.Drawing.Size(363, 104);
+			this.RatingprofileInfoLabel.TabIndex = 6;
+			this.RatingprofileInfoLabel.Text = resources.GetString("RatingprofileInfoLabel.Text");
 			// 
 			// GeocachegrößeGroupBox
 			// 
@@ -1470,9 +1489,9 @@ namespace GeocachingTourPlanner
 			this.GeocachegrößeGroupBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.GeocachegrößeGroupBox.Controls.Add(this.tableLayoutPanel3);
 			this.GeocachegrößeGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.GeocachegrößeGroupBox.Location = new System.Drawing.Point(3, 207);
+			this.GeocachegrößeGroupBox.Location = new System.Drawing.Point(3, 272);
 			this.GeocachegrößeGroupBox.Name = "GeocachegrößeGroupBox";
-			this.GeocachegrößeGroupBox.Size = new System.Drawing.Size(357, 97);
+			this.GeocachegrößeGroupBox.Size = new System.Drawing.Size(363, 97);
 			this.GeocachegrößeGroupBox.TabIndex = 1;
 			this.GeocachegrößeGroupBox.TabStop = false;
 			this.GeocachegrößeGroupBox.Text = "Geocachesize";
@@ -1508,7 +1527,7 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanel3.Size = new System.Drawing.Size(351, 78);
+			this.tableLayoutPanel3.Size = new System.Drawing.Size(357, 78);
 			this.tableLayoutPanel3.TabIndex = 1;
 			// 
 			// RegularValue
@@ -1622,9 +1641,9 @@ namespace GeocachingTourPlanner
 			this.TValueungGroupbox.AutoSize = true;
 			this.TValueungGroupbox.Controls.Add(this.tableLayoutPanel5);
 			this.TValueungGroupbox.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TValueungGroupbox.Location = new System.Drawing.Point(3, 413);
+			this.TValueungGroupbox.Location = new System.Drawing.Point(3, 478);
 			this.TValueungGroupbox.Name = "TValueungGroupbox";
-			this.TValueungGroupbox.Size = new System.Drawing.Size(357, 97);
+			this.TValueungGroupbox.Size = new System.Drawing.Size(363, 97);
 			this.TValueungGroupbox.TabIndex = 3;
 			this.TValueungGroupbox.TabStop = false;
 			this.TValueungGroupbox.Text = "T-Rating";
@@ -1669,7 +1688,7 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.tableLayoutPanel5.Size = new System.Drawing.Size(351, 78);
+			this.tableLayoutPanel5.Size = new System.Drawing.Size(357, 78);
 			this.tableLayoutPanel5.TabIndex = 1;
 			// 
 			// label32
@@ -1845,20 +1864,20 @@ namespace GeocachingTourPlanner
 			this.T1Value.Size = new System.Drawing.Size(30, 20);
 			this.T1Value.TabIndex = 33;
 			// 
-			// Sonstiges
+			// Other
 			// 
-			this.Sonstiges.AutoSize = true;
-			this.Sonstiges.Controls.Add(this.tableLayoutPanel6);
-			this.Sonstiges.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.Sonstiges.Location = new System.Drawing.Point(3, 567);
-			this.Sonstiges.Name = "Sonstiges";
-			this.Sonstiges.Size = new System.Drawing.Size(357, 47);
-			this.Sonstiges.TabIndex = 4;
-			this.Sonstiges.TabStop = false;
-			this.Sonstiges.Text = "Other";
+			this.Other.Controls.Add(this.tableLayoutPanel6);
+			this.Other.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.Other.Location = new System.Drawing.Point(3, 633);
+			this.Other.Name = "Other";
+			this.Other.Size = new System.Drawing.Size(363, 47);
+			this.Other.TabIndex = 4;
+			this.Other.TabStop = false;
+			this.Other.Text = "Other";
 			// 
 			// tableLayoutPanel6
 			// 
+			this.tableLayoutPanel6.AutoSize = true;
 			this.tableLayoutPanel6.ColumnCount = 2;
 			this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
 			this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
@@ -1868,8 +1887,8 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 16);
 			this.tableLayoutPanel6.Name = "tableLayoutPanel6";
 			this.tableLayoutPanel6.RowCount = 1;
-			this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel6.Size = new System.Drawing.Size(351, 28);
+			this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.tableLayoutPanel6.Size = new System.Drawing.Size(357, 28);
 			this.tableLayoutPanel6.TabIndex = 0;
 			// 
 			// label15
@@ -1879,14 +1898,15 @@ namespace GeocachingTourPlanner
 			this.label15.Location = new System.Drawing.Point(3, 3);
 			this.label15.Margin = new System.Windows.Forms.Padding(3);
 			this.label15.Name = "label15";
-			this.label15.Size = new System.Drawing.Size(274, 22);
+			this.label15.Size = new System.Drawing.Size(279, 26);
 			this.label15.TabIndex = 0;
-			this.label15.Text = "Points substracted for a Needs maintenance attribute";
+			this.label15.Text = "Points substracted for a Needs maintenance attribute\r\nIf you are unsure, set it t" +
+    "o 100";
 			// 
 			// NMFlagValue
 			// 
 			this.NMFlagValue.Dock = System.Windows.Forms.DockStyle.Left;
-			this.NMFlagValue.Location = new System.Drawing.Point(283, 3);
+			this.NMFlagValue.Location = new System.Drawing.Point(288, 3);
 			this.NMFlagValue.Name = "NMFlagValue";
 			this.NMFlagValue.Size = new System.Drawing.Size(47, 20);
 			this.NMFlagValue.TabIndex = 1;
@@ -1899,11 +1919,11 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel2.Controls.Add(this.label55, 0, 0);
 			this.tableLayoutPanel2.Controls.Add(this.EditRatingprofileCombobox, 1, 0);
 			this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 48);
+			this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 113);
 			this.tableLayoutPanel2.Name = "tableLayoutPanel2";
 			this.tableLayoutPanel2.RowCount = 1;
 			this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel2.Size = new System.Drawing.Size(357, 24);
+			this.tableLayoutPanel2.Size = new System.Drawing.Size(363, 24);
 			this.tableLayoutPanel2.TabIndex = 7;
 			// 
 			// label55
@@ -1923,7 +1943,7 @@ namespace GeocachingTourPlanner
 			this.EditRatingprofileCombobox.FormattingEnabled = true;
 			this.EditRatingprofileCombobox.Location = new System.Drawing.Point(134, 3);
 			this.EditRatingprofileCombobox.Name = "EditRatingprofileCombobox";
-			this.EditRatingprofileCombobox.Size = new System.Drawing.Size(220, 21);
+			this.EditRatingprofileCombobox.Size = new System.Drawing.Size(226, 21);
 			this.EditRatingprofileCombobox.TabIndex = 1;
 			this.EditRatingprofileCombobox.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
 			// 
@@ -1941,11 +1961,11 @@ namespace GeocachingTourPlanner
 			this.SaveRatingprofileLayoutPanel.Controls.Add(this.label54, 0, 0);
 			this.SaveRatingprofileLayoutPanel.Controls.Add(this.RatingProfileName, 1, 0);
 			this.SaveRatingprofileLayoutPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.SaveRatingprofileLayoutPanel.Location = new System.Drawing.Point(3, 511);
+			this.SaveRatingprofileLayoutPanel.Location = new System.Drawing.Point(3, 531);
 			this.SaveRatingprofileLayoutPanel.Name = "SaveRatingprofileLayoutPanel";
 			this.SaveRatingprofileLayoutPanel.RowCount = 1;
 			this.SaveRatingprofileLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-			this.SaveRatingprofileLayoutPanel.Size = new System.Drawing.Size(380, 30);
+			this.SaveRatingprofileLayoutPanel.Size = new System.Drawing.Size(386, 30);
 			this.SaveRatingprofileLayoutPanel.TabIndex = 9;
 			// 
 			// DeleteRatingprofileButton
@@ -1953,10 +1973,10 @@ namespace GeocachingTourPlanner
 			this.DeleteRatingprofileButton.AutoSize = true;
 			this.DeleteRatingprofileButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.DeleteRatingprofileButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.DeleteRatingprofileButton.Location = new System.Drawing.Point(307, 3);
+			this.DeleteRatingprofileButton.Location = new System.Drawing.Point(311, 3);
 			this.DeleteRatingprofileButton.MinimumSize = new System.Drawing.Size(50, 20);
 			this.DeleteRatingprofileButton.Name = "DeleteRatingprofileButton";
-			this.DeleteRatingprofileButton.Size = new System.Drawing.Size(70, 24);
+			this.DeleteRatingprofileButton.Size = new System.Drawing.Size(72, 24);
 			this.DeleteRatingprofileButton.TabIndex = 0;
 			this.DeleteRatingprofileButton.Text = "Delete";
 			this.DeleteRatingprofileButton.UseVisualStyleBackColor = true;
@@ -1966,10 +1986,10 @@ namespace GeocachingTourPlanner
 			// 
 			this.CreateRatingprofileButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.CreateRatingprofileButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.CreateRatingprofileButton.Location = new System.Drawing.Point(231, 3);
+			this.CreateRatingprofileButton.Location = new System.Drawing.Point(234, 3);
 			this.CreateRatingprofileButton.MinimumSize = new System.Drawing.Size(50, 20);
 			this.CreateRatingprofileButton.Name = "CreateRatingprofileButton";
-			this.CreateRatingprofileButton.Size = new System.Drawing.Size(70, 24);
+			this.CreateRatingprofileButton.Size = new System.Drawing.Size(71, 24);
 			this.CreateRatingprofileButton.TabIndex = 1;
 			this.CreateRatingprofileButton.Text = "Save profile";
 			this.CreateRatingprofileButton.UseVisualStyleBackColor = true;
@@ -1983,7 +2003,7 @@ namespace GeocachingTourPlanner
 			this.label54.Margin = new System.Windows.Forms.Padding(3);
 			this.label54.MinimumSize = new System.Drawing.Size(50, 20);
 			this.label54.Name = "label54";
-			this.label54.Size = new System.Drawing.Size(70, 24);
+			this.label54.Size = new System.Drawing.Size(71, 24);
 			this.label54.TabIndex = 2;
 			this.label54.Text = "Save as";
 			this.label54.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1991,20 +2011,20 @@ namespace GeocachingTourPlanner
 			// RatingProfileName
 			// 
 			this.RatingProfileName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-			this.RatingProfileName.Location = new System.Drawing.Point(79, 5);
+			this.RatingProfileName.Location = new System.Drawing.Point(80, 5);
 			this.RatingProfileName.MinimumSize = new System.Drawing.Size(50, 20);
 			this.RatingProfileName.Name = "RatingProfileName";
-			this.RatingProfileName.Size = new System.Drawing.Size(146, 20);
+			this.RatingProfileName.Size = new System.Drawing.Size(148, 20);
 			this.RatingProfileName.TabIndex = 3;
 			// 
 			// Routingprofiles
 			// 
 			this.Routingprofiles.Controls.Add(this.SaveRoutingProfileTableLayout);
-			this.Routingprofiles.Controls.Add(this.RoutingprofilesSettingsTabelLayout);
+			this.Routingprofiles.Controls.Add(this.RoutingprofilesSettingsTableLayout);
 			this.Routingprofiles.Location = new System.Drawing.Point(4, 22);
 			this.Routingprofiles.Name = "Routingprofiles";
 			this.Routingprofiles.Padding = new System.Windows.Forms.Padding(3);
-			this.Routingprofiles.Size = new System.Drawing.Size(386, 544);
+			this.Routingprofiles.Size = new System.Drawing.Size(392, 564);
 			this.Routingprofiles.TabIndex = 1;
 			this.Routingprofiles.Text = "Routingprofiles";
 			this.Routingprofiles.UseVisualStyleBackColor = true;
@@ -2023,11 +2043,11 @@ namespace GeocachingTourPlanner
 			this.SaveRoutingProfileTableLayout.Controls.Add(this.label52, 0, 0);
 			this.SaveRoutingProfileTableLayout.Controls.Add(this.RoutingProfileName, 1, 0);
 			this.SaveRoutingProfileTableLayout.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.SaveRoutingProfileTableLayout.Location = new System.Drawing.Point(3, 511);
+			this.SaveRoutingProfileTableLayout.Location = new System.Drawing.Point(3, 531);
 			this.SaveRoutingProfileTableLayout.Name = "SaveRoutingProfileTableLayout";
 			this.SaveRoutingProfileTableLayout.RowCount = 1;
 			this.SaveRoutingProfileTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-			this.SaveRoutingProfileTableLayout.Size = new System.Drawing.Size(380, 30);
+			this.SaveRoutingProfileTableLayout.Size = new System.Drawing.Size(386, 30);
 			this.SaveRoutingProfileTableLayout.TabIndex = 11;
 			// 
 			// DeleteRoutingprofileButton
@@ -2035,10 +2055,10 @@ namespace GeocachingTourPlanner
 			this.DeleteRoutingprofileButton.AutoSize = true;
 			this.DeleteRoutingprofileButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.DeleteRoutingprofileButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.DeleteRoutingprofileButton.Location = new System.Drawing.Point(307, 3);
+			this.DeleteRoutingprofileButton.Location = new System.Drawing.Point(311, 3);
 			this.DeleteRoutingprofileButton.MinimumSize = new System.Drawing.Size(50, 20);
 			this.DeleteRoutingprofileButton.Name = "DeleteRoutingprofileButton";
-			this.DeleteRoutingprofileButton.Size = new System.Drawing.Size(70, 24);
+			this.DeleteRoutingprofileButton.Size = new System.Drawing.Size(72, 24);
 			this.DeleteRoutingprofileButton.TabIndex = 0;
 			this.DeleteRoutingprofileButton.Text = "Delete";
 			this.DeleteRoutingprofileButton.UseVisualStyleBackColor = true;
@@ -2048,10 +2068,10 @@ namespace GeocachingTourPlanner
 			// 
 			this.button2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.button2.Location = new System.Drawing.Point(231, 3);
+			this.button2.Location = new System.Drawing.Point(234, 3);
 			this.button2.MinimumSize = new System.Drawing.Size(50, 20);
 			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(70, 24);
+			this.button2.Size = new System.Drawing.Size(71, 24);
 			this.button2.TabIndex = 1;
 			this.button2.Text = "Save profile";
 			this.button2.UseVisualStyleBackColor = true;
@@ -2065,7 +2085,7 @@ namespace GeocachingTourPlanner
 			this.label52.Margin = new System.Windows.Forms.Padding(3);
 			this.label52.MinimumSize = new System.Drawing.Size(50, 20);
 			this.label52.Name = "label52";
-			this.label52.Size = new System.Drawing.Size(70, 24);
+			this.label52.Size = new System.Drawing.Size(71, 24);
 			this.label52.TabIndex = 2;
 			this.label52.Text = "Save as";
 			this.label52.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -2073,34 +2093,34 @@ namespace GeocachingTourPlanner
 			// RoutingProfileName
 			// 
 			this.RoutingProfileName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-			this.RoutingProfileName.Location = new System.Drawing.Point(79, 5);
+			this.RoutingProfileName.Location = new System.Drawing.Point(80, 5);
 			this.RoutingProfileName.MinimumSize = new System.Drawing.Size(50, 20);
 			this.RoutingProfileName.Name = "RoutingProfileName";
-			this.RoutingProfileName.Size = new System.Drawing.Size(146, 20);
+			this.RoutingProfileName.Size = new System.Drawing.Size(148, 20);
 			this.RoutingProfileName.TabIndex = 3;
 			// 
-			// RoutingprofilesSettingsTabelLayout
+			// RoutingprofilesSettingsTableLayout
 			// 
-			this.RoutingprofilesSettingsTabelLayout.AutoScroll = true;
-			this.RoutingprofilesSettingsTabelLayout.ColumnCount = 1;
-			this.RoutingprofilesSettingsTabelLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.RoutingprofilesSettingsTabelLayout.Controls.Add(this.RoutingCoreGroupbox, 0, 2);
-			this.RoutingprofilesSettingsTabelLayout.Controls.Add(this.DistanceGroupBox, 0, 3);
-			this.RoutingprofilesSettingsTabelLayout.Controls.Add(this.TimeGroupBox, 0, 4);
-			this.RoutingprofilesSettingsTabelLayout.Controls.Add(this.label44, 0, 0);
-			this.RoutingprofilesSettingsTabelLayout.Controls.Add(this.tableLayoutPanel14, 0, 1);
-			this.RoutingprofilesSettingsTabelLayout.Dock = System.Windows.Forms.DockStyle.Top;
-			this.RoutingprofilesSettingsTabelLayout.Location = new System.Drawing.Point(3, 3);
-			this.RoutingprofilesSettingsTabelLayout.Name = "RoutingprofilesSettingsTabelLayout";
-			this.RoutingprofilesSettingsTabelLayout.RowCount = 6;
-			this.RoutingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.RoutingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-			this.RoutingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.RoutingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.RoutingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.RoutingprofilesSettingsTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.RoutingprofilesSettingsTabelLayout.Size = new System.Drawing.Size(380, 350);
-			this.RoutingprofilesSettingsTabelLayout.TabIndex = 0;
+			this.RoutingprofilesSettingsTableLayout.AutoScroll = true;
+			this.RoutingprofilesSettingsTableLayout.ColumnCount = 1;
+			this.RoutingprofilesSettingsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			this.RoutingprofilesSettingsTableLayout.Controls.Add(this.RoutingCoreGroupbox, 0, 2);
+			this.RoutingprofilesSettingsTableLayout.Controls.Add(this.DistanceGroupBox, 0, 3);
+			this.RoutingprofilesSettingsTableLayout.Controls.Add(this.TimeGroupBox, 0, 4);
+			this.RoutingprofilesSettingsTableLayout.Controls.Add(this.label44, 0, 0);
+			this.RoutingprofilesSettingsTableLayout.Controls.Add(this.tableLayoutPanel14, 0, 1);
+			this.RoutingprofilesSettingsTableLayout.Dock = System.Windows.Forms.DockStyle.Top;
+			this.RoutingprofilesSettingsTableLayout.Location = new System.Drawing.Point(3, 3);
+			this.RoutingprofilesSettingsTableLayout.Name = "RoutingprofilesSettingsTableLayout";
+			this.RoutingprofilesSettingsTableLayout.RowCount = 6;
+			this.RoutingprofilesSettingsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.RoutingprofilesSettingsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+			this.RoutingprofilesSettingsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.RoutingprofilesSettingsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.RoutingprofilesSettingsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.RoutingprofilesSettingsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+			this.RoutingprofilesSettingsTableLayout.Size = new System.Drawing.Size(386, 350);
+			this.RoutingprofilesSettingsTableLayout.TabIndex = 0;
 			// 
 			// RoutingCoreGroupbox
 			// 
@@ -2108,7 +2128,7 @@ namespace GeocachingTourPlanner
 			this.RoutingCoreGroupbox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.RoutingCoreGroupbox.Location = new System.Drawing.Point(3, 88);
 			this.RoutingCoreGroupbox.Name = "RoutingCoreGroupbox";
-			this.RoutingCoreGroupbox.Size = new System.Drawing.Size(374, 50);
+			this.RoutingCoreGroupbox.Size = new System.Drawing.Size(380, 50);
 			this.RoutingCoreGroupbox.TabIndex = 1;
 			this.RoutingCoreGroupbox.TabStop = false;
 			this.RoutingCoreGroupbox.Text = "RoutingCore";
@@ -2129,7 +2149,7 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel11.Name = "tableLayoutPanel11";
 			this.tableLayoutPanel11.RowCount = 1;
 			this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel11.Size = new System.Drawing.Size(368, 31);
+			this.tableLayoutPanel11.Size = new System.Drawing.Size(374, 31);
 			this.tableLayoutPanel11.TabIndex = 0;
 			// 
 			// label45
@@ -2191,7 +2211,7 @@ namespace GeocachingTourPlanner
 			this.DistanceGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.DistanceGroupBox.Location = new System.Drawing.Point(3, 144);
 			this.DistanceGroupBox.Name = "DistanceGroupBox";
-			this.DistanceGroupBox.Size = new System.Drawing.Size(374, 60);
+			this.DistanceGroupBox.Size = new System.Drawing.Size(380, 60);
 			this.DistanceGroupBox.TabIndex = 2;
 			this.DistanceGroupBox.TabStop = false;
 			this.DistanceGroupBox.Text = "Distance";
@@ -2212,13 +2232,13 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel12.Name = "tableLayoutPanel12";
 			this.tableLayoutPanel12.RowCount = 1;
 			this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel12.Size = new System.Drawing.Size(368, 41);
+			this.tableLayoutPanel12.Size = new System.Drawing.Size(374, 41);
 			this.tableLayoutPanel12.TabIndex = 0;
 			// 
 			// MaxDistance
 			// 
 			this.MaxDistance.Anchor = System.Windows.Forms.AnchorStyles.Left;
-			this.MaxDistance.Location = new System.Drawing.Point(95, 10);
+			this.MaxDistance.Location = new System.Drawing.Point(96, 10);
 			this.MaxDistance.Name = "MaxDistance";
 			this.MaxDistance.Size = new System.Drawing.Size(86, 20);
 			this.MaxDistance.TabIndex = 0;
@@ -2226,7 +2246,7 @@ namespace GeocachingTourPlanner
 			// PenaltyPerExtraKm
 			// 
 			this.PenaltyPerExtraKm.Anchor = System.Windows.Forms.AnchorStyles.Left;
-			this.PenaltyPerExtraKm.Location = new System.Drawing.Point(279, 10);
+			this.PenaltyPerExtraKm.Location = new System.Drawing.Point(282, 10);
 			this.PenaltyPerExtraKm.Name = "PenaltyPerExtraKm";
 			this.PenaltyPerExtraKm.Size = new System.Drawing.Size(86, 20);
 			this.PenaltyPerExtraKm.TabIndex = 1;
@@ -2246,7 +2266,7 @@ namespace GeocachingTourPlanner
 			// 
 			this.label48.Anchor = System.Windows.Forms.AnchorStyles.Left;
 			this.label48.AutoSize = true;
-			this.label48.Location = new System.Drawing.Point(187, 7);
+			this.label48.Location = new System.Drawing.Point(189, 7);
 			this.label48.Margin = new System.Windows.Forms.Padding(3);
 			this.label48.Name = "label48";
 			this.label48.Size = new System.Drawing.Size(86, 26);
@@ -2259,7 +2279,7 @@ namespace GeocachingTourPlanner
 			this.TimeGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TimeGroupBox.Location = new System.Drawing.Point(3, 210);
 			this.TimeGroupBox.Name = "TimeGroupBox";
-			this.TimeGroupBox.Size = new System.Drawing.Size(374, 100);
+			this.TimeGroupBox.Size = new System.Drawing.Size(380, 100);
 			this.TimeGroupBox.TabIndex = 3;
 			this.TimeGroupBox.TabStop = false;
 			this.TimeGroupBox.Text = "Time";
@@ -2283,7 +2303,7 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel13.RowCount = 2;
 			this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
 			this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.tableLayoutPanel13.Size = new System.Drawing.Size(368, 81);
+			this.tableLayoutPanel13.Size = new System.Drawing.Size(374, 81);
 			this.tableLayoutPanel13.TabIndex = 0;
 			// 
 			// label49
@@ -2300,7 +2320,7 @@ namespace GeocachingTourPlanner
 			// 
 			this.label50.Anchor = System.Windows.Forms.AnchorStyles.Left;
 			this.label50.AutoSize = true;
-			this.label50.Location = new System.Drawing.Point(187, 7);
+			this.label50.Location = new System.Drawing.Point(189, 7);
 			this.label50.Margin = new System.Windows.Forms.Padding(3);
 			this.label50.Name = "label50";
 			this.label50.Size = new System.Drawing.Size(86, 26);
@@ -2314,14 +2334,14 @@ namespace GeocachingTourPlanner
 			this.label51.Location = new System.Drawing.Point(3, 47);
 			this.label51.Margin = new System.Windows.Forms.Padding(3);
 			this.label51.Name = "label51";
-			this.label51.Size = new System.Drawing.Size(75, 26);
+			this.label51.Size = new System.Drawing.Size(87, 26);
 			this.label51.TabIndex = 2;
 			this.label51.Text = "Time needed per Geocache";
 			// 
 			// MaxTime
 			// 
 			this.MaxTime.Anchor = System.Windows.Forms.AnchorStyles.Left;
-			this.MaxTime.Location = new System.Drawing.Point(95, 10);
+			this.MaxTime.Location = new System.Drawing.Point(96, 10);
 			this.MaxTime.Name = "MaxTime";
 			this.MaxTime.Size = new System.Drawing.Size(86, 20);
 			this.MaxTime.TabIndex = 3;
@@ -2329,7 +2349,7 @@ namespace GeocachingTourPlanner
 			// TimePerGeocache
 			// 
 			this.TimePerGeocache.Anchor = System.Windows.Forms.AnchorStyles.Left;
-			this.TimePerGeocache.Location = new System.Drawing.Point(95, 50);
+			this.TimePerGeocache.Location = new System.Drawing.Point(96, 50);
 			this.TimePerGeocache.Name = "TimePerGeocache";
 			this.TimePerGeocache.Size = new System.Drawing.Size(86, 20);
 			this.TimePerGeocache.TabIndex = 4;
@@ -2337,7 +2357,7 @@ namespace GeocachingTourPlanner
 			// PenaltyPerExtra10min
 			// 
 			this.PenaltyPerExtra10min.Anchor = System.Windows.Forms.AnchorStyles.Left;
-			this.PenaltyPerExtra10min.Location = new System.Drawing.Point(279, 10);
+			this.PenaltyPerExtra10min.Location = new System.Drawing.Point(282, 10);
 			this.PenaltyPerExtra10min.Name = "PenaltyPerExtra10min";
 			this.PenaltyPerExtra10min.Size = new System.Drawing.Size(86, 20);
 			this.PenaltyPerExtra10min.TabIndex = 5;
@@ -2349,7 +2369,7 @@ namespace GeocachingTourPlanner
 			this.label44.Location = new System.Drawing.Point(3, 3);
 			this.label44.Margin = new System.Windows.Forms.Padding(3);
 			this.label44.Name = "label44";
-			this.label44.Size = new System.Drawing.Size(374, 39);
+			this.label44.Size = new System.Drawing.Size(380, 39);
 			this.label44.TabIndex = 4;
 			this.label44.Text = "The Penalty per extra km should be chosen in a way, that it equals the amount of " +
     "points a Geocache must have that you\'d go the extra km. Same goes for the penalt" +
@@ -2367,7 +2387,7 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel14.Name = "tableLayoutPanel14";
 			this.tableLayoutPanel14.RowCount = 1;
 			this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.tableLayoutPanel14.Size = new System.Drawing.Size(374, 34);
+			this.tableLayoutPanel14.Size = new System.Drawing.Size(380, 34);
 			this.tableLayoutPanel14.TabIndex = 11;
 			// 
 			// label53
@@ -2385,145 +2405,84 @@ namespace GeocachingTourPlanner
 			// 
 			this.EditRoutingprofileCombobox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.EditRoutingprofileCombobox.FormattingEnabled = true;
-			this.EditRoutingprofileCombobox.Location = new System.Drawing.Point(190, 3);
+			this.EditRoutingprofileCombobox.Location = new System.Drawing.Point(193, 3);
 			this.EditRoutingprofileCombobox.Name = "EditRoutingprofileCombobox";
-			this.EditRoutingprofileCombobox.Size = new System.Drawing.Size(181, 21);
+			this.EditRoutingprofileCombobox.Size = new System.Drawing.Size(184, 21);
 			this.EditRoutingprofileCombobox.TabIndex = 1;
 			this.EditRoutingprofileCombobox.SelectedIndexChanged += new System.EventHandler(this.Dropdown_SelectedIndexChanged);
 			// 
 			// Settings
 			// 
-			this.Settings.Controls.Add(this.tableLayoutPanel15);
+			this.Settings.Controls.Add(this.SettingsTableLayoutPanel);
 			this.Settings.Location = new System.Drawing.Point(4, 22);
 			this.Settings.Name = "Settings";
-			this.Settings.Size = new System.Drawing.Size(386, 544);
+			this.Settings.Size = new System.Drawing.Size(392, 564);
 			this.Settings.TabIndex = 3;
 			this.Settings.Text = "Settings";
 			this.Settings.UseVisualStyleBackColor = true;
 			// 
-			// tableLayoutPanel15
+			// SettingsTableLayoutPanel
 			// 
-			this.tableLayoutPanel15.ColumnCount = 1;
-			this.tableLayoutPanel15.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.tableLayoutPanel15.Controls.Add(this.RoutingsettingsGroupbox, 0, 0);
-			this.tableLayoutPanel15.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tableLayoutPanel15.Location = new System.Drawing.Point(0, 0);
-			this.tableLayoutPanel15.Name = "tableLayoutPanel15";
-			this.tableLayoutPanel15.RowCount = 2;
-			this.tableLayoutPanel15.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.tableLayoutPanel15.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.tableLayoutPanel15.Size = new System.Drawing.Size(386, 544);
-			this.tableLayoutPanel15.TabIndex = 0;
+			this.SettingsTableLayoutPanel.AutoSize = true;
+			this.SettingsTableLayoutPanel.ColumnCount = 1;
+			this.SettingsTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			this.SettingsTableLayoutPanel.Controls.Add(this.RoutingsettingsGroupbox, 0, 0);
+			this.SettingsTableLayoutPanel.Controls.Add(this.Display_groupBox, 0, 1);
+			this.SettingsTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.SettingsTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
+			this.SettingsTableLayoutPanel.Name = "SettingsTableLayoutPanel";
+			this.SettingsTableLayoutPanel.RowCount = 2;
+			this.SettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.SettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.SettingsTableLayoutPanel.Size = new System.Drawing.Size(392, 564);
+			this.SettingsTableLayoutPanel.TabIndex = 0;
 			// 
 			// RoutingsettingsGroupbox
 			// 
-			this.RoutingsettingsGroupbox.Controls.Add(this.tableLayoutPanel16);
+			this.RoutingsettingsGroupbox.AutoSize = true;
+			this.RoutingsettingsGroupbox.Controls.Add(this.RoutingSettingsTableLayoutPanel);
 			this.RoutingsettingsGroupbox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.RoutingsettingsGroupbox.Location = new System.Drawing.Point(3, 3);
+			this.RoutingsettingsGroupbox.MinimumSize = new System.Drawing.Size(0, 270);
 			this.RoutingsettingsGroupbox.Name = "RoutingsettingsGroupbox";
-			this.RoutingsettingsGroupbox.Size = new System.Drawing.Size(380, 266);
+			this.RoutingsettingsGroupbox.Size = new System.Drawing.Size(386, 270);
 			this.RoutingsettingsGroupbox.TabIndex = 0;
 			this.RoutingsettingsGroupbox.TabStop = false;
 			this.RoutingsettingsGroupbox.Text = "Routing settings";
 			// 
-			// tableLayoutPanel16
+			// RoutingSettingsTableLayoutPanel
 			// 
-			this.tableLayoutPanel16.ColumnCount = 2;
-			this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
-			this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-			this.tableLayoutPanel16.Controls.Add(this.label56, 0, 2);
-			this.tableLayoutPanel16.Controls.Add(this.label57, 0, 3);
-			this.tableLayoutPanel16.Controls.Add(this.label58, 0, 4);
-			this.tableLayoutPanel16.Controls.Add(this.EveryNthPointTextBox, 1, 2);
-			this.tableLayoutPanel16.Controls.Add(this.DivisorTextBox, 1, 3);
-			this.tableLayoutPanel16.Controls.Add(this.ToleranceTextBox, 1, 4);
-			this.tableLayoutPanel16.Controls.Add(this.label59, 0, 1);
-			this.tableLayoutPanel16.Controls.Add(this.RoutefindingWidth_Textbox, 1, 1);
-			this.tableLayoutPanel16.Controls.Add(this.LiveDisplayRouteCalculationCheckbox, 0, 5);
-			this.tableLayoutPanel16.Controls.Add(this.Autotargetselection, 0, 0);
-			this.tableLayoutPanel16.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tableLayoutPanel16.Location = new System.Drawing.Point(3, 16);
-			this.tableLayoutPanel16.Name = "tableLayoutPanel16";
-			this.tableLayoutPanel16.RowCount = 6;
-			this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel16.Size = new System.Drawing.Size(374, 247);
-			this.tableLayoutPanel16.TabIndex = 0;
-			// 
-			// label56
-			// 
-			this.label56.AutoSize = true;
-			this.label56.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label56.Location = new System.Drawing.Point(3, 58);
-			this.label56.Margin = new System.Windows.Forms.Padding(3);
-			this.label56.Name = "label56";
-			this.label56.Size = new System.Drawing.Size(293, 39);
-			this.label56.TabIndex = 0;
-			this.label56.Text = "Look at every nth trackpoint to determine wether a geocache is in range of the ro" +
-    "ute. Values range, but calculate with 25 points per km. (Default: 1)";
-			// 
-			// label57
-			// 
-			this.label57.AutoSize = true;
-			this.label57.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label57.Location = new System.Drawing.Point(3, 103);
-			this.label57.Margin = new System.Windows.Forms.Padding(3);
-			this.label57.Name = "label57";
-			this.label57.Size = new System.Drawing.Size(293, 39);
-			this.label57.TabIndex = 1;
-			this.label57.Text = "Divide remaining distance of route by this value when checking if geocache is in " +
-    "distance. Should be at least two, for more geocaches on route it should be highe" +
-    "r. (Default: 5)";
-			// 
-			// label58
-			// 
-			this.label58.AutoSize = true;
-			this.label58.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label58.Location = new System.Drawing.Point(3, 148);
-			this.label58.Margin = new System.Windows.Forms.Padding(3);
-			this.label58.Name = "label58";
-			this.label58.Size = new System.Drawing.Size(293, 39);
-			this.label58.TabIndex = 2;
-			this.label58.Text = "Tolerance in m when calculating geocaches in distance. Makes sure that when dista" +
-    "nce is used up, caches that lie directly on the way are still considered. (Defau" +
-    "lt: 200)";
-			// 
-			// EveryNthPointTextBox
-			// 
-			this.EveryNthPointTextBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-			this.EveryNthPointTextBox.Location = new System.Drawing.Point(302, 67);
-			this.EveryNthPointTextBox.Name = "EveryNthPointTextBox";
-			this.EveryNthPointTextBox.Size = new System.Drawing.Size(69, 20);
-			this.EveryNthPointTextBox.TabIndex = 3;
-			this.EveryNthPointTextBox.TextChanged += new System.EventHandler(this.EveryNthPointTextBox_TextChanged);
-			// 
-			// DivisorTextBox
-			// 
-			this.DivisorTextBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-			this.DivisorTextBox.Location = new System.Drawing.Point(302, 112);
-			this.DivisorTextBox.Name = "DivisorTextBox";
-			this.DivisorTextBox.Size = new System.Drawing.Size(69, 20);
-			this.DivisorTextBox.TabIndex = 4;
-			this.DivisorTextBox.TextChanged += new System.EventHandler(this.DivisorTextBox_TextChanged);
-			// 
-			// ToleranceTextBox
-			// 
-			this.ToleranceTextBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-			this.ToleranceTextBox.Location = new System.Drawing.Point(302, 157);
-			this.ToleranceTextBox.Name = "ToleranceTextBox";
-			this.ToleranceTextBox.Size = new System.Drawing.Size(69, 20);
-			this.ToleranceTextBox.TabIndex = 5;
-			this.ToleranceTextBox.TextChanged += new System.EventHandler(this.ToleranceTextBox_TextChanged);
+			this.RoutingSettingsTableLayoutPanel.AutoSize = true;
+			this.RoutingSettingsTableLayoutPanel.ColumnCount = 2;
+			this.RoutingSettingsTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
+			this.RoutingSettingsTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+			this.RoutingSettingsTableLayoutPanel.Controls.Add(this.label59, 0, 2);
+			this.RoutingSettingsTableLayoutPanel.Controls.Add(this.RoutefindingWidth_Textbox, 1, 2);
+			this.RoutingSettingsTableLayoutPanel.Controls.Add(this.Autotargetselection, 0, 0);
+			this.RoutingSettingsTableLayoutPanel.Controls.Add(this.LiveDisplayRouteCalculationCheckbox, 0, 1);
+			this.RoutingSettingsTableLayoutPanel.Controls.Add(this.AutotargetSelectionMaxDistanceLabel, 0, 5);
+			this.RoutingSettingsTableLayoutPanel.Controls.Add(this.AutotargetselectionMinLabel, 0, 6);
+			this.RoutingSettingsTableLayoutPanel.Controls.Add(this.AutotargetselectionMaxTextBox, 1, 5);
+			this.RoutingSettingsTableLayoutPanel.Controls.Add(this.AutotargetselectionMinTextBox, 1, 6);
+			this.RoutingSettingsTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.RoutingSettingsTableLayoutPanel.Location = new System.Drawing.Point(3, 16);
+			this.RoutingSettingsTableLayoutPanel.Name = "RoutingSettingsTableLayoutPanel";
+			this.RoutingSettingsTableLayoutPanel.RowCount = 5;
+			this.RoutingSettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.RoutingSettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.RoutingSettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.RoutingSettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.RoutingSettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.RoutingSettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.RoutingSettingsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.RoutingSettingsTableLayoutPanel.Size = new System.Drawing.Size(380, 251);
+			this.RoutingSettingsTableLayoutPanel.TabIndex = 0;
 			// 
 			// label59
 			// 
 			this.label59.Anchor = System.Windows.Forms.AnchorStyles.Left;
 			this.label59.AutoSize = true;
-			this.label59.Location = new System.Drawing.Point(3, 26);
+			this.label59.Location = new System.Drawing.Point(3, 49);
 			this.label59.Margin = new System.Windows.Forms.Padding(3);
 			this.label59.Name = "label59";
 			this.label59.Size = new System.Drawing.Size(254, 26);
@@ -2534,51 +2493,190 @@ namespace GeocachingTourPlanner
 			// RoutefindingWidth_Textbox
 			// 
 			this.RoutefindingWidth_Textbox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-			this.RoutefindingWidth_Textbox.Location = new System.Drawing.Point(302, 29);
+			this.RoutefindingWidth_Textbox.Location = new System.Drawing.Point(307, 52);
 			this.RoutefindingWidth_Textbox.Name = "RoutefindingWidth_Textbox";
 			this.RoutefindingWidth_Textbox.Size = new System.Drawing.Size(69, 20);
 			this.RoutefindingWidth_Textbox.TabIndex = 8;
 			this.RoutefindingWidth_Textbox.TextChanged += new System.EventHandler(this.RoutefindingWidth_Textbox_TextChanged);
-			// 
-			// LiveDisplayRouteCalculationCheckbox
-			// 
-			this.LiveDisplayRouteCalculationCheckbox.AutoSize = true;
-			this.LiveDisplayRouteCalculationCheckbox.Location = new System.Drawing.Point(3, 193);
-			this.LiveDisplayRouteCalculationCheckbox.Name = "LiveDisplayRouteCalculationCheckbox";
-			this.LiveDisplayRouteCalculationCheckbox.Size = new System.Drawing.Size(179, 17);
-			this.LiveDisplayRouteCalculationCheckbox.TabIndex = 9;
-			this.LiveDisplayRouteCalculationCheckbox.Text = "Live Display of calculated Route";
-			this.LiveDisplayRouteCalculationCheckbox.UseVisualStyleBackColor = true;
-			this.LiveDisplayRouteCalculationCheckbox.CheckedChanged += new System.EventHandler(this.LiveDisplayRouteCalculationCheckbox_CheckedChanged);
 			// 
 			// Autotargetselection
 			// 
 			this.Autotargetselection.AutoSize = true;
 			this.Autotargetselection.Checked = true;
 			this.Autotargetselection.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.tableLayoutPanel16.SetColumnSpan(this.Autotargetselection, 2);
+			this.RoutingSettingsTableLayoutPanel.SetColumnSpan(this.Autotargetselection, 2);
 			this.Autotargetselection.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.Autotargetselection.Location = new System.Drawing.Point(3, 3);
 			this.Autotargetselection.Name = "Autotargetselection";
-			this.Autotargetselection.Size = new System.Drawing.Size(368, 17);
+			this.Autotargetselection.Size = new System.Drawing.Size(374, 17);
 			this.Autotargetselection.TabIndex = 10;
 			this.Autotargetselection.Text = "Autotargetselection (Default: on)";
 			this.Autotargetselection.UseVisualStyleBackColor = true;
 			this.Autotargetselection.CheckedChanged += new System.EventHandler(this.Autotargetselection_CheckedChanged);
 			// 
+			// LiveDisplayRouteCalculationCheckbox
+			// 
+			this.LiveDisplayRouteCalculationCheckbox.AutoSize = true;
+			this.RoutingSettingsTableLayoutPanel.SetColumnSpan(this.LiveDisplayRouteCalculationCheckbox, 2);
+			this.LiveDisplayRouteCalculationCheckbox.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LiveDisplayRouteCalculationCheckbox.Location = new System.Drawing.Point(3, 26);
+			this.LiveDisplayRouteCalculationCheckbox.Name = "LiveDisplayRouteCalculationCheckbox";
+			this.LiveDisplayRouteCalculationCheckbox.Size = new System.Drawing.Size(374, 17);
+			this.LiveDisplayRouteCalculationCheckbox.TabIndex = 9;
+			this.LiveDisplayRouteCalculationCheckbox.Text = "Live Display of calculated Route";
+			this.LiveDisplayRouteCalculationCheckbox.UseVisualStyleBackColor = true;
+			this.LiveDisplayRouteCalculationCheckbox.CheckedChanged += new System.EventHandler(this.LiveDisplayRouteCalculationCheckbox_CheckedChanged);
+			// 
+			// AutotargetSelectionMaxDistanceLabel
+			// 
+			this.AutotargetSelectionMaxDistanceLabel.AutoSize = true;
+			this.AutotargetSelectionMaxDistanceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.AutotargetSelectionMaxDistanceLabel.Location = new System.Drawing.Point(3, 81);
+			this.AutotargetSelectionMaxDistanceLabel.Margin = new System.Windows.Forms.Padding(3);
+			this.AutotargetSelectionMaxDistanceLabel.Name = "AutotargetSelectionMaxDistanceLabel";
+			this.AutotargetSelectionMaxDistanceLabel.Size = new System.Drawing.Size(298, 26);
+			this.AutotargetSelectionMaxDistanceLabel.TabIndex = 11;
+			this.AutotargetSelectionMaxDistanceLabel.Text = "What percentage of the total distance should be used up *at most* in Autotargetse" +
+    "lection (Default 90)";
+			// 
+			// AutotargetselectionMinLabel
+			// 
+			this.AutotargetselectionMinLabel.AutoSize = true;
+			this.AutotargetselectionMinLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.AutotargetselectionMinLabel.Location = new System.Drawing.Point(3, 113);
+			this.AutotargetselectionMinLabel.Margin = new System.Windows.Forms.Padding(3);
+			this.AutotargetselectionMinLabel.Name = "AutotargetselectionMinLabel";
+			this.AutotargetselectionMinLabel.Size = new System.Drawing.Size(298, 135);
+			this.AutotargetselectionMinLabel.TabIndex = 12;
+			this.AutotargetselectionMinLabel.Text = "What percentage of the total distance and time should be used up *at least* in Au" +
+    "totargetselection? (Default 75)";
+			// 
+			// AutotargetselectionMaxTextBox
+			// 
+			this.AutotargetselectionMaxTextBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+			this.AutotargetselectionMaxTextBox.Location = new System.Drawing.Point(307, 84);
+			this.AutotargetselectionMaxTextBox.Name = "AutotargetselectionMaxTextBox";
+			this.AutotargetselectionMaxTextBox.Size = new System.Drawing.Size(70, 20);
+			this.AutotargetselectionMaxTextBox.TabIndex = 13;
+			this.AutotargetselectionMaxTextBox.TextChanged += new System.EventHandler(this.AutotargetselectionMaxTextbox_TextChanged);
+			this.AutotargetselectionMaxTextBox.Leave += new System.EventHandler(this.AutotargetselectionMaxTextBox_Leave);
+			// 
+			// AutotargetselectionMinTextBox
+			// 
+			this.AutotargetselectionMinTextBox.Location = new System.Drawing.Point(307, 113);
+			this.AutotargetselectionMinTextBox.Name = "AutotargetselectionMinTextBox";
+			this.AutotargetselectionMinTextBox.Size = new System.Drawing.Size(70, 20);
+			this.AutotargetselectionMinTextBox.TabIndex = 14;
+			this.AutotargetselectionMinTextBox.TextChanged += new System.EventHandler(this.AutotargetselectionMinTextBox_TextChanged);
+			this.AutotargetselectionMinTextBox.Leave += new System.EventHandler(this.AutotargetselectionMinTextBox_Leave);
+			// 
+			// Display_groupBox
+			// 
+			this.Display_groupBox.AutoSize = true;
+			this.Display_groupBox.Controls.Add(this.DisplaySettingsTableLayoutSettings);
+			this.Display_groupBox.Dock = System.Windows.Forms.DockStyle.Top;
+			this.Display_groupBox.Location = new System.Drawing.Point(3, 279);
+			this.Display_groupBox.Name = "Display_groupBox";
+			this.Display_groupBox.Size = new System.Drawing.Size(386, 89);
+			this.Display_groupBox.TabIndex = 1;
+			this.Display_groupBox.TabStop = false;
+			this.Display_groupBox.Text = "Display";
+			// 
+			// DisplaySettingsTableLayoutSettings
+			// 
+			this.DisplaySettingsTableLayoutSettings.AutoSize = true;
+			this.DisplaySettingsTableLayoutSettings.ColumnCount = 2;
+			this.DisplaySettingsTableLayoutSettings.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.DisplaySettingsTableLayoutSettings.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.DisplaySettingsTableLayoutSettings.Controls.Add(this.IconSizeLabel, 0, 0);
+			this.DisplaySettingsTableLayoutSettings.Controls.Add(this.MarkerSizeTrackBar, 0, 1);
+			this.DisplaySettingsTableLayoutSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.DisplaySettingsTableLayoutSettings.Location = new System.Drawing.Point(3, 16);
+			this.DisplaySettingsTableLayoutSettings.Name = "DisplaySettingsTableLayoutSettings";
+			this.DisplaySettingsTableLayoutSettings.RowCount = 2;
+			this.DisplaySettingsTableLayoutSettings.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.DisplaySettingsTableLayoutSettings.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.DisplaySettingsTableLayoutSettings.Size = new System.Drawing.Size(380, 70);
+			this.DisplaySettingsTableLayoutSettings.TabIndex = 0;
+			// 
+			// IconSizeLabel
+			// 
+			this.IconSizeLabel.AutoSize = true;
+			this.DisplaySettingsTableLayoutSettings.SetColumnSpan(this.IconSizeLabel, 2);
+			this.IconSizeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.IconSizeLabel.Location = new System.Drawing.Point(3, 3);
+			this.IconSizeLabel.Margin = new System.Windows.Forms.Padding(3);
+			this.IconSizeLabel.Name = "IconSizeLabel";
+			this.IconSizeLabel.Size = new System.Drawing.Size(374, 13);
+			this.IconSizeLabel.TabIndex = 0;
+			this.IconSizeLabel.Text = "Size of Icons on the map";
+			// 
+			// MarkerSizeTrackBar
+			// 
+			this.MarkerSizeTrackBar.BackColor = System.Drawing.SystemColors.Window;
+			this.DisplaySettingsTableLayoutSettings.SetColumnSpan(this.MarkerSizeTrackBar, 2);
+			this.MarkerSizeTrackBar.Dock = System.Windows.Forms.DockStyle.Top;
+			this.MarkerSizeTrackBar.Location = new System.Drawing.Point(3, 22);
+			this.MarkerSizeTrackBar.Maximum = 36;
+			this.MarkerSizeTrackBar.Minimum = 12;
+			this.MarkerSizeTrackBar.Name = "MarkerSizeTrackBar";
+			this.MarkerSizeTrackBar.Size = new System.Drawing.Size(374, 45);
+			this.MarkerSizeTrackBar.TabIndex = 1;
+			this.MarkerSizeTrackBar.Value = 12;
+			this.MarkerSizeTrackBar.Scroll += new System.EventHandler(this.MarkerSizeTrackBar_Scroll);
+			// 
+			// StatusbarTableLayoutPanel
+			// 
+			this.StatusbarTableLayoutPanel.ColumnCount = 3;
+			this.UpmostTableLayoutPanel.SetColumnSpan(this.StatusbarTableLayoutPanel, 2);
+			this.StatusbarTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+			this.StatusbarTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+			this.StatusbarTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 1182F));
+			this.StatusbarTableLayoutPanel.Controls.Add(this.StatusLabel, 0, 0);
+			this.StatusbarTableLayoutPanel.Controls.Add(this.ProgressBar, 1, 0);
+			this.StatusbarTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.StatusbarTableLayoutPanel.Location = new System.Drawing.Point(0, 590);
+			this.StatusbarTableLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
+			this.StatusbarTableLayoutPanel.Name = "StatusbarTableLayoutPanel";
+			this.StatusbarTableLayoutPanel.RowCount = 1;
+			this.StatusbarTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.StatusbarTableLayoutPanel.Size = new System.Drawing.Size(1388, 20);
+			this.StatusbarTableLayoutPanel.TabIndex = 4;
+			// 
+			// StatusLabel
+			// 
+			this.StatusLabel.AutoSize = true;
+			this.StatusLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.StatusLabel.Location = new System.Drawing.Point(3, 3);
+			this.StatusLabel.Margin = new System.Windows.Forms.Padding(3);
+			this.StatusLabel.Name = "StatusLabel";
+			this.StatusLabel.Size = new System.Drawing.Size(94, 14);
+			this.StatusLabel.TabIndex = 0;
+			this.StatusLabel.Text = "Startup Completed";
+			// 
+			// ProgressBar
+			// 
+			this.ProgressBar.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.ProgressBar.Location = new System.Drawing.Point(103, 3);
+			this.ProgressBar.Name = "ProgressBar";
+			this.ProgressBar.Size = new System.Drawing.Size(100, 14);
+			this.ProgressBar.TabIndex = 1;
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1388, 576);
+			this.ClientSize = new System.Drawing.Size(1388, 610);
 			this.Controls.Add(this.UpmostTableLayoutPanel);
 			this.Name = "Form1";
 			this.Text = "GeocachingTourPlanner";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
 			this.UpmostTableLayoutPanel.ResumeLayout(false);
 			this.Tabcontainer.ResumeLayout(false);
 			this.MapTab.ResumeLayout(false);
 			this.tableLayoutPanel1.ResumeLayout(false);
+			this.tableLayoutPanel1.PerformLayout();
 			this.MapTab_SideMenu.ResumeLayout(false);
 			this.MapTab_SideMenu.PerformLayout();
 			this.tableLayoutPanel10.ResumeLayout(false);
@@ -2599,7 +2697,8 @@ namespace GeocachingTourPlanner
 			this.panel1.PerformLayout();
 			this.RatingprofilesSettingsTabelLayout.ResumeLayout(false);
 			this.RatingprofilesSettingsTabelLayout.PerformLayout();
-			this.groupBox6.ResumeLayout(false);
+			this.AgeGroupBox.ResumeLayout(false);
+			this.AgeGroupBox.PerformLayout();
 			this.tableLayoutPanel8.ResumeLayout(false);
 			this.tableLayoutPanel8.PerformLayout();
 			this.DValueungGroupBox.ResumeLayout(false);
@@ -2618,7 +2717,8 @@ namespace GeocachingTourPlanner
 			this.TValueungGroupbox.PerformLayout();
 			this.tableLayoutPanel5.ResumeLayout(false);
 			this.tableLayoutPanel5.PerformLayout();
-			this.Sonstiges.ResumeLayout(false);
+			this.Other.ResumeLayout(false);
+			this.Other.PerformLayout();
 			this.tableLayoutPanel6.ResumeLayout(false);
 			this.tableLayoutPanel6.PerformLayout();
 			this.tableLayoutPanel2.ResumeLayout(false);
@@ -2629,8 +2729,8 @@ namespace GeocachingTourPlanner
 			this.Routingprofiles.PerformLayout();
 			this.SaveRoutingProfileTableLayout.ResumeLayout(false);
 			this.SaveRoutingProfileTableLayout.PerformLayout();
-			this.RoutingprofilesSettingsTabelLayout.ResumeLayout(false);
-			this.RoutingprofilesSettingsTabelLayout.PerformLayout();
+			this.RoutingprofilesSettingsTableLayout.ResumeLayout(false);
+			this.RoutingprofilesSettingsTableLayout.PerformLayout();
 			this.RoutingCoreGroupbox.ResumeLayout(false);
 			this.tableLayoutPanel11.ResumeLayout(false);
 			this.tableLayoutPanel11.PerformLayout();
@@ -2643,10 +2743,20 @@ namespace GeocachingTourPlanner
 			this.tableLayoutPanel14.ResumeLayout(false);
 			this.tableLayoutPanel14.PerformLayout();
 			this.Settings.ResumeLayout(false);
-			this.tableLayoutPanel15.ResumeLayout(false);
+			this.Settings.PerformLayout();
+			this.SettingsTableLayoutPanel.ResumeLayout(false);
+			this.SettingsTableLayoutPanel.PerformLayout();
 			this.RoutingsettingsGroupbox.ResumeLayout(false);
-			this.tableLayoutPanel16.ResumeLayout(false);
-			this.tableLayoutPanel16.PerformLayout();
+			this.RoutingsettingsGroupbox.PerformLayout();
+			this.RoutingSettingsTableLayoutPanel.ResumeLayout(false);
+			this.RoutingSettingsTableLayoutPanel.PerformLayout();
+			this.Display_groupBox.ResumeLayout(false);
+			this.Display_groupBox.PerformLayout();
+			this.DisplaySettingsTableLayoutSettings.ResumeLayout(false);
+			this.DisplaySettingsTableLayoutSettings.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.MarkerSizeTrackBar)).EndInit();
+			this.StatusbarTableLayoutPanel.ResumeLayout(false);
+			this.StatusbarTableLayoutPanel.PerformLayout();
 			this.ResumeLayout(false);
 
         }
@@ -2699,7 +2809,7 @@ namespace GeocachingTourPlanner
 		private System.Windows.Forms.TextBox EndpointTextbox;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.TableLayoutPanel RatingprofilesSettingsTabelLayout;
-		private System.Windows.Forms.GroupBox groupBox6;
+		private System.Windows.Forms.GroupBox AgeGroupBox;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
 		private System.Windows.Forms.ComboBox AgeValue;
 		private System.Windows.Forms.GroupBox DValueungGroupBox;
@@ -2726,7 +2836,7 @@ namespace GeocachingTourPlanner
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Label label19;
 		private System.Windows.Forms.Label label8;
-		private System.Windows.Forms.Label label20;
+		private System.Windows.Forms.Label RatingprofileInfoLabel;
 		private System.Windows.Forms.GroupBox GeocachegrößeGroupBox;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
 		private System.Windows.Forms.Label label7;
@@ -2747,14 +2857,14 @@ namespace GeocachingTourPlanner
 		private System.Windows.Forms.Label label34;
 		private System.Windows.Forms.Label label35;
 		private System.Windows.Forms.Label label31;
-		private System.Windows.Forms.GroupBox Sonstiges;
+		private System.Windows.Forms.GroupBox Other;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
 		private System.Windows.Forms.Label label15;
 		private System.Windows.Forms.TextBox NMFlagValue;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
 		private System.Windows.Forms.Label label55;
 		private System.Windows.Forms.ComboBox EditRatingprofileCombobox;
-		private System.Windows.Forms.TableLayoutPanel RoutingprofilesSettingsTabelLayout;
+		private System.Windows.Forms.TableLayoutPanel RoutingprofilesSettingsTableLayout;
 		private System.Windows.Forms.GroupBox RoutingCoreGroupbox;
 		private System.Windows.Forms.GroupBox DistanceGroupBox;
 		private System.Windows.Forms.GroupBox TimeGroupBox;
@@ -2784,15 +2894,9 @@ namespace GeocachingTourPlanner
 		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.Label label52;
 		public System.Windows.Forms.TextBox RoutingProfileName;
-		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel15;
+		private System.Windows.Forms.TableLayoutPanel SettingsTableLayoutPanel;
 		private System.Windows.Forms.GroupBox RoutingsettingsGroupbox;
-		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel16;
-		private System.Windows.Forms.Label label56;
-		private System.Windows.Forms.Label label57;
-		private System.Windows.Forms.Label label58;
-		private System.Windows.Forms.TextBox EveryNthPointTextBox;
-		private System.Windows.Forms.TextBox DivisorTextBox;
-		private System.Windows.Forms.TextBox ToleranceTextBox;
+		private System.Windows.Forms.TableLayoutPanel RoutingSettingsTableLayoutPanel;
 		private System.Windows.Forms.Label label59;
 		private System.Windows.Forms.TextBox RoutefindingWidth_Textbox;
 		private System.Windows.Forms.CheckBox LiveDisplayRouteCalculationCheckbox;
@@ -2845,6 +2949,17 @@ namespace GeocachingTourPlanner
 		private System.Windows.Forms.TextBox T25Value;
 		private System.Windows.Forms.TextBox T1Value;
 		private Button OpenWikiButton;
+		private GroupBox Display_groupBox;
+		private TableLayoutPanel DisplaySettingsTableLayoutSettings;
+		private Label IconSizeLabel;
+		private TrackBar MarkerSizeTrackBar;
+		private TableLayoutPanel StatusbarTableLayoutPanel;
+		private Label StatusLabel;
+		private ProgressBar ProgressBar;
+		private Label AutotargetSelectionMaxDistanceLabel;
+		private Label AutotargetselectionMinLabel;
+		private TextBox AutotargetselectionMaxTextBox;
+		private TextBox AutotargetselectionMinTextBox;
 	}
 }
 

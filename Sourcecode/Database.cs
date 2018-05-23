@@ -18,9 +18,6 @@ namespace GeocachingTourPlanner
 		/// </summary>
 		public Database()
 		{
-			GeocacheDB_Filepath = "Geocaches";
-			RatingprofileDB_Filepath = "Ratingprofiles";
-			RoutingprofileDB_Filepath = "Routingprofiles";
 		}
 
 		/// <summary>
@@ -48,19 +45,18 @@ namespace GeocachingTourPlanner
 		public float MaximalRating { get; set; }
 
 		public bool Autotargetselection { get; set; }
-		public int EveryNthShapepoint { get; set; }
-		public int Divisor { get; set; }
-		public int Tolerance { get; set; }
+		public float PercentageOfDistanceInAutoTargetselection_Max { get; set; }
+		public float PercentageOfDistanceInAutoTargetselection_Min { get; set; }
 		public int RoutefindingWidth { get; set; }
 		public bool DisplayLiveCalculation { get; set; }
 
 		#region Methods
 		/// <summary>
-		/// checks if a DatabaseFilepath and the associated file exist. If it is not the case it asks wether the user wants to select a database file. Returns true if a file exists in the end.
+		/// checks if a DatabaseFilepath and the associated file exist.
 		/// </summary>
 		/// <param name="DatabaseFilepath"></param>
 		/// <param name="DatabaseName"></param>
-		public bool CheckDatabaseFilepath(Databases DatabaseName)
+		public bool IsFilepathSet(Databases DatabaseName)
 		{
 			string DatabaseFilepath=null;
 			switch (DatabaseName)
@@ -80,15 +76,7 @@ namespace GeocachingTourPlanner
 			}
 			if(DatabaseFilepath == null || !File.Exists(DatabaseFilepath))//"||" So it doesn't run into exception if it is null
 			{
-				if(MessageBox.Show(new Form { TopMost = true }, "No " + DatabaseName + " found. Do you want to select a file?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
-				{
-					if (SetDatabaseFilepath(DatabaseName))
-					{
-						return true;
-					}
-				}
 				return false;
-				
 			}
 			else
 			{
@@ -101,13 +89,29 @@ namespace GeocachingTourPlanner
 		/// </summary>
 		/// <param name="DatabaseName"></param>
 		/// <returns></returns>
-		public bool SetDatabaseFilepath(Databases DatabaseName)
+		public bool OpenExistingDBFile(Databases DatabaseName)
 		{
 			OpenFileDialog StandardFileDialog = new OpenFileDialog()
 			{
 				InitialDirectory = LastUsedFilepath,
-				Filter = "All files (*.*)|*.*"
+				FilterIndex = 0,
 			};
+
+			switch (DatabaseName)
+			{
+				case Databases.Geocaches:
+					StandardFileDialog.Filter = "gcdb files (*.gcdb)|*.gcdb|All files (*.*)|*.*";
+					break;
+				case Databases.Ratingprofiles:
+					StandardFileDialog.Filter = "ratingprofiles files (*.ratingprf)|*.ratingprf|All files (*.*)|*.*";
+					break;
+				case Databases.Routingprofiles:
+					StandardFileDialog.Filter = "routingprofile files (*.routingprf)|*.routingprf|All files (*.*)|*.*";
+					break;
+				case Databases.RouterDB:
+					StandardFileDialog.Filter = "Routerdb files (*.routerdb)|*.routerdb|All files (*.*)|*.*";
+					break;
+			}
 
 			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
 			{

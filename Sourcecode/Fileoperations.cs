@@ -45,19 +45,25 @@ namespace GeocachingTourPlanner
 			}
 		}
 
+		/// <summary>
+		/// Reads routingprofiles from the filepath specified in the database. Only checks wether it is set, but takes no action if not
+		/// </summary>
 		public static void ReadRoutingprofiles()
 		{
 			Program.Routingprofiles.Clear();
 			StreamReader RPReader = null;
-			if (Program.DB.CheckDatabaseFilepath(Databases.Routingprofiles))//returns true if the user has set a valid database
+			if (Program.DB.IsFilepathSet(Databases.Routingprofiles))//returns true if the user has set a valid database
 			{
 				try
 				{
 					RPReader = new StreamReader(Program.DB.RoutingprofileDB_Filepath);
 					Program.Routingprofiles = (SortableBindingList<Routingprofile>)RoutingprofilesSerializer.Deserialize(RPReader);
+					//Deserializing makes the lists lose their bindings
+					Startup.BindLists();
 					RPReader.Close();
 
-					Backup(Program.Routingprofiles);
+					Program.MainWindow.UpdateStatus("Successfully read routingprofiles");
+					Program.Routingprofiles.ResetBindings();
 				}
 				catch (Exception)
 				{
@@ -71,25 +77,27 @@ namespace GeocachingTourPlanner
 					}
 				}
 			}
-
-			//To make them show up in the menu
-			Program.Routingprofiles.ListChanged += new ListChangedEventHandler(Program.MainWindow.Routingprofiles_ListChanged);
-			Program.Routingprofiles.ResetBindings();
-
 		}
 
+		/// <summary>
+		/// Reads ratingprofiles from file specified in the database. Only checks wether it is set, but takes no action if not
+		/// </summary>
 		public static void ReadRatingprofiles()
 		{
 			Program.Ratingprofiles.Clear();
 			StreamReader BPReader = null;
-			if (Program.DB.CheckDatabaseFilepath(Databases.Ratingprofiles))//returns true if the user has set a valid database
+			if (Program.DB.IsFilepathSet(Databases.Ratingprofiles))//returns true if the user has set a valid database
 			{
 				try
 				{
 					BPReader = new StreamReader(Program.DB.RatingprofileDB_Filepath);
+					Program.Ratingprofiles= (SortableBindingList<Ratingprofile>)RatingprofilesSerializer.Deserialize(BPReader);
+					//Deserializing makes the lists lose their bindings
+					Startup.BindLists();
 					BPReader.Close();
 
-					Backup(Program.Ratingprofiles);
+					Program.MainWindow.UpdateStatus("Successfully read ratingprofiles");
+					Program.Ratingprofiles.ResetBindings();
 				}
 				catch (Exception)
 				{
@@ -103,18 +111,17 @@ namespace GeocachingTourPlanner
 					}
 				}
 			}
-
-			//To make them show up in the menu. Here, as the binding should also happen if none could be loaded
-			Program.Ratingprofiles.ListChanged += new ListChangedEventHandler(Program.MainWindow.Ratingprofiles_ListChanged);
-			Program.Ratingprofiles.ResetBindings();
 		}
 
+		/// <summary>
+		/// Reads geocaches from database file specified in the main database. Only checks wether it is set, but takes no action if not
+		/// </summary>
 		public static void ReadGeocaches()
 		{
-			Program.Geocaches.Clear();
+			Program.Geocaches.Clear(); 
 			StreamReader GCReader = null;
 
-			if (Program.DB.CheckDatabaseFilepath(Databases.Geocaches))//returns true if the user has set a valid database
+			if (Program.DB.IsFilepathSet(Databases.Geocaches))//returns true if the user has set a valid database
 			{
 				try
 				{
@@ -125,6 +132,9 @@ namespace GeocachingTourPlanner
 					Program.Geocaches.OrderByDescending(x => x.Rating);
 					Program.DB.MaximalRating = Program.Geocaches[0].Rating;//Possible since list is sorted
 					Program.DB.MinimalRating = Program.Geocaches[Program.Geocaches.Count - 1].Rating;
+
+					Program.MainWindow.UpdateStatus("Successfully read geocaches");
+
 				}
 
 				catch (Exception)
@@ -143,6 +153,32 @@ namespace GeocachingTourPlanner
 			}
 		}
 
+		/// <summary>
+		/// Reads the set RouterDB in a new thread
+		/// </summary>
+		public static void ReadRouterDB()
+		{
+			new Thread(new ThreadStart(() =>
+			{
+				try
+				{
+					Program.MainWindow.UpdateStatus("Loading RouterDB in progress", 99);
+					using (var stream = new FileInfo(Program.DB.RouterDB_Filepath).OpenRead())
+					{
+						Program.RouterDB = RouterDb.Deserialize(stream);
+					}
+					Backup(null);
+
+					Program.MainWindow.SetRouterDBLabel("Successfully loaded RouterDB");
+					Program.MainWindow.UpdateStatus("Successfully loaded RouterDB", 100);
+				}
+				catch (Exception)
+				{
+					MessageBox.Show("Failed to read RouterDB", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					Program.MainWindow.UpdateStatus("failed loading RouterDB", 100);
+				}
+			})).Start();
+		}
 
 		/// <summary>
 		/// The main Database gets saved anyways specify which otherList should be saved alongside. Returns true on success
@@ -153,14 +189,14 @@ namespace GeocachingTourPlanner
 			//Aus Performancegrnden nicht alles
 			if (ExtraBackup == Program.Geocaches)
 			{
-				if (Program.DB.CheckDatabaseFilepath(Databases.Geocaches))
+
+				if (Program.DB.IsFilepathSet(Databases.Geocaches))
 				{
 					TextWriter GeocachesWriter = null;
 					try
 					{
 						GeocachesWriter = new StreamWriter(Program.DB.GeocacheDB_Filepath);
 						GeocachesSerializer.Serialize(GeocachesWriter, Program.Geocaches);
-						return true;
 					}
 					catch
 					{
@@ -179,7 +215,7 @@ namespace GeocachingTourPlanner
 
 			else if (ExtraBackup == Program.Routingprofiles)
 			{
-				if (Program.DB.CheckDatabaseFilepath(Databases.Routingprofiles))
+				if (Program.DB.IsFilepathSet(Databases.Routingprofiles))
 				{
 					TextWriter RoutingprofileWriter = null;
 					try
@@ -204,14 +240,13 @@ namespace GeocachingTourPlanner
 
 			else if (ExtraBackup == Program.Ratingprofiles)
 			{
-				if (Program.DB.CheckDatabaseFilepath(Databases.Ratingprofiles))
+				if (Program.DB.IsFilepathSet(Databases.Ratingprofiles))
 				{
-					TextWriter BewertungsprofileWriter = null;
+					TextWriter RatingprofileWriter = null;
 					try
 					{
-						BewertungsprofileWriter = new StreamWriter(Program.DB.RatingprofileDB_Filepath);
-						RatingprofilesSerializer.Serialize(BewertungsprofileWriter, Program.Ratingprofiles);
-						return true;
+						RatingprofileWriter = new StreamWriter(Program.DB.RatingprofileDB_Filepath);
+						RatingprofilesSerializer.Serialize(RatingprofileWriter, Program.Ratingprofiles);
 					}
 					catch (IOException)
 					{
@@ -221,9 +256,9 @@ namespace GeocachingTourPlanner
 					finally
 					{
 
-						if (BewertungsprofileWriter != null)
+						if (RatingprofileWriter != null)
 						{
-							BewertungsprofileWriter.Close();
+							RatingprofileWriter.Close();
 						}
 					}
 				}
@@ -249,14 +284,14 @@ namespace GeocachingTourPlanner
 			{
 				InitialDirectory = Program.DB.LastUsedFilepath,
 				Filter = "gpx files (*.gpx)|*.gpx|All files (*.*)|*.*",
-				FilterIndex = 1,
+				FilterIndex = 0,
 				RestoreDirectory = true,
 				Title = "Export route as track"
 			};
 			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
 			{
 
-				KeyValueTriple<string, Route, List<Geocache>> RouteToSeialize = Program.Routes.First(x => x.Key == OverlayTag);
+				KeyValuePair<string, Tourplanning.RouteData> RouteToSeialize = Program.Routes.First(x => x.Key == OverlayTag);
 
 				XmlDocument GPX = new XmlDocument();
 
@@ -277,7 +312,7 @@ namespace GeocachingTourPlanner
 				creator.Value = "GeocachingTourPlanner";
 				root.Attributes.Append(creator);
 
-				foreach (Geocache GC in RouteToSeialize.Value2)
+				foreach (Geocache GC in RouteToSeialize.Value.GeocachesOnRoute())
 				{
 					XmlElement wpt = GPX.CreateElement("wpt");
 					//Coordinates
@@ -311,7 +346,15 @@ namespace GeocachingTourPlanner
 				track.AppendChild(name);
 
 				XmlNode tracksegment = GPX.CreateElement("trkseg");
-				foreach (Coordinate COO in RouteToSeialize.Value1.Shape)
+
+				Route FinalRoute = RouteToSeialize.Value.partialRoutes[0].partialRoute;
+
+				for (int i = 1; i < RouteToSeialize.Value.partialRoutes.Count; i++)
+				{
+					FinalRoute = FinalRoute.Concatenate(RouteToSeialize.Value.partialRoutes[i].partialRoute);
+				}
+
+				foreach (Coordinate COO in FinalRoute.Shape)
 				{
 					XmlNode trackpoint = GPX.CreateElement("trkpt");
 
@@ -339,7 +382,7 @@ namespace GeocachingTourPlanner
 			{
 				InitialDirectory = Program.DB.LastUsedFilepath,
 				Filter = "gpx files (*.gpx)|*.gpx|All files (*.*)|*.*",
-				FilterIndex = 1,
+				FilterIndex = 0,
 				RestoreDirectory = true,
 				Title = "Import geocaches"
 			};
@@ -354,16 +397,19 @@ namespace GeocachingTourPlanner
 					{
 						InitialDirectory = Program.DB.LastUsedFilepath,
 						Filter = "gcdb files (*.gcdb)|*.gcdb|All files (*.*)|*.*",
-						FilterIndex = 1,
+						FilterIndex = 0,
 						RestoreDirectory = true,
 						Title = "Create new, empty geocachedatabase"
 					};
 
 					if (NewFileDialog.ShowDialog() == DialogResult.OK)
 					{
-						File.Create(NewFileDialog.FileName).Close();
+						//Save the curent geocaches to the current file, so no data is lost. Nothing happens if there are no geocaches
 						Backup(Program.Geocaches);
-						Program.Geocaches = new SortableBindingList<Geocache>();
+
+						//Create new database File
+						File.Create(NewFileDialog.FileName).Close();
+						Program.Geocaches.Clear();
 						Program.DB.GeocacheDB_Filepath = NewFileDialog.FileName;
 					}
 				}
@@ -371,7 +417,7 @@ namespace GeocachingTourPlanner
 				{
 					//Do nothing
 				}
-				else
+				else // a.k.a cancel
 				{
 					return;
 				}
@@ -387,89 +433,95 @@ namespace GeocachingTourPlanner
 
 					foreach (XElement elem in RootElement.Elements(gpx + "wpt"))
 					{
-						Geocache geocache = new Geocache { };
-
-						geocache.lat = float.Parse(elem.FirstAttribute.ToString().Replace("\"", "").Replace("lat=", ""), CultureInfo.InvariantCulture);
-						geocache.lon = float.Parse(elem.LastAttribute.ToString().Replace("\"", "").Replace("lon=", ""), CultureInfo.InvariantCulture);
-						geocache.GCCODE = (string)elem.Element(gpx + "name").Value;
-						geocache.Name = (string)elem.Element(gpx + "urlname").Value;
 						XElement CacheDetails = elem.Element(groundspeak + "cache");
-						geocache.DRating = float.Parse(CacheDetails.Element(groundspeak + "difficulty").Value.ToString(), CultureInfo.InvariantCulture);
-						geocache.TRating = float.Parse(CacheDetails.Element(groundspeak + "terrain").Value.ToString(), CultureInfo.InvariantCulture);
-						geocache.NeedsMaintenance = CacheDetails.Element(groundspeak + "attributes").Elements().ToList().Exists(x => x.FirstAttribute.Value == 42.ToString());
-						geocache.DateHidden = DateTime.Parse(elem.Element(gpx + "time").Value.ToString());
-						switch (elem.Element(gpx + "type").Value)
+						if (CacheDetails != null)//Thus the waipoint is a geocache
 						{
-							case "Geocache|Unknown Cache":
-								geocache.Type = GeocacheType.Mystery;
-								break;
-							case "Geocache|Traditional Cache":
-								geocache.Type = GeocacheType.Traditional;
-								break;
-							case "Geocache|Multi-cache":
-								geocache.Type = GeocacheType.Multi;
-								break;
-							case "Geocache|Virtual Cache":
-								geocache.Type = GeocacheType.Virtual;
-								break;
-							case "Geocache|Wherigo Cache":
-								geocache.Type = GeocacheType.Wherigo;
-								break;
-							case "Geocache|Webcam Cache":
-								geocache.Type = GeocacheType.Webcam;
-								break;
-							case "Geocache|Letterbox Hybrid":
-								geocache.Type = GeocacheType.Letterbox;
-								break;
-							case "Geocache|Earthcache":
-								geocache.Type = GeocacheType.EarthCache;
-								break;
-							case "Geocache|Mega-Event Cache":
-								geocache.Type = GeocacheType.MegaEvent;
-								break;
-							case "Geocache|Event Cache":
-								geocache.Type = GeocacheType.Event;
-								break;
-							case "Geocache|Cache In Trash Out Event":
-								geocache.Type = GeocacheType.Cito;
-								break;
-							default:
-								geocache.Type = GeocacheType.Other;
-								break;
-						}
-						switch (CacheDetails.Element(groundspeak + "container").Value)
-						{
-							case "Large":
-								geocache.Size = GeocacheSize.Large;
-								break;
-							case "Regular":
-								geocache.Size = GeocacheSize.Regular;
-								break;
-							case "Small":
-								geocache.Size = GeocacheSize.Small;
-								break;
-							case "Micro":
-								geocache.Size = GeocacheSize.Micro;
-								break;
-							default:
-								geocache.Size = GeocacheSize.Other;
-								break;
-						}
-						if (!Program.Geocaches.Any(x => x.GCCODE == geocache.GCCODE))
-						{
-							Program.Geocaches.Add(geocache);
-						}
-						else
-						{
-							//Nothing in the moment, would be good if it would update the Geocaches
+							Geocache geocache = new Geocache { };
+
+							geocache.lat = float.Parse(elem.FirstAttribute.ToString().Replace("\"", "").Replace("lat=", ""), CultureInfo.InvariantCulture);
+							geocache.lon = float.Parse(elem.LastAttribute.ToString().Replace("\"", "").Replace("lon=", ""), CultureInfo.InvariantCulture);
+							geocache.GCCODE = (string)elem.Element(gpx + "name").Value;
+							geocache.Name = (string)elem.Element(gpx + "urlname").Value;
+							geocache.DRating = float.Parse(CacheDetails.Element(groundspeak + "difficulty").Value.ToString(), CultureInfo.InvariantCulture);
+							geocache.TRating = float.Parse(CacheDetails.Element(groundspeak + "terrain").Value.ToString(), CultureInfo.InvariantCulture);
+							geocache.NeedsMaintenance = CacheDetails.Element(groundspeak + "attributes").Elements().ToList().Exists(x => x.FirstAttribute.Value == 42.ToString());
+							geocache.DateHidden = DateTime.Parse(elem.Element(gpx + "time").Value.ToString());
+							switch (elem.Element(gpx + "type").Value)
+							{
+								case "Geocache|Unknown Cache":
+									geocache.Type = GeocacheType.Mystery;
+									break;
+								case "Geocache|Traditional Cache":
+									geocache.Type = GeocacheType.Traditional;
+									break;
+								case "Geocache|Multi-cache":
+									geocache.Type = GeocacheType.Multi;
+									break;
+								case "Geocache|Virtual Cache":
+									geocache.Type = GeocacheType.Virtual;
+									break;
+								case "Geocache|Wherigo Cache":
+									geocache.Type = GeocacheType.Wherigo;
+									break;
+								case "Geocache|Webcam Cache":
+									geocache.Type = GeocacheType.Webcam;
+									break;
+								case "Geocache|Letterbox Hybrid":
+									geocache.Type = GeocacheType.Letterbox;
+									break;
+								case "Geocache|Earthcache":
+									geocache.Type = GeocacheType.EarthCache;
+									break;
+								case "Geocache|Mega-Event Cache":
+									geocache.Type = GeocacheType.MegaEvent;
+									break;
+								case "Geocache|Event Cache":
+									geocache.Type = GeocacheType.Event;
+									break;
+								case "Geocache|Cache In Trash Out Event":
+									geocache.Type = GeocacheType.Cito;
+									break;
+								default:
+									geocache.Type = GeocacheType.Other;
+									break;
+							}
+							switch (CacheDetails.Element(groundspeak + "container").Value)
+							{
+								case "Large":
+									geocache.Size = GeocacheSize.Large;
+									break;
+								case "Regular":
+									geocache.Size = GeocacheSize.Regular;
+									break;
+								case "Small":
+									geocache.Size = GeocacheSize.Small;
+									break;
+								case "Micro":
+									geocache.Size = GeocacheSize.Micro;
+									break;
+								default:
+									geocache.Size = GeocacheSize.Other;
+									break;
+							}
+							if (!Program.Geocaches.Any(x => x.GCCODE == geocache.GCCODE))
+							{
+								Program.Geocaches.Add(geocache);
+							}
+							else
+							{
+								//Nothing in the moment, would be good if it would update the Geocaches
+							}
+
+							Program.MainWindow.UpdateStatus("Successfully imported geocaches");
 						}
 					}
 				}
 				catch (Exception ex)
 				{
 					MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+					Program.MainWindow.UpdateStatus("Import of geocaches failed");
 				}
-				Fileoperations.Backup(Program.Geocaches);
+				Backup(Program.Geocaches);
 				Program.Geocaches.ResetBindings();
 			}
 		}
@@ -480,7 +532,7 @@ namespace GeocachingTourPlanner
 			{
 				InitialDirectory = Program.DB.LastUsedFilepath,
 				Filter = "pbf files (*.pbf)|*.pbf|All files (*.*)|*.*",
-				FilterIndex = 2,
+				FilterIndex = 0,
 				RestoreDirectory = true,
 				Title = "Import OSM Data"
 			};
@@ -492,7 +544,7 @@ namespace GeocachingTourPlanner
 				{
 					InitialDirectory = Program.DB.LastUsedFilepath,
 					Filter = "Routerdb files (*.routerdb)|*.routerdb|All files (*.*)|*.*",
-					FilterIndex = 1,
+					FilterIndex = 0,
 					RestoreDirectory = true,
 					Title = "Create new Routerdb file"
 				};
@@ -502,22 +554,38 @@ namespace GeocachingTourPlanner
 					File.Create(NewFileDialog.FileName).Close();
 					Backup(null);
 					Program.RouterDB = new RouterDb();
-					Program.DB.GeocacheDB_Filepath = StandardFileDialog.FileName;
+					Program.DB.RouterDB_Filepath = NewFileDialog.FileName;
 
 
 					MessageBox.Show("This might take a while, depending on how big your pbf file is.\n How about getting yourself a coffee?");
+
 					new Thread(new ThreadStart(() =>
 					{
-						using (var stream = new FileInfo(StandardFileDialog.FileName).OpenRead())
+						Program.ImportOfOSMDataRunning = true;
+						try
 						{
-							Program.RouterDB.LoadOsmData(stream, new Itinero.Profiles.Vehicle[] { Itinero.Osm.Vehicles.Vehicle.Bicycle, Itinero.Osm.Vehicles.Vehicle.Car, Itinero.Osm.Vehicles.Vehicle.Pedestrian });
+							using (var stream = new FileInfo(StandardFileDialog.FileName).OpenRead())
+							{
+								Program.MainWindow.UpdateStatus("Import of OSM Data in progress", 99);
+								Program.RouterDB.LoadOsmData(stream, new Itinero.Profiles.Vehicle[] { Itinero.Osm.Vehicles.Vehicle.Bicycle, Itinero.Osm.Vehicles.Vehicle.Car, Itinero.Osm.Vehicles.Vehicle.Pedestrian });
+							}
+						}
+						catch (Exception ex)
+						{
+							MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+							Program.ImportOfOSMDataRunning = false;
+							Program.MainWindow.UpdateStatus("Import of OSM Data failed",100);
+							return;
+						}
+						Program.MainWindow.UpdateStatus("Import of OSM Data finished", 100);
+						Program.ImportOfOSMDataRunning = false;
+
+						// write the routerdb to disk.
+						if (Program.DB.RouterDB_Filepath == null||Program.DB.RouterDB_Filepath=="")
+						{
+							Program.DB.OpenExistingDBFile(Databases.RouterDB);
 						}
 
-					// write the routerdb to disk.
-					if (Program.DB.RouterDB_Filepath == null)
-						{
-							Program.DB.RouterDB_Filepath = "OSM.routerdb";
-						}
 						Task Serialize = Task.Factory.StartNew(() =>
 						{
 						//just let it run in background
@@ -529,7 +597,7 @@ namespace GeocachingTourPlanner
 
 						Backup(null);
 
-						Program.MainWindow.RouterDBStateLabel.Text = "Successfully loaded RouterDB";
+						Program.MainWindow.SetRouterDBLabel("RouterDB set");
 						MessageBox.Show("Successfully imported OSM Data");
 
 					})).Start();
@@ -543,7 +611,7 @@ namespace GeocachingTourPlanner
 			{
 				InitialDirectory = Program.DB.LastUsedFilepath,
 				Filter = "routingprofile files (*.routingprf)|*.routingprf|All files (*.*)|*.*",
-				FilterIndex = 1,
+				FilterIndex = 0,
 				RestoreDirectory = true,
 				Title = "Create new, empty routingprofilesdatabase"
 			};
@@ -552,10 +620,11 @@ namespace GeocachingTourPlanner
 			{
 				File.Create(StandardFileDialog.FileName);
 				Backup(Program.Routingprofiles);
-				Program.Routingprofiles = new SortableBindingList<Routingprofile>();
+				Program.Routingprofiles.Clear();
 				Program.DB.RoutingprofileDB_Filepath = StandardFileDialog.FileName;
 			}
 
+			Program.MainWindow.UpdateStatus("Created new Routingprofiledatabase");
 			Program.Routingprofiles.ResetBindings();
 		}
 
@@ -565,7 +634,7 @@ namespace GeocachingTourPlanner
 			{
 				InitialDirectory = Program.DB.LastUsedFilepath,
 				Filter = "ratingprofiles files (*.ratingprf)|*.ratingprf|All files (*.*)|*.*",
-				FilterIndex = 1,
+				FilterIndex = 0,
 				RestoreDirectory = true,
 				Title = "Create new, empty ratingprofilesdatabase"
 			};
@@ -578,13 +647,79 @@ namespace GeocachingTourPlanner
 				{
 					File.Create(StandardFileDialog.FileName);
 					Backup(Program.Ratingprofiles);
-					Program.Ratingprofiles = new SortableBindingList<Ratingprofile>();
+					Program.Ratingprofiles.Clear();
 					Program.DB.RatingprofileDB_Filepath = StandardFileDialog.FileName;
 				}
 			} while (retry);
 
+			Program.MainWindow.UpdateStatus("Created new Routingprofledatabase");
 			Program.Ratingprofiles.ResetBindings();
 		}
 
+		public static class Routerlog
+		{
+			public static void AddMainInformation(string Message)
+			{
+				File.AppendAllText("Routerlog.txt", "[" + DateTime.Now + "]:\t" + Message + "\n");
+			}
+
+			public static void AddSubInformation(string Message)
+			{
+				File.AppendAllText("Routerlog.txt", "[" + DateTime.Now + "]:\t\t" + Message + "\n");
+			}
+
+			public static void AddMainSection(string Message)
+			{
+				File.AppendAllText("Routerlog.txt", "[" + DateTime.Now + "]:\t====================" + Message + "====================\n");
+			}
+
+			public static void AddSubSection(string Message)
+			{
+				File.AppendAllText("Routerlog.txt", "[" + DateTime.Now + "]:\t==========" + Message + "==========\n");
+			}
+
+			public class LogCollector
+			{
+				private StringBuilder Logs = new StringBuilder();
+
+				/// <summary>
+				/// Used when parallel threads are running to make sure logs are sensible
+				/// </summary>
+				/// <param name="ThreadName"></param>
+				public LogCollector(string ThreadName)
+				{
+					Logs.Append("[" + DateTime.Now + "]:\t-----Log for Thread " + ThreadName + "---------------\n");
+				}
+
+				public void AddMainInformation(string Message)
+				{
+					Logs.Append("[" + DateTime.Now + "]:\t|" + Message + "\n");
+				}
+
+				public void AddSubInformation(string Message)
+				{
+					Logs.Append("[" + DateTime.Now + "]:\t|\t" + Message + "\n");
+				}
+
+				public void AddMainSection(string Message)
+				{
+					Logs.Append("[" + DateTime.Now + "]:\t|====================" + Message + "====================\n");
+				}
+
+				public void AddSubSection(string Message)
+				{
+					Logs.Append("[" + DateTime.Now + "]:\t|==========" + Message + "==========\n");
+				}
+				/// <summary>
+				/// Writes Logs to file
+				/// </summary>
+				public void Write()
+				{
+					Logs.Append("[" + DateTime.Now + "]:\t-----End of Log for this Thread---------------\n");
+					File.AppendAllText("Routerlog.txt", Logs.ToString());
+				}
+			} 
+
+		}
 	}
 }

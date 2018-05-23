@@ -18,10 +18,7 @@ namespace GeocachingTourPlanner
         public List<KeyValuePair<float, int>> TRatings { get; set;}
         public int TPriority { get; set; }
         public int Yearfactor { get; set; }
-        /// <summary>
-        /// true=multiplizieren, false=quadrieren
-        /// </summary>
-        public bool Yearmode { get; set; }
+        public Yearmode Yearmode { get; set; }
         /// <summary>
         /// Punkte die abgezogen werden wenn der Needs Maintenance Flag gesetzt ist
         /// </summary>
@@ -33,4 +30,10 @@ namespace GeocachingTourPlanner
         }
 
     }
+
+	public enum Yearmode
+	{
+		multiply,
+		square_n_divide
+	}
 }

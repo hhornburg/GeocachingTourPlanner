@@ -2,6 +2,7 @@
 using Itinero;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -25,10 +26,9 @@ namespace GeocachingTourPlanner
 			}
 
 			//Set default settings
-			Program.DB.EveryNthShapepoint = 1;
 			Program.DB.Autotargetselection = true;
-			Program.DB.Tolerance = 200;
-			Program.DB.Divisor = 5;
+			Program.DB.PercentageOfDistanceInAutoTargetselection_Max = 0.9f;
+			Program.DB.PercentageOfDistanceInAutoTargetselection_Min = 0.75f;
 			Program.DB.RoutefindingWidth = 4;
 			Program.DB.DisplayLiveCalculation = false;
 
@@ -39,42 +39,36 @@ namespace GeocachingTourPlanner
 
 			Program.MainWindow.LeftTabs.SelectedIndex = 0;
 		}
-		
+
+		/// <summary>
+		/// Calls the sbroutines for reading each database and sets the list event handlers
+		/// </summary>
 		public static void ReadRemainingDatabases()
 		{
-
-			if (Program.DB.RouterDB_Filepath != null)
-			{
-				using (var stream = new FileInfo(Program.DB.RouterDB_Filepath).OpenRead())
-				{
-					Program.RouterDB = RouterDb.Deserialize(stream);
-				}
-
-				Program.MainWindow.RouterDBStateLabel.Text = "Successfully loaded RouterDB";
-			}
+			Fileoperations.ReadRouterDB();//Same thread, so it is ready when the program starts
 
 			//Load Ratingprofiles from the File specified in the Database
 			Fileoperations.ReadRatingprofiles();
-
+			
 			//Geocaches
 			Fileoperations.ReadGeocaches();
-			Program.MainWindow.GeocacheTable.DataSource = Program.Geocaches;
-
+			
 			//Routingprofile
 			Fileoperations.ReadRoutingprofiles();
+			
 			Fileoperations.Backup(null);//so settings get saved in the DB. Nothing else, as it just came from the file
 
 		}
 
 		public static void CheckSettings()
 		{
-			if (Program.DB.EveryNthShapepoint == 0)
+			if (Program.DB.PercentageOfDistanceInAutoTargetselection_Max == 0)
 			{
-				Program.DB.EveryNthShapepoint = 5;
+				Program.DB.PercentageOfDistanceInAutoTargetselection_Max = 0.9f;
 			}
-			if (Program.DB.Divisor == 0)
+			if (Program.DB.PercentageOfDistanceInAutoTargetselection_Min == 0)
 			{
-				Program.DB.Divisor = 5;
+				Program.DB.PercentageOfDistanceInAutoTargetselection_Min = 0.75f;
 			}
 			if (Program.DB.RoutefindingWidth == 0)
 			{
@@ -84,6 +78,21 @@ namespace GeocachingTourPlanner
 			{
 				Program.DB.MarkerSize = 16;
 			}
+		}
+
+		public static void BindLists()
+		{
+			//To make them show up in the menu. Here, as the binding should also happen if none could be loaded
+			Program.Ratingprofiles.ListChanged += new ListChangedEventHandler(Program.MainWindow.Ratingprofiles_ListChanged);
+			Program.Ratingprofiles.ResetBindings();
+
+			Program.Geocaches.ListChanged += new ListChangedEventHandler(Program.MainWindow.Geocaches_ListChanged);
+			Program.MainWindow.GeocacheTable.DataSource = Program.Geocaches;
+
+			//To make them show up in the menu
+			Program.Routingprofiles.ListChanged += new ListChangedEventHandler(Program.MainWindow.Routingprofiles_ListChanged);
+			Program.Routingprofiles.ResetBindings();
+
 		}
 	}
 }

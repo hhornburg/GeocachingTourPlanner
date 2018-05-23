@@ -5,7 +5,7 @@
     <TypeRatings>
       <KeyValuePairOfGeocacheTypeInt32>
         <Key>EarthCache</Key>
-        <Value>8</Value>
+        <Value>5</Value>
       </KeyValuePairOfGeocacheTypeInt32>
       <KeyValuePairOfGeocacheTypeInt32>
         <Key>Letterbox</Key>
@@ -13,19 +13,19 @@
       </KeyValuePairOfGeocacheTypeInt32>
       <KeyValuePairOfGeocacheTypeInt32>
         <Key>Multi</Key>
-        <Value>4</Value>
+        <Value>-1</Value>
       </KeyValuePairOfGeocacheTypeInt32>
       <KeyValuePairOfGeocacheTypeInt32>
         <Key>Mystery</Key>
-        <Value>0</Value>
-      </KeyValuePairOfGeocacheTypeInt32>
-      <KeyValuePairOfGeocacheTypeInt32>
-        <Key>Other</Key>
         <Value>5</Value>
       </KeyValuePairOfGeocacheTypeInt32>
       <KeyValuePairOfGeocacheTypeInt32>
+        <Key>Other</Key>
+        <Value>0</Value>
+      </KeyValuePairOfGeocacheTypeInt32>
+      <KeyValuePairOfGeocacheTypeInt32>
         <Key>Traditional</Key>
-        <Value>7</Value>
+        <Value>0</Value>
       </KeyValuePairOfGeocacheTypeInt32>
       <KeyValuePairOfGeocacheTypeInt32>
         <Key>Virtual</Key>
@@ -33,53 +33,53 @@
       </KeyValuePairOfGeocacheTypeInt32>
       <KeyValuePairOfGeocacheTypeInt32>
         <Key>Webcam</Key>
-        <Value>9</Value>
+        <Value>10</Value>
       </KeyValuePairOfGeocacheTypeInt32>
       <KeyValuePairOfGeocacheTypeInt32>
         <Key>Wherigo</Key>
-        <Value>2</Value>
+        <Value>-1</Value>
       </KeyValuePairOfGeocacheTypeInt32>
     </TypeRatings>
-    <TypePriority>3</TypePriority>
+    <TypePriority>5</TypePriority>
     <SizeRatings>
       <KeyValuePairOfGeocacheSizeInt32>
         <Key>Large</Key>
-        <Value>9</Value>
+        <Value>10</Value>
       </KeyValuePairOfGeocacheSizeInt32>
       <KeyValuePairOfGeocacheSizeInt32>
         <Key>Micro</Key>
-        <Value>0</Value>
+        <Value>-5</Value>
       </KeyValuePairOfGeocacheSizeInt32>
       <KeyValuePairOfGeocacheSizeInt32>
         <Key>Other</Key>
-        <Value>5</Value>
+        <Value>0</Value>
       </KeyValuePairOfGeocacheSizeInt32>
       <KeyValuePairOfGeocacheSizeInt32>
         <Key>Regular</Key>
-        <Value>8</Value>
+        <Value>10</Value>
       </KeyValuePairOfGeocacheSizeInt32>
       <KeyValuePairOfGeocacheSizeInt32>
         <Key>Small</Key>
-        <Value>4</Value>
+        <Value>5</Value>
       </KeyValuePairOfGeocacheSizeInt32>
     </SizeRatings>
     <SizePriority>7</SizePriority>
     <DRatings>
       <KeyValuePairOfSingleInt32>
         <Key>1</Key>
-        <Value>1</Value>
+        <Value>0</Value>
       </KeyValuePairOfSingleInt32>
       <KeyValuePairOfSingleInt32>
         <Key>1.5</Key>
-        <Value>2</Value>
+        <Value>0</Value>
       </KeyValuePairOfSingleInt32>
       <KeyValuePairOfSingleInt32>
         <Key>2</Key>
-        <Value>3</Value>
+        <Value>0</Value>
       </KeyValuePairOfSingleInt32>
       <KeyValuePairOfSingleInt32>
         <Key>2.5</Key>
-        <Value>4</Value>
+        <Value>0</Value>
       </KeyValuePairOfSingleInt32>
       <KeyValuePairOfSingleInt32>
         <Key>3</Key>
@@ -87,63 +87,63 @@
       </KeyValuePairOfSingleInt32>
       <KeyValuePairOfSingleInt32>
         <Key>3.5</Key>
-        <Value>8</Value>
+        <Value>5</Value>
       </KeyValuePairOfSingleInt32>
       <KeyValuePairOfSingleInt32>
         <Key>4</Key>
-        <Value>9</Value>
+        <Value>5</Value>
       </KeyValuePairOfSingleInt32>
       <KeyValuePairOfSingleInt32>
         <Key>4.5</Key>
-        <Value>8</Value>
+        <Value>5</Value>
       </KeyValuePairOfSingleInt32>
       <KeyValuePairOfSingleInt32>
         <Key>5</Key>
-        <Value>6</Value>
+        <Value>5</Value>
       </KeyValuePairOfSingleInt32>
     </DRatings>
-    <DPriority>5</DPriority>
+    <DPriority>2</DPriority>
     <TRatings>
       <KeyValuePairOfSingleInt32>
         <Key>1</Key>
-        <Value>1</Value>
+        <Value>0</Value>
       </KeyValuePairOfSingleInt32>
       <KeyValuePairOfSingleInt32>
         <Key>1.5</Key>
-        <Value>1</Value>
+        <Value>0</Value>
       </KeyValuePairOfSingleInt32>
       <KeyValuePairOfSingleInt32>
         <Key>2</Key>
-        <Value>2</Value>
+        <Value>0</Value>
       </KeyValuePairOfSingleInt32>
       <KeyValuePairOfSingleInt32>
         <Key>2.5</Key>
-        <Value>4</Value>
+        <Value>0</Value>
       </KeyValuePairOfSingleInt32>
       <KeyValuePairOfSingleInt32>
         <Key>3</Key>
-        <Value>6</Value>
+        <Value>5</Value>
       </KeyValuePairOfSingleInt32>
       <KeyValuePairOfSingleInt32>
         <Key>3.5</Key>
-        <Value>7</Value>
+        <Value>5</Value>
       </KeyValuePairOfSingleInt32>
       <KeyValuePairOfSingleInt32>
         <Key>4</Key>
-        <Value>8</Value>
+        <Value>5</Value>
       </KeyValuePairOfSingleInt32>
       <KeyValuePairOfSingleInt32>
         <Key>4.5</Key>
-        <Value>8</Value>
+        <Value>5</Value>
       </KeyValuePairOfSingleInt32>
       <KeyValuePairOfSingleInt32>
         <Key>5</Key>
-        <Value>9</Value>
+        <Value>5</Value>
       </KeyValuePairOfSingleInt32>
     </TRatings>
-    <TPriority>7</TPriority>
-    <Yearfactor>2</Yearfactor>
-    <Yearmode>false</Yearmode>
+    <TPriority>8</TPriority>
+    <Yearfactor>5</Yearfactor>
+    <Yearmode>square_n_divide</Yearmode>
     <NMPenalty>100</NMPenalty>
   </Ratingprofile>
 </ArrayOfRatingprofile>
