@@ -46,7 +46,7 @@ namespace GeocachingTourPlanner
 		}
 
 	}
-
+	
 	#region SortableBindingList
 	/// <summary>
 	/// Bindinglist is not sortable. This code makes sorting possible

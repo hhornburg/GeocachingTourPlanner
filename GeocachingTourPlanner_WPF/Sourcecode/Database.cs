@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using Microsoft.Win32;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Xml.Serialization;
-using GMap.NET;
 
 namespace GeocachingTourPlanner
 {
@@ -33,7 +25,7 @@ namespace GeocachingTourPlanner
 
 		//Mapspecific
 		public double LastMapZoom { get; set;}
-		public PointLatLng LastMapPosition { get; set; }
+		//FIX public PointLatLng LastMapPosition { get; set; }
 		public int MarkerSize { get; set; }
 		/// <summary>
 		/// Minimale Bewertung die ein Geocache in der Aktuellen Liste erreicht. Wird zum Erstellen der Farbcodierung benutzt
@@ -113,7 +105,7 @@ namespace GeocachingTourPlanner
 					break;
 			}
 
-			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
+			if (StandardFileDialog.ShowDialog() == true)
 			{
 				LastUsedFilepath = StandardFileDialog.FileName;
 

@@ -1,16 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using GeocachingTourPlanner;
 
-namespace GeocachingTourPlanner
+namespace GeocachingTourPlanner_WPF.Sourcecode
 {
-	public partial class DatabaseFileDialog : Form
+	/// <summary>
+	/// Interaktionslogik für DatabaseFileDialog.xaml
+	/// </summary>
+	public partial class DatabaseFileDialog : Window
 	{
 		Databases ThisDB;
 
@@ -29,32 +37,32 @@ namespace GeocachingTourPlanner
 					MessageText.Text = "Couldn't find a geocaches database.";
 					if (AllowImport)
 					{
-						New_ImportButton.Text = "Import Pocket query";
+						NewImportButtonText.Text = "Import Pocket query";
 					}
 					else
 					{
-						New_ImportButton.Dispose();
+						NewImportButton.Visibility = Visibility.Collapsed;
 					}
 					break;
 				case Databases.Ratingprofiles:
 					MessageText.Text = "Couldn't find a ratingprofiles database.";
-					New_ImportButton.Text = "Create new File";
+					NewImportButtonText.Text = "Create new File";
 					break;
 				case Databases.Routingprofiles:
 					MessageText.Text = "Couldn't find a routingprofiles database.";
-					New_ImportButton.Text = "Create new File";
+					NewImportButtonText.Text = "Create new File";
 					break;
 				case Databases.RouterDB:
 					MessageText.Text = "Couldn't find a RouterDB database.";
 					if (AllowImport)
 					{
-						New_ImportButton.Text = "Import .pbf File";
+						NewImportButtonText.Text = "Import .pbf File";
 					}
 					else
 					{
-						New_ImportButton.Dispose();
+						NewImportButton.Visibility = Visibility.Collapsed;
 					}
-			break;
+					break;
 			}
 		}
 
@@ -62,15 +70,15 @@ namespace GeocachingTourPlanner
 		{
 			if (App.DB.OpenExistingDBFile(ThisDB))
 			{
-				DialogResult = DialogResult.OK;
+				DialogResult = true;
 			}
 			else
 			{
-				DialogResult = DialogResult.Cancel;
+				DialogResult = false;
 			}
 		}
 
-		private void New_ImportButton_Click(object sender, EventArgs e)
+		private void NewImport_Button_Click(object sender, EventArgs e)
 		{
 			switch (ThisDB)
 			{
@@ -87,13 +95,7 @@ namespace GeocachingTourPlanner
 					Fileoperations.ImportOSMData();
 					break;
 			}
-			DialogResult = DialogResult.Retry;
-		}
-
-		private void CancelButton_Click(object sender, EventArgs e)
-		{
-			Close();
-			DialogResult = DialogResult.Cancel;
+			DialogResult = true;
 		}
 	}
 }

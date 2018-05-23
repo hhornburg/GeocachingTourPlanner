@@ -1,0 +1,17 @@
+﻿<Window x:Class="GeocachingTourPlanner_WPF.Sourcecode.DatabaseFileDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GeocachingTourPlanner_WPF"
+        mc:Ignorable="d"
+        Title="DatabaseFileDialog" Height="150" Width="300">
+    <DockPanel LastChildFill="False">
+        <TextBlock Name="MessageText" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center">Sample Message</TextBlock>
+        <Button Name="CancelButton" DockPanel.Dock="Right" VerticalAlignment="Bottom" Height="25" IsCancel="True">Cancel</Button>
+        <Button Name="NewImportButton" DockPanel.Dock="Right" VerticalAlignment="Bottom" Height="25">
+            <TextBlock Name="NewImportButtonText">New/Import</TextBlock>
+        </Button>
+        <Button Name="OpenButton" DockPanel.Dock="Right"  VerticalAlignment="Bottom" Height="25">Open</Button>
+    </DockPanel>
+</Window>
