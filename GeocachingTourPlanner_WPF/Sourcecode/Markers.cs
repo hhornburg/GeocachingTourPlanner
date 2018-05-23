@@ -1,11 +1,6 @@
-﻿using GMap.NET;
-using GMap.NET.WindowsForms;
-using GMap.NET.WindowsForms.Markers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 using System.Linq;
 using System.Resources;
 using System.Text;
@@ -16,6 +11,7 @@ namespace GeocachingTourPlanner
 {
 	public static class Markers
 	{
+		/*FIX
 		public  static GMapMarker GetGeocacheMarker(Geocache geocache)
 		{
 			Category GeocacheCategory;
@@ -183,5 +179,6 @@ namespace GeocachingTourPlanner
 			Best_Good,
 			ForceInclude
 		}
+		*/
 	}
 }

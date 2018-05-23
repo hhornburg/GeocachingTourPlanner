@@ -1,16 +1,17 @@
-﻿using Itinero;
+﻿using GeocachingTourPlanner_WPF;
+using Itinero;
 using Itinero.IO.Osm;
 using Itinero.LocalGeo;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
@@ -62,7 +63,7 @@ namespace GeocachingTourPlanner
 					Startup.BindLists();
 					RPReader.Close();
 
-					App.MainWindow.UpdateStatus("Successfully read routingprofiles");
+					App.mainWindow.UpdateStatus("Successfully read routingprofiles");
 					App.Routingprofiles.ResetBindings();
 				}
 				catch (Exception)
@@ -96,7 +97,7 @@ namespace GeocachingTourPlanner
 					Startup.BindLists();
 					BPReader.Close();
 
-					App.MainWindow.UpdateStatus("Successfully read ratingprofiles");
+					App.mainWindow.UpdateStatus("Successfully read ratingprofiles");
 					App.Ratingprofiles.ResetBindings();
 				}
 				catch (Exception)
@@ -133,7 +134,7 @@ namespace GeocachingTourPlanner
 					App.DB.MaximalRating = App.Geocaches[0].Rating;//Possible since list is sorted
 					App.DB.MinimalRating = App.Geocaches[App.Geocaches.Count - 1].Rating;
 
-					App.MainWindow.UpdateStatus("Successfully read geocaches");
+					App.mainWindow.UpdateStatus("Successfully read geocaches");
 
 				}
 
@@ -149,7 +150,7 @@ namespace GeocachingTourPlanner
 					}
 				}
 				App.Geocaches.ResetBindings();
-				App.MainWindow.GeocachesStateLabel.Text = App.Geocaches.Count + " Geocaches loaded";
+				App.mainWindow.GeocachesStateLabel.Text = App.Geocaches.Count + " Geocaches loaded";
 			}
 		}
 
@@ -162,20 +163,20 @@ namespace GeocachingTourPlanner
 			{
 				try
 				{
-					App.MainWindow.UpdateStatus("Loading RouterDB in progress", 99);
+					App.mainWindow.UpdateStatus("Loading RouterDB in progress", 99);
 					using (var stream = new FileInfo(App.DB.RouterDB_Filepath).OpenRead())
 					{
 						App.RouterDB = RouterDb.Deserialize(stream);
 					}
 					Backup(null);
 
-					App.MainWindow.SetRouterDBLabel("Successfully loaded RouterDB");
-					App.MainWindow.UpdateStatus("Successfully loaded RouterDB", 100);
+					App.mainWindow.SetRouterDBLabel("Successfully loaded RouterDB");
+					App.mainWindow.UpdateStatus("Successfully loaded RouterDB", 100);
 				}
 				catch (Exception)
 				{
 					MessageBox.Show("Failed to read RouterDB", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-					App.MainWindow.UpdateStatus("failed loading RouterDB", 100);
+					App.mainWindow.UpdateStatus("failed loading RouterDB", 100);
 				}
 			})).Start();
 		}
@@ -288,10 +289,10 @@ namespace GeocachingTourPlanner
 				RestoreDirectory = true,
 				Title = "Export route as track"
 			};
-			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
+			if (StandardFileDialog.ShowDialog() == true)
 			{
 
-				SerializableKeyValuePair<string, Tourplanning.RouteData> RouteToSeialize = App.Routes.First(x => x.Key == OverlayTag);
+				KeyValuePair<string, Tourplanning.RouteData> RouteToSeialize = App.Routes.First(x => x.Key == OverlayTag);
 
 				XmlDocument GPX = new XmlDocument();
 
@@ -387,10 +388,10 @@ namespace GeocachingTourPlanner
 				Title = "Import geocaches"
 			};
 
-			if (SelectGPXFileDialog.ShowDialog() == DialogResult.OK)
+			if (SelectGPXFileDialog.ShowDialog() == true)
 			{
-				DialogResult Importmodus = MessageBox.Show("Should the Geocaches be loaded into a new Database?", "Import", MessageBoxButton.YesNoCancel);
-				if (Importmodus == DialogResult.Yes)
+				MessageBoxResult Importmodus = MessageBox.Show("Should the Geocaches be loaded into a new Database?", "Import", MessageBoxButton.YesNoCancel);
+				if (Importmodus == MessageBoxResult.Yes)
 				{
 					//Create a new File
 					SaveFileDialog NewFileDialog = new SaveFileDialog
@@ -402,7 +403,7 @@ namespace GeocachingTourPlanner
 						Title = "Create new, empty geocachedatabase"
 					};
 
-					if (NewFileDialog.ShowDialog() == DialogResult.OK)
+					if (NewFileDialog.ShowDialog() == true)
 					{
 						//Save the curent geocaches to the current file, so no data is lost. Nothing happens if there are no geocaches
 						Backup(App.Geocaches);
@@ -413,7 +414,7 @@ namespace GeocachingTourPlanner
 						App.DB.GeocacheDB_Filepath = NewFileDialog.FileName;
 					}
 				}
-				else if (Importmodus == DialogResult.No)
+				else if (Importmodus == MessageBoxResult.No)
 				{
 					//Do nothing
 				}
@@ -512,14 +513,14 @@ namespace GeocachingTourPlanner
 								//Nothing in the moment, would be good if it would update the Geocaches
 							}
 
-							App.MainWindow.UpdateStatus("Successfully imported geocaches");
+							App.mainWindow.UpdateStatus("Successfully imported geocaches");
 						}
 					}
 				}
 				catch (Exception ex)
 				{
 					MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
-					App.MainWindow.UpdateStatus("Import of geocaches failed");
+					App.mainWindow.UpdateStatus("Import of geocaches failed");
 				}
 				Backup(App.Geocaches);
 				App.Geocaches.ResetBindings();
@@ -537,7 +538,7 @@ namespace GeocachingTourPlanner
 				Title = "Import OSM Data"
 			};
 
-			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
+			if (StandardFileDialog.ShowDialog() == true)
 			{
 				//Create a new File
 				SaveFileDialog NewFileDialog = new SaveFileDialog
@@ -549,7 +550,7 @@ namespace GeocachingTourPlanner
 					Title = "Create new Routerdb file"
 				};
 
-				if (NewFileDialog.ShowDialog() == DialogResult.OK)
+				if (NewFileDialog.ShowDialog() == true)
 				{
 					File.Create(NewFileDialog.FileName).Close();
 					Backup(null);
@@ -566,7 +567,7 @@ namespace GeocachingTourPlanner
 						{
 							using (var stream = new FileInfo(StandardFileDialog.FileName).OpenRead())
 							{
-								App.MainWindow.UpdateStatus("Import of OSM Data in progress", 99);
+								App.mainWindow.UpdateStatus("Import of OSM Data in progress", 99);
 								App.RouterDB.LoadOsmData(stream, new Itinero.Profiles.Vehicle[] { Itinero.Osm.Vehicles.Vehicle.Bicycle, Itinero.Osm.Vehicles.Vehicle.Car, Itinero.Osm.Vehicles.Vehicle.Pedestrian });
 							}
 						}
@@ -574,10 +575,10 @@ namespace GeocachingTourPlanner
 						{
 							MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
 							App.ImportOfOSMDataRunning = false;
-							App.MainWindow.UpdateStatus("Import of OSM Data failed",100);
+							App.mainWindow.UpdateStatus("Import of OSM Data failed",100);
 							return;
 						}
-						App.MainWindow.UpdateStatus("Import of OSM Data finished", 100);
+						App.mainWindow.UpdateStatus("Import of OSM Data finished", 100);
 						App.ImportOfOSMDataRunning = false;
 
 						// write the routerdb to disk.
@@ -597,7 +598,7 @@ namespace GeocachingTourPlanner
 
 						Backup(null);
 
-						App.MainWindow.SetRouterDBLabel("RouterDB set");
+						App.mainWindow.SetRouterDBLabel("RouterDB set");
 						MessageBox.Show("Successfully imported OSM Data");
 
 					})).Start();
@@ -616,7 +617,7 @@ namespace GeocachingTourPlanner
 				Title = "Create new, empty routingprofilesdatabase"
 			};
 
-			if (StandardFileDialog.ShowDialog() == DialogResult.OK)
+			if (StandardFileDialog.ShowDialog() == true)
 			{
 				File.Create(StandardFileDialog.FileName);
 				Backup(App.Routingprofiles);
@@ -624,7 +625,7 @@ namespace GeocachingTourPlanner
 				App.DB.RoutingprofileDB_Filepath = StandardFileDialog.FileName;
 			}
 
-			App.MainWindow.UpdateStatus("Created new Routingprofiledatabase");
+			App.mainWindow.UpdateStatus("Created new Routingprofiledatabase");
 			App.Routingprofiles.ResetBindings();
 		}
 
@@ -643,7 +644,7 @@ namespace GeocachingTourPlanner
 			do
 			{
 				retry = false;
-				if (StandardFileDialog.ShowDialog() == DialogResult.OK)
+				if (StandardFileDialog.ShowDialog() == true)
 				{
 					File.Create(StandardFileDialog.FileName);
 					Backup(App.Ratingprofiles);
@@ -652,7 +653,7 @@ namespace GeocachingTourPlanner
 				}
 			} while (retry);
 
-			App.MainWindow.UpdateStatus("Created new Routingprofledatabase");
+			App.mainWindow.UpdateStatus("Created new Routingprofledatabase");
 			App.Ratingprofiles.ResetBindings();
 		}
 

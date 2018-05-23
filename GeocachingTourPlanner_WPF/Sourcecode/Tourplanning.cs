@@ -141,7 +141,7 @@ namespace GeocachingTourPlanner
 				{
 					App.RouteCalculationRunning = false;
 					App.mainWindow.UpdateStatus("Route calculation failed", 100);
-					Application.UseWaitCursor = false;
+					//FIX Application.UseWaitCursor = false;
 				}
 
 				DisplayPreliminaryRoute(CompleteRouteData);
