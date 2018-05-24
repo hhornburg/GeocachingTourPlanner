@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Itinero.LocalGeo;
+using Microsoft.Win32;
 using System.IO;
 
 namespace GeocachingTourPlanner
@@ -25,7 +26,8 @@ namespace GeocachingTourPlanner
 
 		//Mapspecific
 		public double LastMapZoom { get; set;}
-		//FIX public PointLatLng LastMapPosition { get; set; }
+		public Coordinate LastMapPosition { get; set; }
+
 		public int MarkerSize { get; set; }
 		/// <summary>
 		/// Minimale Bewertung die ein Geocache in der Aktuellen Liste erreicht. Wird zum Erstellen der Farbcodierung benutzt

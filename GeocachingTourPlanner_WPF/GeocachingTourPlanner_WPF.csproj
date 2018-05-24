@@ -36,14 +36,38 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BruTile, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BruTile.2.0.0\lib\net45\BruTile.dll</HintPath>
+    </Reference>
+    <Reference Include="ConcurrentCollections, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ConcurrentHashSet.1.0.2\lib\netstandard1.0\ConcurrentCollections.dll</HintPath>
+    </Reference>
     <Reference Include="Itinero, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Itinero.1.4.0-pre53\lib\net45\Itinero.dll</HintPath>
     </Reference>
     <Reference Include="Itinero.IO.Osm, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Itinero.IO.Osm.1.4.0-pre53\lib\net45\Itinero.IO.Osm.dll</HintPath>
     </Reference>
+    <Reference Include="Mapsui, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mapsui.2.0.0-beta.2\lib\net461\Mapsui.dll</HintPath>
+    </Reference>
+    <Reference Include="Mapsui.Geometries, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mapsui.2.0.0-beta.2\lib\net461\Mapsui.Geometries.dll</HintPath>
+    </Reference>
+    <Reference Include="Mapsui.Rendering.Skia, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mapsui.2.0.0-beta.2\lib\net461\Mapsui.Rendering.Skia.dll</HintPath>
+    </Reference>
+    <Reference Include="Mapsui.Rendering.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mapsui.2.0.0-beta.2\lib\net461\Mapsui.Rendering.Xaml.dll</HintPath>
+    </Reference>
+    <Reference Include="Mapsui.UI.Wpf, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mapsui.2.0.0-beta.2\lib\net461\Mapsui.UI.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OsmSharp, Version=6.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\OsmSharp.6.0.0\lib\net45\OsmSharp.dll</HintPath>
@@ -53,6 +77,21 @@
     </Reference>
     <Reference Include="Reminiscence, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Reminiscence.1.2.0-pre06\lib\net45\Reminiscence.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp, Version=1.60.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.1.60.1\lib\net45\SkiaSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp.Extended.Svg, Version=1.60.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.Svg.1.60.0\lib\netstandard2.0\SkiaSharp.Extended.Svg.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp.Views.Desktop, Version=1.60.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.Views.1.60.1\lib\net45\SkiaSharp.Views.Desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp.Views.Gtk, Version=1.60.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.Views.1.60.1\lib\net45\SkiaSharp.Views.Gtk.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp.Views.WPF, Version=1.60.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.Views.1.60.1\lib\net45\SkiaSharp.Views.WPF.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -259,5 +298,7 @@
       <ErrorText>Dieses Projekt verweist auf mindestens ein NuGet-Paket, das auf diesem Computer fehlt. Verwenden Sie die Wiederherstellung von NuGet-Paketen, um die fehlenden Dateien herunterzuladen. Weitere Informationen finden Sie unter "http://go.microsoft.com/fwlink/?LinkID=322105". Die fehlende Datei ist "{0}".</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
+    <Error Condition="!Exists('..\packages\SkiaSharp.1.60.1\build\net45\SkiaSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.1.60.1\build\net45\SkiaSharp.targets'))" />
   </Target>
+  <Import Project="..\packages\SkiaSharp.1.60.1\build\net45\SkiaSharp.targets" Condition="Exists('..\packages\SkiaSharp.1.60.1\build\net45\SkiaSharp.targets')" />
 </Project>

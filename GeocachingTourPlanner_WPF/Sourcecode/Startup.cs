@@ -48,7 +48,7 @@ namespace GeocachingTourPlanner
 
 			//Mapspecific
 			App.DB.LastMapZoom = 5;
-			//FIX App.DB.LastMapPosition = new PointLatLng(49.0, 8.5);
+			//FIX App.DB.LastMapPosition = new Coordinate(49.0, 8.5);
 			App.DB.MarkerSize = 16;
 		}
 

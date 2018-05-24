@@ -6,14 +6,25 @@ using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using GeocachingTourPlanner_WPF;
+using Itinero.LocalGeo;
+using Mapsui.Geometries;
+using Mapsui.Projection;
+using Mapsui.Providers;
+using Mapsui.Styles;
 
 namespace GeocachingTourPlanner
 {
 	public static class Markers
 	{
-		/*FIX
-		public  static GMapMarker GetGeocacheMarker(Geocache geocache)
+		/// <summary>
+		/// Currently missing color formatting
+		/// </summary>
+		/// <param name="geocache"></param>
+		/// <returns></returns>
+		public static Feature GetGeocacheMarker(Geocache geocache)
 		{
+			SymbolStyle MarkerStyle = null;
+			/*FIX
 			Category GeocacheCategory;
 			Bitmap marker_bmp;
 
@@ -158,27 +169,43 @@ namespace GeocachingTourPlanner
 				}
 
 				App.MarkerImageCache.Add(new KeyValueTriple<Bitmap, GeocacheType, int>(marker_bmp, geocache.Type, (int)GeocacheCategory));
-			}
+			}*/
 
 			//Create final marker
-			GMapMarker GCMarker = new GMarkerGoogle(new PointLatLng(geocache.lat, geocache.lon),marker_bmp);
-
-			GCMarker.ToolTipText = geocache.GCCODE + "\n" + geocache.Name + "\n" + geocache.Type + " (" + geocache.DateHidden.Date.ToString().Remove(10) + ")\nD: " + geocache.DRating + " T: " + geocache.TRating + " " + geocache.Size + "\nPoints: " + geocache.Rating;
-			GCMarker.Tag = geocache.GCCODE;
+			Feature GCMarker = new Feature { Geometry = SphericalMercator.FromLonLat(geocache.lon, geocache.lat), ["Label"] = geocache.GCCODE };
+			GCMarker.Styles.Add(MarkerStyle);
+			GCMarker["Tooltiptext"] = geocache.GCCODE + "\n" + geocache.Name + "\n" + geocache.Type + " (" + geocache.DateHidden.Date.ToString().Remove(10) + ")\nD: " + geocache.DRating + " T: " + geocache.TRating + " " + geocache.Size + "\nPoints: " + geocache.Rating;
 
 			return GCMarker;
 		}
 
-		enum Category
+		public static Feature GetStartMarker(Coordinate coords)
 		{
-			Worst_Bad,
-			Worst_Good,
-			Medium_Bad,
-			Medium_Good,
-			Best_Bad,
-			Best_Good,
-			ForceInclude
+			IStyle MarkerStyle = null;//TODO
+
+			Feature StartMarker = new Feature { Geometry = SphericalMercator.FromLonLat(coords.Longitude, coords.Latitude), ["Label"] = "Start" };
+			StartMarker.Styles.Add(MarkerStyle);
+			return StartMarker;
 		}
-		*/
+
+		public static Feature GetEndMarker(Coordinate coords)
+		{
+			IStyle MarkerStyle = null;//TODO
+
+			Feature EndMarker = new Feature { Geometry = SphericalMercator.FromLonLat(coords.Longitude, coords.Latitude), ["Label"] = "End" };
+			EndMarker.Styles.Add(MarkerStyle);
+			return EndMarker;
+		}
+
+		enum Category
+	{
+		Worst_Bad,
+		Worst_Good,
+		Medium_Bad,
+		Medium_Good,
+		Best_Bad,
+		Best_Good,
+		ForceInclude
+	} 
 	}
 }

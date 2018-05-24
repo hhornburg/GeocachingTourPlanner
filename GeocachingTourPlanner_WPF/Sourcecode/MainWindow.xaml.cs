@@ -1,6 +1,10 @@
 ﻿using GeocachingTourPlanner;
 using Itinero;
 using Itinero.LocalGeo;
+using Mapsui.Layers;
+using Mapsui.Projection;
+using Mapsui.Providers;
+using Mapsui.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -49,14 +53,7 @@ namespace GeocachingTourPlanner_WPF
 
 
 			//Map
-			Map.DisableFocusOnMouseEnter = true;//So Windows put in foreground stay in foreground
-			Map.DragButton = MouseButtons.Left;
-			Map.IgnoreMarkerOnMouseWheel = true;
-
-			Map.MapProvider = OpenCycleLandscapeMapProvider.Instance;
-			GMaps.Instance.Mode = AccessMode.ServerAndCache;
-			//Remove Cross in the middle of the Map
-			Map.ShowCenter = false;
+			Map.Layers.Add(OpenStreetMap.CreateTileLayer());
 
 		}
 
@@ -619,7 +616,7 @@ namespace GeocachingTourPlanner_WPF
 
 		private void StartpointTextbox_Leave(object sender, EventArgs e)
 		{
-			Result<PointLatLng> Coordinates = ExtractCoordinates(StartpointTextbox.Text);
+			Result<Coordinate> Coordinates = ExtractCoordinates(StartpointTextbox.Text);
 			if (!Coordinates.IsError)
 			{
 				SetStartpoint(Coordinates.Value);
@@ -636,7 +633,7 @@ namespace GeocachingTourPlanner_WPF
 
 		private void EndpointTextbox_Leave(object sender, EventArgs e)
 		{
-			Result<PointLatLng> Coordinates = ExtractCoordinates(EndpointTextbox.Text);
+			Result<Coordinate> Coordinates = ExtractCoordinates(EndpointTextbox.Text);
 			if (!Coordinates.IsError)
 			{
 				SetEndpoint(Coordinates.Value);
@@ -779,7 +776,7 @@ namespace GeocachingTourPlanner_WPF
 			if (e.Button == MouseButtons.Right && !((GMapControl)sender).IsMouseOverMarker)
 			{
 				ContextMenu MapContextMenu = new ContextMenu();
-				PointLatLng Coordinates = Map.FromLocalToLatLng(e.X, e.Y);
+				Coordinate Coordinates = Map.FromLocalToLatLng(e.X, e.Y);
 				// initialize the commands
 				MenuItem SetEndpoint = new MenuItem("Set Endpoint here");
 				SetEndpoint.Click += (new_sender, new_e) => this.SetEndpoint(Coordinates);
@@ -1005,57 +1002,21 @@ namespace GeocachingTourPlanner_WPF
 		/// </summary>
 		public void LoadMap()
 		{
-			if (!Map.InvokeRequired)
-			{
-				//TODO make this more intelligent
+			Features Geocaches = new Features();
 
-				//Remove all geocache (and only the geocache!) overlays
-				if (Map.Overlays.Where(x => x.Id == "TopOverlay").Count() > 0)
-				{
-					Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "TopOverlay"));
-				}
-				if (Map.Overlays.Where(x => x.Id == "MediumOverlay").Count() > 0)
-				{
-					Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "MediumOverlay"));
-				}
-				if (Map.Overlays.Where(x => x.Id == "LowOverlay").Count() > 0)
-				{
-					Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "LowOverlay"));
-				}
-
-				//recreate them
-				GMapOverlay TopOverlay = new GMapOverlay("TopOverlay");
-				GMapOverlay MediumOverlay = new GMapOverlay("MediumOverlay");
-				GMapOverlay LowOverlay = new GMapOverlay("LowOverlay");
 				foreach (Geocache GC in App.Geocaches)
 				{
-					GMapMarker GCMarker = null;
-					//Three Categories => Thirds of the Point range
-					if (GC.Rating > (App.DB.MinimalRating) + 0.67 * (App.DB.MaximalRating - App.DB.MinimalRating))
-					{
-						GCMarker = Markers.GetGeocacheMarker(GC);
-						TopOverlay.Markers.Add(GCMarker);
-					}
-					else if (GC.Rating > (App.DB.MinimalRating) + 0.33 * (App.DB.MaximalRating - App.DB.MinimalRating))
-					{
-						GCMarker = Markers.GetGeocacheMarker(GC);
-						MediumOverlay.Markers.Add(GCMarker);
-					}
-					else
-					{
-						GCMarker = Markers.GetGeocacheMarker(GC);
-						LowOverlay.Markers.Add(GCMarker);
-					}
+					Geocaches.Add(Markers.GetGeocacheMarker(GC));
 				}
 
-				Map.Overlays.Add(LowOverlay);
-				Map.Overlays.Add(MediumOverlay);
-				Map.Overlays.Add(TopOverlay);
+				MemoryLayer GeocacheLayer = new MemoryLayer
+				{
+					Name = "Geocaches",
+					DataSource = new MemoryProvider(Geocaches),
+					Style = null
+				};
 
-				//Not that clean, but makes sure that the checked states are equal to the visibility
-				BestCheckbox_CheckedChanged(null, null);
-				MediumCheckbox_CheckedChanged(null, null);
-				WorstCheckbox_CheckedChanged(null, null);
+			Map.Layers.Add(GeocacheLayer);
 
 				//Set Views
 				if (App.DB.LastMapZoom == 0)
@@ -1063,27 +1024,15 @@ namespace GeocachingTourPlanner_WPF
 					App.DB.LastMapZoom = 5;
 				}
 				Map.Zoom = App.DB.LastMapZoom;
-
-				if (App.DB.LastMapPosition.IsEmpty)//Equals that the user hasn't seen the map before (fixes #2)
-				{
-					App.DB.LastMapPosition = new PointLatLng(49.0, 8.5);
-				}
-				Map.Position = App.DB.LastMapPosition;
-			}
-			else
-			{
-				Loadmap_Delegate dg = new Loadmap_Delegate(LoadMap);
-				Invoke(dg);
-			}
-
+				Map.NavigateTo(SphericalMercator.FromLonLat(App.DB.LastMapPosition.Longitude, App.DB.LastMapPosition.Latitude));
 		}
 
-		private void SetStartpoint(PointLatLng coordinates)
+		private void SetStartpoint(Coordinate coordinates)
 		{
-			if (Map.Overlays.Count(x => x.Id == "StartEnd") > 0)
+			if (Map.Layers.Count(x => x.Id == "StartEnd") > 0)
 			{
-				GMapOverlay Overlay = Map.Overlays.First(x => x.Id == "StartEnd");
-				if (Overlay.Markers.Count(x => x.Tag.ToString() == "Startpoint") > 0)
+				Layer Overlay = Map.Layers.First(x => x.Id == "StartEnd");
+				if (Overlay.DataSource..Count(x => x.Tag.ToString() == "Startpoint") > 0)
 				{
 					Overlay.Markers.Remove(Map.Overlays.First(x => x.Id == "StartEnd").Markers.First(x => x.Tag.ToString() == "Startpoint"));
 				}
@@ -1103,7 +1052,7 @@ namespace GeocachingTourPlanner_WPF
 			StartpointTextbox.Text = coordinates.Lat.ToString(CultureInfo.InvariantCulture) + ";" + coordinates.Lng.ToString(CultureInfo.InvariantCulture);
 		}
 
-		private void SetEndpoint(PointLatLng coordinates)
+		private void SetEndpoint(Coordinate coordinates)
 		{
 			if (Map.Overlays.Count(x => x.Id == "StartEnd") > 0)
 			{
@@ -1224,11 +1173,11 @@ namespace GeocachingTourPlanner_WPF
 				string Routetag = Result.Profile.Name + " Route " + (Result.Profile.RoutesOfthisType + 1);
 
 				App.Routes.Add(new SerializableKeyValuePair<string, Tourplanning.RouteData>(Routetag, Result));
-				List<PointLatLng> LatLongPointList = new List<PointLatLng>();
+				List<Coordinate> LatLongPointList = new List<Coordinate>();
 
 				foreach (Coordinate COO in FinalRoute.Shape)
 				{
-					LatLongPointList.Add(new PointLatLng(COO.Latitude, COO.Longitude));
+					LatLongPointList.Add(new Coordinate(COO.Latitude, COO.Longitude));
 				}
 
 				Result.Profile.RoutesOfthisType++;
@@ -1267,11 +1216,11 @@ namespace GeocachingTourPlanner_WPF
 						App.MainWindow.Map.Overlays.Remove(App.MainWindow.Map.Overlays.First(x => x.Id == "PreliminaryRoute"));
 					}
 
-					List<PointLatLng> GMAPRoute = new List<PointLatLng>();
+					List<Coordinate> GMAPRoute = new List<Coordinate>();
 
 					foreach (Coordinate COO in PreliminaryRoute.Shape)
 					{
-						GMAPRoute.Add(new PointLatLng(COO.Latitude, COO.Longitude));
+						GMAPRoute.Add(new Coordinate(COO.Latitude, COO.Longitude));
 					}
 					GMapOverlay RouteOverlay = new GMapOverlay("PreliminaryRoute");
 					RouteOverlay.Routes.Add(new GMapRoute(GMAPRoute, "PreliminaryRoute"));
@@ -1436,11 +1385,11 @@ namespace GeocachingTourPlanner_WPF
 			}*/
 		}
 
-		private Result<PointLatLng> ExtractCoordinates(string text)
+		private Result<Coordinate> ExtractCoordinates(string text)
 		{
 			if (text.Length == 0)
 			{
-				return new Result<PointLatLng>("Empty Text");
+				return new Result<Coordinate>("Empty Text");
 			}
 
 			text = text.Replace(',', '.');
@@ -1452,14 +1401,14 @@ namespace GeocachingTourPlanner_WPF
 			if ((IndexOfLatitude == -1 ^ IndexOfLongitude == -1))//Both ave to be either -1 or not -1, since the format has to be the same
 			{
 				MessageBox.Show("Please decide on a coordinate format");
-				return new Result<PointLatLng>("FormatError");
+				return new Result<Coordinate>("FormatError");
 			}
 			else if (IndexOfLongitude == -1)//Don't care which one, but I know coordinates are formatted with +/-
 			{
 				if (text.IndexOfAny(new char[] { ' ', ';' }) == -1)
 				{
 					MessageBox.Show("I can't split the coordinates you entered");
-					return new Result<PointLatLng>("FormatError");
+					return new Result<Coordinate>("FormatError");
 				}
 
 				string lat_string = text.Substring(0, text.IndexOfAny(new char[] { ' ', ';' }));
@@ -1471,12 +1420,12 @@ namespace GeocachingTourPlanner_WPF
 
 				if (float.TryParse(lat_string, NumberStyles.Any, CultureInfo.InvariantCulture, out float lat_float) && float.TryParse(lon_string, NumberStyles.Any, CultureInfo.InvariantCulture, out float lon_float))
 				{
-					return new Result<PointLatLng>(new PointLatLng(lat_float, lon_float));
+					return new Result<Coordinate>(new Coordinate(lat_float, lon_float));
 				}
 				else
 				{
 					MessageBox.Show("Please check the coordinate you entered");
-					return new Result<PointLatLng>("FormatError");
+					return new Result<Coordinate>("FormatError");
 				}
 			}
 			else
@@ -1508,12 +1457,12 @@ namespace GeocachingTourPlanner_WPF
 						lon_float = -lon_float;
 					}
 
-					return new Result<PointLatLng>(new PointLatLng(lat_float, lon_float));
+					return new Result<Coordinate>(new Coordinate(lat_float, lon_float));
 				}
 				else
 				{
 					MessageBox.Show("Please check the coordinate you entered");
-					return new Result<PointLatLng>("FormatError");
+					return new Result<Coordinate>("FormatError");
 				}
 			}
 		}
