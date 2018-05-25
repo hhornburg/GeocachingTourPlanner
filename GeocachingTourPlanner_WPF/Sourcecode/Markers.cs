@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
-using GeocachingTourPlanner_WPF;
+using GeocachingTourPlanner;
 using Itinero.LocalGeo;
 using Mapsui.Geometries;
 using Mapsui.Projection;
 using Mapsui.Providers;
 using Mapsui.Styles;
 
-namespace GeocachingTourPlanner
+namespace GeocachingTourPlanner_WPF
 {
 	public static class Markers
 	{
@@ -24,9 +26,8 @@ namespace GeocachingTourPlanner
 		public static Feature GetGeocacheMarker(Geocache geocache)
 		{
 			SymbolStyle MarkerStyle = null;
-			/*FIX
+
 			Category GeocacheCategory;
-			Bitmap marker_bmp;
 
 			if (geocache.ForceInclude)
 			{
@@ -57,9 +58,9 @@ namespace GeocachingTourPlanner
 				GeocacheCategory = Category.Worst_Bad;
 			}
 
-			if (App.MarkerImageCache.Where(x => x.Value1 == geocache.Type && x.Value2 == (int)GeocacheCategory).Count() > 0)
+			if (App.MarkerStyleCache.Where(x => x.Value1 == geocache.Type && x.Value2 == (int)GeocacheCategory).Count() > 0)
 			{
-				marker_bmp = App.MarkerImageCache.Find(x => x.Value1 == geocache.Type && x.Value2 == (int)GeocacheCategory).Key;
+				MarkerStyle = App.MarkerStyleCache.Find(x => x.Value1 == geocache.Type && x.Value2 == (int)GeocacheCategory).Key;
 			}
 			else
 			{
@@ -67,30 +68,30 @@ namespace GeocachingTourPlanner
 
 				ColorMap[] colorMap = new ColorMap[1];
 				colorMap[0] = new ColorMap();
-				colorMap[0].OldColor = Color.Black;
+				colorMap[0].OldColor = System.Drawing.Color.Black;
 
 				switch (GeocacheCategory)
 				{
 					case Category.ForceInclude:
-						colorMap[0].NewColor = Color.Blue;
+						colorMap[0].NewColor = System.Drawing.Color.Blue;
 						break;
 					case Category.Best_Good:
-						colorMap[0].NewColor = Color.Green;
+						colorMap[0].NewColor = System.Drawing.Color.Green;
 						break;
 					case Category.Best_Bad:
-						colorMap[0].NewColor = Color.GreenYellow;
+						colorMap[0].NewColor = System.Drawing.Color.GreenYellow;
 						break;
 					case Category.Medium_Good:
-						colorMap[0].NewColor = Color.Yellow;
+						colorMap[0].NewColor = System.Drawing.Color.Yellow;
 						break;
 					case Category.Medium_Bad:
-						colorMap[0].NewColor = Color.Orange;
+						colorMap[0].NewColor = System.Drawing.Color.Orange;
 						break;
 					case Category.Worst_Good:
-						colorMap[0].NewColor = Color.Red;
+						colorMap[0].NewColor = System.Drawing.Color.Red;
 						break;
 					case Category.Worst_Bad:
-						colorMap[0].NewColor = Color.DarkRed;
+						colorMap[0].NewColor = System.Drawing.Color.DarkRed;
 						break;
 				}
 
@@ -147,7 +148,7 @@ namespace GeocachingTourPlanner
 				Rectangle PinRect = new Rectangle(0, 0, App.DB.MarkerSize, (int)(1.5 * App.DB.MarkerSize));
 				Rectangle SymbolRect = new Rectangle(0, 0, App.DB.MarkerSize, App.DB.MarkerSize);
 
-				marker_bmp = new Bitmap(App.DB.MarkerSize, (int)(1.5 * App.DB.MarkerSize));
+				System.Drawing.Bitmap marker_bmp = new System.Drawing.Bitmap(App.DB.MarkerSize, (int)(1.5 * App.DB.MarkerSize));
 				marker_bmp.SetResolution(OriginalMarker.HorizontalResolution, OriginalMarker.VerticalResolution);
 
 				using (Graphics graphics = Graphics.FromImage(marker_bmp))
@@ -168,8 +169,9 @@ namespace GeocachingTourPlanner
 					graphics.DrawImage(TypeImage, SymbolRect, 0, 0, TypeImage.Width, TypeImage.Height, GraphicsUnit.Pixel, PinAttributes);
 				}
 
-				App.MarkerImageCache.Add(new KeyValueTriple<Bitmap, GeocacheType, int>(marker_bmp, geocache.Type, (int)GeocacheCategory));
-			}*/
+				MarkerStyle = new SymbolStyle { BitmapId=BitmapRegistry.Instance.Register(marker_bmp), SymbolType = SymbolType.Svg, SymbolScale = App.DB.MarkerSize, SymbolOffset = new Offset(0.0, 0.5, true) };
+				App.MarkerStyleCache.Add(new KeyValueTriple<SymbolStyle, GeocacheType, int>(MarkerStyle, geocache.Type, (int)GeocacheCategory));
+			}
 
 			//Create final marker
 			Feature GCMarker = new Feature { Geometry = SphericalMercator.FromLonLat(geocache.lon, geocache.lat), ["Label"] = geocache.GCCODE };
@@ -181,7 +183,8 @@ namespace GeocachingTourPlanner
 
 		public static Feature GetStartMarker(Coordinate coords)
 		{
-			IStyle MarkerStyle = null;//TODO
+			//TODO new Marker
+			IStyle MarkerStyle = new SymbolStyle { BitmapId = BitmapRegistry.Instance.Register(Properties.Images.Pin_black), SymbolType = SymbolType.Svg, SymbolScale = App.DB.MarkerSize, SymbolOffset = new Offset(0.0, 0.5, true) };
 
 			Feature StartMarker = new Feature { Geometry = SphericalMercator.FromLonLat(coords.Longitude, coords.Latitude), ["Label"] = "Start" };
 			StartMarker.Styles.Add(MarkerStyle);
@@ -190,7 +193,8 @@ namespace GeocachingTourPlanner
 
 		public static Feature GetEndMarker(Coordinate coords)
 		{
-			IStyle MarkerStyle = null;//TODO
+			//TODO new Marker
+			IStyle MarkerStyle = new SymbolStyle { BitmapId = BitmapRegistry.Instance.Register(Properties.Images.Pin_black), SymbolType = SymbolType.Svg, SymbolScale = App.DB.MarkerSize, SymbolOffset = new Offset(0.0, 0.5, true) };
 
 			Feature EndMarker = new Feature { Geometry = SphericalMercator.FromLonLat(coords.Longitude, coords.Latitude), ["Label"] = "End" };
 			EndMarker.Styles.Add(MarkerStyle);
@@ -198,14 +202,15 @@ namespace GeocachingTourPlanner
 		}
 
 		enum Category
-	{
-		Worst_Bad,
-		Worst_Good,
-		Medium_Bad,
-		Medium_Good,
-		Best_Bad,
-		Best_Good,
-		ForceInclude
-	} 
+		{
+			Worst_Bad,
+			Worst_Good,
+			Medium_Bad,
+			Medium_Good,
+			Best_Bad,
+			Best_Good,
+			ForceInclude
+		}
+
 	}
 }

@@ -921,7 +921,7 @@ namespace GeocachingTourPlanner_WPF
 
 		private void MarkerSizeTrackBar_Scroll(object sender, EventArgs e)
 		{
-			App.MarkerImageCache.Clear();
+			App.MarkerStyleCache.Clear();
 			App.DB.MarkerSize = MarkerSizeTrackBar.Value;
 			LoadMap();
 			Fileoperations.Backup(null);
