@@ -644,44 +644,7 @@ namespace GeocachingTourPlanner_WPF
 			}
 		}
 		#endregion
-		#region Geocachecheckboxes
-		private void BestCheckbox_CheckedChanged(object sender, EventArgs e)
-		{
-			if (BestGeocachesCheckbox.Checked)
-			{
-				Map.Overlays.First(x => x.Id == "TopOverlay").IsVisibile = true;
-			}
-			else
-			{
-				Map.Overlays.First(x => x.Id == "TopOverlay").IsVisibile = false;
-			}
-		}
-
-		private void MediumCheckbox_CheckedChanged(object sender, EventArgs e)
-		{
-			if (MediumGeocachesCheckbox.Checked)
-			{
-				Map.Overlays.First(x => x.Id == "MediumOverlay").IsVisibile = true;
-			}
-			else
-			{
-				Map.Overlays.First(x => x.Id == "MediumOverlay").IsVisibile = false;
-			}
-		}
-
-		private void WorstCheckbox_CheckedChanged(object sender, EventArgs e)
-		{
-			if (WorstGeocachesCheckbox.Checked)
-			{
-				Map.Overlays.First(x => x.Id == "LowOverlay").IsVisibile = true;
-			}
-			else
-			{
-				Map.Overlays.First(x => x.Id == "LowOverlay").IsVisibile = false;
-			}
-		}
-		#endregion
-
+		
 		#region Routes
 		private void DeleteButton_Click(object sender, EventArgs e, string OverlayTag)
 		{
@@ -944,14 +907,7 @@ namespace GeocachingTourPlanner_WPF
 		delegate void SetRouterDBLabel_delegate(string text);
 		public void SetRouterDBLabel(string text)
 		{
-			if (!RouterDBStateLabel.InvokeRequired)
-			{
 				RouterDBStateLabel.Text = text;
-			}
-			else
-			{
-				Invoke(new SetRouterDBLabel_delegate(SetRouterDBLabel), text);
-			}
 		}
 
 		#region Status
@@ -959,31 +915,24 @@ namespace GeocachingTourPlanner_WPF
 		delegate void UpdateStatusDelegate(string message, int progress = 0);
 		public void UpdateStatus(string message, int progress = 0)
 		{
-			if (!StatusLabel.InvokeRequired)
+			File.AppendAllText("Log.txt", "[" + DateTime.Now + "]: " + message + "\n");
+			if (progress != 0)//If the status changes while this is still processing and the new one isn't time consuming (currently there are only two time consuming methods, which cannot run simultaneously), the tooltip still chows the old information, so one can still check what happens
 			{
-				File.AppendAllText("Log.txt", "[" + DateTime.Now + "]: " + message + "\n");
-				if (progress != 0)//If the status changes while this is still processing and the new one isn't time consuming (currently there are only two time consuming methods, which cannot run simultaneously), the tooltip still chows the old information, so one can still check what happens
-				{
 
-					ProgressBar.MouseHover += (sender, e) => ShowTooltip(message, sender);
-					ProgressBar.Value = progress;
-				}
-				else if (ProgressBar.Value == 100)//Thus the previous operation has finished
-				{
-					ProgressBar.Value = 0;
-					ProgressBar.MouseHover += (sender, e) => ShowTooltip(message, sender);
-				}
-				StatusLabel.Text = message;
+				StatusProgressBar.MouseHover += (sender, e) => ShowTooltip(message, sender);
+				StatusProgressBar.Value = progress;
 			}
-			else
+			else if (StatusProgressBar.Value == 100)//Thus the previous operation has finished
 			{
-				Invoke(new UpdateStatusDelegate(UpdateStatus), new object[] { message, progress });
+				StatusProgressBar.Value = 0;
+				StatusProgressBar.MouseHover += (sender, e) => ShowTooltip(message, sender);
 			}
+			StatusLabel.Text = message;
 		}
 
 		private void ShowTooltip(string message, object control)
 		{
-			ProgressTooltip.Show(message, ProgressBar);
+			ProgressTooltip.Show(message, StatusProgressBar);
 		}
 		#endregion
 		#endregion
