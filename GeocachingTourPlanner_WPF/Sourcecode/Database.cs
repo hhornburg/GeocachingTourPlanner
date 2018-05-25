@@ -25,7 +25,7 @@ namespace GeocachingTourPlanner
 		public string RouterDB_Filepath { get; set; }
 
 		//Mapspecific
-		public double LastMapZoom { get; set;}
+		public double LastMapResolution { get; set;}
 		public Coordinate LastMapPosition { get; set; }
 
 		public int MarkerSize { get; set; }

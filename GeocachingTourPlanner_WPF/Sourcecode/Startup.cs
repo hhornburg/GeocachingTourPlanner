@@ -47,7 +47,7 @@ namespace GeocachingTourPlanner
 			App.DB.DisplayLiveCalculation = false;
 
 			//Mapspecific
-			App.DB.LastMapZoom = 5;
+			App.DB.LastMapResolution = 5;
 			//FIX App.DB.LastMapPosition = new Coordinate(49.0, 8.5);
 			App.DB.MarkerSize = 16;
 		}

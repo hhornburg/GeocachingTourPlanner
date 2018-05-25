@@ -8,6 +8,7 @@ using Mapsui.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -732,7 +733,7 @@ namespace GeocachingTourPlanner_WPF
 		private void Map_OnMapZoomChanged()
 		{
 			App.DB.LastMapPosition = Map.Position;//Since you can change position when zooming
-			App.DB.LastMapZoom = Map.Zoom;
+			App.DB.LastMapResolution = Map.Zoom;
 			Fileoperations.Backup(null);
 		}
 
@@ -996,85 +997,84 @@ namespace GeocachingTourPlanner_WPF
 		}
 
 		#region Map
+		//FIX Remove when UI is added
+		Mapsui.Map Map = new Mapsui.Map();
+
 		delegate void Loadmap_Delegate();
 		/// <summary>
 		/// Updates Map
 		/// </summary>
 		public void LoadMap()
 		{
-			Features Geocaches = new Features();
+			WritableLayer GeocacheLayer = new WritableLayer
+			{
+				Name = "Geocaches",
+				Style = null
+			};
 
-				foreach (Geocache GC in App.Geocaches)
-				{
-					Geocaches.Add(Markers.GetGeocacheMarker(GC));
-				}
-
-				MemoryLayer GeocacheLayer = new MemoryLayer
-				{
-					Name = "Geocaches",
-					DataSource = new MemoryProvider(Geocaches),
-					Style = null
-				};
-
+			foreach (Geocache GC in App.Geocaches)
+			{
+				GeocacheLayer.Add(Markers.GetGeocacheMarker(GC));
+			}
 			Map.Layers.Add(GeocacheLayer);
 
-				//Set Views
-				if (App.DB.LastMapZoom == 0)
-				{
-					App.DB.LastMapZoom = 5;
-				}
-				Map.Zoom = App.DB.LastMapZoom;
-				Map.NavigateTo(SphericalMercator.FromLonLat(App.DB.LastMapPosition.Longitude, App.DB.LastMapPosition.Latitude));
+			//Set Views
+			if (App.DB.LastMapResolution == 0)
+			{
+				App.DB.LastMapResolution = 5;
+			}
+			Map.NavigateTo(App.DB.LastMapResolution);
+			Map.NavigateTo(SphericalMercator.FromLonLat(App.DB.LastMapPosition.Longitude, App.DB.LastMapPosition.Latitude));
 		}
 
 		private void SetStartpoint(Coordinate coordinates)
 		{
-			if (Map.Layers.Count(x => x.Id == "StartEnd") > 0)
+			if (Map.Layers.Count(x => x.Name == "StartEnd") > 0)
 			{
-				Layer Overlay = Map.Layers.First(x => x.Id == "StartEnd");
-				if (Overlay.DataSource..Count(x => x.Tag.ToString() == "Startpoint") > 0)
+				WritableLayer Overlay = (WritableLayer)Map.Layers.First(x => x.Name == "StartEnd");
+				if (Overlay.GetFeatures().Count(x => x["Label"].ToString() == "Startpoint") >0)
 				{
-					Overlay.Markers.Remove(Map.Overlays.First(x => x.Id == "StartEnd").Markers.First(x => x.Tag.ToString() == "Startpoint"));
+					Overlay.TryRemove(Overlay.GetFeatures().First(x => x["Label"].ToString() == "Startpoint"));
 				}
-				GMapMarker Startpoint = new GMarkerGoogle(coordinates, GMarkerGoogleType.green_big_go);
-				Startpoint.Tag = "Startpoint";
-				Overlay.Markers.Add(Startpoint);
+				Overlay.Add(Markers.GetStartMarker(coordinates));
 			}
 			else
 			{
-				GMapOverlay Overlay = new GMapOverlay("StartEnd");
-				GMapMarker Startpoint = new GMarkerGoogle(coordinates, GMarkerGoogleType.green_big_go);
-				Startpoint.Tag = "Startpoint";
-				Overlay.Markers.Add(Startpoint);
-				Map.Overlays.Add(Overlay);
+				WritableLayer Overlay = new WritableLayer
+				{
+					Name = "StartEnd",
+					Style = null
+				};
+				Overlay.Add(Markers.GetStartMarker(coordinates));
+				Map.Layers.Add(Overlay);
 			}
 
-			StartpointTextbox.Text = coordinates.Lat.ToString(CultureInfo.InvariantCulture) + ";" + coordinates.Lng.ToString(CultureInfo.InvariantCulture);
+			StartpointTextbox.Text = coordinates.Latitude.ToString(CultureInfo.InvariantCulture) + ";" + coordinates.Longitude.ToString(CultureInfo.InvariantCulture);
 		}
 
 		private void SetEndpoint(Coordinate coordinates)
 		{
-			if (Map.Overlays.Count(x => x.Id == "StartEnd") > 0)
+			if (Map.Layers.Count(x => x.Name == "StartEnd") > 0)
 			{
-				GMapOverlay Overlay = Map.Overlays.First(x => x.Id == "StartEnd");
-				if (Overlay.Markers.Count(x => x.Tag.ToString() == "Endpoint") > 0)
+				WritableLayer Overlay = (WritableLayer)Map.Layers.First(x => x.Name == "StartEnd");
+				if (Overlay.GetFeatures().Count(x => x["Label"].ToString() == "Endpoint") > 0)
 				{
-					Overlay.Markers.Remove(Map.Overlays.First(x => x.Id == "StartEnd").Markers.First(x => x.Tag.ToString() == "Endpoint"));
+					Overlay.TryRemove(Overlay.GetFeatures().First(x => x["Label"].ToString() == "Endpoint"));
 				}
-				GMapMarker Endpoint = new GMarkerGoogle(coordinates, GMarkerGoogleType.red_big_stop);
-				Endpoint.Tag = "Endpoint";
-				Overlay.Markers.Add(Endpoint);
+				Overlay.Add(Markers.GetStartMarker(coordinates));
 			}
 			else
 			{
-				GMapOverlay Overlay = new GMapOverlay("StartEnd");
-				GMapMarker Endpoint = new GMarkerGoogle(coordinates, GMarkerGoogleType.red_big_stop);
-				Endpoint.Tag = "Endpoint";
-				Overlay.Markers.Add(Endpoint);
-				Map.Overlays.Add(Overlay);
+				WritableLayer Overlay = new WritableLayer
+				{
+					Name = "StartEnd",
+					Style = null
+				};
+				Overlay.Add(Markers.GetStartMarker(coordinates));
+				Map.Layers.Add(Overlay);
 			}
 
-			EndpointTextbox.Text = coordinates.Lat.ToString(CultureInfo.InvariantCulture) + ";" + coordinates.Lng.ToString(CultureInfo.InvariantCulture);
+			EndpointTextbox.Text = coordinates.Latitude.ToString(CultureInfo.InvariantCulture) + ";" + coordinates.Longitude.ToString(CultureInfo.InvariantCulture);
 		}
 
 		delegate void newRouteControlElementDelegate(string OverlayTag);
@@ -1153,55 +1153,53 @@ namespace GeocachingTourPlanner_WPF
 		delegate void AddFinalRouteDelegate(Tourplanning.RouteData Result);
 		public void AddFinalRoute(Tourplanning.RouteData Result)
 		{
-			if (Map.InvokeRequired == false)
+			while (Map.Layers.Count(x => x.Name == "PreliminaryRoute") > 0)
 			{
-				while (Map.Overlays.Count(x => x.Id == "PreliminaryRoute") > 0)
-				{
-					Map.Overlays.Remove(Map.Overlays.First(x => x.Id == "PreliminaryRoute"));//Remove the live displayed routes
-				}
-
-				Route FinalRoute = Result.partialRoutes[0].partialRoute;
-
-				for (int i = 1; i < Result.partialRoutes.Count; i++)
-				{
-					FinalRoute = FinalRoute.Concatenate(Result.partialRoutes[i].partialRoute);
-				}
-
-				List<Geocache> GeocachesOnRoute = Result.GeocachesOnRoute();
-
-				//Name of the route which will be used for all further referencing
-				string Routetag = Result.Profile.Name + " Route " + (Result.Profile.RoutesOfthisType + 1);
-
-				App.Routes.Add(new SerializableKeyValuePair<string, Tourplanning.RouteData>(Routetag, Result));
-				List<Coordinate> LatLongPointList = new List<Coordinate>();
-
-				foreach (Coordinate COO in FinalRoute.Shape)
-				{
-					LatLongPointList.Add(new Coordinate(COO.Latitude, COO.Longitude));
-				}
-
-				Result.Profile.RoutesOfthisType++;
-
-				GMapOverlay RouteOverlay = new GMapOverlay(Routetag);
-				GMapRoute Route = new GMapRoute(LatLongPointList, Routetag);
-				RouteOverlay.Routes.Add(Route);
-				foreach (Geocache GC in GeocachesOnRoute)
-				{
-					GMapMarker GCMarker = Markers.GetGeocacheMarker(GC);
-					RouteOverlay.Markers.Add(GCMarker);
-				}
-
-				Map.Overlays.Add(RouteOverlay);
-				newRouteControlElement(Routetag);
-				App.RouteCalculationRunning = false; Application.UseWaitCursor = false;
-				Map.Cursor = Cursors.Default;
-				LoadMap();
+				Map.Layers.Remove(Map.Layers.First(x => x.Name == "PreliminaryRoute"));//Remove the live displayed routes
 			}
-			else
+
+			Route FinalRoute = Result.partialRoutes[0].partialRoute;
+
+			for (int i = 1; i < Result.partialRoutes.Count; i++)
 			{
-				AddFinalRouteDelegate dg = new AddFinalRouteDelegate(AddFinalRoute);
-				BeginInvoke(dg, Result);
+				FinalRoute = FinalRoute.Concatenate(Result.partialRoutes[i].partialRoute);
 			}
+
+			List<Geocache> GeocachesOnRoute = Result.GeocachesOnRoute();
+
+			//Name of the route which will be used for all further referencing
+			string Routetag = Result.Profile.Name + " Route " + (Result.Profile.RoutesOfthisType + 1);
+
+			App.Routes.Add(new KeyValuePair<string, Tourplanning.RouteData>(Routetag, Result));
+			List<Coordinate> LatLongPointList = new List<Coordinate>();
+
+			foreach (Coordinate COO in FinalRoute.Shape)
+			{
+				LatLongPointList.Add(new Coordinate(COO.Latitude, COO.Longitude));
+			}
+
+			Result.Profile.RoutesOfthisType++;
+
+			WritableLayer RouteLayer = new WritableLayer
+			{
+				Name = "StartEnd",
+				Style = null
+			};
+
+			foreach (Geocache GC in GeocachesOnRoute)
+			{
+				RouteLayer.Add(Markers.GetGeocacheMarker(GC));
+			}
+
+			Feature Route = new Feature(LatLongPointList, Routetag); //TODO Lookup how lines work
+			RouteLayer.Add(Route);
+
+			Map.Layers.Add(RouteLayer);
+
+			newRouteControlElement(Routetag);
+			App.RouteCalculationRunning = false;
+			//FIX Application.UseWaitCursor = false;
+			LoadMap();
 		}
 
 		delegate void DisplayPreliminaryRouteDelegate(Route PreliminaryRoute);
@@ -1209,28 +1207,25 @@ namespace GeocachingTourPlanner_WPF
 		{
 			if (App.DB.DisplayLiveCalculation && App.RouteCalculationRunning)//If the calculation is not running anymore, the thread was late and no route should be displayed
 			{
-				if (Map.InvokeRequired == false)
+				while (Map.Layers.Count(x => x.Name == "PreliminaryRoute") > 0)
 				{
-					while (App.MainWindow.Map.Overlays.Count(x => x.Id == "PreliminaryRoute") != 0)
-					{
-						App.MainWindow.Map.Overlays.Remove(App.MainWindow.Map.Overlays.First(x => x.Id == "PreliminaryRoute"));
-					}
-
-					List<Coordinate> GMAPRoute = new List<Coordinate>();
-
-					foreach (Coordinate COO in PreliminaryRoute.Shape)
-					{
-						GMAPRoute.Add(new Coordinate(COO.Latitude, COO.Longitude));
-					}
-					GMapOverlay RouteOverlay = new GMapOverlay("PreliminaryRoute");
-					RouteOverlay.Routes.Add(new GMapRoute(GMAPRoute, "PreliminaryRoute"));
-					App.MainWindow.Map.Overlays.Add(RouteOverlay);
+					Map.Layers.Remove(Map.Layers.First(x => x.Name == "PreliminaryRoute"));//Remove the live displayed routes
 				}
-				else
+
+				List<Coordinate> GMAPRoute = new List<Coordinate>();
+
+				foreach (Coordinate COO in PreliminaryRoute.Shape)
 				{
-					DisplayPreliminaryRouteDelegate dg = new DisplayPreliminaryRouteDelegate(DisplayPreliminaryRoute);
-					BeginInvoke(dg, PreliminaryRoute);
+					GMAPRoute.Add(new Coordinate(COO.Latitude, COO.Longitude));
 				}
+				WritableLayer PreliminaryRouteLayer = new WritableLayer
+				{
+					Name = "PreliminaryRoute",
+					Style = null
+				};
+				PreliminaryRouteLayer.Add(new Feature(GMAPRoute, "PreliminaryRoute")); //TODO Lookup how routes work
+				Map.Layers.Add(PreliminaryRouteLayer);
+
 				LoadMap();
 			}
 		}
