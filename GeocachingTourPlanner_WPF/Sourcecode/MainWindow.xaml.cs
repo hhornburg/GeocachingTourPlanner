@@ -45,7 +45,7 @@ namespace GeocachingTourPlanner_WPF
 			//Browser
 			try
 			{
-				webBrowser1.Navigate(new Uri(Application.StartupPath + "\\first-steps.html"));
+				//FIX webBrowser1.Navigate(new Uri(Application.StartupPath + "\\first-steps.html"));
 			}
 			catch (Exception)
 			{
@@ -533,20 +533,23 @@ namespace GeocachingTourPlanner_WPF
 				if (StartpointTextbox.Text.Length == 0)
 				{
 					MessageBox.Show("No Startpoint set. Please type one in or select one with right click on the map", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-					App.RouteCalculationRunning = false; Application.UseWaitCursor = false;
+					App.RouteCalculationRunning = false;
+					//FIX Application.UseWaitCursor = false;
 					return;
 				}
 
 				if (!float.TryParse(StartpointTextbox.Text.Substring(0, StartpointTextbox.Text.IndexOf(";") - 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out StartLat))
 				{
 					MessageBox.Show("Couldn't parse latitude of Startcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-					App.RouteCalculationRunning = false; Application.UseWaitCursor = false;
+					App.RouteCalculationRunning = false;
+					//FIX Application.UseWaitCursor = false;
 					return;
 				}
 				if (!float.TryParse(StartpointTextbox.Text.Substring(StartpointTextbox.Text.IndexOf(";") + 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out StartLon))
 				{
 					MessageBox.Show("Couldn't parse longitude Startcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-					App.RouteCalculationRunning = false; Application.UseWaitCursor = false;
+					App.RouteCalculationRunning = false;
+					//FIX Application.UseWaitCursor = false;
 					return;
 				}
 
@@ -719,7 +722,7 @@ namespace GeocachingTourPlanner_WPF
 		{
 			if (Mapdragging)//So calculation only kicks in if dragging is over
 			{
-				App.DB.LastMapPosition = Map.Position;
+				App.DB.LastMapPosition = new Coordinate((float)Map.Viewport.ScreenToWorld(Map.Viewport.Center).X, (float)Map.Viewport.ScreenToWorld(Map.Viewport.Center).Y);
 				Fileoperations.Backup(null);
 				Mapdragging = false;
 			}
@@ -732,8 +735,8 @@ namespace GeocachingTourPlanner_WPF
 
 		private void Map_OnMapZoomChanged()
 		{
-			App.DB.LastMapPosition = Map.Position;//Since you can change position when zooming
-			App.DB.LastMapResolution = Map.Zoom;
+			App.DB.LastMapPosition = new Coordinate((float)Map.Viewport.ScreenToWorld(Map.Viewport.Center).X, (float)Map.Viewport.ScreenToWorld(Map.Viewport.Center).Y);
+			App.DB.LastMapResolution = Map.Viewport.Resolution;
 			Fileoperations.Backup(null);
 		}
 
@@ -777,7 +780,7 @@ namespace GeocachingTourPlanner_WPF
 			if (e.Button == MouseButtons.Right && !((GMapControl)sender).IsMouseOverMarker)
 			{
 				ContextMenu MapContextMenu = new ContextMenu();
-				Coordinate Coordinates = Map.FromLocalToLatLng(e.X, e.Y);
+				Coordinate Coordinates = Map.Viewport.ScreenToWorld(e.X, e.Y);
 				// initialize the commands
 				MenuItem SetEndpoint = new MenuItem("Set Endpoint here");
 				SetEndpoint.Click += (new_sender, new_e) => this.SetEndpoint(Coordinates);
@@ -1080,74 +1083,65 @@ namespace GeocachingTourPlanner_WPF
 		delegate void newRouteControlElementDelegate(string OverlayTag);
 		public void newRouteControlElement(string OverlayTag)
 		{
-			if (MapTab_SideMenu.InvokeRequired == false)
+			/* TODO Has to be redone in some wayy when Layout is fixed
+			GroupBox groupBox = new GroupBox();
+			groupBox.Text = OverlayTag;
+			groupBox.AutoSize = true;
+			groupBox.Dock = DockStyle.Fill;
+
+			TableLayoutPanel Table = new TableLayoutPanel();
+			Table.RowCount = 2;
+			Table.ColumnCount = 2;
+			Table.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+			Table.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+			Table.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+			Table.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+			Table.Dock = DockStyle.Fill;
+			Table.AutoSize = true;
+			groupBox.Controls.Add(Table);
+
+			CheckBox RouteControl = new CheckBox();
+			RouteControl.Text = "show";
+			RouteControl.AutoSize = true;
+			RouteControl.Checked = true;
+			RouteControl.CheckedChanged += (sender, e) => RouteControlElement_CheckedChanged(sender, OverlayTag);
+			RouteControl.Dock = DockStyle.Fill;
+			Table.Controls.Add(RouteControl, 0, 0);
+
+			Label Info = new Label();
+			Tourplanning.RouteData ThisRouteData = App.Routes.First(x => x.Key == OverlayTag).Value;
+			List<Geocache> GeocachesOnRoute = ThisRouteData.GeocachesOnRoute();
+			int NumberOfGeocaches = GeocachesOnRoute.Count;
+			float SumOfPoints = 0;
+			foreach (Geocache GC in GeocachesOnRoute)
 			{
-
-
-				GroupBox groupBox = new GroupBox();
-				groupBox.Text = OverlayTag;
-				groupBox.AutoSize = true;
-				groupBox.Dock = DockStyle.Fill;
-
-				TableLayoutPanel Table = new TableLayoutPanel();
-				Table.RowCount = 2;
-				Table.ColumnCount = 2;
-				Table.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
-				Table.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
-				Table.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-				Table.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-				Table.Dock = DockStyle.Fill;
-				Table.AutoSize = true;
-				groupBox.Controls.Add(Table);
-
-				CheckBox RouteControl = new CheckBox();
-				RouteControl.Text = "show";
-				RouteControl.AutoSize = true;
-				RouteControl.Checked = true;
-				RouteControl.CheckedChanged += (sender, e) => RouteControlElement_CheckedChanged(sender, OverlayTag);
-				RouteControl.Dock = DockStyle.Fill;
-				Table.Controls.Add(RouteControl, 0, 0);
-
-				Label Info = new Label();
-				Tourplanning.RouteData ThisRouteData = App.Routes.First(x => x.Key == OverlayTag).Value;
-				List<Geocache> GeocachesOnRoute = ThisRouteData.GeocachesOnRoute();
-				int NumberOfGeocaches = GeocachesOnRoute.Count;
-				float SumOfPoints = 0;
-				foreach (Geocache GC in GeocachesOnRoute)
-				{
-					SumOfPoints += GC.Rating;
-				}
-				float Length = ThisRouteData.TotalDistance / 1000;
-				TimeSpan TimeNeeded = TimeSpan.FromSeconds(ThisRouteData.TotalTime) + TimeSpan.FromMinutes(GeocachesOnRoute.Count * ThisRouteData.Profile.TimePerGeocache);
-				Info.Text = "Geocaches: " + NumberOfGeocaches + "\nPoints: " + SumOfPoints + "\nLength in km: " + Length.ToString("#.##") + "\n Time in min:" + TimeNeeded.TotalMinutes.ToString("#.");
-				Info.Dock = DockStyle.Fill;
-				Info.AutoSize = true;
-				Table.Controls.Add(Info, 1, 0);
-
-				Button DeleteButton = new Button();
-				DeleteButton.Text = "Delete";
-				DeleteButton.Click += (sender, e) => DeleteButton_Click(sender, e, OverlayTag);
-				DeleteButton.Dock = DockStyle.Fill;
-				DeleteButton.Height = 20;
-				Table.Controls.Add(DeleteButton, 0, 1);
-
-				Button ExportButton = new Button();
-				ExportButton.Text = "Export";
-				ExportButton.Click += (sender, e) => Export_Click(OverlayTag);
-				ExportButton.Dock = DockStyle.Fill;
-				ExportButton.Height = 20;
-				Table.Controls.Add(ExportButton, 1, 1);
-
-				MapTab_SideMenu.RowCount++;
-				MapTab_SideMenu.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-				MapTab_SideMenu.Controls.Add(groupBox, 0, MapTab_SideMenu.RowCount);
-				RouteControl.Show();
+				SumOfPoints += GC.Rating;
 			}
-			else
-			{
-				newRouteControlElementDelegate dg = new newRouteControlElementDelegate(newRouteControlElement);
-				BeginInvoke(dg, OverlayTag);
-			}
+			float Length = ThisRouteData.TotalDistance / 1000;
+			TimeSpan TimeNeeded = TimeSpan.FromSeconds(ThisRouteData.TotalTime) + TimeSpan.FromMinutes(GeocachesOnRoute.Count * ThisRouteData.Profile.TimePerGeocache);
+			Info.Text = "Geocaches: " + NumberOfGeocaches + "\nPoints: " + SumOfPoints + "\nLength in km: " + Length.ToString("#.##") + "\n Time in min:" + TimeNeeded.TotalMinutes.ToString("#.");
+			Info.Dock = DockStyle.Fill;
+			Info.AutoSize = true;
+			Table.Controls.Add(Info, 1, 0);
+
+			Button DeleteButton = new Button();
+			DeleteButton.Text = "Delete";
+			DeleteButton.Click += (sender, e) => DeleteButton_Click(sender, e, OverlayTag);
+			DeleteButton.Dock = DockStyle.Fill;
+			DeleteButton.Height = 20;
+			Table.Controls.Add(DeleteButton, 0, 1);
+
+			Button ExportButton = new Button();
+			ExportButton.Text = "Export";
+			ExportButton.Click += (sender, e) => Export_Click(OverlayTag);
+			ExportButton.Dock = DockStyle.Fill;
+			ExportButton.Height = 20;
+			Table.Controls.Add(ExportButton, 1, 1);
+
+			MapTab_SideMenu.RowCount++;
+			MapTab_SideMenu.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+			MapTab_SideMenu.Controls.Add(groupBox, 0, MapTab_SideMenu.RowCount);
+			RouteControl.Show();*/
 		}
 
 		delegate void AddFinalRouteDelegate(Tourplanning.RouteData Result);

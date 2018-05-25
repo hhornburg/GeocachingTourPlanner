@@ -41,7 +41,7 @@ namespace GeocachingTourPlanner_WPF
 		public static bool ImportOfOSMDataRunning = false;
 
 		//Cache
-		public static List<KeyValueTriple<SymbolStyle, GeocacheType, int>> MarkerStyleCache = new List<KeyValueTriple<Bitmap, GeocacheType, int>>();
+		public static List<KeyValueTriple<SymbolStyle, GeocacheType, int>> MarkerStyleCache = new List<KeyValueTriple<SymbolStyle, GeocacheType, int>>();
 
 		//Mainwindow
 		public static MainWindow mainWindow = new MainWindow();
