@@ -79,5 +79,17 @@ namespace GeocachingTourPlanner_WPF.Properties {
                 return ResourceManager.GetString("LICENSE", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The Ratingprofile determines how many points a geocache has. 
+        ///The priority decides how important a property is to you, 10 means it is very important, 0 means that you don&apos;t care. 
+        ///It goes similarly for the values a property can take, 10 means you think it is great, 0 means it&apos;s neither good nor bad and -10 means that you dislike it strongly. 
+        ///BEWARE: Geocaches that have negative points won&apos;t be added to route suggestions. ähnelt.
+        /// </summary>
+        public static string Ratingprofile_Desc {
+            get {
+                return ResourceManager.GetString("Ratingprofile_Desc", resourceCulture);
+            }
+        }
     }
 }

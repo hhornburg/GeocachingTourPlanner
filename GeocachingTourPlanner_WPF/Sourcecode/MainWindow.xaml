@@ -4,9 +4,204 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GeocachingTourPlanner_WPF"
+        xmlns:Mapsui="clr-namespace:Mapsui.UI.Wpf;assembly=Mapsui.UI.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" WindowState="Maximized">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Expander Grid.Column="0" x:Name="SettingsExpander" Margin="0" VerticalAlignment="Stretch" IsExpanded="False" ExpandDirection="Right">
+                <Expander.Header>
+                    <TextBlock Text="Settings" RenderTransformOrigin="0,0">
+                        <TextBlock.LayoutTransform>
+                            <TransformGroup>
+                                <RotateTransform CenterX="25" CenterY="25" Angle="90" />
+                            </TransformGroup>
+                        </TextBlock.LayoutTransform>
+                    </TextBlock>
+                </Expander.Header>
+                <TabControl  Width="298"><!--Minimum where all are in one line.-->
+                    <TabItem x:Name="Overview" Header="Overview">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock x:Name="GeocachesStateLabel" Grid.Column="0" Grid.Row="0" VerticalAlignment="Stretch" TextWrapping="Wrap" TextAlignment="Center">0 Geocaches loaded</TextBlock>
+                            <Button Grid.Column="1" Grid.Row="0">
+                                <TextBlock TextWrapping="Wrap" TextAlignment="Center">
+                                    Set Geocache Database
+                                </TextBlock>
+                            </Button>
+                            <Button Grid.Column="2" Grid.Row="0">
+                                <TextBlock TextWrapping="Wrap" TextAlignment="Center">
+                                    Import Pocket Query
+                                </TextBlock>
+                            </Button>
+
+                            <TextBlock x:Name="RatingprofilesStateLabel" Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" TextAlignment="Center">0 Ratingprofiles loaded</TextBlock>
+                            <Button Grid.Column="1" Grid.Row="1">
+                                <TextBlock TextWrapping="Wrap" TextAlignment="Center">
+                                    Set Ratingprofile Database
+                                </TextBlock>
+                            </Button>
+                            <Button Grid.Column="2" Grid.Row="1">
+                                <TextBlock TextWrapping="Wrap" TextAlignment="Center">
+                                    New, empty Database
+                                </TextBlock>
+                            </Button>
+
+                            <TextBlock x:Name="RoutingprofilesStateLabel" Grid.Column="0" Grid.Row="2" TextWrapping="Wrap" TextAlignment="Center">0 Routingprofiles loaded</TextBlock>
+                            <Button Grid.Column="1" Grid.Row="2">
+                                <TextBlock TextWrapping="Wrap" TextAlignment="Center">
+                                    Set Routingprofile Database
+                                </TextBlock>
+                            </Button>
+                            <Button Grid.Column="2" Grid.Row="2">
+                                <TextBlock TextWrapping="Wrap" TextAlignment="Center">
+                                    New, empty Database
+                                </TextBlock>
+                            </Button>
+
+                            <TextBlock x:Name="RouterDBStateLabel" Grid.Column="0" Grid.Row="3" TextWrapping="Wrap" TextAlignment="Center">No RouterDB loaded</TextBlock>
+                            <Button Grid.Column="1" Grid.Row="3">
+                                <TextBlock TextWrapping="Wrap" TextAlignment="Center">
+                                    Set RouterDB
+                                </TextBlock>
+                            </Button>
+                            <Button Grid.Column="2" Grid.Row="3">
+                                <TextBlock TextWrapping="Wrap" TextAlignment="Center">
+                                    Import .pbf File
+                                </TextBlock>
+                            </Button>
+                        </Grid>
+                    </TabItem>
+                    <TabItem x:Name="Ratingprofiles" Header="Ratingprofiles">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0">Ratingprofile description</TextBlock>
+                            <DockPanel Grid.Row="1">
+                                <TextBlock DockPanel.Dock="Left">Select Ratingprofile</TextBlock>
+                                <ComboBox DockPanel.Dock="Right"></ComboBox>
+                            </DockPanel>
+                            <GroupBox Grid.Row="3" Header="Type">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Grid.Row="0">Priority</TextBlock>
+                                    <TextBlock Grid.Column="0" Grid.Row="1">Traditional</TextBlock>
+                                    <TextBlock Grid.Column="0" Grid.Row="2">Multi</TextBlock>
+                                    <TextBlock Grid.Column="0" Grid.Row="3">Mystery</TextBlock>
+                                    <TextBlock Grid.Column="2" Grid.Row="1">Earthcache</TextBlock>
+                                    <TextBlock Grid.Column="2" Grid.Row="2">Virtual</TextBlock>
+                                    <TextBlock Grid.Column="2" Grid.Row="3">Webcam</TextBlock>
+                                    <TextBlock Grid.Column="4" Grid.Row="1">Letterbox</TextBlock>
+                                    <TextBlock Grid.Column="4" Grid.Row="2">Wherigo</TextBlock>
+                                    <TextBlock Grid.Column="4" Grid.Row="3">Other</TextBlock>
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Grid.Row="4" Header="Size">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Grid.Row="0">Priority</TextBlock>
+                                    <TextBlock Grid.Column="0" Grid.Row="1">Large</TextBlock>
+                                    <TextBlock Grid.Column="0" Grid.Row="2">Regular</TextBlock>
+                                    <TextBlock Grid.Column="2" Grid.Row="1">Small</TextBlock>
+                                    <TextBlock Grid.Column="2" Grid.Row="2">Micro</TextBlock>
+                                    <TextBlock Grid.Column="4" Grid.Row="1">Other</TextBlock>
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Grid.Row="5" Header="Difficulty"></GroupBox>
+                            <GroupBox Grid.Row="6" Header="Terrain"></GroupBox>
+                            <GroupBox Grid.Row="7" Header="Age"></GroupBox>
+                            <GroupBox Grid.Row="8" Header="Other"></GroupBox>
+                        </Grid>
+                    </TabItem>
+                    <TabItem x:Name="Routingprofiles" Header="Routingprofiles">
+                        <Grid>
+
+                        </Grid>
+                    </TabItem>
+                    <TabItem x:Name="Settings" Header="Settings">
+                        <Grid>
+
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Expander>
+            <Mapsui:MapControl x:Name="mapControl" Grid.Column="1"/>
+            <Expander Grid.Column="2" x:Name="Routes" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch" IsExpanded="False" ExpandDirection="Left">
+                <Expander.Header>
+                    <TextBlock Text="Routes" RenderTransformOrigin="0,0">
+                        <TextBlock.LayoutTransform>
+                            <TransformGroup>
+                                <RotateTransform CenterX="25" CenterY="25" Angle="-90" />
+                            </TransformGroup>
+                        </TextBlock.LayoutTransform>
+                    </TextBlock>
+                </Expander.Header>
+                <Grid>
+                    <TextBlock>Hier kommen dann die Routen hin</TextBlock>
+                </Grid>
+            </Expander>
+        </Grid>
+        <DockPanel Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" LastChildFill="False">
+            <TextBlock x:Name="StatusLabel" DockPanel.Dock="Left" VerticalAlignment="Bottom">Unknown Status</TextBlock>
+            <ProgressBar x:Name="StatusProgressBar"  DockPanel.Dock="Left" VerticalAlignment="Stretch" Width="100"/>
+        </DockPanel>
     </Grid>
 </Window>

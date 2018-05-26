@@ -170,7 +170,7 @@ namespace GeocachingTourPlanner
 					}
 					Backup(null);
 
-					App.mainWindow.SetRouterDBLabel("Successfully loaded RouterDB");
+					//FIX App.mainWindow.SetRouterDBLabel("Successfully loaded RouterDB");
 					App.mainWindow.UpdateStatus("Successfully loaded RouterDB", 100);
 				}
 				catch (Exception)
@@ -268,7 +268,8 @@ namespace GeocachingTourPlanner
 			//Last one, so changes made in the Backup Routine can be saved
 			TextWriter DBWriter = new StreamWriter(App.Database_Filepath);
 			try
-			{DBSerializer.Serialize(DBWriter, App.DB);
+			{
+				DBSerializer.Serialize(DBWriter, App.DB);
 			}
 			catch (IOException)
 			{
@@ -598,7 +599,7 @@ namespace GeocachingTourPlanner
 
 						Backup(null);
 
-						App.mainWindow.SetRouterDBLabel("RouterDB set");
+						//FIX App.mainWindow.SetRouterDBLabel("RouterDB set");
 						MessageBox.Show("Successfully imported OSM Data");
 
 					})).Start();

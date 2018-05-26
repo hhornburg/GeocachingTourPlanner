@@ -176,7 +176,7 @@ namespace GeocachingTourPlanner
 			//TODO Add geocaches that lie directly on route
 
 			App.RouteCalculationRunning = false;//To make sure not another preliminary route is displayed
-			App.mainWindow.AddFinalRoute(CompleteRouteData);
+			//FIX App.mainWindow.AddFinalRoute(CompleteRouteData);
 			App.mainWindow.UpdateStatus("Route calculation done", 100);
 			//FIX Application.UseWaitCursor = false;
 			
@@ -532,7 +532,7 @@ namespace GeocachingTourPlanner
 					PreliminaryRoute = PreliminaryRoute.Concatenate(CompleteRouteData.partialRoutes[i].partialRoute);
 				}
 
-				App.mainWindow.DisplayPreliminaryRoute(PreliminaryRoute);
+				//FIX App.mainWindow.DisplayPreliminaryRoute(PreliminaryRoute);
 			})).Start();
 		}
 		#endregion

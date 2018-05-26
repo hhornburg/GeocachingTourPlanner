@@ -1,6 +1,7 @@
 ﻿using GeocachingTourPlanner;
 using Itinero;
 using Itinero.LocalGeo;
+using Mapsui;
 using Mapsui.Layers;
 using Mapsui.Projection;
 using Mapsui.Providers;
@@ -18,15 +19,18 @@ using System.Windows.Input;
 
 namespace GeocachingTourPlanner_WPF
 {
+	
 	/// <summary>
 	/// Interaktionslogik für MainWindow.xaml
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		Map map;
+
 		public MainWindow()
 		{
 			InitializeComponent();
-
+			/*
 			//Tabelleneinstellungen
 			GeocacheTable.DataSource = App.Geocaches;
 			GeocacheTable.Columns["GCCODE"].DisplayIndex = 0;
@@ -41,6 +45,7 @@ namespace GeocachingTourPlanner_WPF
 			GeocacheTable.Columns["ForceInclude"].DisplayIndex = GeocacheTable.ColumnCount - 1;
 			GeocacheTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 			App.Geocaches.ResetBindings();
+			*/
 
 			//Browser
 			try
@@ -54,10 +59,11 @@ namespace GeocachingTourPlanner_WPF
 
 
 			//Map
-			Map.Layers.Add(OpenStreetMap.CreateTileLayer());
+			map = mapControl.Map;
+			map.Layers.Add(OpenStreetMap.CreateTileLayer());
 
 		}
-
+		/*
 		#region UI Events
 
 		#region First Steps
@@ -76,7 +82,7 @@ namespace GeocachingTourPlanner_WPF
 				e.Cancel = true;
 			}
 			
-		*/
+		*//*
 		}
 			#endregion
 
@@ -904,37 +910,30 @@ namespace GeocachingTourPlanner_WPF
 		#endregion
 
 		#region Accessors
-		delegate void SetRouterDBLabel_delegate(string text);
 		public void SetRouterDBLabel(string text)
 		{
 				RouterDBStateLabel.Text = text;
 		}
-
+		*/
 		#region Status
-		ToolTip ProgressTooltip = new ToolTip();
-		delegate void UpdateStatusDelegate(string message, int progress = 0);
-		public void UpdateStatus(string message, int progress = 0)
+		public void UpdateStatus(string message, int ProgressToShow = 0)
 		{
 			File.AppendAllText("Log.txt", "[" + DateTime.Now + "]: " + message + "\n");
-			if (progress != 0)//If the status changes while this is still processing and the new one isn't time consuming (currently there are only two time consuming methods, which cannot run simultaneously), the tooltip still chows the old information, so one can still check what happens
+			if (ProgressToShow != 0)//If the status changes while this is still processing and the new one isn't time consuming (currently there are only two time consuming methods, which cannot run simultaneously), the tooltip still chows the old information, so one can still check what happens
 			{
 
-				StatusProgressBar.MouseHover += (sender, e) => ShowTooltip(message, sender);
-				StatusProgressBar.Value = progress;
+				StatusProgressBar.ToolTip = new ToolTip().Content = message;
+				StatusProgressBar.Value = ProgressToShow;
 			}
 			else if (StatusProgressBar.Value == 100)//Thus the previous operation has finished
 			{
 				StatusProgressBar.Value = 0;
-				StatusProgressBar.MouseHover += (sender, e) => ShowTooltip(message, sender);
+				StatusProgressBar.ToolTip = new ToolTip().Content = message;
 			}
 			StatusLabel.Text = message;
 		}
-
-		private void ShowTooltip(string message, object control)
-		{
-			ProgressTooltip.Show(message, StatusProgressBar);
-		}
 		#endregion
+		/*
 		#endregion
 
 		#region Methods
@@ -1090,7 +1089,7 @@ namespace GeocachingTourPlanner_WPF
 			MapTab_SideMenu.RowCount++;
 			MapTab_SideMenu.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 			MapTab_SideMenu.Controls.Add(groupBox, 0, MapTab_SideMenu.RowCount);
-			RouteControl.Show();*/
+			RouteControl.Show();*//*
 		}
 
 		delegate void AddFinalRouteDelegate(Tourplanning.RouteData Result);
@@ -1284,7 +1283,7 @@ namespace GeocachingTourPlanner_WPF
 						}
 					}
 				}
-			}*/
+			}*//*
 		}
 
 		/// <summary>
@@ -1320,7 +1319,7 @@ namespace GeocachingTourPlanner_WPF
 						}
 					}
 				}
-			}*/
+			}*//*
 		}
 
 		private Result<Coordinate> ExtractCoordinates(string text)
@@ -1405,5 +1404,6 @@ namespace GeocachingTourPlanner_WPF
 			}
 		}
 		#endregion
+		*/
 	}
 }

@@ -9,7 +9,7 @@
         Title="Please accept the license" Height="Auto" Width="600">
     <DockPanel>
         <ScrollViewer DockPanel.Dock="Top" MinHeight="300" VerticalAlignment="Stretch">
-            <TextBlock Text="{x:Reference p:Resources.LICENSE}"/>
+            <TextBlock Text="Test"/>
         </ScrollViewer>
         
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
