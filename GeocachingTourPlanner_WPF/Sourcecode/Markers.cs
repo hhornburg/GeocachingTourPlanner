@@ -169,7 +169,7 @@ namespace GeocachingTourPlanner_WPF
 					graphics.DrawImage(TypeImage, SymbolRect, 0, 0, TypeImage.Width, TypeImage.Height, GraphicsUnit.Pixel, PinAttributes);
 				}
 
-				MarkerStyle = new SymbolStyle { BitmapId=BitmapRegistry.Instance.Register(marker_bmp), SymbolType = SymbolType.Svg, SymbolScale = App.DB.MarkerSize, SymbolOffset = new Offset(0.0, 0.5, true) };
+				MarkerStyle = new SymbolStyle { BitmapId=BitmapRegistry.Instance.Register(marker_bmp), SymbolType = SymbolType.Bitmap, SymbolScale = App.DB.MarkerSize, SymbolOffset = new Offset(0.0, 0.5, true) };
 				App.MarkerStyleCache.Add(new KeyValueTriple<SymbolStyle, GeocacheType, int>(MarkerStyle, geocache.Type, (int)GeocacheCategory));
 			}
 

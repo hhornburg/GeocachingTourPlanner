@@ -51,16 +51,15 @@ namespace GeocachingTourPlanner
 		/// </summary>
 		public static void ReadRoutingprofiles()
 		{
-			App.Routingprofiles.Clear();
 			StreamReader RPReader = null;
 			if (App.DB.IsFilepathSet(Databases.Routingprofiles))//returns true if the user has set a valid database
 			{
 				try
 				{
+					App.Routingprofiles.Clear();
 					RPReader = new StreamReader(App.DB.RoutingprofileDB_Filepath);
 					App.Routingprofiles = (SortableBindingList<Routingprofile>)RoutingprofilesSerializer.Deserialize(RPReader);
-					//Deserializing makes the lists lose their bindings
-					Startup.BindLists();
+					Startup.BindLists();//Binding is lost on deserialization
 					RPReader.Close();
 
 					App.mainWindow.UpdateStatus("Successfully read routingprofiles");
@@ -77,7 +76,9 @@ namespace GeocachingTourPlanner
 						RPReader.Close();
 					}
 				}
+				App.Routingprofiles.ResetBindings();
 			}
+			
 		}
 
 		/// <summary>
@@ -85,16 +86,15 @@ namespace GeocachingTourPlanner
 		/// </summary>
 		public static void ReadRatingprofiles()
 		{
-			App.Ratingprofiles.Clear();
 			StreamReader BPReader = null;
 			if (App.DB.IsFilepathSet(Databases.Ratingprofiles))//returns true if the user has set a valid database
 			{
 				try
 				{
+					App.Ratingprofiles.Clear();
 					BPReader = new StreamReader(App.DB.RatingprofileDB_Filepath);
 					App.Ratingprofiles= (SortableBindingList<Ratingprofile>)RatingprofilesSerializer.Deserialize(BPReader);
-					//Deserializing makes the lists lose their bindings
-					Startup.BindLists();
+					Startup.BindLists();//Binding is lost on deserialization
 					BPReader.Close();
 
 					App.mainWindow.UpdateStatus("Successfully read ratingprofiles");
@@ -112,6 +112,7 @@ namespace GeocachingTourPlanner
 					}
 				}
 			}
+			App.Ratingprofiles.ResetBindings();
 		}
 
 		/// <summary>
@@ -119,15 +120,16 @@ namespace GeocachingTourPlanner
 		/// </summary>
 		public static void ReadGeocaches()
 		{
-			App.Geocaches.Clear(); 
 			StreamReader GCReader = null;
 
 			if (App.DB.IsFilepathSet(Databases.Geocaches))//returns true if the user has set a valid database
 			{
 				try
 				{
+					App.Geocaches.Clear();
 					GCReader = new StreamReader(App.DB.GeocacheDB_Filepath);
 					App.Geocaches = (SortableBindingList<Geocache>)GeocachesSerializer.Deserialize(GCReader);
+					Startup.BindLists();//Binding is lost on deserialization
 
 					//So the MinimalRating and MaximalRating property get set and the map displays it correctly (fixes issue #4)
 					App.Geocaches.OrderByDescending(x => x.Rating);
@@ -150,7 +152,6 @@ namespace GeocachingTourPlanner
 					}
 				}
 				App.Geocaches.ResetBindings();
-				App.mainWindow.GeocachesStateLabel.Text = App.Geocaches.Count + " Geocaches loaded";
 			}
 		}
 
@@ -159,26 +160,29 @@ namespace GeocachingTourPlanner
 		/// </summary>
 		public static void ReadRouterDB()
 		{
-			new Thread(new ThreadStart(() =>
+			if (App.DB.IsFilepathSet(Databases.RouterDB))//returns true if the user has set a valid database
 			{
-				try
+				new Thread(new ThreadStart(() =>
 				{
-					App.mainWindow.UpdateStatus("Loading RouterDB in progress", 99);
-					using (var stream = new FileInfo(App.DB.RouterDB_Filepath).OpenRead())
+					try
 					{
-						App.RouterDB = RouterDb.Deserialize(stream);
-					}
-					Backup(null);
+						App.mainWindow.UpdateStatus("Loading RouterDB in progress", 99);
+						using (var stream = new FileInfo(App.DB.RouterDB_Filepath).OpenRead())
+						{
+							App.RouterDB = RouterDb.Deserialize(stream);
+						}
+						Backup(null);
 
-					App.mainWindow.SetRouterDBLabel("Successfully loaded RouterDB");
-					App.mainWindow.UpdateStatus("Successfully loaded RouterDB", 100);
-				}
-				catch (Exception)
-				{
-					MessageBox.Show("Failed to read RouterDB", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-					App.mainWindow.UpdateStatus("failed loading RouterDB", 100);
-				}
-			})).Start();
+						App.mainWindow.SetRouterDBLabel("Successfully loaded RouterDB");
+						App.mainWindow.UpdateStatus("Successfully loaded RouterDB", 100);
+					}
+					catch (Exception)
+					{
+						MessageBox.Show("Failed to read RouterDB", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+						App.mainWindow.UpdateStatus("failed loading RouterDB", 100);
+					}
+				})).Start();
+			}
 		}
 
 		/// <summary>

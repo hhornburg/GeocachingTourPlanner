@@ -133,7 +133,7 @@
                                     <TextBlock Grid.Row="0">Ratingprofile description</TextBlock>
                                     <DockPanel Grid.Row="1">
                                         <TextBlock DockPanel.Dock="Left">Select Ratingprofile</TextBlock>
-                                        <ComboBox DockPanel.Dock="Right"></ComboBox>
+                                        <ComboBox x:Name="EditRatingprofileCombobox" DockPanel.Dock="Right"></ComboBox>
                                     </DockPanel>
                                     <GroupBox Grid.Row="3" Header="Type">
                                         <Grid>
@@ -334,7 +334,7 @@
                                     <TextBlock Grid.Row="0">Routingprofile description</TextBlock>
                                     <DockPanel Grid.Row="1">
                                         <TextBlock DockPanel.Dock="Left">Select Routingprofile</TextBlock>
-                                        <ComboBox DockPanel.Dock="Right"></ComboBox>
+                                        <ComboBox x:Name="EditRoutingprofileCombobox" DockPanel.Dock="Right"></ComboBox>
                                     </DockPanel>
                                     <GroupBox Grid.Row="3" Header="RoutingCore">
                                         <Grid>

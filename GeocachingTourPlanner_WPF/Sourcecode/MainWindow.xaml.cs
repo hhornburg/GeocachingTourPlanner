@@ -9,6 +9,7 @@ using Mapsui.UI;
 using Mapsui.Utilities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -99,7 +100,7 @@ namespace GeocachingTourPlanner_WPF
 		private void ImportGeocachesButton_Click(object sender, RoutedEventArgs e)
 		{
 			Fileoperations.ImportGeocaches();
-			LoadMap();
+			Map_RenewGeocacheLayer();
 		}
 
 		private void setGeocachedatabaseButton_Click(object sender, RoutedEventArgs e)
@@ -107,7 +108,7 @@ namespace GeocachingTourPlanner_WPF
 			if (App.DB.OpenExistingDBFile(Databases.Geocaches))
 			{
 				Fileoperations.ReadGeocaches();
-				LoadMap();
+				Map_RenewGeocacheLayer();
 				Fileoperations.Backup(null);
 			}
 		}
@@ -689,7 +690,7 @@ namespace GeocachingTourPlanner_WPF
 
 		private void Map_Enter(object sender, EventArgs e)
 		{
-			LoadMap();
+			Map_RenewGeocacheLayer();
 		}
 
 		private void Map_OnMapZoomChanged(object sender, ZoomedEventArgs e)
@@ -951,8 +952,13 @@ namespace GeocachingTourPlanner_WPF
 		/// <summary>
 		/// Updates Map
 		/// </summary>
-		public void LoadMap()
+		public void Map_RenewGeocacheLayer()
 		{
+			foreach(WritableLayer GClayer in map.Layers.Where(x => x.Name == "Geocaches").ToList())
+			{
+				map.Layers.Remove(GClayer);
+			}
+
 			WritableLayer GeocacheLayer = new WritableLayer
 			{
 				Name = "Geocaches",
@@ -970,10 +976,14 @@ namespace GeocachingTourPlanner_WPF
 			{
 				App.DB.LastMapResolution = 5;
 			}
+			
+		}
+
+		public void Map_NavigateToLastVisited()
+		{
 			map.NavigateTo(App.DB.LastMapResolution);
 			map.NavigateTo(SphericalMercator.FromLonLat(App.DB.LastMapPosition.Longitude, App.DB.LastMapPosition.Latitude));
 		}
-
 		private void SetStartpoint(Coordinate coordinates)
 		{
 			if (map.Layers.Count(x => x.Name == "StartEnd") > 0)
@@ -1169,6 +1179,7 @@ namespace GeocachingTourPlanner_WPF
 			}
 		}
 		#endregion
+		*/
 		#region Lists
 		/// <summary>
 		/// Keeps the Dropdownmenu updated
@@ -1178,12 +1189,10 @@ namespace GeocachingTourPlanner_WPF
 		public void Ratingprofiles_ListChanged(object sender, ListChangedEventArgs e)
 		{
 			EditRatingprofileCombobox.Items.Clear();
-			SelectedRatingprofileCombobox.Items.Clear();
-
+			
 			foreach (Ratingprofile profile in App.Ratingprofiles)
 			{
 				EditRatingprofileCombobox.Items.Add(profile.Name);
-				SelectedRatingprofileCombobox.Items.Add(profile.Name);
 			}
 			RatingprofilesStateLabel.Text = App.Ratingprofiles.Count.ToString() + " Ratingprofiles loaded";
 		}
@@ -1196,23 +1205,21 @@ namespace GeocachingTourPlanner_WPF
 		public void Routingprofiles_ListChanged(object sender, ListChangedEventArgs e)
 		{
 			EditRoutingprofileCombobox.Items.Clear();
-			SelectedRoutingprofileCombobox.Items.Clear();
 
 			foreach (Routingprofile profile in App.Routingprofiles)
 			{
 				EditRoutingprofileCombobox.Items.Add(profile.Name);
-				SelectedRoutingprofileCombobox.Items.Add(profile.Name);
 			}
 
 			RoutingprofilesStateLabel.Text = App.Routingprofiles.Count.ToString() + " Routingprofiles loaded";
 		}
-
 		public void Geocaches_ListChanged(object sender, ListChangedEventArgs e)
 		{
 			GeocachesStateLabel.Text = App.Geocaches.Count.ToString() + " Geocaches loaded";
+			Map_RenewGeocacheLayer();
 		}
 		#endregion
-
+		/*
 		#endregion
 
 		#region unspecific helpers

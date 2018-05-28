@@ -1,4 +1,5 @@
 ﻿using GeocachingTourPlanner_WPF;
+using System.ComponentModel;
 using System.IO;
 
 namespace GeocachingTourPlanner
@@ -30,6 +31,7 @@ namespace GeocachingTourPlanner
 			Fileoperations.Backup(null);
 
 			App.mainWindow.Show();
+			App.mainWindow.Map_NavigateToLastVisited();
 		}
 		/// <summary>
 		/// Called on first startup of App
@@ -98,18 +100,16 @@ namespace GeocachingTourPlanner
 
 		public static void BindLists()
 		{
-			/*FIX
 			//To make them show up in the menu. Here, as the binding should also happen if none could be loaded
-			App.Ratingprofiles.ListChanged += new ListChangedEventHandler(App.MainWindow.Ratingprofiles_ListChanged);
+			App.Ratingprofiles.ListChanged += new ListChangedEventHandler(App.mainWindow.Ratingprofiles_ListChanged);
 			App.Ratingprofiles.ResetBindings();
 
-			App.Geocaches.ListChanged += new ListChangedEventHandler(App.MainWindow.Geocaches_ListChanged);
-			App.MainWindow.GeocacheTable.DataSource = App.Geocaches;
+			App.Geocaches.ListChanged += new ListChangedEventHandler(App.mainWindow.Geocaches_ListChanged);
+			App.Geocaches.ResetBindings();
 
 			//To make them show up in the menu
-			App.Routingprofiles.ListChanged += new ListChangedEventHandler(App.MainWindow.Routingprofiles_ListChanged);
+			App.Routingprofiles.ListChanged += new ListChangedEventHandler(App.mainWindow.Routingprofiles_ListChanged);
 			App.Routingprofiles.ResetBindings();
-			*/
 		}
 	}
 }
