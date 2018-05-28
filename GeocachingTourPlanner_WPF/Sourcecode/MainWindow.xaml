@@ -32,10 +32,12 @@
                         </TextBlock.LayoutTransform>
                     </TextBlock>
                 </Expander.Header>
-                <TabControl  Width="298"><!--Minimum where all are in one line.-->
+                <TabControl  Width="300">
                     <TabItem x:Name="Overview" Header="Overview">
                         <Grid>
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
@@ -48,48 +50,58 @@
                             </Grid.ColumnDefinitions>
 
                             <TextBlock x:Name="GeocachesStateLabel" Grid.Column="0" Grid.Row="0" VerticalAlignment="Stretch" TextWrapping="Wrap" TextAlignment="Center">0 Geocaches loaded</TextBlock>
-                            <Button Grid.Column="1" Grid.Row="0">
+                            <TextBlock Grid.Column="0" Grid.Row="1">           
+                                <Hyperlink NavigateUri="https://www.geocaching.com/pocket/" RequestNavigate="OpenInBrowser">
+                                    Get Pocket Query
+                                </Hyperlink>
+                            </TextBlock>
+                            <Button Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Click="setGeocachedatabaseButton_Click">
                                 <TextBlock TextWrapping="Wrap" TextAlignment="Center">
                                     Set Geocache Database
                                 </TextBlock>
                             </Button>
-                            <Button Grid.Column="2" Grid.Row="0">
+                            <Button Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Click="ImportGeocachesButton_Click">
                                 <TextBlock TextWrapping="Wrap" TextAlignment="Center">
                                     Import Pocket Query
                                 </TextBlock>
                             </Button>
 
-                            <TextBlock x:Name="RatingprofilesStateLabel" Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" TextAlignment="Center">0 Ratingprofiles loaded</TextBlock>
-                            <Button Grid.Column="1" Grid.Row="1">
+                            <TextBlock x:Name="RatingprofilesStateLabel" Grid.Column="0" Grid.Row="2" TextWrapping="Wrap" TextAlignment="Center">0 Ratingprofiles loaded</TextBlock>
+                            <Button Grid.Column="1" Grid.Row="2" Click="setRatingprofiledatabaseButton_Click">
                                 <TextBlock TextWrapping="Wrap" TextAlignment="Center">
                                     Set Ratingprofile Database
                                 </TextBlock>
                             </Button>
-                            <Button Grid.Column="2" Grid.Row="1">
+                            <Button Grid.Column="2" Grid.Row="2" Click="NewRatingprofileDatabaseButton_Click">
                                 <TextBlock TextWrapping="Wrap" TextAlignment="Center">
                                     New, empty Database
                                 </TextBlock>
                             </Button>
 
-                            <TextBlock x:Name="RoutingprofilesStateLabel" Grid.Column="0" Grid.Row="2" TextWrapping="Wrap" TextAlignment="Center">0 Routingprofiles loaded</TextBlock>
-                            <Button Grid.Column="1" Grid.Row="2">
+                            <TextBlock x:Name="RoutingprofilesStateLabel" Grid.Column="0" Grid.Row="3" TextWrapping="Wrap" TextAlignment="Center">0 Routingprofiles loaded</TextBlock>
+                            <Button Grid.Column="1" Grid.Row="3" Click="setRoutingprofiledatabaseButton_Click">
                                 <TextBlock TextWrapping="Wrap" TextAlignment="Center">
                                     Set Routingprofile Database
                                 </TextBlock>
                             </Button>
-                            <Button Grid.Column="2" Grid.Row="2">
+                            <Button Grid.Column="2" Grid.Row="3" Click="NewRoutingprofilesDatabaseButton_Click">
                                 <TextBlock TextWrapping="Wrap" TextAlignment="Center">
                                     New, empty Database
                                 </TextBlock>
                             </Button>
 
-                            <TextBlock x:Name="RouterDBStateLabel" Grid.Column="0" Grid.Row="3" TextWrapping="Wrap" TextAlignment="Center">No RouterDB loaded</TextBlock>
-                            <Button Grid.Column="1" Grid.Row="3">
+                            <TextBlock x:Name="RouterDBStateLabel" Grid.Column="0" Grid.Row="4" TextWrapping="Wrap" TextAlignment="Center">No RouterDB loaded</TextBlock>
+                            <TextBlock Grid.Column="0" Grid.Row="5">           
+                                <Hyperlink NavigateUri="http://download.geofabrik.de/" RequestNavigate="OpenInBrowser">
+                                    Get .pbf File
+                                </Hyperlink>
+                            </TextBlock>
+                            <Button Grid.Column="1" Grid.Row="4" Grid.RowSpan="2" Click="setRouterDBButton_Click">
                                 <TextBlock TextWrapping="Wrap" TextAlignment="Center">
                                     Set RouterDB
                                 </TextBlock>
                             </Button>
-                            <Button Grid.Column="2" Grid.Row="3">
+                            <Button Grid.Column="2" Grid.Row="4" Grid.RowSpan="2" Click="ImportOSMDataButton_Click">
                                 <TextBlock TextWrapping="Wrap" TextAlignment="Center">
                                     Import .pbf File
                                 </TextBlock>
@@ -98,82 +110,287 @@
                     </TabItem>
                     <TabItem x:Name="Ratingprofiles" Header="Ratingprofiles">
                         <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0">Ratingprofile description</TextBlock>
-                            <DockPanel Grid.Row="1">
-                                <TextBlock DockPanel.Dock="Left">Select Ratingprofile</TextBlock>
-                                <ComboBox DockPanel.Dock="Right"></ComboBox>
-                            </DockPanel>
-                            <GroupBox Grid.Row="3" Header="Type">
-                                <Grid>
+                            <ScrollViewer>
+                                <Grid x:Name="RatingprofilesSettingsGrid">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Grid.Row="0">Priority</TextBlock>
-                                    <TextBlock Grid.Column="0" Grid.Row="1">Traditional</TextBlock>
-                                    <TextBlock Grid.Column="0" Grid.Row="2">Multi</TextBlock>
-                                    <TextBlock Grid.Column="0" Grid.Row="3">Mystery</TextBlock>
-                                    <TextBlock Grid.Column="2" Grid.Row="1">Earthcache</TextBlock>
-                                    <TextBlock Grid.Column="2" Grid.Row="2">Virtual</TextBlock>
-                                    <TextBlock Grid.Column="2" Grid.Row="3">Webcam</TextBlock>
-                                    <TextBlock Grid.Column="4" Grid.Row="1">Letterbox</TextBlock>
-                                    <TextBlock Grid.Column="4" Grid.Row="2">Wherigo</TextBlock>
-                                    <TextBlock Grid.Column="4" Grid.Row="3">Other</TextBlock>
-                                </Grid>
-                            </GroupBox>
-                            <GroupBox Grid.Row="4" Header="Size">
-                                <Grid>
-                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Grid.Row="0">Priority</TextBlock>
-                                    <TextBlock Grid.Column="0" Grid.Row="1">Large</TextBlock>
-                                    <TextBlock Grid.Column="0" Grid.Row="2">Regular</TextBlock>
-                                    <TextBlock Grid.Column="2" Grid.Row="1">Small</TextBlock>
-                                    <TextBlock Grid.Column="2" Grid.Row="2">Micro</TextBlock>
-                                    <TextBlock Grid.Column="4" Grid.Row="1">Other</TextBlock>
+                                    <TextBlock Grid.Row="0">Ratingprofile description</TextBlock>
+                                    <DockPanel Grid.Row="1">
+                                        <TextBlock DockPanel.Dock="Left">Select Ratingprofile</TextBlock>
+                                        <ComboBox DockPanel.Dock="Right"></ComboBox>
+                                    </DockPanel>
+                                    <GroupBox Grid.Row="3" Header="Type">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Grid.Row="0">Priority</TextBlock>
+                                            <TextBox x:Name="TypePriorityValue" Grid.Column="1" Grid.Row="0"/>
+                                            <TextBlock Grid.Column="0" Grid.Row="1">Traditional</TextBlock>
+                                            <TextBox x:Name="TraditionalValue" Grid.Column="1" Grid.Row="1"/>
+                                            <TextBlock Grid.Column="0" Grid.Row="2">Multi</TextBlock>
+                                            <TextBox x:Name="MultiValue" Grid.Column="1" Grid.Row="2"/>
+                                            <TextBlock Grid.Column="0" Grid.Row="3">Mystery</TextBlock>
+                                            <TextBox x:Name="MysteryValue" Grid.Column="1" Grid.Row="3"/>
+                                            <TextBlock Grid.Column="2" Grid.Row="1">Earthcache</TextBlock>
+                                            <TextBox x:Name="EarthcacheValue" Grid.Column="3" Grid.Row="1"/>
+                                            <TextBlock Grid.Column="2" Grid.Row="2">Virtual</TextBlock>
+                                            <TextBox x:Name="VirtualValue" Grid.Column="3" Grid.Row="2"/>
+                                            <TextBlock Grid.Column="2" Grid.Row="3">Webcam</TextBlock>
+                                            <TextBox x:Name="WebcamValue" Grid.Column="3" Grid.Row="3"/>
+                                            <TextBlock Grid.Column="4" Grid.Row="1">Letterbox</TextBlock>
+                                            <TextBox x:Name="LetterboxValue" Grid.Column="5" Grid.Row="1"/>
+                                            <TextBlock Grid.Column="4" Grid.Row="2">Wherigo</TextBlock>
+                                            <TextBox x:Name="WherigoValue" Grid.Column="5" Grid.Row="2"/>
+                                            <TextBlock Grid.Column="4" Grid.Row="3">Other</TextBlock>
+                                            <TextBox x:Name="OtherTypeValue" Grid.Column="5" Grid.Row="3"/>
+                                        </Grid>
+                                    </GroupBox>
+                                    <GroupBox Grid.Row="4" Header="Size">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Grid.Row="0">Priority</TextBlock>
+                                            <TextBox x:Name="SizePriorityValue" Grid.Column="1" Grid.Row="0"/>
+                                            <TextBlock Grid.Column="0" Grid.Row="1">Large</TextBlock>
+                                            <TextBox x:Name="LargeValue" Grid.Column="1" Grid.Row="1"/>
+                                            <TextBlock Grid.Column="0" Grid.Row="2">Regular</TextBlock>
+                                            <TextBox x:Name="RegularValue" Grid.Column="1" Grid.Row="2"/>
+                                            <TextBlock Grid.Column="2" Grid.Row="1">Small</TextBlock>
+                                            <TextBox x:Name="SmallValue" Grid.Column="3" Grid.Row="1"/>
+                                            <TextBlock Grid.Column="2" Grid.Row="2">Micro</TextBlock>
+                                            <TextBox x:Name="MicroValue" Grid.Column="3" Grid.Row="2"/>
+                                            <TextBlock Grid.Column="4" Grid.Row="1">Other</TextBlock>
+                                            <TextBox x:Name="OtherSizeValue" Grid.Column="5" Grid.Row="1"/>
+                                        </Grid>
+                                    </GroupBox>
+                                    <GroupBox Grid.Row="5" Header="Difficulty">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Grid.Row="0">Priority</TextBlock>
+                                            <TextBox x:Name="DPriorityValue" Grid.Column="1" Grid.Row="0"/>
+                                            <TextBlock Grid.Column="2" Grid.Row="0">D5</TextBlock>
+                                            <TextBox x:Name="D5Value" Grid.Column="3" Grid.Row="0"/>
+                                            <TextBlock Grid.Column="2" Grid.Row="1">D4.5</TextBlock>
+                                            <TextBox x:Name="D45Value" Grid.Column="3" Grid.Row="1"/>
+                                            <TextBlock Grid.Column="2" Grid.Row="2">D4</TextBlock>
+                                            <TextBox x:Name="D4Value" Grid.Column="3" Grid.Row="2"/>
+                                            <TextBlock Grid.Column="4" Grid.Row="0">D3.5</TextBlock>
+                                            <TextBox x:Name="D35Value" Grid.Column="5" Grid.Row="0"/>
+                                            <TextBlock Grid.Column="4" Grid.Row="1">D3</TextBlock>
+                                            <TextBox x:Name="D3Value" Grid.Column="5" Grid.Row="1"/>
+                                            <TextBlock Grid.Column="4" Grid.Row="2">D2.5</TextBlock>
+                                            <TextBox x:Name="D25Value" Grid.Column="5" Grid.Row="2"/>
+                                            <TextBlock Grid.Column="6" Grid.Row="0">D2</TextBlock>
+                                            <TextBox x:Name="D2Value" Grid.Column="7" Grid.Row="0"/>
+                                            <TextBlock Grid.Column="6" Grid.Row="1">D1.5</TextBlock>
+                                            <TextBox x:Name="D15Value" Grid.Column="7" Grid.Row="1"/>
+                                            <TextBlock Grid.Column="6" Grid.Row="2">D1</TextBlock>
+                                            <TextBox x:Name="D1Value" Grid.Column="7" Grid.Row="2"/>
+                                        </Grid>
+                                    </GroupBox>
+                                    <GroupBox Grid.Row="6" Header="Terrain">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Grid.Row="0">Priority</TextBlock>
+                                            <TextBox x:Name="TPriorityValue" Grid.Column="1" Grid.Row="0"/>
+                                            <TextBlock Grid.Column="2" Grid.Row="0">T5</TextBlock>
+                                            <TextBox x:Name="T5Value" Grid.Column="3" Grid.Row="0"/>
+                                            <TextBlock Grid.Column="2" Grid.Row="1">T4.5</TextBlock>
+                                            <TextBox x:Name="T45Value" Grid.Column="3" Grid.Row="1"/>
+                                            <TextBlock Grid.Column="2" Grid.Row="2">T4</TextBlock>
+                                            <TextBox x:Name="T4Value" Grid.Column="3" Grid.Row="2"/>
+                                            <TextBlock Grid.Column="4" Grid.Row="0">T3.5</TextBlock>
+                                            <TextBox x:Name="T35Value" Grid.Column="5" Grid.Row="0"/>
+                                            <TextBlock Grid.Column="4" Grid.Row="1">T3</TextBlock>
+                                            <TextBox x:Name="T3Value" Grid.Column="5" Grid.Row="1"/>
+                                            <TextBlock Grid.Column="4" Grid.Row="2">T2.5</TextBlock>
+                                            <TextBox x:Name="T25Value" Grid.Column="5" Grid.Row="2"/>
+                                            <TextBlock Grid.Column="6" Grid.Row="0">T2</TextBlock>
+                                            <TextBox x:Name="T2Value" Grid.Column="7" Grid.Row="0"/>
+                                            <TextBlock Grid.Column="6" Grid.Row="1">T1.5</TextBlock>
+                                            <TextBox x:Name="T15Value" Grid.Column="7" Grid.Row="1"/>
+                                            <TextBlock Grid.Column="6" Grid.Row="2">T1</TextBlock>
+                                            <TextBox x:Name="T1Value" Grid.Column="7" Grid.Row="2"/>
+                                        </Grid>
+                                    </GroupBox>
+                                    <GroupBox Grid.Row="7" Header="Age">
+                                        <DockPanel>
+                                            <ComboBox x:Name="AgeValue" DockPanel.Dock="Left"/>
+                                            <TextBox x:Name="AgeFactorValue" DockPanel.Dock="Left"/>
+                                        </DockPanel>
+                                    </GroupBox>
+                                    <GroupBox Grid.Row="8" Header="Other">
+                                        <DockPanel LastChildFill="False">
+                                            <TextBlock DockPanel.Dock="Left">Penalty for Needs Maintenance</TextBlock>
+                                            <TextBox x:Name="NMFlagValue" DockPanel.Dock="Right" Width="Auto" MinWidth="40"></TextBox>
+                                        </DockPanel>
+                                    </GroupBox>
                                 </Grid>
-                            </GroupBox>
-                            <GroupBox Grid.Row="5" Header="Difficulty"></GroupBox>
-                            <GroupBox Grid.Row="6" Header="Terrain"></GroupBox>
-                            <GroupBox Grid.Row="7" Header="Age"></GroupBox>
-                            <GroupBox Grid.Row="8" Header="Other"></GroupBox>
+                            </ScrollViewer>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0">Save as</TextBlock>
+                                <TextBox Grid.Column="1" x:Name="RatingprofileName" HorizontalAlignment="Stretch"/>
+                                <Menu Grid.Column="2">
+                                    <MenuItem Header="Save + Apply"/>
+                                    <Separator/>
+                                    <MenuItem Header="...">
+                                        <MenuItem Header="_Save only"/>
+                                        <MenuItem Header="_Delete"/>
+                                    </MenuItem>
+                                </Menu>
+                            </Grid>
                         </Grid>
                     </TabItem>
                     <TabItem x:Name="Routingprofiles" Header="Routingprofiles">
                         <Grid>
-
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <ScrollViewer>
+                                <Grid x:Name="RoutingprofilesSettingsGrid">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0">Routingprofile description</TextBlock>
+                                    <DockPanel Grid.Row="1">
+                                        <TextBlock DockPanel.Dock="Left">Select Routingprofile</TextBlock>
+                                        <ComboBox DockPanel.Dock="Right"></ComboBox>
+                                    </DockPanel>
+                                    <GroupBox Grid.Row="3" Header="RoutingCore">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Grid.Row="0">Vehicle</TextBlock>
+                                            <TextBox x:Name="VehicleValue" Grid.Column="1" Grid.Row="0"/>
+                                            <TextBlock Grid.Column="2" Grid.Row="1">Metric</TextBlock>
+                                            <TextBox x:Name="MetricValue" Grid.Column="3" Grid.Row="1"/>
+                                        </Grid>
+                                    </GroupBox>
+                                    <GroupBox Grid.Row="4" Header="Limits">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Grid.Row="0">Max Distance</TextBlock>
+                                            <TextBox x:Name="DistanceValue" Grid.Column="1" Grid.Row="0"/>
+                                            <TextBlock Grid.Column="2" Grid.Row="0">Max Time</TextBlock>
+                                            <TextBox x:Name="TimeValue" Grid.Column="3" Grid.Row="0"/>
+                                            <TextBlock Grid.Column="0" Grid.Row="1">Time per geocache</TextBlock>
+                                            <TextBox x:Name="GeocacheTimeValue" Grid.Column="1" Grid.Row="1"/>
+                                         </Grid>
+                                    </GroupBox>
+                                </Grid>
+                            </ScrollViewer>
+                            <Grid Grid.Row="1" Grid.ColumnSpan="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0">Save as</TextBlock>
+                                <TextBox Grid.Column="1" x:Name="RotingprofileName" HorizontalAlignment="Stretch"/>
+                                <Menu Grid.Column="2">
+                                    <MenuItem Header="Save + Apply"/>
+                                    <MenuItem Header="...">
+                                        <MenuItem Header="_Save only"/>
+                                        <MenuItem Header="_Delete"/>
+                                    </MenuItem>
+                                </Menu>
+                            </Grid>
                         </Grid>
                     </TabItem>
                     <TabItem x:Name="Settings" Header="Settings">
@@ -183,7 +400,7 @@
                     </TabItem>
                 </TabControl>
             </Expander>
-            <Mapsui:MapControl x:Name="mapControl" Grid.Column="1"/>
+            <Mapsui:MapControl x:Name="mapControl" Grid.Column="1" Zoomed="Map_OnMapZoomChanged" DragLeave="Map_OnMapDrag"/>
             <Expander Grid.Column="2" x:Name="Routes" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch" IsExpanded="False" ExpandDirection="Left">
                 <Expander.Header>
                     <TextBlock Text="Routes" RenderTransformOrigin="0,0">

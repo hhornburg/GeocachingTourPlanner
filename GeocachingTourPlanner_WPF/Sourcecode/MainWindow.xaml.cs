@@ -5,6 +5,7 @@ using Mapsui;
 using Mapsui.Layers;
 using Mapsui.Projection;
 using Mapsui.Providers;
+using Mapsui.UI;
 using Mapsui.Utilities;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,9 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Navigation;
+using System.Windows.Threading;
 
 namespace GeocachingTourPlanner_WPF
 {
@@ -63,10 +67,11 @@ namespace GeocachingTourPlanner_WPF
 			map.Layers.Add(OpenStreetMap.CreateTileLayer());
 
 		}
-		/*
+
 		#region UI Events
 
 		#region First Steps
+		/*
 		private void OpenWikiButton_Click(object sender, EventArgs e)
 		{
 			Process.Start("https://github.com/pingurus/GeocachingTourPlanner/wiki");
@@ -81,33 +86,33 @@ namespace GeocachingTourPlanner_WPF
 				Process.Start(e.Url.ToString());
 				e.Cancel = true;
 			}
-			
-		*//*
 		}
+		*/
 			#endregion
 
 			#region Overview
-			private void ImportOSMDataButton_Click(object sender, EventArgs e)
+			private void ImportOSMDataButton_Click(object sender, RoutedEventArgs e)
 		{
 			Fileoperations.ImportOSMData();
 		}
 
-		private void ImportGeocachesButton_Click(object sender, EventArgs e)
+		private void ImportGeocachesButton_Click(object sender, RoutedEventArgs e)
 		{
 			Fileoperations.ImportGeocaches();
 			LoadMap();
 		}
 
-		private void setGeocachedatabaseButton_Click(object sender, EventArgs e)
+		private void setGeocachedatabaseButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (App.DB.OpenExistingDBFile(Databases.Geocaches))
 			{
 				Fileoperations.ReadGeocaches();
 				LoadMap();
+				Fileoperations.Backup(null);
 			}
 		}
 
-		private void setRoutingprofiledatabaseButton_Click(object sender, EventArgs e)
+		private void setRoutingprofiledatabaseButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (App.DB.OpenExistingDBFile(Databases.Routingprofiles))
 			{
@@ -115,7 +120,7 @@ namespace GeocachingTourPlanner_WPF
 			}
 		}
 
-		private void setRatingprofiledatabaseButton_Click(object sender, EventArgs e)
+		private void setRatingprofiledatabaseButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (App.DB.OpenExistingDBFile(Databases.Ratingprofiles))
 			{
@@ -123,7 +128,7 @@ namespace GeocachingTourPlanner_WPF
 			}
 		}
 
-		private void setRouterDBButton_Click(object sender, EventArgs e)
+		private void setRouterDBButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (App.DB.OpenExistingDBFile(Databases.RouterDB))
 			{
@@ -131,41 +136,36 @@ namespace GeocachingTourPlanner_WPF
 			}
 		}
 
-		private void GetPQLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		private void OpenInBrowser(object sender, RequestNavigateEventArgs e)
 		{
-			Process.Start("https://www.geocaching.com/pocket/");
+			Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+			e.Handled = true;
 		}
 
-		private void GetPbfLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-		{
-			Process.Start("http://download.geofabrik.de/");
-		}
-
-		private void NewRatingprofileDatabaseButton_Click(object sender, EventArgs e)
+		private void NewRatingprofileDatabaseButton_Click(object sender, RoutedEventArgs e)
 		{
 			Fileoperations.NewRatingprofileDatabase();
 		}
 
-		private void NewRoutingprofilesDatabaseButton_Click(object sender, EventArgs e)
+		private void NewRoutingprofilesDatabaseButton_Click(object sender, RoutedEventArgs e)
 		{
 			Fileoperations.NewRoutingprofileDatabase();
 		}
 		#endregion
-
+			
 		#region Update of Rating/Routingprofiles
 		private void CreateRatingprofile(object sender, EventArgs e)
 		{
-
-			SetAllEmptyChildTextboxesToZero(RatingprofilesSettingsTabelLayout);
+			SetAllEmptyChildTextboxesToZero(RatingprofilesSettingsGrid);
 			Ratingprofile Profile = new Ratingprofile();
-			if (RatingProfileName.Text == "")
+			if (RatingprofileName.Text == "")
 			{
 				MessageBox.Show("Please set a name");
 				return;
 			}
 			try
 			{
-				Profile.Name = RatingProfileName.Text;
+				Profile.Name = RatingprofileName.Text;
 				Profile.TypePriority = int.Parse(TypePriorityValue.Text);
 				Profile.TypeRatings = new List<SerializableKeyValuePair<GeocacheType, int>>();
 				Profile.TypeRatings.Add(new SerializableKeyValuePair<GeocacheType, int>(GeocacheType.EarthCache, int.Parse(EarthcacheValue.Text)));
@@ -257,9 +257,9 @@ namespace GeocachingTourPlanner_WPF
 			App.Ratingprofiles.Add(Profile);
 			//The Dropdownmenu gets updated through an event handler
 			Fileoperations.Backup(App.Ratingprofiles);
-			EditRatingprofileCombobox.SelectedItem = Profile.Name; //Eventhandler takes care of same profile selected
+			//FIX Remove? EditRatingprofileCombobox.SelectedItem = Profile.Name; //Eventhandler takes care of same profile selected
 		}
-
+		/*
 		private void CreateRoutingprofile(object sender, EventArgs e)
 		{
 			SetAllEmptyChildTextboxesToZero(RoutingprofilesSettingsTableLayout);
@@ -339,12 +339,12 @@ namespace GeocachingTourPlanner_WPF
 		private void DeleteRatingprofileButton_Click(object sender, EventArgs e)
 		{
 			Ratingprofile Profile = new Ratingprofile();
-			if (RatingProfileName.Text == null)
+			if (RatingprofileName.Text == null)
 			{
 				MessageBox.Show("Please set Name");
 				return;
 			}
-			Profile.Name = RatingProfileName.Text;
+			Profile.Name = RatingprofileName.Text;
 			foreach (Ratingprofile RP in App.Ratingprofiles.Where(x => x.Name == Profile.Name).ToList())
 			{
 				App.Ratingprofiles.Remove(RP);
@@ -364,7 +364,7 @@ namespace GeocachingTourPlanner_WPF
 			try
 			{
 				//Name des Profils
-				RatingProfileName.Text = SelectedRatingprofile.Name;
+				RatingprofileName.Text = SelectedRatingprofile.Name;
 
 				//Prioritäten
 				TypePriorityValue.Text = SelectedRatingprofile.TypePriority.ToString();
@@ -479,10 +479,11 @@ namespace GeocachingTourPlanner_WPF
 			{
 				MessageBox.Show("Couldn't load the complete profile.", "Warning");
 			}
-		}
+		}*/
 		#endregion
-
+			
 		#region Map
+			/*
 		private void RateGeocachesButtonClick(object sender, EventArgs e)
 		{
 			if (SelectedRatingprofileCombobox.Text == "")
@@ -678,23 +679,12 @@ namespace GeocachingTourPlanner_WPF
 			LoadMap();
 		}
 		#endregion
-
+			*/
 		#region MapUIEvents
-		bool Mapdragging = false;
-
-		private void Map_OnMapDrag()
+		private void Map_OnMapDrag(object sender, DragEventArgs e)
 		{
-			Mapdragging = true;
-		}
-
-		private void Map_MouseUp(object sender, MouseEventArgs e)
-		{
-			if (Mapdragging)//So calculation only kicks in if dragging is over
-			{
-				App.DB.LastMapPosition = new Coordinate((float)Map.Viewport.ScreenToWorld(Map.Viewport.Center).X, (float)Map.Viewport.ScreenToWorld(Map.Viewport.Center).Y);
-				Fileoperations.Backup(null);
-				Mapdragging = false;
-			}
+			App.DB.LastMapPosition = new Coordinate((float)map.Viewport.ScreenToWorld(map.Viewport.Center).X, (float)map.Viewport.ScreenToWorld(map.Viewport.Center).Y);
+			Fileoperations.Backup(null);
 		}
 
 		private void Map_Enter(object sender, EventArgs e)
@@ -702,18 +692,14 @@ namespace GeocachingTourPlanner_WPF
 			LoadMap();
 		}
 
-		private void Map_OnMapZoomChanged()
+		private void Map_OnMapZoomChanged(object sender, ZoomedEventArgs e)
 		{
-			App.DB.LastMapPosition = new Coordinate((float)Map.Viewport.ScreenToWorld(Map.Viewport.Center).X, (float)Map.Viewport.ScreenToWorld(Map.Viewport.Center).Y);
-			App.DB.LastMapResolution = Map.Viewport.Resolution;
+			App.DB.LastMapPosition = new Coordinate((float)map.Viewport.ScreenToWorld(map.Viewport.Center).X, (float)map.Viewport.ScreenToWorld(map.Viewport.Center).Y);
+			App.DB.LastMapResolution = map.Viewport.Resolution;
 			Fileoperations.Backup(null);
 		}
 
-		private void Map_Load(object sender, EventArgs e)//Called at the first time the tab gets clicked. This way the user doesn't see an empty map
-		{
-			LoadMap();
-		}
-
+		/*
 		private void Map_OnMarkerClick(GMapMarker item, MouseEventArgs e)
 		{
 			if (e.Button == MouseButtons.Left && item.Tag.ToString() != "Endpoint" && item.Tag.ToString() != "Startpoint")
@@ -772,186 +758,196 @@ namespace GeocachingTourPlanner_WPF
 				geocache.ForceInclude = true;
 			}
 		}
+		*/
 		#endregion
+
 		#endregion
 
 		#region Settings
+		/*
+	#region Autotargetselection Max
+	bool AutotargetselectionMax_TextChanged = false;
+	private void AutotargetselectionMaxTextbox_TextChanged(object sender, EventArgs e)
+	{
+		AutotargetselectionMax_TextChanged = true;
 
-		#region Autotargetselection Max
-		bool AutotargetselectionMax_TextChanged = false;
-		private void AutotargetselectionMaxTextbox_TextChanged(object sender, EventArgs e)
+	}
+
+	private void AutotargetselectionMaxTextBox_Leave(object sender, EventArgs e)
+	{
+		if (AutotargetselectionMax_TextChanged)
 		{
-			AutotargetselectionMax_TextChanged = true;
-
-		}
-
-		private void AutotargetselectionMaxTextBox_Leave(object sender, EventArgs e)
-		{
-			if (AutotargetselectionMax_TextChanged)
+			if (int.TryParse(AutotargetselectionMaxTextBox.Text, out int Value))
 			{
-				if (int.TryParse(AutotargetselectionMaxTextBox.Text, out int Value))
+				if (Value > 100)
 				{
-					if (Value > 100)
-					{
-						MessageBox.Show("Percentage can't be bigger than 100");
-						AutotargetselectionMaxTextBox.Text = 100.ToString();
-					}
-					else if (Value < 0)
-					{
-						MessageBox.Show("Percentage can't be smaller than 0");
-						AutotargetselectionMaxTextBox.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Min * 100 + 1).ToString();
-					}
-					else if (Value < 100 * App.DB.PercentageOfDistanceInAutoTargetselection_Min)
-					{
-						MessageBox.Show("Percentage can't be smaller than that of the Minimum");
-						AutotargetselectionMaxTextBox.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Min * 100 + 1).ToString();
-					}
-					else
-					{
-
-						App.DB.PercentageOfDistanceInAutoTargetselection_Max = (Value / 100f);
-						Fileoperations.Backup(null);
-					}
+					MessageBox.Show("Percentage can't be bigger than 100");
+					AutotargetselectionMaxTextBox.Text = 100.ToString();
 				}
-				else if (AutotargetselectionMaxTextBox.Text.Length != 0)
+				else if (Value < 0)
 				{
-					MessageBox.Show("Enter valid integers only.");
+					MessageBox.Show("Percentage can't be smaller than 0");
+					AutotargetselectionMaxTextBox.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Min * 100 + 1).ToString();
+				}
+				else if (Value < 100 * App.DB.PercentageOfDistanceInAutoTargetselection_Min)
+				{
+					MessageBox.Show("Percentage can't be smaller than that of the Minimum");
+					AutotargetselectionMaxTextBox.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Min * 100 + 1).ToString();
+				}
+				else
+				{
+
+					App.DB.PercentageOfDistanceInAutoTargetselection_Max = (Value / 100f);
+					Fileoperations.Backup(null);
 				}
 			}
-			AutotargetselectionMax_TextChanged = false;
-		}
-		#endregion
-
-		#region Autotargetselection Min
-		bool AutotargetselectionMin_TextChanged = false;
-		private void AutotargetselectionMinTextBox_TextChanged(object sender, EventArgs e)
-		{
-			AutotargetselectionMin_TextChanged = true;
-		}
-
-		private void AutotargetselectionMinTextBox_Leave(object sender, EventArgs e)
-		{
-			if (AutotargetselectionMin_TextChanged)
-			{
-				if (int.TryParse(AutotargetselectionMinTextBox.Text, out int Value))
-				{
-					if (Value > 100)
-					{
-						MessageBox.Show("Percentage can't be bigger than 100");
-						AutotargetselectionMinTextBox.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Max * 100 - 1).ToString();
-					}
-					else if (Value < 0)
-					{
-						MessageBox.Show("Percentage can't be smaller than 0");
-						AutotargetselectionMinTextBox.Text = 0.ToString();
-					}
-					else if (Value > 100 * App.DB.PercentageOfDistanceInAutoTargetselection_Max * 100)
-					{
-						MessageBox.Show("Percentage can't be bigger than that of the Maximum");
-						AutotargetselectionMinTextBox.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Max - 1).ToString();
-					}
-					else
-					{
-
-						App.DB.PercentageOfDistanceInAutoTargetselection_Min = (Value / 100f);
-						Fileoperations.Backup(null);
-					}
-				}
-				else if (AutotargetselectionMinTextBox.Text.Length != 0)
-				{
-					MessageBox.Show("Enter valid integers only.");
-				}
-			}
-			AutotargetselectionMin_TextChanged = false;
-		}
-		#endregion
-
-		private void RoutefindingWidth_Textbox_TextChanged(object sender, EventArgs e)
-		{
-			if (int.TryParse(RoutefindingWidth_Textbox.Text, out int Value))
-			{
-				App.DB.RoutefindingWidth = Value;
-				Fileoperations.Backup(null);
-
-			}
-			else if (RoutefindingWidth_Textbox.Text.Length != 0)
+			else if (AutotargetselectionMaxTextBox.Text.Length != 0)
 			{
 				MessageBox.Show("Enter valid integers only.");
 			}
 		}
+		AutotargetselectionMax_TextChanged = false;
+	}
+	#endregion
 
-		private void Autotargetselection_CheckedChanged(object sender, EventArgs e)
+	#region Autotargetselection Min
+	bool AutotargetselectionMin_TextChanged = false;
+	private void AutotargetselectionMinTextBox_TextChanged(object sender, EventArgs e)
+	{
+		AutotargetselectionMin_TextChanged = true;
+	}
+
+	private void AutotargetselectionMinTextBox_Leave(object sender, EventArgs e)
+	{
+		if (AutotargetselectionMin_TextChanged)
 		{
-			App.DB.Autotargetselection = Autotargetselection.Checked;
+			if (int.TryParse(AutotargetselectionMinTextBox.Text, out int Value))
+			{
+				if (Value > 100)
+				{
+					MessageBox.Show("Percentage can't be bigger than 100");
+					AutotargetselectionMinTextBox.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Max * 100 - 1).ToString();
+				}
+				else if (Value < 0)
+				{
+					MessageBox.Show("Percentage can't be smaller than 0");
+					AutotargetselectionMinTextBox.Text = 0.ToString();
+				}
+				else if (Value > 100 * App.DB.PercentageOfDistanceInAutoTargetselection_Max * 100)
+				{
+					MessageBox.Show("Percentage can't be bigger than that of the Maximum");
+					AutotargetselectionMinTextBox.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Max - 1).ToString();
+				}
+				else
+				{
+
+					App.DB.PercentageOfDistanceInAutoTargetselection_Min = (Value / 100f);
+					Fileoperations.Backup(null);
+				}
+			}
+			else if (AutotargetselectionMinTextBox.Text.Length != 0)
+			{
+				MessageBox.Show("Enter valid integers only.");
+			}
 		}
+		AutotargetselectionMin_TextChanged = false;
+	}
+	#endregion
 
-		private void LiveDisplayRouteCalculationCheckbox_CheckedChanged(object sender, EventArgs e)
+	private void RoutefindingWidth_Textbox_TextChanged(object sender, EventArgs e)
+	{
+		if (int.TryParse(RoutefindingWidth_Textbox.Text, out int Value))
 		{
-			App.DB.DisplayLiveCalculation = LiveDisplayRouteCalculationCheckbox.Checked;
+			App.DB.RoutefindingWidth = Value;
 			Fileoperations.Backup(null);
-		}
 
-		private void MarkerSizeTrackBar_Scroll(object sender, EventArgs e)
-		{
-			App.MarkerStyleCache.Clear();
-			App.DB.MarkerSize = MarkerSizeTrackBar.Value;
-			LoadMap();
-			Fileoperations.Backup(null);
 		}
+		else if (RoutefindingWidth_Textbox.Text.Length != 0)
+		{
+			MessageBox.Show("Enter valid integers only.");
+		}
+	}
+
+	private void Autotargetselection_CheckedChanged(object sender, EventArgs e)
+	{
+		App.DB.Autotargetselection = Autotargetselection.Checked;
+	}
+
+	private void LiveDisplayRouteCalculationCheckbox_CheckedChanged(object sender, EventArgs e)
+	{
+		App.DB.DisplayLiveCalculation = LiveDisplayRouteCalculationCheckbox.Checked;
+		Fileoperations.Backup(null);
+	}
+
+	private void MarkerSizeTrackBar_Scroll(object sender, EventArgs e)
+	{
+		App.MarkerStyleCache.Clear();
+		App.DB.MarkerSize = MarkerSizeTrackBar.Value;
+		LoadMap();
+		Fileoperations.Backup(null);
+	}*/
+		#endregion
+		/*
+				private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+				{
+					Fileoperations.Backup(App.Geocaches);
+					Fileoperations.Backup(App.Ratingprofiles);
+					Fileoperations.Backup(App.Routingprofiles);
+
+				}
+				*/
 		#endregion
 
-		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-		{
-			Fileoperations.Backup(App.Geocaches);
-			Fileoperations.Backup(App.Ratingprofiles);
-			Fileoperations.Backup(App.Routingprofiles);
-
-		}
-		#endregion
 
 		#region Accessors
 		public void SetRouterDBLabel(string text)
 		{
-				RouterDBStateLabel.Text = text;
+			Application.Current.Dispatcher.BeginInvoke( //You never know from which thread it is called
+				new Action(() =>
+				{
+					RouterDBStateLabel.Text = text;
+				}));
 		}
-		*/
+		
 		#region Status
 		public void UpdateStatus(string message, int ProgressToShow = 0)
 		{
-			File.AppendAllText("Log.txt", "[" + DateTime.Now + "]: " + message + "\n");
-			if (ProgressToShow != 0)//If the status changes while this is still processing and the new one isn't time consuming (currently there are only two time consuming methods, which cannot run simultaneously), the tooltip still chows the old information, so one can still check what happens
-			{
+			Application.Current.Dispatcher.BeginInvoke(
+				 new Action(() =>
+				 {
+					 File.AppendAllText("Log.txt", "[" + DateTime.Now + "]: " + message + "\n");
+					 if (ProgressToShow != 0)//If the status changes while this is still processing and the new one isn't time consuming (currently there are only two time consuming methods, which cannot run simultaneously), the tooltip still chows the old information, so one can still check what happens
+					 {
 
-				StatusProgressBar.ToolTip = new ToolTip().Content = message;
-				StatusProgressBar.Value = ProgressToShow;
-			}
-			else if (StatusProgressBar.Value == 100)//Thus the previous operation has finished
-			{
-				StatusProgressBar.Value = 0;
-				StatusProgressBar.ToolTip = new ToolTip().Content = message;
-			}
-			StatusLabel.Text = message;
+						 StatusProgressBar.ToolTip = new ToolTip().Content = message;
+						 StatusProgressBar.Value = ProgressToShow;
+					 }
+					 else if (StatusProgressBar.Value == 100)//Thus the previous operation has finished
+					 {
+						 StatusProgressBar.Value = 0;
+						 StatusProgressBar.ToolTip = new ToolTip().Content = message;
+					 }
+					 StatusLabel.Text = message;
+				 }));
 		}
 		#endregion
-		/*
+		
 		#endregion
 
 		#region Methods
 		public void UpdateSettingsTextBoxes()
 		{
+			/*FIX
 			RoutefindingWidth_Textbox.Text = App.DB.RoutefindingWidth.ToString();
 			Autotargetselection.Checked = App.DB.Autotargetselection;
 			MarkerSizeTrackBar.Value = App.DB.MarkerSize;
 			AutotargetselectionMinTextBox.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Min * 100).ToString();
 			AutotargetselectionMaxTextBox.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Max * 100).ToString();
 			LiveDisplayRouteCalculationCheckbox.Checked = App.DB.DisplayLiveCalculation;
+			*/
 		}
 
 		#region Map
-		//FIX Remove when UI is added
-		Mapsui.Map Map = new Mapsui.Map();
-
-		delegate void Loadmap_Delegate();
 		/// <summary>
 		/// Updates Map
 		/// </summary>
@@ -967,22 +963,22 @@ namespace GeocachingTourPlanner_WPF
 			{
 				GeocacheLayer.Add(Markers.GetGeocacheMarker(GC));
 			}
-			Map.Layers.Add(GeocacheLayer);
+			map.Layers.Add(GeocacheLayer);
 
 			//Set Views
 			if (App.DB.LastMapResolution == 0)
 			{
 				App.DB.LastMapResolution = 5;
 			}
-			Map.NavigateTo(App.DB.LastMapResolution);
-			Map.NavigateTo(SphericalMercator.FromLonLat(App.DB.LastMapPosition.Longitude, App.DB.LastMapPosition.Latitude));
+			map.NavigateTo(App.DB.LastMapResolution);
+			map.NavigateTo(SphericalMercator.FromLonLat(App.DB.LastMapPosition.Longitude, App.DB.LastMapPosition.Latitude));
 		}
 
 		private void SetStartpoint(Coordinate coordinates)
 		{
-			if (Map.Layers.Count(x => x.Name == "StartEnd") > 0)
+			if (map.Layers.Count(x => x.Name == "StartEnd") > 0)
 			{
-				WritableLayer Overlay = (WritableLayer)Map.Layers.First(x => x.Name == "StartEnd");
+				WritableLayer Overlay = (WritableLayer)map.Layers.First(x => x.Name == "StartEnd");
 				if (Overlay.GetFeatures().Count(x => x["Label"].ToString() == "Startpoint") >0)
 				{
 					Overlay.TryRemove(Overlay.GetFeatures().First(x => x["Label"].ToString() == "Startpoint"));
@@ -997,17 +993,17 @@ namespace GeocachingTourPlanner_WPF
 					Style = null
 				};
 				Overlay.Add(Markers.GetStartMarker(coordinates));
-				Map.Layers.Add(Overlay);
+				map.Layers.Add(Overlay);
 			}
 
-			StartpointTextbox.Text = coordinates.Latitude.ToString(CultureInfo.InvariantCulture) + ";" + coordinates.Longitude.ToString(CultureInfo.InvariantCulture);
+			//FIX Remove? StartpointTextbox.Text = coordinates.Latitude.ToString(CultureInfo.InvariantCulture) + ";" + coordinates.Longitude.ToString(CultureInfo.InvariantCulture);
 		}
 
 		private void SetEndpoint(Coordinate coordinates)
 		{
-			if (Map.Layers.Count(x => x.Name == "StartEnd") > 0)
+			if (map.Layers.Count(x => x.Name == "StartEnd") > 0)
 			{
-				WritableLayer Overlay = (WritableLayer)Map.Layers.First(x => x.Name == "StartEnd");
+				WritableLayer Overlay = (WritableLayer)map.Layers.First(x => x.Name == "StartEnd");
 				if (Overlay.GetFeatures().Count(x => x["Label"].ToString() == "Endpoint") > 0)
 				{
 					Overlay.TryRemove(Overlay.GetFeatures().First(x => x["Label"].ToString() == "Endpoint"));
@@ -1022,16 +1018,17 @@ namespace GeocachingTourPlanner_WPF
 					Style = null
 				};
 				Overlay.Add(Markers.GetStartMarker(coordinates));
-				Map.Layers.Add(Overlay);
+				map.Layers.Add(Overlay);
 			}
 
-			EndpointTextbox.Text = coordinates.Latitude.ToString(CultureInfo.InvariantCulture) + ";" + coordinates.Longitude.ToString(CultureInfo.InvariantCulture);
+			//FIX Remove? EndpointTextbox.Text = coordinates.Latitude.ToString(CultureInfo.InvariantCulture) + ";" + coordinates.Longitude.ToString(CultureInfo.InvariantCulture);
 		}
 
+		/* TODO Has to be redone in some wayy when Layout is fixed
 		delegate void newRouteControlElementDelegate(string OverlayTag);
 		public void newRouteControlElement(string OverlayTag)
 		{
-			/* TODO Has to be redone in some wayy when Layout is fixed
+			
 			GroupBox groupBox = new GroupBox();
 			groupBox.Text = OverlayTag;
 			groupBox.AutoSize = true;
@@ -1172,7 +1169,6 @@ namespace GeocachingTourPlanner_WPF
 			}
 		}
 		#endregion
-
 		#region Lists
 		/// <summary>
 		/// Keeps the Dropdownmenu updated
@@ -1283,43 +1279,44 @@ namespace GeocachingTourPlanner_WPF
 						}
 					}
 				}
-			}*//*
+			}
+		}
+		*/
+			   /// <summary>
+			   /// Sets the text of all TextBoxchildren of the specified parent to "0". Does this recursively through 3 layers.
+			   /// </summary>
+			   /// <param name="parent"></param>
+		private void SetAllEmptyChildTextboxesToZero(DependencyObject parent)
+		{
+			TextBox TB;
+			do
+			{
+				TB = ReturnFirstEmptyTextBox(parent);
+				if (TB != null)
+				{
+					TB.Text = "0";
+				}
+			} while (TB != null);
 		}
 
-		/// <summary>
-		/// Sets the text of all TextBoxchildren of the specified parent to "0". Does this recursively through 3 layers.
-		/// </summary>
-		/// <param name="parent"></param>
-		private void SetAllEmptyChildTextboxesToZero(Control parent)
+		private TextBox ReturnFirstEmptyTextBox(DependencyObject Control)
 		{
-			/*FIX
-			foreach (Control C in parent.Controls)
+			if (Control != null)
 			{
-				if (C is TextBox && C.Text == "")
+				if (Control.GetType() == typeof(TextBox))
 				{
-					C.Text = "0";
+					return (TextBox)Control;
 				}
-				else if (C is GroupBox || C is TableLayoutPanel)
+				for (int i = 0; i < VisualTreeHelper.GetChildrenCount(Control); i++)
 				{
-					foreach (Control C2 in C.Controls)
+					TextBox childReturn = ReturnFirstEmptyTextBox(VisualTreeHelper.GetChild(Control, i));
+					if (childReturn != null && childReturn.Text=="")
 					{
-						if (C2 is TextBox && C2.Text == "")
-						{
-							C2.Text = "0";
-						}
-						else if (C2 is GroupBox || C2 is TableLayoutPanel)
-						{
-							foreach (Control C3 in C2.Controls)
-							{
-								if (C3 is TextBox && C3.Text == "")
-								{
-									C3.Text = "0";
-								}
-							}
-						}
+						return childReturn;
 					}
 				}
-			}*//*
+			}
+			return null;
 		}
 
 		private Result<Coordinate> ExtractCoordinates(string text)
@@ -1404,6 +1401,7 @@ namespace GeocachingTourPlanner_WPF
 			}
 		}
 		#endregion
-		*/
+
+		#endregion
 	}
 }

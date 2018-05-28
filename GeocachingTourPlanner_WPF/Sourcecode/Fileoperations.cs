@@ -170,7 +170,7 @@ namespace GeocachingTourPlanner
 					}
 					Backup(null);
 
-					//FIX App.mainWindow.SetRouterDBLabel("Successfully loaded RouterDB");
+					App.mainWindow.SetRouterDBLabel("Successfully loaded RouterDB");
 					App.mainWindow.UpdateStatus("Successfully loaded RouterDB", 100);
 				}
 				catch (Exception)
