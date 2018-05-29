@@ -133,7 +133,7 @@
                                     <TextBlock Grid.Row="0">Ratingprofile description</TextBlock>
                                     <DockPanel Grid.Row="1">
                                         <TextBlock DockPanel.Dock="Left">Select Ratingprofile</TextBlock>
-                                        <ComboBox x:Name="EditRatingprofileCombobox" DockPanel.Dock="Right"></ComboBox>
+                                        <ComboBox x:Name="EditRatingprofileCombobox" DockPanel.Dock="Right" SelectionChanged="Ratingprofile_SelectionChanged"></ComboBox>
                                     </DockPanel>
                                     <GroupBox Grid.Row="3" Header="Type">
                                         <Grid>
@@ -281,9 +281,12 @@
                                         </Grid>
                                     </GroupBox>
                                     <GroupBox Grid.Row="7" Header="Age">
-                                        <DockPanel>
-                                            <ComboBox x:Name="AgeValue" DockPanel.Dock="Left"/>
-                                            <TextBox x:Name="AgeFactorValue" DockPanel.Dock="Left"/>
+                                        <DockPanel LastChildFill="False">
+                                            <ComboBox x:Name="AgeValue" DockPanel.Dock="Left" Width="Auto" HorizontalAlignment="Stretch">
+                                                <ComboBoxItem> Multiply with</ComboBoxItem>
+                                                <ComboBoxItem>Square and divide by</ComboBoxItem>
+                                            </ComboBox>
+                                            <TextBox x:Name="AgeFactorValue" DockPanel.Dock="Right" Width="Auto" MinWidth="40"/>
                                         </DockPanel>
                                     </GroupBox>
                                     <GroupBox Grid.Row="8" Header="Other">
@@ -334,7 +337,7 @@
                                     <TextBlock Grid.Row="0">Routingprofile description</TextBlock>
                                     <DockPanel Grid.Row="1">
                                         <TextBlock DockPanel.Dock="Left">Select Routingprofile</TextBlock>
-                                        <ComboBox x:Name="EditRoutingprofileCombobox" DockPanel.Dock="Right"></ComboBox>
+                                        <ComboBox x:Name="EditRoutingprofileCombobox" DockPanel.Dock="Right" SelectionChanged="Routingprofile_SelectionChanged"></ComboBox>
                                     </DockPanel>
                                     <GroupBox Grid.Row="3" Header="RoutingCore">
                                         <Grid>
@@ -348,9 +351,15 @@
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
                                             <TextBlock Grid.Column="0" Grid.Row="0">Vehicle</TextBlock>
-                                            <TextBox x:Name="VehicleValue" Grid.Column="1" Grid.Row="0"/>
+                                            <ComboBox x:Name="VehicleValue" Grid.Column="1" Grid.Row="0">
+                                                <ComboBoxItem>Car</ComboBoxItem>
+                                                <ComboBoxItem>Bicycle</ComboBoxItem>
+                                                <ComboBoxItem>Pedestrian</ComboBoxItem>
+                                            </ComboBox>
                                             <TextBlock Grid.Column="2" Grid.Row="1">Metric</TextBlock>
-                                            <TextBox x:Name="MetricValue" Grid.Column="3" Grid.Row="1"/>
+                                            <ComboBox x:Name="MetricValue" Grid.Column="3" Grid.Row="1"/>
+                                            <ComboBoxItem>Shortest</ComboBoxItem>
+                                            <ComboBoxItem>Fastest</ComboBoxItem>
                                         </Grid>
                                     </GroupBox>
                                     <GroupBox Grid.Row="4" Header="Limits">
@@ -382,7 +391,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0">Save as</TextBlock>
-                                <TextBox Grid.Column="1" x:Name="RotingprofileName" HorizontalAlignment="Stretch"/>
+                                <TextBox Grid.Column="1" x:Name="RoutingprofileName" HorizontalAlignment="Stretch"/>
                                 <Menu Grid.Column="2">
                                     <MenuItem Header="Save + Apply"/>
                                     <MenuItem Header="...">

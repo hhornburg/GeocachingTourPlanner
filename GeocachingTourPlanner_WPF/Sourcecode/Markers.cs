@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
@@ -169,7 +171,12 @@ namespace GeocachingTourPlanner_WPF
 					graphics.DrawImage(TypeImage, SymbolRect, 0, 0, TypeImage.Width, TypeImage.Height, GraphicsUnit.Pixel, PinAttributes);
 				}
 
-				MarkerStyle = new SymbolStyle { BitmapId=BitmapRegistry.Instance.Register(marker_bmp), SymbolType = SymbolType.Bitmap, SymbolScale = App.DB.MarkerSize, SymbolOffset = new Offset(0.0, 0.5, true) };
+				MemoryStream image = new MemoryStream();
+				marker_bmp.Save(image, ImageFormat.Png);
+				image.Position = 0;
+
+				MarkerStyle = new SymbolStyle { BitmapId=BitmapRegistry.Instance.Register(image), SymbolScale = 1.0, SymbolOffset = new Offset(0.0, 0.5) };
+
 				App.MarkerStyleCache.Add(new KeyValueTriple<SymbolStyle, GeocacheType, int>(MarkerStyle, geocache.Type, (int)GeocacheCategory));
 			}
 
@@ -184,6 +191,7 @@ namespace GeocachingTourPlanner_WPF
 		public static Feature GetStartMarker(Coordinate coords)
 		{
 			//TODO new Marker
+
 			IStyle MarkerStyle = new SymbolStyle { BitmapId = BitmapRegistry.Instance.Register(Properties.Images.Pin_black), SymbolType = SymbolType.Svg, SymbolScale = App.DB.MarkerSize, SymbolOffset = new Offset(0.0, 0.5, true) };
 
 			Feature StartMarker = new Feature { Geometry = SphericalMercator.FromLonLat(coords.Longitude, coords.Latitude), ["Label"] = "Start" };

@@ -91,8 +91,8 @@ namespace GeocachingTourPlanner_WPF
 		*/
 			#endregion
 
-			#region Overview
-			private void ImportOSMDataButton_Click(object sender, RoutedEventArgs e)
+		#region Overview
+		private void ImportOSMDataButton_Click(object sender, RoutedEventArgs e)
 		{
 			Fileoperations.ImportOSMData();
 		}
@@ -109,7 +109,7 @@ namespace GeocachingTourPlanner_WPF
 			{
 				Fileoperations.ReadGeocaches();
 				Map_RenewGeocacheLayer();
-				Fileoperations.Backup(null);
+				Fileoperations.Backup(null);//Since filepath was set
 			}
 		}
 
@@ -118,6 +118,7 @@ namespace GeocachingTourPlanner_WPF
 			if (App.DB.OpenExistingDBFile(Databases.Routingprofiles))
 			{
 				Fileoperations.ReadRoutingprofiles();
+				Fileoperations.Backup(null);//Since filepath was set
 			}
 		}
 
@@ -126,6 +127,7 @@ namespace GeocachingTourPlanner_WPF
 			if (App.DB.OpenExistingDBFile(Databases.Ratingprofiles))
 			{
 				Fileoperations.ReadRatingprofiles();
+				Fileoperations.Backup(null);//Since filepath was set
 			}
 		}
 
@@ -357,10 +359,10 @@ namespace GeocachingTourPlanner_WPF
 			UpdateStatus("deleted ratingprofile");
 			Fileoperations.Backup(App.Ratingprofiles);
 		}
-
-		private void Ratingprofile_Click(object sender, EventArgs e)
+		*/
+		private void Ratingprofile_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			Ratingprofile SelectedRatingprofile = App.Ratingprofiles.First(x => x.Name == ((ComboBox)sender).Text);
+			Ratingprofile SelectedRatingprofile = App.Ratingprofiles.First(x => x.Name == ((ComboBox)sender).SelectedItem.ToString());
 
 			try
 			{
@@ -435,44 +437,42 @@ namespace GeocachingTourPlanner_WPF
 			}
 		}
 
-		private void Routingprofile_Click(object sender, EventArgs e)
+		private void Routingprofile_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			Routingprofile SelectedRoutingprofile = App.Routingprofiles.First(x => x.Name == ((ComboBox)sender).Text);
+			Routingprofile SelectedRoutingprofile = App.Routingprofiles.First(x => x.Name == ((ComboBox)sender).SelectedItem.ToString());
 
 			try
 			{
-				RoutingProfileName.Text = SelectedRoutingprofile.Name;
+				RoutingprofileName.Text = SelectedRoutingprofile.Name;
 
 				//Distance
-				MaxDistance.Text = SelectedRoutingprofile.MaxDistance.ToString();
-				PenaltyPerExtraKm.Text = SelectedRoutingprofile.PenaltyPerExtraKM.ToString();
+				DistanceValue.Text = SelectedRoutingprofile.MaxDistance.ToString();
 
 				//Time
-				MaxTime.Text = SelectedRoutingprofile.MaxTime.ToString();
-				PenaltyPerExtra10min.Text = SelectedRoutingprofile.PenaltyPerExtra10min.ToString();
-				TimePerGeocache.Text = SelectedRoutingprofile.TimePerGeocache.ToString();
+				TimeValue.Text = SelectedRoutingprofile.MaxTime.ToString();
+				GeocacheTimeValue.Text = SelectedRoutingprofile.TimePerGeocache.ToString();
 
 				//Profile
 
 				//Workaround Issue #161 @ Itinero
 				if (SelectedRoutingprofile.ItineroProfile.profile.FullName.Contains("."))
 				{
-					VehicleCombobox.Text = SelectedRoutingprofile.ItineroProfile.profile.FullName.Remove(SelectedRoutingprofile.ItineroProfile.profile.FullName.IndexOf("."));//gets the parent of the profile (thus the vehicle)
+					VehicleValue.SelectedItem = SelectedRoutingprofile.ItineroProfile.profile.FullName.Remove(SelectedRoutingprofile.ItineroProfile.profile.FullName.IndexOf("."));//gets the parent of the profile (thus the vehicle)
 
 				}
 				else
 				{
-					VehicleCombobox.Text = SelectedRoutingprofile.ItineroProfile.profile.FullName;
+					VehicleValue.SelectedItem = SelectedRoutingprofile.ItineroProfile.profile.FullName;
 				}
 				switch (SelectedRoutingprofile.ItineroProfile.profile.Metric)
 				{
 					case Itinero.Profiles.ProfileMetric.DistanceInMeters:
 
-						MetricCombobox.Text = "Shortest";
+						MetricValue.SelectedItem = "Shortest";
 						break;
 
 					case Itinero.Profiles.ProfileMetric.TimeInSeconds:
-						MetricCombobox.Text = "Fastest";
+						MetricValue.SelectedItem = "Fastest";
 						break;
 				}
 			}
@@ -480,7 +480,7 @@ namespace GeocachingTourPlanner_WPF
 			{
 				MessageBox.Show("Couldn't load the complete profile.", "Warning");
 			}
-		}*/
+		}
 		#endregion
 			
 		#region Map
@@ -1018,7 +1018,7 @@ namespace GeocachingTourPlanner_WPF
 				{
 					Overlay.TryRemove(Overlay.GetFeatures().First(x => x["Label"].ToString() == "Endpoint"));
 				}
-				Overlay.Add(Markers.GetStartMarker(coordinates));
+				Overlay.Add(Markers.GetEndMarker(coordinates));
 			}
 			else
 			{
@@ -1027,7 +1027,7 @@ namespace GeocachingTourPlanner_WPF
 					Name = "StartEnd",
 					Style = null
 				};
-				Overlay.Add(Markers.GetStartMarker(coordinates));
+				Overlay.Add(Markers.GetEndMarker(coordinates));
 				map.Layers.Add(Overlay);
 			}
 
@@ -1410,5 +1410,6 @@ namespace GeocachingTourPlanner_WPF
 		#endregion
 
 		#endregion
+
 	}
 }

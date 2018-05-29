@@ -151,7 +151,6 @@ namespace GeocachingTourPlanner
 						GCReader.Close();
 					}
 				}
-				App.Geocaches.ResetBindings();
 			}
 		}
 
