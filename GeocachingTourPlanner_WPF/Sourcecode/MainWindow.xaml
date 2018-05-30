@@ -109,7 +109,7 @@
                         </Grid>
                     </TabItem>
                     <TabItem x:Name="Ratingprofiles" Header="Ratingprofiles">
-                        <Grid>
+                        <Grid x:Name="RatingprofilesSettingsGrid">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
@@ -118,7 +118,7 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <ScrollViewer>
-                                <Grid x:Name="RatingprofilesSettingsGrid">
+                                <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
@@ -317,7 +317,7 @@
                         </Grid>
                     </TabItem>
                     <TabItem x:Name="Routingprofiles" Header="Routingprofiles">
-                        <Grid>
+                        <Grid  x:Name="RoutingprofilesSettingsGrid">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
@@ -326,7 +326,7 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <ScrollViewer>
-                                <Grid x:Name="RoutingprofilesSettingsGrid">
+                                <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
@@ -357,9 +357,10 @@
                                                 <ComboBoxItem>Pedestrian</ComboBoxItem>
                                             </ComboBox>
                                             <TextBlock Grid.Column="2" Grid.Row="1">Metric</TextBlock>
-                                            <ComboBox x:Name="MetricValue" Grid.Column="3" Grid.Row="1"/>
-                                            <ComboBoxItem>Shortest</ComboBoxItem>
-                                            <ComboBoxItem>Fastest</ComboBoxItem>
+                                            <ComboBox x:Name="MetricValue" Grid.Column="3" Grid.Row="1">
+                                                <ComboBoxItem>Shortest</ComboBoxItem>
+                                                <ComboBoxItem>Fastest</ComboBoxItem>
+                                            </ComboBox>
                                         </Grid>
                                     </GroupBox>
                                     <GroupBox Grid.Row="4" Header="Limits">
@@ -403,9 +404,36 @@
                         </Grid>
                     </TabItem>
                     <TabItem x:Name="Settings" Header="Settings">
-                        <Grid>
-
-                        </Grid>
+                        <StackPanel>
+                            <GroupBox Header="Routing Settings">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <CheckBox x:Name="LiveDisplayRouteCalculationValue" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Checked="LiveDisplayRouteCalculationCheckbox_Checked" Unchecked="LiveDisplayRouteCalculationCheckbox_Unchecked">Live Display of route Calculation</CheckBox>
+                                    <TextBlock Grid.Column="0" Grid.Row="1" TextWrapping="Wrap">Number of basic routes to compare in automatic selection of target geocaches (Default 4)</TextBlock>
+                                    <TextBox x:Name="RouteFindingWidthValue" Grid.Column="1" Grid.Row="1" MinWidth="40" TextChanged="RoutefindingWidth_Textbox_TextChanged"></TextBox>
+                                    <TextBox Grid.Column="0" Grid.Row="2" TextWrapping="Wrap">What percentage of the maximal distance should be used up at most in the automatic selection of target geocaches</TextBox>
+                                    <TextBox x:Name="AutotargetselectionMaxValue" Grid.Column="1" Grid.Row="2" MinWidth="40" TextChanged="AutotargetselectionMaxTextbox_TextChanged" LostFocus="AutotargetselectionMaxTextBox_Leave"></TextBox>
+                                    <TextBox Grid.Column="0" Grid.Row="3" TextWrapping="Wrap">What percentage of the maximal distance should be used up at least in the automatic selection of target geocaches</TextBox>
+                                    <TextBox x:Name="AutotargetselectionMinValue" Grid.Column="1" Grid.Row="3" MinWidth="40" TextChanged="AutotargetselectionMinTextBox_TextChanged" LostFocus="AutotargetselectionMinTextBox_Leave"></TextBox>
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Header="Map">
+                                <StackPanel>
+                                    <TextBlock>Size of icons on the map</TextBlock>
+                                    <Slider x:Name="MarkerSizeValue" Minimum="10" Maximum="64" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="MarkerSizeValue_Changed"/>
+                                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
                     </TabItem>
                 </TabControl>
             </Expander>

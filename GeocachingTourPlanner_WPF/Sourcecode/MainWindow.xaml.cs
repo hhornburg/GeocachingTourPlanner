@@ -24,7 +24,7 @@ using System.Windows.Threading;
 
 namespace GeocachingTourPlanner_WPF
 {
-	
+
 	/// <summary>
 	/// Interaktionslogik für MainWindow.xaml
 	/// </summary>
@@ -89,7 +89,7 @@ namespace GeocachingTourPlanner_WPF
 			}
 		}
 		*/
-			#endregion
+		#endregion
 
 		#region Overview
 		private void ImportOSMDataButton_Click(object sender, RoutedEventArgs e)
@@ -155,7 +155,7 @@ namespace GeocachingTourPlanner_WPF
 			Fileoperations.NewRoutingprofileDatabase();
 		}
 		#endregion
-			
+
 		#region Update of Rating/Routingprofiles
 		private void CreateRatingprofile(object sender, EventArgs e)
 		{
@@ -260,31 +260,28 @@ namespace GeocachingTourPlanner_WPF
 			App.Ratingprofiles.Add(Profile);
 			//The Dropdownmenu gets updated through an event handler
 			Fileoperations.Backup(App.Ratingprofiles);
-			//FIX Remove? EditRatingprofileCombobox.SelectedItem = Profile.Name; //Eventhandler takes care of same profile selected
+			EditRatingprofileCombobox.SelectedItem = Profile.Name; //Eventhandler takes care of same profile selected
 		}
-		/*
 		private void CreateRoutingprofile(object sender, EventArgs e)
 		{
-			SetAllEmptyChildTextboxesToZero(RoutingprofilesSettingsTableLayout);
+			SetAllEmptyChildTextboxesToZero(RoutingprofilesSettingsGrid);
 
 			Routingprofile Profile = new Routingprofile();
-			if (RoutingProfileName.Text == null)
+			if (RoutingprofileName.Text == null)
 			{
 				MessageBox.Show("Please set Name");
 				return;
 			}
 			try
 			{
-				Profile.Name = RoutingProfileName.Text;
+				Profile.Name = RoutingprofileName.Text;
 
-				Profile.MaxDistance = int.Parse(MaxDistance.Text);
-				Profile.PenaltyPerExtraKM = int.Parse(PenaltyPerExtraKm.Text);
+				Profile.MaxDistance = int.Parse(DistanceValue.Text);
 
-				Profile.MaxTime = int.Parse(MaxTime.Text);
-				Profile.PenaltyPerExtra10min = int.Parse(PenaltyPerExtra10min.Text);
-				Profile.TimePerGeocache = int.Parse(TimePerGeocache.Text);
+				Profile.MaxTime = int.Parse(TimeValue.Text);
+				Profile.TimePerGeocache = int.Parse(GeocacheTimeValue.Text);
 
-				Profile.ItineroProfile = new SerializableItineroProfile(VehicleCombobox.Text, MetricCombobox.Text);
+				Profile.ItineroProfile = new SerializableItineroProfile(VehicleValue.Text, MetricValue.Text);
 				if (Profile.ItineroProfile.profile == null)
 				{
 					MessageBox.Show("Please select valid Values for the Vehicle and Mode", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -319,16 +316,14 @@ namespace GeocachingTourPlanner_WPF
 		private void DeleteRoutingprofileButton_Click(object sender, EventArgs e)
 		{
 			Routingprofile Profile = new Routingprofile();
-			if (RoutingProfileName.Text == null)
+			if (RoutingprofileName.Text == null)
 			{
 				MessageBox.Show("Please set Name");
 				return;
 			}
-			Profile.Name = RoutingProfileName.Text;
+			Profile.Name = RoutingprofileName.Text;
 
-			ClearAllChildTextAndComboboxes(RoutingprofilesSettingsTableLayout);
-			ClearAllChildTextAndComboboxes(SaveRoutingProfileTableLayout);
-			SelectedRoutingprofileCombobox.Text = null;
+			ClearAllChildTextboxes(RoutingprofilesSettingsGrid);
 
 			foreach (Routingprofile BP in App.Routingprofiles.Where(x => x.Name == Profile.Name).ToList())
 			{
@@ -353,13 +348,11 @@ namespace GeocachingTourPlanner_WPF
 				App.Ratingprofiles.Remove(RP);
 			}
 
-			ClearAllChildTextAndComboboxes(RatingprofilesSettingsTabelLayout);
-			ClearAllChildTextAndComboboxes(SaveRatingprofileLayoutPanel);
-			SelectedRatingprofileCombobox.Text = null;
+			ClearAllChildTextboxes(RatingprofilesSettingsGrid);
 			UpdateStatus("deleted ratingprofile");
 			Fileoperations.Backup(App.Ratingprofiles);
 		}
-		*/
+
 		private void Ratingprofile_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			Ratingprofile SelectedRatingprofile = App.Ratingprofiles.First(x => x.Name == ((ComboBox)sender).SelectedItem.ToString());
@@ -429,7 +422,7 @@ namespace GeocachingTourPlanner_WPF
 			}
 			catch (Exception)
 			{
-				MessageBoxResult aw = MessageBox.Show("Es scheint einen Fehler in der Datei zu diesem Profil zu geben. Wollen sie es Löschen?", "Fehler", MessageBoxButton.YesNo, MessageBoxImage.Error);
+				MessageBoxResult aw = MessageBox.Show("There seems to be an error in this file. Do you want to delete it?", "Fehler", MessageBoxButton.YesNo, MessageBoxImage.Error);
 				if (aw == MessageBoxResult.Yes)
 				{
 					App.Ratingprofiles.Remove(SelectedRatingprofile);
@@ -482,205 +475,205 @@ namespace GeocachingTourPlanner_WPF
 			}
 		}
 		#endregion
-			
+
 		#region Map
-			/*
-		private void RateGeocachesButtonClick(object sender, EventArgs e)
+		/*
+	private void RateGeocachesButtonClick(object sender, EventArgs e)
+	{
+		if (SelectedRatingprofileCombobox.Text == "")
 		{
-			if (SelectedRatingprofileCombobox.Text == "")
+			MessageBox.Show("Please select a Ratingprofile");
+			return;
+		}
+
+		Ratingprofile bewertungsprofil = App.Ratingprofiles.First(x => x.Name == SelectedRatingprofileCombobox.Text);
+		foreach (Geocache GC in App.Geocaches)
+		{
+			GC.Rate(bewertungsprofil);
+		}
+		App.Geocaches.OrderByDescending(x => x.Rating);
+		//If it still exists..  GeocacheTable.Sort(GeocacheTable.Columns["Rating"], ListSortDirection.Descending);
+		App.DB.MaximalRating = App.Geocaches[0].Rating;//Da sortierte Liste
+		App.DB.MinimalRating = App.Geocaches[App.Geocaches.Count - 1].Rating;
+		LoadMap();
+		UpdateStatus("Geocaches rated");
+		Fileoperations.Backup(App.Geocaches);
+	}
+
+	private void CreateRouteButtonClick(object sender, EventArgs e)
+	{
+		if (!App.RouteCalculationRunning && !App.ImportOfOSMDataRunning)
+		{
+			UpdateStatus("Started Route Calculation");
+			App.RouteCalculationRunning = true;
+			//FIX Application.UseWaitCursor = true;
+
+			#region get values
+			if (SelectedRoutingprofileCombobox.Text.Length == 0)
 			{
-				MessageBox.Show("Please select a Ratingprofile");
+				MessageBox.Show("No Routingprofile set.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				App.RouteCalculationRunning = false;
+				App.RouteCalculationRunning = false;
+				//FIX Application.UseWaitCursor = false;
 				return;
 			}
 
-			Ratingprofile bewertungsprofil = App.Ratingprofiles.First(x => x.Name == SelectedRatingprofileCombobox.Text);
-			foreach (Geocache GC in App.Geocaches)
+			Routingprofile SelectedProfile = App.Routingprofiles.First(x => x.Name == SelectedRoutingprofileCombobox.Text);
+
+			List<Geocache> GeocachesToInclude = new List<Geocache>();
+			foreach (Geocache GC in App.Geocaches.Where(x => x.ForceInclude))
 			{
-				GC.Rate(bewertungsprofil);
+				GeocachesToInclude.Add(GC);
 			}
-			App.Geocaches.OrderByDescending(x => x.Rating);
-			//If it still exists..  GeocacheTable.Sort(GeocacheTable.Columns["Rating"], ListSortDirection.Descending);
-			App.DB.MaximalRating = App.Geocaches[0].Rating;//Da sortierte Liste
-			App.DB.MinimalRating = App.Geocaches[App.Geocaches.Count - 1].Rating;
-			LoadMap();
-			UpdateStatus("Geocaches rated");
-			Fileoperations.Backup(App.Geocaches);
-		}
 
-		private void CreateRouteButtonClick(object sender, EventArgs e)
-		{
-			if (!App.RouteCalculationRunning && !App.ImportOfOSMDataRunning)
+			float StartLat = 0;
+			float StartLon = 0;
+			float EndLat = 0;
+			float EndLon = 0;
+
+			if (StartpointTextbox.Text.Length == 0)
 			{
-				UpdateStatus("Started Route Calculation");
-				App.RouteCalculationRunning = true;
-				//FIX Application.UseWaitCursor = true;
+				MessageBox.Show("No Startpoint set. Please type one in or select one with right click on the map", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				App.RouteCalculationRunning = false;
+				//FIX Application.UseWaitCursor = false;
+				return;
+			}
 
-				#region get values
-				if (SelectedRoutingprofileCombobox.Text.Length == 0)
+			if (!float.TryParse(StartpointTextbox.Text.Substring(0, StartpointTextbox.Text.IndexOf(";") - 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out StartLat))
+			{
+				MessageBox.Show("Couldn't parse latitude of Startcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				App.RouteCalculationRunning = false;
+				//FIX Application.UseWaitCursor = false;
+				return;
+			}
+			if (!float.TryParse(StartpointTextbox.Text.Substring(StartpointTextbox.Text.IndexOf(";") + 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out StartLon))
+			{
+				MessageBox.Show("Couldn't parse longitude Startcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				App.RouteCalculationRunning = false;
+				//FIX Application.UseWaitCursor = false;
+				return;
+			}
+
+			if (EndpointTextbox.Text.Length == 0)
+			{
+				if (MessageBox.Show("No Endpoint set. Do you want to set Startpoint as Endpoint as well?", "Question", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
 				{
-					MessageBox.Show("No Routingprofile set.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-					App.RouteCalculationRunning = false;
-					App.RouteCalculationRunning = false;
-					//FIX Application.UseWaitCursor = false;
-					return;
-				}
-
-				Routingprofile SelectedProfile = App.Routingprofiles.First(x => x.Name == SelectedRoutingprofileCombobox.Text);
-
-				List<Geocache> GeocachesToInclude = new List<Geocache>();
-				foreach (Geocache GC in App.Geocaches.Where(x => x.ForceInclude))
-				{
-					GeocachesToInclude.Add(GC);
-				}
-
-				float StartLat = 0;
-				float StartLon = 0;
-				float EndLat = 0;
-				float EndLon = 0;
-
-				if (StartpointTextbox.Text.Length == 0)
-				{
-					MessageBox.Show("No Startpoint set. Please type one in or select one with right click on the map", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-					App.RouteCalculationRunning = false;
-					//FIX Application.UseWaitCursor = false;
-					return;
-				}
-
-				if (!float.TryParse(StartpointTextbox.Text.Substring(0, StartpointTextbox.Text.IndexOf(";") - 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out StartLat))
-				{
-					MessageBox.Show("Couldn't parse latitude of Startcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-					App.RouteCalculationRunning = false;
-					//FIX Application.UseWaitCursor = false;
-					return;
-				}
-				if (!float.TryParse(StartpointTextbox.Text.Substring(StartpointTextbox.Text.IndexOf(";") + 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out StartLon))
-				{
-					MessageBox.Show("Couldn't parse longitude Startcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-					App.RouteCalculationRunning = false;
-					//FIX Application.UseWaitCursor = false;
-					return;
-				}
-
-				if (EndpointTextbox.Text.Length == 0)
-				{
-					if (MessageBox.Show("No Endpoint set. Do you want to set Startpoint as Endpoint as well?", "Question", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-					{
-						EndLat = StartLat;
-						EndLon = StartLon;
-						EndpointTextbox.Text = EndLat.ToString(CultureInfo.InvariantCulture) + ";" + EndLon.ToString(CultureInfo.InvariantCulture);
-					}
-					else
-					{
-						App.RouteCalculationRunning = false;
-						//FIX Application.UseWaitCursor = false;
-						return;
-					}
+					EndLat = StartLat;
+					EndLon = StartLon;
+					EndpointTextbox.Text = EndLat.ToString(CultureInfo.InvariantCulture) + ";" + EndLon.ToString(CultureInfo.InvariantCulture);
 				}
 				else
 				{
-					if (!float.TryParse(EndpointTextbox.Text.Substring(0, EndpointTextbox.Text.IndexOf(";") - 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out EndLat))
-					{
-
-						MessageBox.Show("Couldn't parse latitude of Endcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-						App.RouteCalculationRunning = false;
-						//FIX Application.UseWaitCursor = false;
-						return;
-
-					}
-					if (!float.TryParse(EndpointTextbox.Text.Substring(EndpointTextbox.Text.IndexOf(";") + 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out EndLon))
-					{
-						//Big procedure only once, as the result would be the same
-						MessageBox.Show("Couldn't parse longitude of Endcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-						App.RouteCalculationRunning = false;
-						//FIX Application.UseWaitCursor = false;
-						return;
-					}
-				}
-
-				//Check if Start and Endpoint have been selected
-				if (StartLat == 0 && StartLon == 0 && EndLat == 0 && EndLon == 0)
-				{
-					MessageBox.Show("Please select a Startingpoint and a Finalpoint", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 					App.RouteCalculationRunning = false;
 					//FIX Application.UseWaitCursor = false;
 					return;
 				}
-				#endregion
-
-				new Thread(new ThreadStart(() =>
-				{
-					new Tourplanning().GetRoute_Recursive(SelectedProfile, App.Geocaches.ToList(), new Coordinate(StartLat, StartLon), new Coordinate(EndLat, EndLon), GeocachesToInclude);
-				}
-				)).Start();
-			}
-			else if (App.ImportOfOSMDataRunning)
-			{
-				MessageBox.Show("Please wait until the OSM Data is imported.");
-			}
-		}
-
-		#region Startpoint
-		private bool StartpointChanged = false;
-		private void StartpointTextbox_TextChanged(object sender, EventArgs e)
-		{
-			StartpointChanged = true;
-		}
-
-		private void StartpointTextbox_Leave(object sender, EventArgs e)
-		{
-			Result<Coordinate> Coordinates = ExtractCoordinates(StartpointTextbox.Text);
-			if (!Coordinates.IsError)
-			{
-				SetStartpoint(Coordinates.Value);
-			}
-		}
-		#endregion
-
-		#region Endpoint
-		private bool EndpointChanged = false;
-		private void EndpointTextbox_TextChanged(object sender, EventArgs e)
-		{
-			EndpointChanged = true;
-		}
-
-		private void EndpointTextbox_Leave(object sender, EventArgs e)
-		{
-			Result<Coordinate> Coordinates = ExtractCoordinates(EndpointTextbox.Text);
-			if (!Coordinates.IsError)
-			{
-				SetEndpoint(Coordinates.Value);
-			}
-		}
-		#endregion
-		
-		#region Routes
-		private void DeleteButton_Click(object sender, EventArgs e, string OverlayTag)
-		{
-			App.Routes.Remove(App.Routes.First(x => x.Key == OverlayTag));
-			Map.Overlays.Remove(Map.Overlays.First(x => x.Id == OverlayTag));
-			((Button)sender).Parent.Parent.Dispose();//=The Groupbox
-			LoadMap();
-		}
-
-		private void Export_Click(string OverlayTag)
-		{
-			Fileoperations.ExportGPX(OverlayTag);
-		}
-
-		private void RouteControlElement_CheckedChanged(object sender, string Overlaytag)
-		{
-			if (((CheckBox)sender).Checked)
-			{
-				Map.Overlays.First(x => x.Id == Overlaytag).IsVisibile = true;
 			}
 			else
 			{
-				Map.Overlays.First(x => x.Id == Overlaytag).IsVisibile = false;
+				if (!float.TryParse(EndpointTextbox.Text.Substring(0, EndpointTextbox.Text.IndexOf(";") - 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out EndLat))
+				{
+
+					MessageBox.Show("Couldn't parse latitude of Endcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+					App.RouteCalculationRunning = false;
+					//FIX Application.UseWaitCursor = false;
+					return;
+
+				}
+				if (!float.TryParse(EndpointTextbox.Text.Substring(EndpointTextbox.Text.IndexOf(";") + 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out EndLon))
+				{
+					//Big procedure only once, as the result would be the same
+					MessageBox.Show("Couldn't parse longitude of Endcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+					App.RouteCalculationRunning = false;
+					//FIX Application.UseWaitCursor = false;
+					return;
+				}
 			}
-			LoadMap();
+
+			//Check if Start and Endpoint have been selected
+			if (StartLat == 0 && StartLon == 0 && EndLat == 0 && EndLon == 0)
+			{
+				MessageBox.Show("Please select a Startingpoint and a Finalpoint", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				App.RouteCalculationRunning = false;
+				//FIX Application.UseWaitCursor = false;
+				return;
+			}
+			#endregion
+
+			new Thread(new ThreadStart(() =>
+			{
+				new Tourplanning().GetRoute_Recursive(SelectedProfile, App.Geocaches.ToList(), new Coordinate(StartLat, StartLon), new Coordinate(EndLat, EndLon), GeocachesToInclude);
+			}
+			)).Start();
 		}
-		#endregion
-			*/
+		else if (App.ImportOfOSMDataRunning)
+		{
+			MessageBox.Show("Please wait until the OSM Data is imported.");
+		}
+	}
+
+	#region Startpoint
+	private bool StartpointChanged = false;
+	private void StartpointTextbox_TextChanged(object sender, EventArgs e)
+	{
+		StartpointChanged = true;
+	}
+
+	private void StartpointTextbox_Leave(object sender, EventArgs e)
+	{
+		Result<Coordinate> Coordinates = ExtractCoordinates(StartpointTextbox.Text);
+		if (!Coordinates.IsError)
+		{
+			SetStartpoint(Coordinates.Value);
+		}
+	}
+	#endregion
+
+	#region Endpoint
+	private bool EndpointChanged = false;
+	private void EndpointTextbox_TextChanged(object sender, EventArgs e)
+	{
+		EndpointChanged = true;
+	}
+
+	private void EndpointTextbox_Leave(object sender, EventArgs e)
+	{
+		Result<Coordinate> Coordinates = ExtractCoordinates(EndpointTextbox.Text);
+		if (!Coordinates.IsError)
+		{
+			SetEndpoint(Coordinates.Value);
+		}
+	}
+	#endregion
+
+	#region Routes
+	private void DeleteButton_Click(object sender, EventArgs e, string OverlayTag)
+	{
+		App.Routes.Remove(App.Routes.First(x => x.Key == OverlayTag));
+		Map.Overlays.Remove(Map.Overlays.First(x => x.Id == OverlayTag));
+		((Button)sender).Parent.Parent.Dispose();//=The Groupbox
+		LoadMap();
+	}
+
+	private void Export_Click(string OverlayTag)
+	{
+		Fileoperations.ExportGPX(OverlayTag);
+	}
+
+	private void RouteControlElement_CheckedChanged(object sender, string Overlaytag)
+	{
+		if (((CheckBox)sender).Checked)
+		{
+			Map.Overlays.First(x => x.Id == Overlaytag).IsVisibile = true;
+		}
+		else
+		{
+			Map.Overlays.First(x => x.Id == Overlaytag).IsVisibile = false;
+		}
+		LoadMap();
+	}
+	#endregion
+		*/
 		#region MapUIEvents
 		private void Map_OnMapDrag(object sender, DragEventArgs e)
 		{
@@ -765,138 +758,128 @@ namespace GeocachingTourPlanner_WPF
 		#endregion
 
 		#region Settings
-		/*
-	#region Autotargetselection Max
-	bool AutotargetselectionMax_TextChanged = false;
-	private void AutotargetselectionMaxTextbox_TextChanged(object sender, EventArgs e)
-	{
-		AutotargetselectionMax_TextChanged = true;
-
-	}
-
-	private void AutotargetselectionMaxTextBox_Leave(object sender, EventArgs e)
-	{
-		if (AutotargetselectionMax_TextChanged)
+		#region Autotargetselection Max
+		bool AutotargetselectionMax_TextChanged = false;
+		private void AutotargetselectionMaxTextbox_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			if (int.TryParse(AutotargetselectionMaxTextBox.Text, out int Value))
-			{
-				if (Value > 100)
-				{
-					MessageBox.Show("Percentage can't be bigger than 100");
-					AutotargetselectionMaxTextBox.Text = 100.ToString();
-				}
-				else if (Value < 0)
-				{
-					MessageBox.Show("Percentage can't be smaller than 0");
-					AutotargetselectionMaxTextBox.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Min * 100 + 1).ToString();
-				}
-				else if (Value < 100 * App.DB.PercentageOfDistanceInAutoTargetselection_Min)
-				{
-					MessageBox.Show("Percentage can't be smaller than that of the Minimum");
-					AutotargetselectionMaxTextBox.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Min * 100 + 1).ToString();
-				}
-				else
-				{
-
-					App.DB.PercentageOfDistanceInAutoTargetselection_Max = (Value / 100f);
-					Fileoperations.Backup(null);
-				}
-			}
-			else if (AutotargetselectionMaxTextBox.Text.Length != 0)
-			{
-				MessageBox.Show("Enter valid integers only.");
-			}
-		}
-		AutotargetselectionMax_TextChanged = false;
-	}
-	#endregion
-
-	#region Autotargetselection Min
-	bool AutotargetselectionMin_TextChanged = false;
-	private void AutotargetselectionMinTextBox_TextChanged(object sender, EventArgs e)
-	{
-		AutotargetselectionMin_TextChanged = true;
-	}
-
-	private void AutotargetselectionMinTextBox_Leave(object sender, EventArgs e)
-	{
-		if (AutotargetselectionMin_TextChanged)
-		{
-			if (int.TryParse(AutotargetselectionMinTextBox.Text, out int Value))
-			{
-				if (Value > 100)
-				{
-					MessageBox.Show("Percentage can't be bigger than 100");
-					AutotargetselectionMinTextBox.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Max * 100 - 1).ToString();
-				}
-				else if (Value < 0)
-				{
-					MessageBox.Show("Percentage can't be smaller than 0");
-					AutotargetselectionMinTextBox.Text = 0.ToString();
-				}
-				else if (Value > 100 * App.DB.PercentageOfDistanceInAutoTargetselection_Max * 100)
-				{
-					MessageBox.Show("Percentage can't be bigger than that of the Maximum");
-					AutotargetselectionMinTextBox.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Max - 1).ToString();
-				}
-				else
-				{
-
-					App.DB.PercentageOfDistanceInAutoTargetselection_Min = (Value / 100f);
-					Fileoperations.Backup(null);
-				}
-			}
-			else if (AutotargetselectionMinTextBox.Text.Length != 0)
-			{
-				MessageBox.Show("Enter valid integers only.");
-			}
-		}
-		AutotargetselectionMin_TextChanged = false;
-	}
-	#endregion
-
-	private void RoutefindingWidth_Textbox_TextChanged(object sender, EventArgs e)
-	{
-		if (int.TryParse(RoutefindingWidth_Textbox.Text, out int Value))
-		{
-			App.DB.RoutefindingWidth = Value;
-			Fileoperations.Backup(null);
+			AutotargetselectionMax_TextChanged = true;
 
 		}
-		else if (RoutefindingWidth_Textbox.Text.Length != 0)
+
+		private void AutotargetselectionMaxTextBox_Leave(object sender, RoutedEventArgs e)
 		{
-			MessageBox.Show("Enter valid integers only.");
+			if (AutotargetselectionMax_TextChanged)
+			{
+				if (int.TryParse(AutotargetselectionMaxValue.Text, out int Value))
+				{
+					if (Value > 100)
+					{
+						MessageBox.Show("Percentage can't be bigger than 100");
+						AutotargetselectionMaxValue.Text = 100.ToString();
+					}
+					else if (Value < 0)
+					{
+						MessageBox.Show("Percentage can't be smaller than 0");
+						AutotargetselectionMaxValue.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Min * 100 + 1).ToString();
+					}
+					else if (Value < 100 * App.DB.PercentageOfDistanceInAutoTargetselection_Min)
+					{
+						MessageBox.Show("Percentage can't be smaller than that of the Minimum");
+						AutotargetselectionMaxValue.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Min * 100 + 1).ToString();
+					}
+					else
+					{
+
+						App.DB.PercentageOfDistanceInAutoTargetselection_Max = (Value / 100f);
+						Fileoperations.Backup(null);
+					}
+				}
+				else if (AutotargetselectionMaxValue.Text.Length != 0)
+				{
+					MessageBox.Show("Enter valid integers only.");
+				}
+			}
+			AutotargetselectionMax_TextChanged = false;
 		}
-	}
-
-	private void Autotargetselection_CheckedChanged(object sender, EventArgs e)
-	{
-		App.DB.Autotargetselection = Autotargetselection.Checked;
-	}
-
-	private void LiveDisplayRouteCalculationCheckbox_CheckedChanged(object sender, EventArgs e)
-	{
-		App.DB.DisplayLiveCalculation = LiveDisplayRouteCalculationCheckbox.Checked;
-		Fileoperations.Backup(null);
-	}
-
-	private void MarkerSizeTrackBar_Scroll(object sender, EventArgs e)
-	{
-		App.MarkerStyleCache.Clear();
-		App.DB.MarkerSize = MarkerSizeTrackBar.Value;
-		LoadMap();
-		Fileoperations.Backup(null);
-	}*/
 		#endregion
-		/*
-				private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-				{
-					Fileoperations.Backup(App.Geocaches);
-					Fileoperations.Backup(App.Ratingprofiles);
-					Fileoperations.Backup(App.Routingprofiles);
 
+		#region Autotargetselection Min
+		bool AutotargetselectionMin_TextChanged = false;
+		private void AutotargetselectionMinTextBox_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			AutotargetselectionMin_TextChanged = true;
+		}
+
+		private void AutotargetselectionMinTextBox_Leave(object sender, RoutedEventArgs e)
+		{
+			if (AutotargetselectionMin_TextChanged)
+			{
+				if (int.TryParse(AutotargetselectionMinValue.Text, out int Value))
+				{
+					if (Value > 100)
+					{
+						MessageBox.Show("Percentage can't be bigger than 100");
+						AutotargetselectionMinValue.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Max * 100 - 1).ToString();
+					}
+					else if (Value < 0)
+					{
+						MessageBox.Show("Percentage can't be smaller than 0");
+						AutotargetselectionMinValue.Text = 0.ToString();
+					}
+					else if (Value > 100 * App.DB.PercentageOfDistanceInAutoTargetselection_Max * 100)
+					{
+						MessageBox.Show("Percentage can't be bigger than that of the Maximum");
+						AutotargetselectionMinValue.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Max - 1).ToString();
+					}
+					else
+					{
+
+						App.DB.PercentageOfDistanceInAutoTargetselection_Min = (Value / 100f);
+						Fileoperations.Backup(null);
+					}
 				}
-				*/
+				else if (AutotargetselectionMinValue.Text.Length != 0)
+				{
+					MessageBox.Show("Enter valid integers only.");
+				}
+			}
+			AutotargetselectionMin_TextChanged = false;
+		}
+		#endregion
+
+		private void RoutefindingWidth_Textbox_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			if (int.TryParse(RouteFindingWidthValue.Text, out int Value))
+			{
+				App.DB.RoutefindingWidth = Value;
+				Fileoperations.Backup(null);
+
+			}
+			else if (RouteFindingWidthValue.Text.Length != 0)
+			{
+				MessageBox.Show("Enter valid integers only.");
+			}
+		}
+		
+		private void LiveDisplayRouteCalculationCheckbox_Checked(object sender, RoutedEventArgs e)
+		{
+			App.DB.DisplayLiveCalculation = true;
+			Fileoperations.Backup(null);
+		}
+		private void LiveDisplayRouteCalculationCheckbox_Unchecked(object sender, RoutedEventArgs e)
+		{
+			App.DB.DisplayLiveCalculation = false;
+			Fileoperations.Backup(null);
+		}
+
+		private void MarkerSizeValue_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
+		{
+			App.MarkerStyleCache.Clear();
+			App.DB.MarkerSize = (int)MarkerSizeValue.Value;
+			Map_RenewGeocacheLayer();
+			Fileoperations.Backup(null);
+		}
+		#endregion
 		#endregion
 
 
@@ -909,7 +892,7 @@ namespace GeocachingTourPlanner_WPF
 					RouterDBStateLabel.Text = text;
 				}));
 		}
-		
+
 		#region Status
 		public void UpdateStatus(string message, int ProgressToShow = 0)
 		{
@@ -932,20 +915,17 @@ namespace GeocachingTourPlanner_WPF
 				 }));
 		}
 		#endregion
-		
+
 		#endregion
 
 		#region Methods
 		public void UpdateSettingsTextBoxes()
 		{
-			/*FIX
-			RoutefindingWidth_Textbox.Text = App.DB.RoutefindingWidth.ToString();
-			Autotargetselection.Checked = App.DB.Autotargetselection;
-			MarkerSizeTrackBar.Value = App.DB.MarkerSize;
-			AutotargetselectionMinTextBox.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Min * 100).ToString();
-			AutotargetselectionMaxTextBox.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Max * 100).ToString();
-			LiveDisplayRouteCalculationCheckbox.Checked = App.DB.DisplayLiveCalculation;
-			*/
+			RouteFindingWidthValue.Text = App.DB.RoutefindingWidth.ToString();
+			MarkerSizeValue.Value = App.DB.MarkerSize;
+			AutotargetselectionMinValue.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Min * 100).ToString();
+			AutotargetselectionMaxValue.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Max * 100).ToString();
+			LiveDisplayRouteCalculationValue.IsChecked = App.DB.DisplayLiveCalculation;
 		}
 
 		#region Map
@@ -954,29 +934,34 @@ namespace GeocachingTourPlanner_WPF
 		/// </summary>
 		public void Map_RenewGeocacheLayer()
 		{
-			foreach(WritableLayer GClayer in map.Layers.Where(x => x.Name == "Geocaches").ToList())
+			if (map != null)//Occurs during startup
 			{
-				map.Layers.Remove(GClayer);
-			}
+				if (map.Layers.Count(x => x.Name == "Geocaches") > 0)
+				{
+					foreach (WritableLayer GClayer in map.Layers.Where(x => x.Name == "Geocaches").ToList())
+					{
+						map.Layers.Remove(GClayer);
+					}
+				}
+				WritableLayer GeocacheLayer = new WritableLayer
+				{
+					Name = "Geocaches",
+					Style = null
+				};
 
-			WritableLayer GeocacheLayer = new WritableLayer
-			{
-				Name = "Geocaches",
-				Style = null
-			};
+				foreach (Geocache GC in App.Geocaches)
+				{
+					GeocacheLayer.Add(Markers.GetGeocacheMarker(GC));
+				}
+				map.Layers.Add(GeocacheLayer);
 
-			foreach (Geocache GC in App.Geocaches)
-			{
-				GeocacheLayer.Add(Markers.GetGeocacheMarker(GC));
-			}
-			map.Layers.Add(GeocacheLayer);
+				//Set Views
+				if (App.DB.LastMapResolution == 0)
+				{
+					App.DB.LastMapResolution = 5;
+				}
 
-			//Set Views
-			if (App.DB.LastMapResolution == 0)
-			{
-				App.DB.LastMapResolution = 5;
 			}
-			
 		}
 
 		public void Map_NavigateToLastVisited()
@@ -989,7 +974,7 @@ namespace GeocachingTourPlanner_WPF
 			if (map.Layers.Count(x => x.Name == "StartEnd") > 0)
 			{
 				WritableLayer Overlay = (WritableLayer)map.Layers.First(x => x.Name == "StartEnd");
-				if (Overlay.GetFeatures().Count(x => x["Label"].ToString() == "Startpoint") >0)
+				if (Overlay.GetFeatures().Count(x => x["Label"].ToString() == "Startpoint") > 0)
 				{
 					Overlay.TryRemove(Overlay.GetFeatures().First(x => x["Label"].ToString() == "Startpoint"));
 				}
@@ -1189,7 +1174,7 @@ namespace GeocachingTourPlanner_WPF
 		public void Ratingprofiles_ListChanged(object sender, ListChangedEventArgs e)
 		{
 			EditRatingprofileCombobox.Items.Clear();
-			
+
 			foreach (Ratingprofile profile in App.Ratingprofiles)
 			{
 				EditRatingprofileCombobox.Items.Add(profile.Name);
@@ -1219,80 +1204,13 @@ namespace GeocachingTourPlanner_WPF
 			Map_RenewGeocacheLayer();
 		}
 		#endregion
-		/*
 		#endregion
 
 		#region unspecific helpers
-		//UNDONE Attach this to EVERY Dropdownlist
-		private void Dropdown_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			if (((ComboBox)sender).SelectedItem != null)//happens when profile is deleted
-			{
-				((ComboBox)sender).Text = ((ComboBox)sender).SelectedItem.ToString();//So I can just check the text and it doesn't matter whether the user typed it or selected it
-
-				if (sender == EditRoutingprofileCombobox)
-				{
-					Routingprofile_Click(sender, e);
-					SelectedRoutingprofileCombobox.Text = EditRoutingprofileCombobox.Text;
-				}
-				else if (sender == EditRatingprofileCombobox)
-				{
-					Ratingprofile_Click(sender, e);
-					SelectedRatingprofileCombobox.Text = EditRatingprofileCombobox.Text;
-				}
-				else if (sender == SelectedRoutingprofileCombobox)
-				{
-					Routingprofile_Click(sender, e);
-					EditRoutingprofileCombobox.Text = SelectedRoutingprofileCombobox.Text;
-				}
-				else if (sender == SelectedRatingprofileCombobox)
-				{
-					Ratingprofile_Click(sender, e);
-					EditRatingprofileCombobox.Text = SelectedRatingprofileCombobox.Text;
-				}
-			}
-		}
-
 		/// <summary>
-		/// Sets the text of all TextBox- and ComboBox- children of the specified parent to null. Does this recursively through 3 layers.
+		/// Sets the text of all TextBoxchildren of the specified parent to "0"
 		/// </summary>
 		/// <param name="parent"></param>
-		private void ClearAllChildTextAndComboboxes(Control parent)
-		{
-			/*FIX
-			foreach (Control C in parent.Controls)
-			{
-				if (C is TextBox || C is ComboBox)
-				{
-					C.Text = null;
-				}
-				else if (C is GroupBox || C is TableLayoutPanel)
-				{
-					foreach (Control C2 in C.Controls)
-					{
-						if (C2 is TextBox || C2 is ComboBox)
-						{
-							C2.Text = null;
-						}
-						else if (C2 is GroupBox || C2 is TableLayoutPanel)
-						{
-							foreach (Control C3 in C2.Controls)
-							{
-								if (C3 is TextBox || C3 is ComboBox)
-								{
-									C3.Text = null;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		*/
-			   /// <summary>
-			   /// Sets the text of all TextBoxchildren of the specified parent to "0". Does this recursively through 3 layers.
-			   /// </summary>
-			   /// <param name="parent"></param>
 		private void SetAllEmptyChildTextboxesToZero(DependencyObject parent)
 		{
 			TextBox TB;
@@ -1317,7 +1235,44 @@ namespace GeocachingTourPlanner_WPF
 				for (int i = 0; i < VisualTreeHelper.GetChildrenCount(Control); i++)
 				{
 					TextBox childReturn = ReturnFirstEmptyTextBox(VisualTreeHelper.GetChild(Control, i));
-					if (childReturn != null && childReturn.Text=="")
+					if (childReturn != null && childReturn.Text == "")
+					{
+						return childReturn;
+					}
+				}
+			}
+			return null;
+		}
+
+		/// <summary>
+		/// Empties all textboxes child textboxes
+		/// </summary>
+		/// <param name="parent"></param>
+		private void ClearAllChildTextboxes(DependencyObject parent)
+		{
+			TextBox TB;
+			do
+			{
+				TB = ReturnFirstEmptyTextBox(parent);
+				if (TB != null)
+				{
+					TB.Text = "";
+				}
+			} while (TB != null);
+		}
+
+		private TextBox ReturnFirstNotEmptyTextBox(DependencyObject Control)
+		{
+			if (Control != null)
+			{
+				if (Control.GetType() == typeof(TextBox))
+				{
+					return (TextBox)Control;
+				}
+				for (int i = 0; i < VisualTreeHelper.GetChildrenCount(Control); i++)
+				{
+					TextBox childReturn = ReturnFirstEmptyTextBox(VisualTreeHelper.GetChild(Control, i));
+					if (childReturn != null && childReturn.Text != "")
 					{
 						return childReturn;
 					}
@@ -1408,8 +1363,6 @@ namespace GeocachingTourPlanner_WPF
 			}
 		}
 		#endregion
-
 		#endregion
-
 	}
 }

@@ -14,7 +14,7 @@ namespace GeocachingTourPlanner
 			App.Geocaches = new SortableBindingList<Geocache>();
 
 			App.mainWindow = new MainWindow();
-			//FIX MainWindow.UpdateStatus("Started reading databases");
+			App.mainWindow.UpdateStatus("Started reading databases");
 			if (File.Exists(App.Database_Filepath))//Thus it is not the first start of the App
 			{
 				Fileoperations.ReadMainDatabase();
@@ -25,7 +25,7 @@ namespace GeocachingTourPlanner
 				First();
 			}
 
-			//FIX MainWindow.UpdateSettingsTextBoxes();
+			App.mainWindow.UpdateSettingsTextBoxes();
 			CheckSettings();
 			BindLists();
 			Fileoperations.Backup(null);

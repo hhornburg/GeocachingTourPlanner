@@ -602,7 +602,7 @@ namespace GeocachingTourPlanner
 
 						Backup(null);
 
-						//FIX App.mainWindow.SetRouterDBLabel("RouterDB set");
+						App.mainWindow.SetRouterDBLabel("RouterDB set");
 						MessageBox.Show("Successfully imported OSM Data");
 
 					})).Start();
