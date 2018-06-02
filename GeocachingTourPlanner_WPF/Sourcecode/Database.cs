@@ -28,6 +28,9 @@ namespace GeocachingTourPlanner
 		public double LastMapResolution { get; set;}
 		public Coordinate LastMapPosition { get; set; }
 
+		public Ratingprofile ActiveRatingprofile { get; set; }
+		public Routingprofile ActiveRoutingprofile { get; set; }
+
 		public int MarkerSize { get; set; }
 		/// <summary>
 		/// Minimale Bewertung die ein Geocache in der Aktuellen Liste erreicht. Wird zum Erstellen der Farbcodierung benutzt

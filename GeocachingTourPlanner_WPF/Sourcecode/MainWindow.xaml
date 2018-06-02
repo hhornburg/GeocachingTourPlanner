@@ -306,11 +306,10 @@
                                 <TextBlock Grid.Column="0">Save as</TextBlock>
                                 <TextBox Grid.Column="1" x:Name="RatingprofileName" HorizontalAlignment="Stretch"/>
                                 <Menu Grid.Column="2">
-                                    <MenuItem Header="Save + Apply"/>
-                                    <Separator/>
-                                    <MenuItem Header="...">
-                                        <MenuItem Header="_Save only"/>
-                                        <MenuItem Header="_Delete"/>
+                                    <MenuItem Header="Save + Apply" Click="RatingprofileSaveApply_Click"/>
+                                    <MenuItem Header="•••">
+                                        <MenuItem Header="_Save only" Click="RatingprofileSaveOnly_Click"/>
+                                        <MenuItem Header="_Delete" Click="DeleteRatingprofileButton_Click"/>
                                     </MenuItem>
                                 </Menu>
                             </Grid>

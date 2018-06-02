@@ -56,7 +56,19 @@ namespace GeocachingTourPlanner
                 Rating -= Profil.NMPenalty;
             }
         }
-    }
+
+		private void toggleForceInclude()
+		{
+			if (ForceInclude)
+			{
+				ForceInclude = false;
+			}
+			else
+			{
+				ForceInclude = true;
+			}
+		}
+	}
 
     public enum GeocacheType
     {
