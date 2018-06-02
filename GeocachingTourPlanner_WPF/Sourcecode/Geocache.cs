@@ -57,7 +57,7 @@ namespace GeocachingTourPlanner
             }
         }
 
-		private void toggleForceInclude()
+		public void toggleForceInclude()
 		{
 			if (ForceInclude)
 			{

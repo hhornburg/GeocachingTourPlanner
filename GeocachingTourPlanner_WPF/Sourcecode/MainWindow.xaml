@@ -436,7 +436,7 @@
                     </TabItem>
                 </TabControl>
             </Expander>
-            <Mapsui:MapControl x:Name="mapControl" Grid.Column="1" Zoomed="Map_OnMapZoomChanged" DragLeave="Map_OnMapDrag"/>
+            <Mapsui:MapControl x:Name="mapControl" Grid.Column="1" Zoomed="Map_OnMapZoomChanged" DragLeave="Map_OnMapDrag" />
             <Expander Grid.Column="2" x:Name="Routes" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch" IsExpanded="False" ExpandDirection="Left">
                 <Expander.Header>
                     <TextBlock Text="Routes" RenderTransformOrigin="0,0">

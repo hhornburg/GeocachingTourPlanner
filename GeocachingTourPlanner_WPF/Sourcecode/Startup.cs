@@ -1,4 +1,5 @@
 ﻿using GeocachingTourPlanner_WPF;
+using Itinero.LocalGeo;
 using System.ComponentModel;
 using System.IO;
 
@@ -31,6 +32,7 @@ namespace GeocachingTourPlanner
 			Fileoperations.Backup(null);
 
 			App.mainWindow.Show();
+			App.StartupCompleted = true;
 			App.mainWindow.Map_NavigateToLastVisited();
 		}
 		/// <summary>
@@ -46,15 +48,14 @@ namespace GeocachingTourPlanner
 			}
 
 			//Set default settings
-			App.DB.Autotargetselection = true;
 			App.DB.PercentageOfDistanceInAutoTargetselection_Max = 0.9f;
 			App.DB.PercentageOfDistanceInAutoTargetselection_Min = 0.75f;
 			App.DB.RoutefindingWidth = 4;
-			App.DB.DisplayLiveCalculation = false;
+			App.DB.DisplayLiveCalculation = true;
 
 			//Mapspecific
-			App.DB.LastMapResolution = 5;
-			//FIX App.DB.LastMapPosition = new Coordinate(49.0, 8.5);
+			App.DB.LastMapResolution = 1000;
+			App.DB.LastMapPosition = new Coordinate(49.0f, 8.5f);
 			App.DB.MarkerSize = 16;
 		}
 
@@ -63,7 +64,7 @@ namespace GeocachingTourPlanner
 		/// </summary>
 		public static void ReadRemainingDatabases()
 		{
-			Fileoperations.ReadRouterDB();//Same thread, so it is ready when the App starts
+			Fileoperations.ReadRouterDB();
 
 			//Load Ratingprofiles from the File specified in the Database
 			Fileoperations.ReadRatingprofiles();

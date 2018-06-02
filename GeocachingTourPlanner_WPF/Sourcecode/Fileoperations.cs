@@ -190,97 +190,102 @@ namespace GeocachingTourPlanner
 		/// <param name="ExtraBackup"></param>
 		public static bool Backup(object ExtraBackup)
 		{
-			//Aus Performancegrnden nicht alles
-			if (ExtraBackup == App.Geocaches)
+			//Don't save anything that is set during initialization and startup, since it is either overriding user settings or redundant
+			if (App.StartupCompleted)
 			{
-
-				if (App.DB.IsFilepathSet(Databases.Geocaches))
+				//Aus Performancegrnden nicht alles
+				if (ExtraBackup == App.Geocaches)
 				{
-					TextWriter GeocachesWriter = null;
-					try
+
+					if (App.DB.IsFilepathSet(Databases.Geocaches))
 					{
-						GeocachesWriter = new StreamWriter(App.DB.GeocacheDB_Filepath);
-						GeocachesSerializer.Serialize(GeocachesWriter, App.Geocaches);
-					}
-					catch
-					{
-						MessageBox.Show("Fileerror. Is the Geocaches Database used by another App?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-						return false;
-					}
-					finally
-					{
-						if (GeocachesWriter != null)
+						TextWriter GeocachesWriter = null;
+						try
 						{
-							GeocachesWriter.Close();
+							GeocachesWriter = new StreamWriter(App.DB.GeocacheDB_Filepath);
+							GeocachesSerializer.Serialize(GeocachesWriter, App.Geocaches);
+						}
+						catch
+						{
+							MessageBox.Show("Fileerror. Is the Geocaches Database used by another App?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+							return false;
+						}
+						finally
+						{
+							if (GeocachesWriter != null)
+							{
+								GeocachesWriter.Close();
+							}
 						}
 					}
 				}
-			}
 
-			else if (ExtraBackup == App.Routingprofiles)
-			{
-				if (App.DB.IsFilepathSet(Databases.Routingprofiles))
+				else if (ExtraBackup == App.Routingprofiles)
 				{
-					TextWriter RoutingprofileWriter = null;
-					try
+					if (App.DB.IsFilepathSet(Databases.Routingprofiles))
 					{
-						RoutingprofileWriter = new StreamWriter(App.DB.RoutingprofileDB_Filepath);
-						RoutingprofilesSerializer.Serialize(RoutingprofileWriter, App.Routingprofiles);
-					}
-					catch (IOException)
-					{
-						MessageBox.Show("Fileerror. Is the Routingprofiles Database used by another App?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-						return false;
-					}
-					finally
-					{
-						if (RoutingprofileWriter != null)
+						TextWriter RoutingprofileWriter = null;
+						try
 						{
-							RoutingprofileWriter.Close();
+							RoutingprofileWriter = new StreamWriter(App.DB.RoutingprofileDB_Filepath);
+							RoutingprofilesSerializer.Serialize(RoutingprofileWriter, App.Routingprofiles);
+						}
+						catch (IOException)
+						{
+							MessageBox.Show("Fileerror. Is the Routingprofiles Database used by another App?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+							return false;
+						}
+						finally
+						{
+							if (RoutingprofileWriter != null)
+							{
+								RoutingprofileWriter.Close();
+							}
 						}
 					}
 				}
-			}
 
-			else if (ExtraBackup == App.Ratingprofiles)
-			{
-				if (App.DB.IsFilepathSet(Databases.Ratingprofiles))
+				else if (ExtraBackup == App.Ratingprofiles)
 				{
-					TextWriter RatingprofileWriter = null;
-					try
+					if (App.DB.IsFilepathSet(Databases.Ratingprofiles))
 					{
-						RatingprofileWriter = new StreamWriter(App.DB.RatingprofileDB_Filepath);
-						RatingprofilesSerializer.Serialize(RatingprofileWriter, App.Ratingprofiles);
-					}
-					catch (IOException)
-					{
-						MessageBox.Show("Fileerror. Is the Ratingprofiles Database used by another App?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-						return false;
-					}
-					finally
-					{
-
-						if (RatingprofileWriter != null)
+						TextWriter RatingprofileWriter = null;
+						try
 						{
-							RatingprofileWriter.Close();
+							RatingprofileWriter = new StreamWriter(App.DB.RatingprofileDB_Filepath);
+							RatingprofilesSerializer.Serialize(RatingprofileWriter, App.Ratingprofiles);
+						}
+						catch (IOException)
+						{
+							MessageBox.Show("Fileerror. Is the Ratingprofiles Database used by another App?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+							return false;
+						}
+						finally
+						{
+
+							if (RatingprofileWriter != null)
+							{
+								RatingprofileWriter.Close();
+							}
 						}
 					}
 				}
-			}
 
-			//Last one, so changes made in the Backup Routine can be saved
-			TextWriter DBWriter = new StreamWriter(App.Database_Filepath);
-			try
-			{
-				DBSerializer.Serialize(DBWriter, App.DB);
+				//Last one, so changes made in the Backup Routine can be saved
+				TextWriter DBWriter = new StreamWriter(App.Database_Filepath);
+				try
+				{
+					DBSerializer.Serialize(DBWriter, App.DB);
+				}
+				catch (IOException)
+				{
+					MessageBox.Show("Fileerror. Is the Main Database used by another App?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+					return false;
+				}
+				DBWriter.Close();
+				return true;
 			}
-			catch (IOException)
-			{
-				MessageBox.Show("Fileerror. Is the Main Database used by another App?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-				return false;
-			}
-			DBWriter.Close();
-			return true;
+			return false;
 		}
 
 		public static void ExportGPX(string OverlayTag)

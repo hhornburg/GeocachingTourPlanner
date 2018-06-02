@@ -33,16 +33,16 @@ namespace GeocachingTourPlanner
 		/// <summary>
 		/// Returns null if calculation fails
 		/// </summary>
-		/// <param name="router"></param>
 		/// <param name="profile"></param>
+		/// <param name="AllGeocaches"></param>
+		/// <param name="Startpoint"></param>
+		/// <param name="Endpoint"></param>
+		/// <param name="GeocachesToInclude"></param>
 		/// <param name=""></param>
 		/// <returns></returns>
 		public void GetRoute_Recursive(Routingprofile profile, List<Geocache> AllGeocaches, Coordinate Startpoint, Coordinate Endpoint, List<Geocache> GeocachesToInclude)
 		{
 			Fileoperations.Routerlog.AddMainSection("Started new Routing");
-			/// <summary>
-			/// Holds all information on the route. 
-			/// </summary>
 			RouteData CompleteRouteData = new RouteData();
 
 			RouterPoint Startpoint_RP;
@@ -707,6 +707,9 @@ namespace GeocachingTourPlanner
 		#endregion
 
 		#region structs
+		/// <summary>
+		/// Structure that holds all routing Data
+		/// </summary>
 		public class RouteData
 		{
 			public List<PartialRoute> partialRoutes { get; set; }

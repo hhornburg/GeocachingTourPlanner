@@ -37,6 +37,10 @@ namespace GeocachingTourPlanner_WPF
 		public static BindingList<KeyValuePair<string, Tourplanning.RouteData>> Routes = new BindingList<KeyValuePair<string, Tourplanning.RouteData>>();
 
 		//App Variables
+		/// <summary>
+		/// So no backup is made during startup process which would overwrite the Database
+		/// </summary>
+		public static bool StartupCompleted = false;
 		public static bool RouteCalculationRunning = false;
 		public static bool ImportOfOSMDataRunning = false;
 

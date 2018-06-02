@@ -199,77 +199,80 @@ namespace GeocachingTourPlanner_WPF
 
 		private void Ratingprofile_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			Ratingprofile SelectedRatingprofile = App.Ratingprofiles.First(x => x.Name == ((ComboBox)sender).SelectedItem.ToString());
-			App.DB.ActiveRatingprofile = SelectedRatingprofile;
-			try
+			if (EditRatingprofileCombobox.SelectedItem != null)
 			{
-				//Name des Profils
-				RatingprofileName.Text = SelectedRatingprofile.Name;
-
-				//Prioritäten
-				TypePriorityValue.Text = SelectedRatingprofile.TypePriority.ToString();
-				SizePriorityValue.Text = SelectedRatingprofile.SizePriority.ToString();
-				DPriorityValue.Text = SelectedRatingprofile.DPriority.ToString();
-				TPriorityValue.Text = SelectedRatingprofile.TPriority.ToString();
-
-				//TypenValueungen
-				TraditionalValue.Text = SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Traditional).Value.ToString();
-				EarthcacheValue.Text = SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.EarthCache).Value.ToString();
-				MultiValue.Text = SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Multi).Value.ToString();
-				MysteryValue.Text = SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Mystery).Value.ToString();
-				LetterboxValue.Text = SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Letterbox).Value.ToString();
-				VirtualValue.Text = SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Virtual).Value.ToString();
-				OtherTypeValue.Text = SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Other).Value.ToString();
-				WebcamValue.Text = SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Webcam).Value.ToString();
-				WherigoValue.Text = SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Wherigo).Value.ToString();
-
-				//Größe
-				LargeValue.Text = SelectedRatingprofile.SizeRatings.First(x => x.Key == GeocacheSize.Large).Value.ToString();
-				RegularValue.Text = SelectedRatingprofile.SizeRatings.First(x => x.Key == GeocacheSize.Regular).Value.ToString();
-				SmallValue.Text = SelectedRatingprofile.SizeRatings.First(x => x.Key == GeocacheSize.Small).Value.ToString();
-				MicroValue.Text = SelectedRatingprofile.SizeRatings.First(x => x.Key == GeocacheSize.Micro).Value.ToString();
-				OtherSizeValue.Text = SelectedRatingprofile.SizeRatings.First(x => x.Key == GeocacheSize.Other).Value.ToString();
-
-				//D
-				D1Value.Text = SelectedRatingprofile.DRatings.First(x => x.Key == 1).Value.ToString();
-				D15Value.Text = SelectedRatingprofile.DRatings.First(x => x.Key == 1.5).Value.ToString();
-				D2Value.Text = SelectedRatingprofile.DRatings.First(x => x.Key == 2).Value.ToString();
-				D25Value.Text = SelectedRatingprofile.DRatings.First(x => x.Key == 2.5).Value.ToString();
-				D3Value.Text = SelectedRatingprofile.DRatings.First(x => x.Key == 3).Value.ToString();
-				D35Value.Text = SelectedRatingprofile.DRatings.First(x => x.Key == 3.5).Value.ToString();
-				D4Value.Text = SelectedRatingprofile.DRatings.First(x => x.Key == 4).Value.ToString();
-				D45Value.Text = SelectedRatingprofile.DRatings.First(x => x.Key == 4.5).Value.ToString();
-				D5Value.Text = SelectedRatingprofile.DRatings.First(x => x.Key == 5).Value.ToString();
-
-				//T
-				T1Value.Text = SelectedRatingprofile.TRatings.First(x => x.Key == 1).Value.ToString();
-				T15Value.Text = SelectedRatingprofile.TRatings.First(x => x.Key == 1.5).Value.ToString();
-				T2Value.Text = SelectedRatingprofile.TRatings.First(x => x.Key == 2).Value.ToString();
-				T25Value.Text = SelectedRatingprofile.TRatings.First(x => x.Key == 2.5).Value.ToString();
-				T3Value.Text = SelectedRatingprofile.TRatings.First(x => x.Key == 3).Value.ToString();
-				T35Value.Text = SelectedRatingprofile.TRatings.First(x => x.Key == 3.5).Value.ToString();
-				T4Value.Text = SelectedRatingprofile.TRatings.First(x => x.Key == 4).Value.ToString();
-				T45Value.Text = SelectedRatingprofile.TRatings.First(x => x.Key == 4.5).Value.ToString();
-				T5Value.Text = SelectedRatingprofile.TRatings.First(x => x.Key == 5).Value.ToString();
-
-				//Sonstige
-				NMFlagValue.Text = SelectedRatingprofile.NMPenalty.ToString();
-				if (SelectedRatingprofile.Yearmode == Yearmode.multiply)
+				Ratingprofile SelectedRatingprofile = App.Ratingprofiles.First(x => x.Name == EditRatingprofileCombobox.SelectedItem.ToString());
+				App.DB.ActiveRatingprofile = SelectedRatingprofile;
+				try
 				{
-					AgeValue.SelectedItem = AgeValue.Items[0];
+					//Name des Profils
+					RatingprofileName.Text = SelectedRatingprofile.Name;
+
+					//Prioritäten
+					TypePriorityValue.Text = SelectedRatingprofile.TypePriority.ToString();
+					SizePriorityValue.Text = SelectedRatingprofile.SizePriority.ToString();
+					DPriorityValue.Text = SelectedRatingprofile.DPriority.ToString();
+					TPriorityValue.Text = SelectedRatingprofile.TPriority.ToString();
+
+					//TypenValueungen
+					TraditionalValue.Text = SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Traditional).Value.ToString();
+					EarthcacheValue.Text = SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.EarthCache).Value.ToString();
+					MultiValue.Text = SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Multi).Value.ToString();
+					MysteryValue.Text = SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Mystery).Value.ToString();
+					LetterboxValue.Text = SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Letterbox).Value.ToString();
+					VirtualValue.Text = SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Virtual).Value.ToString();
+					OtherTypeValue.Text = SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Other).Value.ToString();
+					WebcamValue.Text = SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Webcam).Value.ToString();
+					WherigoValue.Text = SelectedRatingprofile.TypeRatings.First(x => x.Key == GeocacheType.Wherigo).Value.ToString();
+
+					//Größe
+					LargeValue.Text = SelectedRatingprofile.SizeRatings.First(x => x.Key == GeocacheSize.Large).Value.ToString();
+					RegularValue.Text = SelectedRatingprofile.SizeRatings.First(x => x.Key == GeocacheSize.Regular).Value.ToString();
+					SmallValue.Text = SelectedRatingprofile.SizeRatings.First(x => x.Key == GeocacheSize.Small).Value.ToString();
+					MicroValue.Text = SelectedRatingprofile.SizeRatings.First(x => x.Key == GeocacheSize.Micro).Value.ToString();
+					OtherSizeValue.Text = SelectedRatingprofile.SizeRatings.First(x => x.Key == GeocacheSize.Other).Value.ToString();
+
+					//D
+					D1Value.Text = SelectedRatingprofile.DRatings.First(x => x.Key == 1).Value.ToString();
+					D15Value.Text = SelectedRatingprofile.DRatings.First(x => x.Key == 1.5).Value.ToString();
+					D2Value.Text = SelectedRatingprofile.DRatings.First(x => x.Key == 2).Value.ToString();
+					D25Value.Text = SelectedRatingprofile.DRatings.First(x => x.Key == 2.5).Value.ToString();
+					D3Value.Text = SelectedRatingprofile.DRatings.First(x => x.Key == 3).Value.ToString();
+					D35Value.Text = SelectedRatingprofile.DRatings.First(x => x.Key == 3.5).Value.ToString();
+					D4Value.Text = SelectedRatingprofile.DRatings.First(x => x.Key == 4).Value.ToString();
+					D45Value.Text = SelectedRatingprofile.DRatings.First(x => x.Key == 4.5).Value.ToString();
+					D5Value.Text = SelectedRatingprofile.DRatings.First(x => x.Key == 5).Value.ToString();
+
+					//T
+					T1Value.Text = SelectedRatingprofile.TRatings.First(x => x.Key == 1).Value.ToString();
+					T15Value.Text = SelectedRatingprofile.TRatings.First(x => x.Key == 1.5).Value.ToString();
+					T2Value.Text = SelectedRatingprofile.TRatings.First(x => x.Key == 2).Value.ToString();
+					T25Value.Text = SelectedRatingprofile.TRatings.First(x => x.Key == 2.5).Value.ToString();
+					T3Value.Text = SelectedRatingprofile.TRatings.First(x => x.Key == 3).Value.ToString();
+					T35Value.Text = SelectedRatingprofile.TRatings.First(x => x.Key == 3.5).Value.ToString();
+					T4Value.Text = SelectedRatingprofile.TRatings.First(x => x.Key == 4).Value.ToString();
+					T45Value.Text = SelectedRatingprofile.TRatings.First(x => x.Key == 4.5).Value.ToString();
+					T5Value.Text = SelectedRatingprofile.TRatings.First(x => x.Key == 5).Value.ToString();
+
+					//Sonstige
+					NMFlagValue.Text = SelectedRatingprofile.NMPenalty.ToString();
+					if (SelectedRatingprofile.Yearmode == Yearmode.multiply)
+					{
+						AgeValue.SelectedItem = AgeValue.Items[0];
+					}
+					else
+					{
+						AgeValue.SelectedItem = AgeValue.Items[1];
+					}
+					AgeFactorValue.Text = SelectedRatingprofile.Yearfactor.ToString();
 				}
-				else
+				catch (Exception ex)
 				{
-					AgeValue.SelectedItem = AgeValue.Items[1];
-				}
-				AgeFactorValue.Text = SelectedRatingprofile.Yearfactor.ToString();
-			}
-			catch (Exception ex)
-			{
-				MessageBoxResult aw = MessageBox.Show("There seems to be an error in this file. Do you want to delete it?", "Fehler", MessageBoxButton.YesNo, MessageBoxImage.Error);
-				if (aw == MessageBoxResult.Yes)
-				{
-					App.Ratingprofiles.Remove(SelectedRatingprofile);
+					MessageBoxResult aw = MessageBox.Show("There seems to be an error in this file. Do you want to delete it?", "Fehler", MessageBoxButton.YesNo, MessageBoxImage.Error);
+					if (aw == MessageBoxResult.Yes)
+					{
+						App.Ratingprofiles.Remove(SelectedRatingprofile);
+					}
 				}
 			}
 		}
@@ -432,7 +435,7 @@ namespace GeocachingTourPlanner_WPF
 		#region Events
 		private void Routingprofile_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			Routingprofile SelectedRoutingprofile = App.Routingprofiles.First(x => x.Name == ((ComboBox)sender).SelectedItem.ToString());
+			Routingprofile SelectedRoutingprofile = App.Routingprofiles.First(x => x.Name == EditRoutingprofileCombobox.SelectedItem.ToString());
 			App.DB.ActiveRoutingprofile = SelectedRoutingprofile;
 
 			try
@@ -566,7 +569,7 @@ namespace GeocachingTourPlanner_WPF
 		}
 
 		#endregion
-
+		#endregion
 
 		#region Settings
 		#region UI Events
@@ -829,6 +832,7 @@ namespace GeocachingTourPlanner_WPF
 				{
 					App.DB.LastMapResolution = 5;
 				}
+				map.ViewChanged(true);
 
 			}
 		}
@@ -1277,7 +1281,7 @@ else if (App.ImportOfOSMDataRunning)
 			TextBox TB;
 			do
 			{
-				TB = ReturnFirstEmptyTextBox(parent);
+				TB = ReturnFirstNotEmptyTextBox(parent);
 				if (TB != null)
 				{
 					TB.Text = "";
@@ -1388,7 +1392,6 @@ else if (App.ImportOfOSMDataRunning)
 		}
 		#endregion
 
-		#endregion
 
 	}
 }
