@@ -69,28 +69,13 @@ namespace GeocachingTourPlanner_WPF
 
 		}
 
-		#region First Steps
-		/*
-		private void OpenWikiButton_Click(object sender, EventArgs e)
+		#region Overview
+		#region UI Events
+		private void OpenWikiButton_Click(object sender, RoutedEventArgs e)
 		{
 			Process.Start("https://github.com/pingurus/GeocachingTourPlanner/wiki");
 		}
 
-		
-		private void webBrowser1_Navigating(object sender, WebBrowserNavigatingEventArgs e)
-		{
-			/*FIX
-			if (e.Url != new Uri(Application.StartupPath + "\\first-steps.html"))
-			{
-				Process.Start(e.Url.ToString());
-				e.Cancel = true;
-			}
-		}
-		*/
-		#endregion
-
-		#region Overview
-		#region UI Events
 		private void ImportOSMDataButton_Click(object sender, RoutedEventArgs e)
 		{
 			Fileoperations.ImportOSMData();
@@ -401,7 +386,6 @@ namespace GeocachingTourPlanner_WPF
 			EditRatingprofileCombobox.SelectedItem = Profile.Name; //Eventhandler takes care of same profile selected
 		}
 
-
 		private bool RateGeocaches()
 		{
 			Ratingprofile ratingprofile;
@@ -433,6 +417,17 @@ namespace GeocachingTourPlanner_WPF
 
 		#region Routingprofiles
 		#region Events
+		private void RoutingprofilesSaveOnly_Click(object sender, RoutedEventArgs e)
+		{
+			CreateRatingprofile();
+		}
+
+		private void RoutingprofilesSaveRecaculate_Click(object sender, RoutedEventArgs e)
+		{
+			CreateRatingprofile();
+			//TODO recalculate
+		}
+
 		private void Routingprofile_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			Routingprofile SelectedRoutingprofile = App.Routingprofiles.First(x => x.Name == EditRoutingprofileCombobox.SelectedItem.ToString());
@@ -478,6 +473,28 @@ namespace GeocachingTourPlanner_WPF
 				MessageBox.Show("Couldn't load the complete profile.", "Warning");
 			}
 		}
+
+		private void DeleteRoutingprofileButton_Click(object sender, RoutedEventArgs e)
+		{
+			Routingprofile Profile = new Routingprofile();
+			if (RoutingprofileName.Text == null)
+			{
+				MessageBox.Show("Please set Name");
+				return;
+			}
+			Profile.Name = RoutingprofileName.Text;
+
+			ClearAllChildTextboxes(RoutingprofilesSettingsGrid);
+
+			foreach (Routingprofile BP in App.Routingprofiles.Where(x => x.Name == Profile.Name).ToList())
+			{
+				App.Routingprofiles.Remove(BP);
+			}
+
+			UpdateStatus("Routingprofile deleted");
+			Fileoperations.Backup(App.Routingprofiles);
+		}
+
 		/// <summary>
 		/// keeps the Comboboxes updated
 		/// </summary>
@@ -546,28 +563,6 @@ namespace GeocachingTourPlanner_WPF
 			EditRoutingprofileCombobox.SelectedItem = Profile.Name; //Eventhandler takes care of same selection in comboboxes
 
 		}
-
-		private void DeleteRoutingprofileButton_Click(object sender, EventArgs e)
-		{
-			Routingprofile Profile = new Routingprofile();
-			if (RoutingprofileName.Text == null)
-			{
-				MessageBox.Show("Please set Name");
-				return;
-			}
-			Profile.Name = RoutingprofileName.Text;
-
-			ClearAllChildTextboxes(RoutingprofilesSettingsGrid);
-
-			foreach (Routingprofile BP in App.Routingprofiles.Where(x => x.Name == Profile.Name).ToList())
-			{
-				App.Routingprofiles.Remove(BP);
-			}
-
-			UpdateStatus("Routingprofile deleted");
-			Fileoperations.Backup(App.Routingprofiles);
-		}
-
 		#endregion
 		#endregion
 
@@ -696,6 +691,9 @@ namespace GeocachingTourPlanner_WPF
 		}
 		#endregion
 		#region Methods
+		/// <summary>
+		/// Reads the Settings from the DB and writes them to the according textboxes
+		/// </summary>
 		public void UpdateSettingsTextBoxes()
 		{
 			RouteFindingWidthValue.Text = App.DB.RoutefindingWidth.ToString();
@@ -708,6 +706,11 @@ namespace GeocachingTourPlanner_WPF
 		#endregion
 
 		#region Status
+		/// <summary>
+		/// Updates the Statusbar
+		/// </summary>
+		/// <param name="message"></param>
+		/// <param name="ProgressToShow"></param>
 		public void UpdateStatus(string message, int ProgressToShow = 0)
 		{
 			Application.Current.Dispatcher.BeginInvoke(
@@ -1299,7 +1302,7 @@ else if (App.ImportOfOSMDataRunning)
 				}
 				for (int i = 0; i < VisualTreeHelper.GetChildrenCount(Control); i++)
 				{
-					TextBox childReturn = ReturnFirstEmptyTextBox(VisualTreeHelper.GetChild(Control, i));
+					TextBox childReturn = ReturnFirstNotEmptyTextBox(VisualTreeHelper.GetChild(Control, i));
 					if (childReturn != null && childReturn.Text != "")
 					{
 						return childReturn;

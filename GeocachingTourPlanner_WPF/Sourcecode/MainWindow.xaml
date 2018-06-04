@@ -42,6 +42,7 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -104,6 +105,11 @@
                             <Button Grid.Column="2" Grid.Row="4" Grid.RowSpan="2" Click="ImportOSMDataButton_Click">
                                 <TextBlock TextWrapping="Wrap" TextAlignment="Center">
                                     Import .pbf File
+                                </TextBlock>
+                            </Button>
+                            <Button Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" Click="OpenWikiButton_Click">
+                                <TextBlock TextWrapping="Wrap" TextAlignment="Center">
+                                    Open wiki in Browser
                                 </TextBlock>
                             </Button>
                         </Grid>
@@ -393,10 +399,10 @@
                                 <TextBlock Grid.Column="0">Save as</TextBlock>
                                 <TextBox Grid.Column="1" x:Name="RoutingprofileName" HorizontalAlignment="Stretch"/>
                                 <Menu Grid.Column="2">
-                                    <MenuItem Header="Save + Apply"/>
-                                    <MenuItem Header="...">
-                                        <MenuItem Header="_Save only"/>
-                                        <MenuItem Header="_Delete"/>
+                                    <MenuItem Header="Save + recalculate Route" Click="RoutingprofilesSaveRecaculate_Click"/>
+                                    <MenuItem Header="•••">
+                                        <MenuItem Header="_Save only" Click="RoutingprofilesSaveOnly_Click"/>
+                                        <MenuItem Header="_Delete" Click="DeleteRoutingprofileButton_Click"/>
                                     </MenuItem>
                                 </Menu>
                             </Grid>

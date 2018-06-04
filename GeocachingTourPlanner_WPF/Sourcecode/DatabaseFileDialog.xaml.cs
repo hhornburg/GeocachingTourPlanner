@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using GeocachingTourPlanner;
 
-namespace GeocachingTourPlanner_WPF.Sourcecode
+namespace GeocachingTourPlanner_WPF
 {
 	/// <summary>
 	/// Interaktionslogik für DatabaseFileDialog.xaml
