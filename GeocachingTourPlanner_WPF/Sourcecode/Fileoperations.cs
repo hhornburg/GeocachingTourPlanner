@@ -170,7 +170,6 @@ namespace GeocachingTourPlanner
 						{
 							App.RouterDB = RouterDb.Deserialize(stream);
 						}
-						Backup(null);
 
 						App.mainWindow.SetRouterDBLabel("Successfully loaded RouterDB");
 						App.mainWindow.UpdateStatus("Successfully loaded RouterDB", 100);
@@ -185,7 +184,7 @@ namespace GeocachingTourPlanner
 		}
 
 		/// <summary>
-		/// The main Database gets saved anyways specify which otherList should be saved alongside. Returns true on success
+		/// The main Database gets saved anyways specify which otherList should be saved alongside. Returns true on success. Normally no need to call manually, since the backups are automated
 		/// </summary>
 		/// <param name="ExtraBackup"></param>
 		public static bool Backup(object ExtraBackup)
@@ -414,7 +413,7 @@ namespace GeocachingTourPlanner
 
 					if (NewFileDialog.ShowDialog() == true)
 					{
-						//Save the curent geocaches to the current file, so no data is lost. Nothing happens if there are no geocaches
+						//Save the curent geocaches to the current file, so no data is lost. Nothing happens if there are no geocaches. Just to be sure.
 						Backup(App.Geocaches);
 
 						//Create new database File
@@ -441,6 +440,7 @@ namespace GeocachingTourPlanner
 					XNamespace gpx = "http://www.topografix.com/GPX/1/0"; //default namespace
 					XNamespace groundspeak = "http://www.groundspeak.com/cache/1/0/1";
 
+					List<Geocache> GeocachesToAdd = new List<Geocache>();
 					foreach (XElement elem in RootElement.Elements(gpx + "wpt"))
 					{
 						XElement CacheDetails = elem.Element(groundspeak + "cache");
@@ -515,7 +515,7 @@ namespace GeocachingTourPlanner
 							}
 							if (!App.Geocaches.Any(x => x.GCCODE == geocache.GCCODE))
 							{
-								App.Geocaches.Add(geocache);
+								GeocachesToAdd.Add(geocache);
 							}
 							else
 							{
@@ -525,13 +525,13 @@ namespace GeocachingTourPlanner
 							App.mainWindow.UpdateStatus("Successfully imported geocaches");
 						}
 					}
+					App.Geocaches.AddList(GeocachesToAdd);//So changed event is only called once
 				}
 				catch (Exception ex)
 				{
 					MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
 					App.mainWindow.UpdateStatus("Import of geocaches failed");
 				}
-				Backup(App.Geocaches);
 				App.Geocaches.ResetBindings();
 			}
 		}
@@ -562,7 +562,6 @@ namespace GeocachingTourPlanner
 				if (NewFileDialog.ShowDialog() == true)
 				{
 					File.Create(NewFileDialog.FileName).Close();
-					Backup(null);
 					App.RouterDB = new RouterDb();
 					App.DB.RouterDB_Filepath = NewFileDialog.FileName;
 
@@ -604,9 +603,7 @@ namespace GeocachingTourPlanner
 								App.RouterDB.Serialize(stream);
 							}
 						});
-
-						Backup(null);
-
+						
 						App.mainWindow.SetRouterDBLabel("RouterDB set");
 						MessageBox.Show("Successfully imported OSM Data");
 
@@ -629,7 +626,6 @@ namespace GeocachingTourPlanner
 			if (StandardFileDialog.ShowDialog() == true)
 			{
 				File.Create(StandardFileDialog.FileName);
-				Backup(App.Routingprofiles);
 				App.Routingprofiles.Clear();
 				App.DB.RoutingprofileDB_Filepath = StandardFileDialog.FileName;
 			}
@@ -656,7 +652,6 @@ namespace GeocachingTourPlanner
 				if (StandardFileDialog.ShowDialog() == true)
 				{
 					File.Create(StandardFileDialog.FileName);
-					Backup(App.Ratingprofiles);
 					App.Ratingprofiles.Clear();
 					App.DB.RatingprofileDB_Filepath = StandardFileDialog.FileName;
 				}

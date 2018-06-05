@@ -93,7 +93,6 @@ namespace GeocachingTourPlanner_WPF
 			{
 				Fileoperations.ReadGeocaches();
 				Map_RenewGeocacheLayer();
-				Fileoperations.Backup(null);//Since filepath was set
 			}
 		}
 
@@ -102,7 +101,6 @@ namespace GeocachingTourPlanner_WPF
 			if (App.DB.OpenExistingDBFile(Databases.Routingprofiles))
 			{
 				Fileoperations.ReadRoutingprofiles();
-				Fileoperations.Backup(null);//Since filepath was set
 			}
 		}
 
@@ -111,7 +109,6 @@ namespace GeocachingTourPlanner_WPF
 			if (App.DB.OpenExistingDBFile(Databases.Ratingprofiles))
 			{
 				Fileoperations.ReadRatingprofiles();
-				Fileoperations.Backup(null);//Since filepath was set
 			}
 		}
 
@@ -179,7 +176,6 @@ namespace GeocachingTourPlanner_WPF
 
 			ClearAllChildTextboxes(RatingprofilesSettingsGrid);
 			UpdateStatus("deleted ratingprofile");
-			Fileoperations.Backup(App.Ratingprofiles);
 		}
 
 		private void Ratingprofile_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -259,6 +255,10 @@ namespace GeocachingTourPlanner_WPF
 						App.Ratingprofiles.Remove(SelectedRatingprofile);
 					}
 				}
+			}
+			else
+			{
+				App.DB.ActiveRatingprofile = null;
 			}
 		}
 
@@ -381,9 +381,7 @@ namespace GeocachingTourPlanner_WPF
 			}
 			UpdateStatus("Ratingprofile saved");
 			App.Ratingprofiles.Add(Profile);
-			//The Dropdownmenu gets updated through an event handler
-			Fileoperations.Backup(App.Ratingprofiles);
-			EditRatingprofileCombobox.SelectedItem = Profile.Name; //Eventhandler takes care of same profile selected
+			EditRatingprofileCombobox.SelectedItem = Profile.Name;
 		}
 
 		private bool RateGeocaches()
@@ -409,8 +407,20 @@ namespace GeocachingTourPlanner_WPF
 			App.DB.MinimalRating = App.Geocaches[App.Geocaches.Count - 1].Rating;
 			Map_RenewGeocacheLayer();
 			UpdateStatus("Geocaches rated");
-			Fileoperations.Backup(App.Geocaches);
+			Fileoperations.Backup(App.Geocaches);//Since List doesn't chnage
 			return true;
+		}
+
+		/// <summary>
+		/// Sets the specified Ratingprofile 
+		/// </summary>
+		/// <param name="RP"></param>
+		public void SetRatingprofile(Ratingprofile RP)
+		{
+			if(EditRatingprofileCombobox.Items.Cast<ComboBoxItem>().Count(x => x.Content.ToString() == RP.Name) > 0)
+			{
+				EditRatingprofileCombobox.SelectedItem = EditRatingprofileCombobox.Items.Cast<ComboBoxItem>().First(x => x.Content.ToString() == RP.Name);
+			}
 		}
 		#endregion
 		#endregion
@@ -492,7 +502,6 @@ namespace GeocachingTourPlanner_WPF
 			}
 
 			UpdateStatus("Routingprofile deleted");
-			Fileoperations.Backup(App.Routingprofiles);
 		}
 
 		/// <summary>
@@ -558,8 +567,6 @@ namespace GeocachingTourPlanner_WPF
 			}
 			UpdateStatus("Routingprofile saved");
 			App.Routingprofiles.Add(Profile);
-			//The Dropdownmenu is updated via an event handler
-			Fileoperations.Backup(App.Routingprofiles);
 			EditRoutingprofileCombobox.SelectedItem = Profile.Name; //Eventhandler takes care of same selection in comboboxes
 
 		}
@@ -601,7 +608,6 @@ namespace GeocachingTourPlanner_WPF
 					{
 
 						App.DB.PercentageOfDistanceInAutoTargetselection_Max = (Value / 100f);
-						Fileoperations.Backup(null);
 					}
 				}
 				else if (AutotargetselectionMaxValue.Text.Length != 0)
@@ -645,7 +651,6 @@ namespace GeocachingTourPlanner_WPF
 					{
 
 						App.DB.PercentageOfDistanceInAutoTargetselection_Min = (Value / 100f);
-						Fileoperations.Backup(null);
 					}
 				}
 				else if (AutotargetselectionMinValue.Text.Length != 0)
@@ -662,8 +667,6 @@ namespace GeocachingTourPlanner_WPF
 			if (int.TryParse(RouteFindingWidthValue.Text, out int Value))
 			{
 				App.DB.RoutefindingWidth = Value;
-				Fileoperations.Backup(null);
-
 			}
 			else if (RouteFindingWidthValue.Text.Length != 0)
 			{
@@ -674,12 +677,10 @@ namespace GeocachingTourPlanner_WPF
 		private void LiveDisplayRouteCalculationCheckbox_Checked(object sender, RoutedEventArgs e)
 		{
 			App.DB.DisplayLiveCalculation = true;
-			Fileoperations.Backup(null);
 		}
 		private void LiveDisplayRouteCalculationCheckbox_Unchecked(object sender, RoutedEventArgs e)
 		{
 			App.DB.DisplayLiveCalculation = false;
-			Fileoperations.Backup(null);
 		}
 
 		private void MarkerSizeValue_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -687,7 +688,6 @@ namespace GeocachingTourPlanner_WPF
 			App.MarkerStyleCache.Clear();
 			App.DB.MarkerSize = (int)MarkerSizeValue.Value;
 			Map_RenewGeocacheLayer();
-			Fileoperations.Backup(null);
 		}
 		#endregion
 		#region Methods
@@ -738,7 +738,6 @@ namespace GeocachingTourPlanner_WPF
 		private void Map_OnMapDrag(object sender, DragEventArgs e)
 		{
 			App.DB.LastMapPosition = new Coordinate((float)map.Viewport.ScreenToWorld(map.Viewport.Center).X, (float)map.Viewport.ScreenToWorld(map.Viewport.Center).Y);
-			Fileoperations.Backup(null);
 		}
 
 		private void Map_Enter(object sender, EventArgs e)
@@ -750,7 +749,6 @@ namespace GeocachingTourPlanner_WPF
 		{
 			App.DB.LastMapPosition = new Coordinate((float)map.Viewport.ScreenToWorld(map.Viewport.Center).X, (float)map.Viewport.ScreenToWorld(map.Viewport.Center).Y);
 			App.DB.LastMapResolution = map.Viewport.Resolution;
-			Fileoperations.Backup(null);
 		}
 		/*
 		private void Map_OnMarkerClick(GMapMarker item, MouseEventArgs e)

@@ -29,7 +29,6 @@ namespace GeocachingTourPlanner
 			App.mainWindow.UpdateSettingsTextBoxes();
 			CheckSettings();
 			BindLists();
-			Fileoperations.Backup(null);
 
 			App.mainWindow.Show();
 			App.StartupCompleted = true;
@@ -74,9 +73,6 @@ namespace GeocachingTourPlanner
 			
 			//Routingprofile
 			Fileoperations.ReadRoutingprofiles();
-			
-			Fileoperations.Backup(null);//so settings get saved in the DB. Nothing else, as it just came from the file
-
 		}
 
 		public static void CheckSettings()
@@ -99,18 +95,32 @@ namespace GeocachingTourPlanner
 			}
 		}
 
+		/// <summary>
+		/// Binds List to the methods that keep the comboboxes updated and that back them up
+		/// </summary>
 		public static void BindLists()
 		{
 			//To make them show up in the menu. Here, as the binding should also happen if none could be loaded
 			App.Ratingprofiles.ListChanged += new ListChangedEventHandler(App.mainWindow.Ratingprofiles_ListChanged);
+			App.Ratingprofiles.ListChanged += new ListChangedEventHandler((s, e) => { Fileoperations.Backup(Databases.Ratingprofiles); });
 			App.Ratingprofiles.ResetBindings();
 
 			App.Geocaches.ListChanged += new ListChangedEventHandler(App.mainWindow.Geocaches_ListChanged);
+			App.Geocaches.ListChanged += new ListChangedEventHandler((s, e) => { Fileoperations.Backup(Databases.Geocaches); });
 			App.Geocaches.ResetBindings();
 
 			//To make them show up in the menu
 			App.Routingprofiles.ListChanged += new ListChangedEventHandler(App.mainWindow.Routingprofiles_ListChanged);
+			App.Routingprofiles.ListChanged += new ListChangedEventHandler((s, e) => { Fileoperations.Backup(Databases.Routingprofiles); });
 			App.Routingprofiles.ResetBindings();
+		}
+
+		private static void SetLastSelections()
+		{
+			if (App.DB.ActiveRatingprofile!=null)
+			{
+				App.mainWindow.SetRatingprofile(App.DB.ActiveRatingprofile);
+			}
 		}
 	}
 }

@@ -6,6 +6,24 @@ namespace GeocachingTourPlanner
 {
 	public class Database
 	{
+		private string _lastUsedFilepath;
+		private string _geocacheDB_Filepath;
+		private string _ratingprofileDB_Filepath;
+		private string _routingprofileDB_Filepath;
+		private string _routerDB_Filepath;
+		private double _lastMapResolution;
+		private Coordinate _lastMapPosition;
+		private Ratingprofile _activeRatingprofile;
+		private Routingprofile _activeRoutingprofile;
+		private int _markerSize;
+		private float _minimalRating;
+		private float _maximalRating;
+		private bool _autotargetselection;
+		private float _percentageOfDistanceInAutoTargetselection_Max;
+		private float _percentageOfDistanceInAutoTargetselection_Min;
+		private int _routefindingWidth;
+		private bool _displayLiveCalculation;
+
 		/// <summary>
 		/// Initialisierer für das Serialisieren
 		/// </summary>
@@ -16,51 +34,94 @@ namespace GeocachingTourPlanner
 		/// <summary>
 		/// Letzer Speicherrt der in einem Dateimangaer benutzt wurde
 		/// </summary>
-		public string LastUsedFilepath { get; set; }
+		public string LastUsedFilepath { get => _lastUsedFilepath; set { _lastUsedFilepath = value; Fileoperations.Backup(null); } }
 
-		//DB Spezifisch
-		public string GeocacheDB_Filepath { get; set; }
-		public string RatingprofileDB_Filepath { get; set; }
-		public string RoutingprofileDB_Filepath { get; set; }
-		public string RouterDB_Filepath { get; set; }
+		/// <summary>
+		/// Filepath of loaded Geocache DB
+		/// </summary>
+		public string GeocacheDB_Filepath { get => _geocacheDB_Filepath; set { _geocacheDB_Filepath = value; Fileoperations.Backup(null); } }
+		/// <summary>
+		/// Filepath of loaded Ratingprofile DB
+		/// </summary>
+		public string RatingprofileDB_Filepath { get => _ratingprofileDB_Filepath; set { _ratingprofileDB_Filepath = value; Fileoperations.Backup(null); } }
+		/// <summary>
+		/// Filepath of Routingprofile DB
+		/// </summary>
+		public string RoutingprofileDB_Filepath { get => _routingprofileDB_Filepath; set { _routingprofileDB_Filepath = value; Fileoperations.Backup(null); } }
+		/// <summary>
+		/// Filepath of loaded RouterDB
+		/// </summary>
+		public string RouterDB_Filepath
+		{
+			get => _routerDB_Filepath; set { _routerDB_Filepath = value; Fileoperations.Backup(null); }
+		}
 
 		//Mapspecific
-		public double LastMapResolution { get; set;}
-		public Coordinate LastMapPosition { get; set; }
-
-		public Ratingprofile ActiveRatingprofile { get; set; }
-		public Routingprofile ActiveRoutingprofile { get; set; }
-
-		public int MarkerSize { get; set; }
 		/// <summary>
-		/// Minimale Bewertung die ein Geocache in der Aktuellen Liste erreicht. Wird zum Erstellen der Farbcodierung benutzt
+		/// Last used Map resolution
 		/// </summary>
-		public float MinimalRating { get; set; }
+		public double LastMapResolution { get => _lastMapResolution; set { _lastMapResolution = value; Fileoperations.Backup(null); } }
 		/// <summary>
-		/// Maximale Bewertung die ein Geocache in der Aktuellen Liste erreicht. Wird zum Erstellen der Farbcodierung benutzt
+		/// Last map Center
 		/// </summary>
-		public float MaximalRating { get; set; }
+		public Coordinate LastMapPosition { get => _lastMapPosition; set { _lastMapPosition = value; Fileoperations.Backup(null); } }
 
-		public bool Autotargetselection { get; set; }
-		public float PercentageOfDistanceInAutoTargetselection_Max { get; set; }
-		public float PercentageOfDistanceInAutoTargetselection_Min { get; set; }
-		public int RoutefindingWidth { get; set; }
-		public bool DisplayLiveCalculation { get; set; }
+		/// <summary>
+		/// Ratingprofile that is selected
+		/// </summary>
+		public Ratingprofile ActiveRatingprofile { get => _activeRatingprofile; set { _activeRatingprofile = value; Fileoperations.Backup(null); } }
+		/// <summary>
+		/// Routingprofile that is selected
+		/// </summary>
+		public Routingprofile ActiveRoutingprofile { get => _activeRoutingprofile; set { _activeRoutingprofile = value; Fileoperations.Backup(null); } }
+
+		/// <summary>
+		/// Marker size in pixel
+		/// </summary>
+		public int MarkerSize { get => _markerSize; set { _markerSize = value; Fileoperations.Backup(null); } }
+		/// <summary>
+		/// Minimal Rating of all geocaches. Used for the creation of the color coding
+		/// </summary>
+		public float MinimalRating { get => _minimalRating; set { _minimalRating = value; Fileoperations.Backup(null); } }
+		/// <summary>
+		/// Maximal Rating of all geocaches. Used for the creation of the color coding
+		/// </summary>
+		public float MaximalRating { get => _maximalRating; set { _maximalRating = value; Fileoperations.Backup(null); } }
+
+		/// <summary>
+		/// Wether the routing algorithm should look for geocaches that should be targeted
+		/// </summary>
+		public bool Autotargetselection { get => _autotargetselection; set { _autotargetselection = value; Fileoperations.Backup(null); } }
+		/// <summary>
+		/// How much should be the limit to the distance that the route covers after Autotargetselection
+		/// </summary>
+		public float PercentageOfDistanceInAutoTargetselection_Max { get => _percentageOfDistanceInAutoTargetselection_Max; set { _percentageOfDistanceInAutoTargetselection_Max = value; Fileoperations.Backup(null); } }
+		/// <summary>
+		/// How much should be the limit to the distance that the route covers after Autotargetselection
+		/// </summary>
+		public float PercentageOfDistanceInAutoTargetselection_Min { get => _percentageOfDistanceInAutoTargetselection_Min; set { _percentageOfDistanceInAutoTargetselection_Min = value; Fileoperations.Backup(null); } }
+		/// <summary>
+		/// How many routes to compare when seleccting targets in Autotargetselection
+		/// </summary>
+		public int RoutefindingWidth { get => _routefindingWidth; set { _routefindingWidth = value; Fileoperations.Backup(null); } }
+		/// <summary>
+		/// Wether the caclulation of the routes should be displayed live
+		/// </summary>
+		public bool DisplayLiveCalculation { get => _displayLiveCalculation; set { _displayLiveCalculation = value; Fileoperations.Backup(null); } }
 
 		#region Methods
 		/// <summary>
 		/// checks if a DatabaseFilepath and the associated file exist.
 		/// </summary>
-		/// <param name="DatabaseFilepath"></param>
 		/// <param name="DatabaseName"></param>
 		public bool IsFilepathSet(Databases DatabaseName)
 		{
-			string DatabaseFilepath=null;
+			string DatabaseFilepath = null;
 			switch (DatabaseName)
 			{
 				case Databases.Geocaches:
 					DatabaseFilepath = GeocacheDB_Filepath;
-						break;
+					break;
 				case Databases.Ratingprofiles:
 					DatabaseFilepath = RatingprofileDB_Filepath;
 					break;
@@ -71,7 +132,7 @@ namespace GeocachingTourPlanner
 					DatabaseFilepath = RouterDB_Filepath;
 					break;
 			}
-			if(DatabaseFilepath == null || !File.Exists(DatabaseFilepath))//"||" So it doesn't run into exception if it is null
+			if (DatabaseFilepath == null || !File.Exists(DatabaseFilepath))//"||" So it doesn't run into exception if it is null
 			{
 				return false;
 			}
@@ -114,22 +175,22 @@ namespace GeocachingTourPlanner
 			{
 				LastUsedFilepath = StandardFileDialog.FileName;
 
-				if (DatabaseName==Databases.Geocaches)
+				if (DatabaseName == Databases.Geocaches)
 				{
 					GeocacheDB_Filepath = StandardFileDialog.FileName;
 					return true; //since databasefilepath has been set;
 				}
-				else if (DatabaseName==Databases.Ratingprofiles)
+				else if (DatabaseName == Databases.Ratingprofiles)
 				{
 					RatingprofileDB_Filepath = StandardFileDialog.FileName;
 					return true; //since databasefilepath has been set;
 				}
-				else if (DatabaseName==Databases.Routingprofiles)
+				else if (DatabaseName == Databases.Routingprofiles)
 				{
 					RoutingprofileDB_Filepath = StandardFileDialog.FileName;
 					return true; //since databasefilepath has been set;
 				}
-				else if (DatabaseName==Databases.RouterDB)
+				else if (DatabaseName == Databases.RouterDB)
 				{
 					RouterDB_Filepath = StandardFileDialog.FileName;
 					return true; //since databasefilepath has been set;
@@ -140,7 +201,7 @@ namespace GeocachingTourPlanner
 		}
 		#endregion
 
-		
+
 	}
 
 	public enum Databases
