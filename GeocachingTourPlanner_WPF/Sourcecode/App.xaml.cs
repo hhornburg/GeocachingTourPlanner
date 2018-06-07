@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using GeocachingTourPlanner;
+﻿using GeocachingTourPlanner.Routing;
+using GeocachingTourPlanner.Types;
+using GeocachingTourPlanner.UI;
 using Itinero;
 using Mapsui.Styles;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows;
 
-namespace GeocachingTourPlanner_WPF
+namespace GeocachingTourPlanner
 {
 	/// <summary>
 	/// Interaktionslogik für "App.xaml"

@@ -6,10 +6,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using GeocachingTourPlanner_WPF;
+using GeocachingTourPlanner.IO;
 using System.Windows;
+using GeocachingTourPlanner.Types;
 
-namespace GeocachingTourPlanner
+namespace GeocachingTourPlanner.Routing
 {
 	public class Tourplanning
 	{
@@ -28,7 +29,6 @@ namespace GeocachingTourPlanner
 
 		Router Router1 = null;
 		Router Router2 = null;
-
 
 		/// <summary>
 		/// Returns null if calculation fails

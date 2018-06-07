@@ -1,4 +1,7 @@
-﻿using GeocachingTourPlanner_WPF;
+﻿using GeocachingTourPlanner;
+using GeocachingTourPlanner.IO;
+using GeocachingTourPlanner.Types;
+using GeocachingTourPlanner.UI;
 using Itinero.LocalGeo;
 using System.ComponentModel;
 using System.IO;

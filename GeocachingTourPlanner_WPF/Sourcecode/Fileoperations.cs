@@ -1,4 +1,5 @@
-﻿using GeocachingTourPlanner_WPF;
+﻿using GeocachingTourPlanner.Routing;
+using GeocachingTourPlanner.Types;
 using Itinero;
 using Itinero.IO.Osm;
 using Itinero.LocalGeo;
@@ -16,7 +17,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
-namespace GeocachingTourPlanner
+namespace GeocachingTourPlanner.IO
 {
 	class Fileoperations
 	{

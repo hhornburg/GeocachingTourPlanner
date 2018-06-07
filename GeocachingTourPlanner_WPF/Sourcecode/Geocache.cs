@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GeocachingTourPlanner
+namespace GeocachingTourPlanner.Types
 {
     public class Geocache
     {
@@ -25,6 +25,11 @@ namespace GeocachingTourPlanner
 		{
 			return GCCODE;
 		}
+
+		/// <summary>
+		/// Applies the given ratingprofile to the geocache
+		/// </summary>
+		/// <param name="Profil"></param>
 		public void Rate(Ratingprofile Profil)
         {
             Rating = 0;

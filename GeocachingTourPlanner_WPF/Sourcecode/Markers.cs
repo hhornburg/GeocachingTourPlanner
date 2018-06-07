@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using GeocachingTourPlanner.Types;
+using Itinero.LocalGeo;
+using Mapsui.Projection;
+using Mapsui.Providers;
+using Mapsui.Styles;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Resources;
-using System.Text;
-using System.Threading.Tasks;
-using GeocachingTourPlanner;
-using Itinero.LocalGeo;
-using Mapsui.Geometries;
-using Mapsui.Projection;
-using Mapsui.Providers;
-using Mapsui.Styles;
 
-namespace GeocachingTourPlanner_WPF
+namespace GeocachingTourPlanner.UI
 {
 	public static class Markers
 	{
@@ -181,30 +174,40 @@ namespace GeocachingTourPlanner_WPF
 			}
 
 			//Create final marker
-			Feature GCMarker = new Feature { Geometry = SphericalMercator.FromLonLat(geocache.lon, geocache.lat), ["Label"] = geocache.GCCODE };
+			Feature GCMarker = new Feature { Geometry = SphericalMercator.FromLonLat(geocache.lon, geocache.lat), [MarkerFields.Type] = MarkerTypes.Geocache, [MarkerFields.Label] = geocache.GCCODE };
 			GCMarker.Styles.Add(MarkerStyle);
-			GCMarker["Tooltiptext"] = geocache.GCCODE + "\n" + geocache.Name + "\n" + geocache.Type + " (" + geocache.DateHidden.Date.ToString().Remove(10) + ")\nD: " + geocache.DRating + " T: " + geocache.TRating + " " + geocache.Size + "\nPoints: " + geocache.Rating;
+			GCMarker[MarkerFields.TooltipText] = geocache.GCCODE + "\n" + geocache.Name + "\n" + geocache.Type + " (" + geocache.DateHidden.Date.ToString().Remove(10) + ")\nD: " + geocache.DRating + " T: " + geocache.TRating + " " + geocache.Size + "\nPoints: " + geocache.Rating;
 
 			return GCMarker;
 		}
 
+		/// <summary>
+		/// Returns a Feature to be added to the mapsui map
+		/// </summary>
+		/// <param name="coords"></param>
+		/// <returns></returns>
 		public static Feature GetStartMarker(Coordinate coords)
 		{
 			//TODO new Marker
 
 			IStyle MarkerStyle = new SymbolStyle { BitmapId = BitmapRegistry.Instance.Register(Properties.Images.Pin_black), SymbolType = SymbolType.Svg, SymbolScale = App.DB.MarkerSize, SymbolOffset = new Offset(0.0, 0.5, true) };
 
-			Feature StartMarker = new Feature { Geometry = SphericalMercator.FromLonLat(coords.Longitude, coords.Latitude), ["Label"] = "Start" };
+			Feature StartMarker = new Feature { Geometry = SphericalMercator.FromLonLat(coords.Longitude, coords.Latitude), [MarkerFields.Type] = MarkerTypes.Waypoint, [MarkerFields.Label] = "Start" };
 			StartMarker.Styles.Add(MarkerStyle);
 			return StartMarker;
 		}
 
+		/// <summary>
+		/// Returns a Feature to be added to the mapsui map
+		/// </summary>
+		/// <param name="coords"></param>
+		/// <returns></returns>
 		public static Feature GetEndMarker(Coordinate coords)
 		{
 			//TODO new Marker
 			IStyle MarkerStyle = new SymbolStyle { BitmapId = BitmapRegistry.Instance.Register(Properties.Images.Pin_black), SymbolType = SymbolType.Svg, SymbolScale = App.DB.MarkerSize, SymbolOffset = new Offset(0.0, 0.5, true) };
 
-			Feature EndMarker = new Feature { Geometry = SphericalMercator.FromLonLat(coords.Longitude, coords.Latitude), ["Label"] = "End" };
+			Feature EndMarker = new Feature { Geometry = SphericalMercator.FromLonLat(coords.Longitude, coords.Latitude), [MarkerFields.Type]=MarkerTypes.Waypoint ,[MarkerFields.Label] = "End" };
 			EndMarker.Styles.Add(MarkerStyle);
 			return EndMarker;
 		}
@@ -218,6 +221,24 @@ namespace GeocachingTourPlanner_WPF
 			Best_Bad,
 			Best_Good,
 			ForceInclude
+		}
+
+		/// <summary>
+		/// Quasi-enum for Feature fields
+		/// </summary>
+		public static class MarkerFields
+		{
+			public static readonly string Type = "Type";
+			public static readonly string Label = "Label";
+			public static readonly string TooltipText = "TooltipText";
+		}
+		/// <summary>
+		/// Quasi-enum for feature fields
+		/// </summary>
+		public static class MarkerTypes
+		{
+			public static readonly string Waypoint = "Waypoint";
+			public static readonly string Geocache = "Geocache";
 		}
 
 	}

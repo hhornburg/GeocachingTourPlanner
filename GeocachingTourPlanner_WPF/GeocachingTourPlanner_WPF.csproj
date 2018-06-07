@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{BCF0B67B-A3C5-4686-A237-96292CEA5796}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>GeocachingTourPlanner_WPF</RootNamespace>
+    <RootNamespace>GeocachingTourPlanner</RootNamespace>
     <AssemblyName>GeocachingTourPlanner_WPF</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -51,19 +51,19 @@
       <HintPath>..\packages\Itinero.IO.Osm.1.4.0-pre53\lib\net45\Itinero.IO.Osm.dll</HintPath>
     </Reference>
     <Reference Include="Mapsui, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mapsui.2.0.0-beta.2\lib\net461\Mapsui.dll</HintPath>
+      <HintPath>..\packages\Mapsui.2.0.0-beta.3\lib\net461\Mapsui.dll</HintPath>
     </Reference>
     <Reference Include="Mapsui.Geometries, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mapsui.2.0.0-beta.2\lib\net461\Mapsui.Geometries.dll</HintPath>
+      <HintPath>..\packages\Mapsui.2.0.0-beta.3\lib\net461\Mapsui.Geometries.dll</HintPath>
     </Reference>
     <Reference Include="Mapsui.Rendering.Skia, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mapsui.2.0.0-beta.2\lib\net461\Mapsui.Rendering.Skia.dll</HintPath>
+      <HintPath>..\packages\Mapsui.2.0.0-beta.3\lib\net461\Mapsui.Rendering.Skia.dll</HintPath>
     </Reference>
     <Reference Include="Mapsui.Rendering.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mapsui.2.0.0-beta.2\lib\net461\Mapsui.Rendering.Xaml.dll</HintPath>
+      <HintPath>..\packages\Mapsui.2.0.0-beta.3\lib\net461\Mapsui.Rendering.Xaml.dll</HintPath>
     </Reference>
     <Reference Include="Mapsui.UI.Wpf, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mapsui.2.0.0-beta.2\lib\net461\Mapsui.UI.Wpf.dll</HintPath>
+      <HintPath>..\packages\Mapsui.2.0.0-beta.3\lib\net461\Mapsui.UI.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
@@ -179,6 +179,7 @@
     <Compile Include="Sourcecode\Database.cs" />
     <Compile Include="Sourcecode\Fileoperations.cs" />
     <Compile Include="Sourcecode\Geocache.cs" />
+    <Compile Include="Sourcecode\MapTooltip.cs" />
     <Compile Include="Sourcecode\Markers.cs" />
     <Compile Include="Sourcecode\Ratingprofile.cs" />
     <Compile Include="Sourcecode\Routingprofil.cs" />

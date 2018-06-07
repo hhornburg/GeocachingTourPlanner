@@ -1,8 +1,9 @@
-﻿using Itinero.LocalGeo;
+﻿using GeocachingTourPlanner.IO;
+using Itinero.LocalGeo;
 using Microsoft.Win32;
 using System.IO;
 
-namespace GeocachingTourPlanner
+namespace GeocachingTourPlanner.Types
 {
 	public class Database
 	{

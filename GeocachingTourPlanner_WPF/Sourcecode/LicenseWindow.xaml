@@ -1,10 +1,10 @@
-﻿<Window x:Class="GeocachingTourPlanner_WPF.LicenseWindow"
+﻿<Window x:Class="GeocachingTourPlanner.UI.LicenseWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GeocachingTourPlanner_WPF"
-        xmlns:p="clr-namespace:GeocachingTourPlanner_WPF.Properties"
+        xmlns:local="clr-namespace:GeocachingTourPlanner"
+        xmlns:p="clr-namespace:GeocachingTourPlanner.Properties"
         mc:Ignorable="d"
         Title="Please accept the license" Height="Auto" Width="600">
     <DockPanel>

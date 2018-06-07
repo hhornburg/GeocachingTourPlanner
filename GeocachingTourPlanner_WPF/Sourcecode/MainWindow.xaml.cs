@@ -1,10 +1,10 @@
-﻿using GeocachingTourPlanner;
+﻿using GeocachingTourPlanner.IO;
+using GeocachingTourPlanner.Types;
 using Itinero;
 using Itinero.LocalGeo;
 using Mapsui;
 using Mapsui.Layers;
 using Mapsui.Projection;
-using Mapsui.Providers;
 using Mapsui.UI;
 using Mapsui.Utilities;
 using System;
@@ -14,15 +14,13 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Navigation;
-using System.Windows.Threading;
 
-namespace GeocachingTourPlanner_WPF
+namespace GeocachingTourPlanner.UI
 {
 
 	/// <summary>
@@ -35,23 +33,6 @@ namespace GeocachingTourPlanner_WPF
 		public MainWindow()
 		{
 			InitializeComponent();
-			/*
-			//Tabelleneinstellungen
-			GeocacheTable.DataSource = App.Geocaches;
-			GeocacheTable.Columns["GCCODE"].DisplayIndex = 0;
-			GeocacheTable.Columns["Name"].DisplayIndex = 1;
-			GeocacheTable.Columns["lat"].DisplayIndex = 2;
-			GeocacheTable.Columns["lon"].DisplayIndex = 3;
-			GeocacheTable.Columns["Type"].DisplayIndex = 4;
-			GeocacheTable.Columns["Size"].DisplayIndex = 5;
-			GeocacheTable.Columns["DRating"].DisplayIndex = 6;
-			GeocacheTable.Columns["TRating"].DisplayIndex = 7;
-			GeocacheTable.Columns["Rating"].DisplayIndex = GeocacheTable.ColumnCount - 1;
-			GeocacheTable.Columns["ForceInclude"].DisplayIndex = GeocacheTable.ColumnCount - 1;
-			GeocacheTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-			App.Geocaches.ResetBindings();
-			*/
-
 			//Browser
 			try
 			{
@@ -65,8 +46,8 @@ namespace GeocachingTourPlanner_WPF
 
 			//Map
 			map = mapControl.Map;
+			map.Info += Map_InfoEvent;
 			map.Layers.Add(OpenStreetMap.CreateTileLayer());
-
 		}
 
 		#region Overview
@@ -734,6 +715,9 @@ namespace GeocachingTourPlanner_WPF
 		#endregion
 
 		#region Map
+		#region custom tooltip
+		
+		#endregion
 		#region UI Events
 		private void Map_OnMapDrag(object sender, DragEventArgs e)
 		{
@@ -750,6 +734,35 @@ namespace GeocachingTourPlanner_WPF
 			App.DB.LastMapPosition = new Coordinate((float)map.Viewport.ScreenToWorld(map.Viewport.Center).X, (float)map.Viewport.ScreenToWorld(map.Viewport.Center).Y);
 			App.DB.LastMapResolution = map.Viewport.Resolution;
 		}
+
+		private void Map_InfoEvent(object sender, MapInfoEventArgs e)
+		{
+			if (e.MapInfo.Layer!=null && e.MapInfo.Layer.Name == Layers.GeocacheLayer)
+			{
+				if (e.NumTaps == 1)
+				{
+					MapTooltip.ShowTooltip((string)e.MapInfo.Feature[Markers.MarkerFields.TooltipText], new Point(e.MapInfo.ScreenPosition.X, e.MapInfo.ScreenPosition.Y));
+					
+				}
+				else
+				{
+					Process.Start("coord.info/" + e.MapInfo.Feature[Markers.MarkerFields.Label]);
+				}
+			}
+			e.Handled = true;
+		}
+
+		private void Map_Hover(object sender, MapInfoEventArgs e)
+		{
+			//FIX
+			//MapTooltip.ShowTooltip((string)e.MapInfo.Feature["TooltipText"], new Point(e.MapInfo.ScreenPosition.X, e.MapInfo.ScreenPosition.Y));
+		}
+
+		private void mapControl_MouseMove(object sender, MouseEventArgs e)
+		{
+			MapTooltip.HideTooltip();
+		}
+
 		/*
 		private void Map_OnMarkerClick(GMapMarker item, MouseEventArgs e)
 		{
@@ -818,7 +831,7 @@ namespace GeocachingTourPlanner_WPF
 				}
 				WritableLayer GeocacheLayer = new WritableLayer
 				{
-					Name = "Geocaches",
+					Name = Layers.GeocacheLayer,
 					Style = null
 				};
 
@@ -827,14 +840,12 @@ namespace GeocachingTourPlanner_WPF
 					GeocacheLayer.Add(Markers.GetGeocacheMarker(GC));
 				}
 				map.Layers.Add(GeocacheLayer);
-
+				map.InfoLayers.Add(GeocacheLayer);
 				//Set Views
 				if (App.DB.LastMapResolution == 0)
 				{
 					App.DB.LastMapResolution = 5;
 				}
-				map.ViewChanged(true);
-
 			}
 		}
 
@@ -1391,8 +1402,16 @@ else if (App.ImportOfOSMDataRunning)
 				}
 			}
 		}
+
 		#endregion
 
-
+		/// <summary>
+		/// Quasi enum for layer names
+		/// </summary>
+		static class Layers
+		{
+			public static readonly string GeocacheLayer = "Geocaches";
+			public static readonly string WaypointLayer = "Waypoints";
+		}
 	}
 }
