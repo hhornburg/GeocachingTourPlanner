@@ -47,7 +47,9 @@ namespace GeocachingTourPlanner.UI
 			//Map
 			map = mapControl.Map;
 			map.Info += Map_InfoEvent;
+			map.Hover += Map_Hover;
 			map.Layers.Add(OpenStreetMap.CreateTileLayer());
+			TooltipCanvas.Visibility = Visibility.Collapsed;
 		}
 
 		#region Overview
@@ -739,23 +741,17 @@ namespace GeocachingTourPlanner.UI
 		{
 			if (e.MapInfo.Layer!=null && e.MapInfo.Layer.Name == Layers.GeocacheLayer)
 			{
-				if (e.NumTaps == 1)
-				{
-					MapTooltip.ShowTooltip((string)e.MapInfo.Feature[Markers.MarkerFields.TooltipText], new Point(e.MapInfo.ScreenPosition.X, e.MapInfo.ScreenPosition.Y));
-					
-				}
-				else
-				{
-					Process.Start("coord.info/" + e.MapInfo.Feature[Markers.MarkerFields.Label]);
-				}
+				Process.Start("http://coord.info/" + e.MapInfo.Feature[Markers.MarkerFields.Label]);
 			}
 			e.Handled = true;
 		}
 
 		private void Map_Hover(object sender, MapInfoEventArgs e)
 		{
-			//FIX
-			//MapTooltip.ShowTooltip((string)e.MapInfo.Feature["TooltipText"], new Point(e.MapInfo.ScreenPosition.X, e.MapInfo.ScreenPosition.Y));
+			if (e.MapInfo.Feature != null)
+			{
+				MapTooltip.ShowTooltip((string)e.MapInfo.Feature[Markers.MarkerFields.TooltipText], new Point(e.MapInfo.ScreenPosition.X, e.MapInfo.ScreenPosition.Y));
+			}
 		}
 
 		private void mapControl_MouseMove(object sender, MouseEventArgs e)
@@ -841,6 +837,7 @@ namespace GeocachingTourPlanner.UI
 				}
 				map.Layers.Add(GeocacheLayer);
 				map.InfoLayers.Add(GeocacheLayer);
+				map.HoverLayers.Add(GeocacheLayer);
 				//Set Views
 				if (App.DB.LastMapResolution == 0)
 				{

@@ -443,9 +443,9 @@
                 </TabControl>
             </Expander>
             <Mapsui:MapControl x:Name="mapControl" Grid.Column="1" DragLeave="Map_OnMapDrag"/>
-            <Canvas Grid.Column="1" Visibility="{Binding MapTooltip.CustomTooltipVisibility}">
-                <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5" Background="LightGray" Opacity=".75" Canvas.Left="{Binding MapTooltip.CustomTooltipLocation.X}" Canvas.Top="{Binding MapTooltip.CustomTooltipLocation.Y}">
-                    <TextBlock Margin="5" FontWeight="Bold" Text="{Binding MapTooltip.CustomTooltipText}" TextWrapping="Wrap"/>
+            <Canvas x:Name="TooltipCanvas" Grid.Column="1" Width="Auto" Visibility="Collapsed">
+                <Border x:Name="TooltipBorder" BorderBrush="Black" BorderThickness="1" CornerRadius="5" Background="LightGray" Opacity=".75">
+                    <TextBlock x:Name="TooltipText" Margin="5" FontWeight="Bold" TextWrapping="Wrap"/>
                 </Border>
             </Canvas>
             <Expander Grid.Column="2" x:Name="Routes" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch" IsExpanded="False" ExpandDirection="Left">
