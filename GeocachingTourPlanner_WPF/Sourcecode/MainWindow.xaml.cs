@@ -753,11 +753,7 @@ namespace GeocachingTourPlanner.UI
 				MapTooltip.ShowTooltip((string)e.MapInfo.Feature[Markers.MarkerFields.TooltipText], new Point(e.MapInfo.ScreenPosition.X, e.MapInfo.ScreenPosition.Y));
 			}
 		}
-
-		private void mapControl_MouseMove(object sender, MouseEventArgs e)
-		{
-			MapTooltip.HideTooltip();
-		}
+		
 
 		/*
 		private void Map_OnMarkerClick(GMapMarker item, MouseEventArgs e)
@@ -1410,5 +1406,6 @@ else if (App.ImportOfOSMDataRunning)
 			public static readonly string GeocacheLayer = "Geocaches";
 			public static readonly string WaypointLayer = "Waypoints";
 		}
+
 	}
 }

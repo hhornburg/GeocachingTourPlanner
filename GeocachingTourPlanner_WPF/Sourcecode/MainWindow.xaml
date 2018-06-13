@@ -442,7 +442,7 @@
                     </TabItem>
                 </TabControl>
             </Expander>
-            <Mapsui:MapControl x:Name="mapControl" Grid.Column="1" DragLeave="Map_OnMapDrag"/>
+            <Mapsui:MapControl x:Name="mapControl" Grid.Column="1"/>
             <Canvas x:Name="TooltipCanvas" Grid.Column="1" Width="Auto" Visibility="Collapsed">
                 <Border x:Name="TooltipBorder" BorderBrush="Black" BorderThickness="1" CornerRadius="5" Background="LightGray" Opacity=".75">
                     <TextBlock x:Name="TooltipText" Margin="5" FontWeight="Bold" TextWrapping="Wrap"/>
@@ -459,7 +459,50 @@
                     </TextBlock>
                 </Expander.Header>
                 <Grid>
-                    <TextBlock>Hier kommen dann die Routen hin</TextBlock>
+                    <Grid.RowDefinitions>
+                        <!-- Box with info and route selection-->
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <!-- Box Scrollable view for items on route-->
+                        <RowDefinition Height="*"/>
+                        <!-- Box menu to delete, export and calculate-->
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <ComboBox Grid.Row="0"/>
+                    <TextBlock Grid.Row="1">Info Text comes here</TextBlock>
+                    <ScrollViewer Grid.Row="2">
+                        <ListView>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <!--Name of Waypoint/Geocache-->
+                                        <TextBlock Grid.Column="0" Grid.Row="0" Text=""/>
+                                        <!--Info about Geocache-->
+                                        <TextBlock Grid.Column="0" Grid.Row="1" Text=""/>
+                                        <Button Grid.Column="1" Grid.Row="0">▲</Button>
+                                        <Button Grid.Column="1" Grid.Row="1">▼</Button>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ScrollViewer>
+                    <Menu Grid.Row="3">
+                        <MenuItem Header="Calculate...">
+                            <MenuItem Header="Add Geocaches directly on route"/>
+                            <MenuItem Header="Add Geocaches close to route"/>
+                            <MenuItem Header="Find best geocaches to route"/>
+                        </MenuItem>
+                        <MenuItem Header="Export"/>
+                        <MenuItem Header="Delete"/>
+                    </Menu>
                 </Grid>
             </Expander>
         </Grid>
