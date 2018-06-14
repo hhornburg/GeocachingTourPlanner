@@ -442,11 +442,16 @@
                     </TabItem>
                 </TabControl>
             </Expander>
-            <Mapsui:MapControl x:Name="mapControl" Grid.Column="1"/>
-            <Canvas x:Name="TooltipCanvas" Grid.Column="1" Width="Auto" Visibility="Collapsed">
+            <Mapsui:MapControl x:Name="mapControl" Grid.Column="1" MouseRightButtonUp="mapControl_MouseRightButtonUp"/>
+            <Canvas x:Name="TooltipCanvas" Grid.Column="1" Width="Auto" Visibility="Visible">
                 <Border x:Name="TooltipBorder" BorderBrush="Black" BorderThickness="1" CornerRadius="5" Background="LightGray" Opacity=".75">
                     <TextBlock x:Name="TooltipText" Margin="5" FontWeight="Bold" TextWrapping="Wrap"/>
                 </Border>
+                <StackPanel x:Name="CustomMenuStackpanel">
+                    <MenuItem x:Name="ToBeginning"/>
+                    <MenuItem x:Name="ToEnd"/>
+                    <MenuItem x:Name="Remove"/>
+                </StackPanel>
             </Canvas>
             <Expander Grid.Column="2" x:Name="Routes" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch" IsExpanded="False" ExpandDirection="Left">
                 <Expander.Header>

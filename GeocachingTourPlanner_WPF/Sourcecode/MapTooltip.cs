@@ -7,7 +7,7 @@ namespace GeocachingTourPlanner.UI
     {
 		public static void ShowTooltip(string text, Point Location)
 		{
-			App.mainWindow.TooltipCanvas.Visibility = Visibility.Visible;
+			App.mainWindow.TooltipBorder.Visibility = Visibility.Visible;
 
 			if (Location.X > App.mainWindow.mapControl.ActualWidth - 150)
 			{
@@ -24,7 +24,7 @@ namespace GeocachingTourPlanner.UI
 		}
 		public static void HideTooltip()
 		{
-			App.mainWindow.TooltipCanvas.Visibility = Visibility.Collapsed;
+			App.mainWindow.TooltipBorder.Visibility = Visibility.Collapsed;
 			App.mainWindow.TooltipText.Text = "";
 		}
 	}

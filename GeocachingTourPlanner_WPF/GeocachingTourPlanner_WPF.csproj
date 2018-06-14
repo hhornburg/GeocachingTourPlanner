@@ -179,6 +179,7 @@
     <Compile Include="Sourcecode\Database.cs" />
     <Compile Include="Sourcecode\Fileoperations.cs" />
     <Compile Include="Sourcecode\Geocache.cs" />
+    <Compile Include="Sourcecode\MapContextMenu.cs" />
     <Compile Include="Sourcecode\MapTooltip.cs" />
     <Compile Include="Sourcecode\Markers.cs" />
     <Compile Include="Sourcecode\Ratingprofile.cs" />

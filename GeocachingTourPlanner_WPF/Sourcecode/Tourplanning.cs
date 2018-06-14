@@ -771,7 +771,7 @@ namespace GeocachingTourPlanner.Routing
 
 			private void Waypoints_ListChanged(object sender, System.ComponentModel.ListChangedEventArgs e)
 			{
-				App.ActiveRoute.CalculateDirectRoute();//Since the waypointlist can only change in the active class
+				
 			}
 
 			/// <summary>

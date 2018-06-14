@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Itinero;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GeocachingTourPlanner.UI
 {
@@ -20,14 +10,14 @@ namespace GeocachingTourPlanner.UI
 	/// </summary>
 	public partial class RouteWaypointListItem : UserControl
 	{
-		object Item = new object();
+		SerializableKeyValuePair<Object, RouterPoint> Item = new SerializableKeyValuePair<Object, RouterPoint>();
 		/// <summary>
 		/// Initializes a new item to be dispayed in the list of waypoints
 		/// </summary>
 		/// <param name="Item"></param>
 		/// <param name="Name"></param>
 		/// <param name="Description"></param>
-		public RouteWaypointListItem(object Item, string Name, string Description)
+		public RouteWaypointListItem(SerializableKeyValuePair<Object,RouterPoint> Item, string Name, string Description)
 		{
 			InitializeComponent();
 			WaypointName.Text = Name;

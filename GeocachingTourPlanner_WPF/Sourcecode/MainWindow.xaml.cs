@@ -753,7 +753,14 @@ namespace GeocachingTourPlanner.UI
 				MapTooltip.ShowTooltip((string)e.MapInfo.Feature[Markers.MarkerFields.TooltipText], new Point(e.MapInfo.ScreenPosition.X, e.MapInfo.ScreenPosition.Y));
 			}
 		}
-		
+
+
+		private void mapControl_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+		{
+			MapInfo mapInfo = mapControl.GetMapInfo(new Mapsui.Geometries.Point(PointToScreen(e.GetPosition(this)).X, PointToScreen(e.GetPosition(this)).Y));
+			Point Location = new Point(PointToScreen(e.GetPosition(this)).X, PointToScreen(e.GetPosition(this)).Y);
+			MapContextMenu.ShowContextMenu(mapInfo,Location);
+		}
 
 		/*
 		private void Map_OnMarkerClick(GMapMarker item, MouseEventArgs e)
@@ -1398,14 +1405,13 @@ else if (App.ImportOfOSMDataRunning)
 
 		#endregion
 
-		/// <summary>
-		/// Quasi enum for layer names
-		/// </summary>
-		static class Layers
-		{
-			public static readonly string GeocacheLayer = "Geocaches";
-			public static readonly string WaypointLayer = "Waypoints";
-		}
-
+	}
+	/// <summary>
+	/// Quasi enum for layer names
+	/// </summary>
+	public static class Layers
+	{
+		public static readonly string GeocacheLayer = "Geocaches";
+		public static readonly string WaypointLayer = "Waypoints";
 	}
 }
