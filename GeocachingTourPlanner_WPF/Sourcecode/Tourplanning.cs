@@ -12,8 +12,11 @@ using GeocachingTourPlanner.Types;
 
 namespace GeocachingTourPlanner.Routing
 {
-	public class Tourplanning
+	public class RoutePlanner
 	{
+		public string Name;
+		public RouteData CompleteRouteData = new RouteData();
+
 		/// <summary>
 		/// Used to detect islands
 		/// </summary>
@@ -30,6 +33,23 @@ namespace GeocachingTourPlanner.Routing
 		Router Router1 = null;
 		Router Router2 = null;
 
+		public RoutePlanner(string Name, List<Geocache> AllGeocaches, List<Tuple<Object,RouterPoint>> Waypoints, Routingprofile profile)
+		{
+			#region Create Routers
+			if (App.RouterDB.IsEmpty)
+			{
+				MessageBox.Show("Import or set RouterDB before creating route!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				//FIX App.mainWindow.UseWaitCursor = false;
+				return;
+			}
+			//One for every thread
+			Router1 = new Router(App.RouterDB);
+			Router2 = new Router(App.RouterDB);
+			#endregion
+
+			CompleteRouteData.Profile = profile;
+		}
+
 		/// <summary>
 		/// Returns null if calculation fails
 		/// </summary>
@@ -43,87 +63,14 @@ namespace GeocachingTourPlanner.Routing
 		public void GetRoute_Recursive(Routingprofile profile, List<Geocache> AllGeocaches, Coordinate Startpoint, Coordinate Endpoint, List<Geocache> GeocachesToInclude)
 		{
 			Fileoperations.Routerlog.AddMainSection("Started new Routing");
-			RouteData CompleteRouteData = new RouteData();
 
 			RouterPoint Startpoint_RP;
 			RouterPoint Endpoint_RP;
 			Route InitialRoute;
-			List<Geocache> GeocachesNotAlreadyUsed = new List<Geocache>();
-			CompleteRouteData.Profile = profile;
 
-			#region Create Routers
-			if (App.RouterDB.IsEmpty)
-			{
-				MessageBox.Show("Import or set RouterDB before creating route!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-				//FIX App.mainWindow.UseWaitCursor = false;
-				return;
-			}
-			//One for every thread
-			Router1 = new Router(App.RouterDB);
-			Router2 = new Router(App.RouterDB);
-			#endregion
+			List<Geocache> GeocachesNotAlreadyUsed = RemoveGeocachesWithNegativePoints(AllGeocaches);
 
-			GeocachesNotAlreadyUsed = RemoveGeocachesWithNegativePoints(AllGeocaches);
-
-			#region Calculate Initial route
-			try
-			{
-				Startpoint_RP = Router1.Resolve(CompleteRouteData.Profile.ItineroProfile.profile, Startpoint, 100F);
-			}
-			catch (Itinero.Exceptions.ResolveFailedException)
-			{
-				MessageBox.Show("Please select a Startingpoint close to a road");
-				//FIX Application.UseWaitCursor = false;
-				return;
-			}
-			try
-			{
-				Endpoint_RP = Router1.Resolve(CompleteRouteData.Profile.ItineroProfile.profile, Endpoint, 100F);
-			}
-			catch (Itinero.Exceptions.ResolveFailedException)
-			{
-				MessageBox.Show("Please select an Endpoint close to a road");
-				//FIX Application.UseWaitCursor = false;
-				return;
-			}
-
-			//Calculate initial Route
-			try
-			{
-				InitialRoute = Router1.Calculate(CompleteRouteData.Profile.ItineroProfile.profile, Startpoint_RP, Endpoint_RP);
-			}
-			catch (Itinero.Exceptions.RouteNotFoundException)
-			{
-				MessageBox.Show("Can't calculate a route between start and endpoint. Please change your selection");
-				//FIX Application.UseWaitCursor = false;
-				return;
-			}
-			CompleteRouteData.TotalDistance = InitialRoute.TotalDistance;
-			CompleteRouteData.TotalTime = InitialRoute.TotalTime;
-
-			//Empty list as no resolving happenend yet
-			CompleteRouteData.partialRoutes.Add(new PartialRoute(InitialRoute, new List<GeocacheRoutingInformation>()));
-			
-
-			Fileoperations.Routerlog.AddMainInformation("Calculated Initial Route");
-			Fileoperations.Routerlog.AddSubInformation("Length:" + InitialRoute.TotalDistance);
-			Fileoperations.Routerlog.AddSubInformation("Time:" + InitialRoute.TotalTime);
-
-			DisplayPreliminaryRoute(CompleteRouteData);
-			#endregion
-
-			#region ForceInclude
-			App.mainWindow.UpdateStatus("Starting adding Geocaches set as ForceInclude", 10);
-			AddGeocachesToRoute(CompleteRouteData, GeocachesToInclude);
-
-			Fileoperations.Routerlog.AddMainInformation("Adding Geocaches the user selected done");
-			Fileoperations.Routerlog.AddSubInformation("Length: " + CompleteRouteData.TotalDistance);
-			Fileoperations.Routerlog.AddSubInformation("Time: " + CompleteRouteData.TotalTime);
-			Fileoperations.Routerlog.AddSubInformation("Geocaches on Route: " + CompleteRouteData.GeocachesOnRoute().Count);
-			Fileoperations.Routerlog.AddSubInformation("Points collected: " + CompleteRouteData.TotalPoints);
-
-			DisplayPreliminaryRoute(CompleteRouteData);
-			#endregion
+			CalculateDirectRoute();
 
 			#region Autotargetselection
 			if (App.DB.Autotargetselection)
@@ -134,7 +81,7 @@ namespace GeocachingTourPlanner.Routing
 				Fileoperations.Routerlog.AddMainInformation("Autotargetselection done");
 				Fileoperations.Routerlog.AddSubInformation("Length: " + CompleteRouteData.TotalDistance);
 				Fileoperations.Routerlog.AddSubInformation("Time: " + CompleteRouteData.TotalTime);
-				Fileoperations.Routerlog.AddSubInformation("Geocaches on Route: " + CompleteRouteData.GeocachesOnRoute().Count);
+				Fileoperations.Routerlog.AddSubInformation("Geocaches on Route: " + CompleteRouteData.GeocachesOnRoute.Count);
 				Fileoperations.Routerlog.AddSubInformation("Points collected: " + CompleteRouteData.TotalPoints);
 
 				if (CheckIfIsland())
@@ -162,7 +109,7 @@ namespace GeocachingTourPlanner.Routing
 			Fileoperations.Routerlog.AddMainInformation("Adding Geocaches that improve rating done");
 			Fileoperations.Routerlog.AddSubInformation("Length: " + CompleteRouteData.TotalDistance);
 			Fileoperations.Routerlog.AddSubInformation("Time: " + CompleteRouteData.TotalTime);
-			Fileoperations.Routerlog.AddSubInformation("Geocaches on Route: " + CompleteRouteData.GeocachesOnRoute().Count);
+			Fileoperations.Routerlog.AddSubInformation("Geocaches on Route: " + CompleteRouteData.GeocachesOnRoute.Count);
 			Fileoperations.Routerlog.AddSubInformation("Points collected: " + CompleteRouteData.TotalPoints);
 			#endregion
 
@@ -184,24 +131,79 @@ namespace GeocachingTourPlanner.Routing
 
 		#region Main Functions
 		/// <summary>
-		/// Removes all geocaches that don't have a positive rating
+		/// Takes the waypoints from the CompleteRouteData and calculates the route that goes through the waypoints in their specified order.
 		/// </summary>
-		/// <param name="AllGeocaches"></param>
 		/// <returns></returns>
-		private List<Geocache> RemoveGeocachesWithNegativePoints(List<Geocache> AllGeocaches)
+		public bool CalculateDirectRoute()
 		{
-			List<Geocache> UsableGeocaches = new List<Geocache>();
-			Parallel.ForEach(AllGeocaches, GC =>
+			CompleteRouteData.partialRoutes.Clear();
+			CompleteRouteData.GeocachesOnRoute.Clear();
+			CompleteRouteData.TotalDistance = 0;
+			CompleteRouteData.TotalPoints = 0;
+			CompleteRouteData.TotalTime = 0; ;
+
+			//TODO Parallel.FOR
+			for(int i=0; i < CompleteRouteData.Waypoints.Count-1; i++)//-1 since always the next is also used
 			{
-				if (GC.Rating > 0)
+				if (CompleteRouteData.Waypoints[i].Value == null)
 				{
-					lock (UsableGeocaches)
+					if (CompleteRouteData.Waypoints[i].Key.GetType() == typeof(Waypoint))
 					{
-						UsableGeocaches.Add(GC);
+						float lat= ((Waypoint)(CompleteRouteData.Waypoints[i].Key)).lat;
+						float lon = ((Waypoint)(CompleteRouteData.Waypoints[i].Key)).lon;
+						Result<RouterPoint> result = Router1.TryResolve(CompleteRouteData.Profile.ItineroProfile.profile, lat, lon, SearchDistanceInMeters);
+						if (result.IsError)
+						{
+							//TODO Messagebox informing about geocache
+							return false;
+						}
+						else
+						{
+							CompleteRouteData.Waypoints[i].Value = result.Value;
+						}
 					}
 				}
-			});
-			return UsableGeocaches;
+
+				if (CompleteRouteData.Waypoints[i+1].Value == null)
+				{
+					if (CompleteRouteData.Waypoints[i+1].Key.GetType() == typeof(Waypoint))
+					{
+						float lat = ((Waypoint)(CompleteRouteData.Waypoints[i+1].Key)).lat;
+						float lon = ((Waypoint)(CompleteRouteData.Waypoints[i+1].Key)).lon;
+						Result<RouterPoint> result = Router1.TryResolve(CompleteRouteData.Profile.ItineroProfile.profile, lat, lon, SearchDistanceInMeters);
+						if (result.IsError)
+						{
+							//TODO Messagebox informing about geocache
+							return false;
+						}
+						else
+						{
+							CompleteRouteData.Waypoints[i+1].Value = result.Value;
+						}
+					}
+				}
+
+				Result<Route> routeResult = Router1.TryCalculate(CompleteRouteData.Profile.ItineroProfile.profile, CompleteRouteData.Waypoints[i].Value, CompleteRouteData.Waypoints[i + 1].Value);
+				if (routeResult.IsError)
+				{
+					return false;
+				}
+				else
+				{
+					CompleteRouteData.partialRoutes.Add(new PartialRoute(routeResult.Value));
+				}
+			}
+			return true;
+		}
+
+		/// <summary>
+		/// Takes the current waypoints and uses itinero to optmize the resulting route
+		/// </summary>
+		/// <returns></returns>
+		public bool OptimizeRoute()
+		{
+			//TODO Route optimization
+			return false;
 		}
 
 		/// <summary>
@@ -231,7 +233,7 @@ namespace GeocachingTourPlanner.Routing
 
 				RouteToInsertIn = CompleteRouteData.partialRoutes[IndexOfRouteToInsertIn].partialRoute;
 
-				Result<RouterPoint> GeocacheToAddResolveResult = Router1.TryResolve(CompleteRouteData.Profile.ItineroProfile.profile, GeocacheToAdd.lat, GeocacheToAdd.lon, 100F);
+				Result<RouterPoint> GeocacheToAddResolveResult = Router1.TryResolve(CompleteRouteData.Profile.ItineroProfile.profile, GeocacheToAdd.lat, GeocacheToAdd.lon, SearchDistanceInMeters);
 				if (!GeocacheToAddResolveResult.IsError)
 				{
 					Result<Tuple<Route, Route>> RoutingResult = GetPartialRoutes(CompleteRouteData, RouteToInsertIn, GeocacheToAddResolveResult.Value);
@@ -446,7 +448,7 @@ namespace GeocachingTourPlanner.Routing
 						 {
 							 GeocachesToRemove.Add(CurrentGeocache);
 						 }
-						 else if (CompleteRouteData.GeocachesOnRoute().Contains(CurrentGeocache.geocache))
+						 else if (CompleteRouteData.GeocachesOnRoute.Contains(CurrentGeocache.geocache))
 						 {
 							 GeocachesToRemove.Add(CurrentGeocache);
 						 }
@@ -491,7 +493,7 @@ namespace GeocachingTourPlanner.Routing
 					if (!RoutingResult.IsError)
 					{
 						float NewDistance = CompleteRouteData.TotalDistance - RouteToInsertIn.TotalDistance + RoutingResult.Value.Item1.TotalDistance + RoutingResult.Value.Item2.TotalDistance;
-						float NewTimeWithGeocaches = CompleteRouteData.TotalTime - RouteToInsertIn.TotalTime + RoutingResult.Value.Item1.TotalTime + RoutingResult.Value.Item2.TotalTime + (CompleteRouteData.GeocachesOnRoute().Count + 1) * CompleteRouteData.Profile.TimePerGeocache * 60;
+						float NewTimeWithGeocaches = CompleteRouteData.TotalTime - RouteToInsertIn.TotalTime + RoutingResult.Value.Item1.TotalTime + RoutingResult.Value.Item2.TotalTime + (CompleteRouteData.GeocachesOnRoute.Count + 1) * CompleteRouteData.Profile.TimePerGeocache * 60;
 						float NewRoutePoints = CompleteRouteData.TotalPoints + GeocacheToAdd.geocache.Rating;
 
 						//calculate in meters
@@ -539,10 +541,31 @@ namespace GeocachingTourPlanner.Routing
 
 		#region Helper Functions
 		/// <summary>
+		/// Returns new list with all geocaches that don't have a negtive rating
+		/// </summary>
+		/// <param name="AllGeocaches"></param>
+		/// <returns></returns>
+		private List<Geocache> RemoveGeocachesWithNegativePoints(List<Geocache> AllGeocaches)
+		{
+			List<Geocache> UsableGeocaches = new List<Geocache>();
+			Parallel.ForEach(AllGeocaches, GC =>
+			{
+				if (GC.Rating > 0)
+				{
+					lock (UsableGeocaches)
+					{
+						UsableGeocaches.Add(GC);
+					}
+				}
+			});
+			return UsableGeocaches;
+		}
+
+		/// <summary>
 		/// Returns the shortest distance of the coordinates to the route.
 		/// </summary>
 		/// <param name="route"></param>
-		/// <param name="coordinates"></param>
+		/// <param name="coord"></param>
 		/// <returns></returns>
 		private float GetMinimalDistanceToRoute(Route route, Coordinate coord)
 		{
@@ -713,7 +736,11 @@ namespace GeocachingTourPlanner.Routing
 		public class RouteData
 		{
 			public List<PartialRoute> partialRoutes { get; set; }
-			private List<Geocache> _GeocachesOnRoute { get; set; }
+			public SortableBindingList<SerializableKeyValuePair<Object,RouterPoint>> Waypoints { get; set; }
+			/// <summary>
+			/// Holds the geocaches that are on the route. To add a geocache ONLY use AddGeocacheOnRoute, since it adds the points of the geocache to the total points
+			/// </summary>
+			public List<Geocache> GeocachesOnRoute { get; set; }
 			public Routingprofile Profile { get; set; }
 			/// <summary>
 			/// in meters
@@ -730,20 +757,27 @@ namespace GeocachingTourPlanner.Routing
 
 			public void AddGeocacheOnRoute(Geocache geocache)
 			{
-				_GeocachesOnRoute.Add(geocache);
+				GeocachesOnRoute.Add(geocache);
 				TotalPoints += geocache.Rating;
-			}
-			public List<Geocache> GeocachesOnRoute()
-			{
-				return _GeocachesOnRoute;
 			}
 
 			public RouteData()
 			{
 				partialRoutes = new List<PartialRoute>();
-				_GeocachesOnRoute = new List<Geocache>();
+				GeocachesOnRoute = new List<Geocache>();
+				Waypoints = new SortableBindingList<SerializableKeyValuePair<Object, RouterPoint>>();
+				Waypoints.ListChanged += Waypoints_ListChanged;
 			}
 
+			private void Waypoints_ListChanged(object sender, System.ComponentModel.ListChangedEventArgs e)
+			{
+				App.ActiveRoute.CalculateDirectRoute();//Since the waypointlist can only change in the active class
+			}
+
+			/// <summary>
+			/// Creates a copy as deep as needed to have modify the copy without modifing the original route. Does not deep copy the geocaches for example, since this is unnecessary
+			/// </summary>
+			/// <returns></returns>
 			public RouteData DeepCopy()
 			{
 				RouteData _DeepCopy = new RouteData();
@@ -751,7 +785,7 @@ namespace GeocachingTourPlanner.Routing
 				{
 					_DeepCopy.partialRoutes.Add(partialRoute.DeepCopy());
 				}
-				foreach (Geocache geocache in _GeocachesOnRoute)
+				foreach (Geocache geocache in GeocachesOnRoute)
 				{
 					_DeepCopy.AddGeocacheOnRoute(geocache);//No deeper copy needed, as geocaches won't be changed
 				}
@@ -775,6 +809,11 @@ namespace GeocachingTourPlanner.Routing
 			{
 				this.partialRoute = partialRoute;
 				this.GeocachesInReach = GeocachesInReach;
+			}
+
+			public PartialRoute(Route partialRoute)
+			{
+				this.partialRoute = partialRoute;
 			}
 
 			public PartialRoute()

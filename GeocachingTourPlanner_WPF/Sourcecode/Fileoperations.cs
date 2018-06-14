@@ -301,7 +301,7 @@ namespace GeocachingTourPlanner.IO
 			if (StandardFileDialog.ShowDialog() == true)
 			{
 
-				KeyValuePair<string, Tourplanning.RouteData> RouteToSeialize = App.Routes.First(x => x.Key == OverlayTag);
+				RoutePlanner RouteToSeialize = App.Routes.First(x => x.Name == OverlayTag);
 
 				XmlDocument GPX = new XmlDocument();
 
@@ -322,7 +322,7 @@ namespace GeocachingTourPlanner.IO
 				creator.Value = "GeocachingTourPlanner";
 				root.Attributes.Append(creator);
 
-				foreach (Geocache GC in RouteToSeialize.Value.GeocachesOnRoute())
+				foreach (Geocache GC in RouteToSeialize.CompleteRouteData.GeocachesOnRoute)
 				{
 					XmlElement wpt = GPX.CreateElement("wpt");
 					//Coordinates
@@ -352,16 +352,16 @@ namespace GeocachingTourPlanner.IO
 
 				//Name of track
 				XmlNode name = GPX.CreateElement("name");
-				name.InnerText = RouteToSeialize.Key;
+				name.InnerText = RouteToSeialize.Name;
 				track.AppendChild(name);
 
 				XmlNode tracksegment = GPX.CreateElement("trkseg");
 
-				Route FinalRoute = RouteToSeialize.Value.partialRoutes[0].partialRoute;
+				Route FinalRoute = RouteToSeialize.CompleteRouteData.partialRoutes[0].partialRoute;
 
-				for (int i = 1; i < RouteToSeialize.Value.partialRoutes.Count; i++)
+				for (int i = 1; i < RouteToSeialize.CompleteRouteData.partialRoutes.Count; i++)
 				{
-					FinalRoute = FinalRoute.Concatenate(RouteToSeialize.Value.partialRoutes[i].partialRoute);
+					FinalRoute = FinalRoute.Concatenate(RouteToSeialize.CompleteRouteData.partialRoutes[i].partialRoute);
 				}
 
 				foreach (Coordinate COO in FinalRoute.Shape)

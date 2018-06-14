@@ -27,11 +27,15 @@ namespace GeocachingTourPlanner
 		public static SortableBindingList<Ratingprofile> Ratingprofiles { get; set; } //TODO Check if Bindinglist is needed
 		public static SortableBindingList<Routingprofile> Routingprofiles { get; set; }
 		public static SortableBindingList<Geocache> Geocaches { get; set; }
+		public static SortableBindingList<RoutePlanner> Routes { get; set; }
+		/// <summary>
+		/// The route that is currently selected in the combobox
+		/// </summary>
+		public static RoutePlanner ActiveRoute;
 
 
 		// Itinero
 		public static RouterDb RouterDB = new RouterDb();
-		public static BindingList<KeyValuePair<string, Tourplanning.RouteData>> Routes = new BindingList<KeyValuePair<string, Tourplanning.RouteData>>();
 
 		//App Variables
 		/// <summary>

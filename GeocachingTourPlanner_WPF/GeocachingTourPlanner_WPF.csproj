@@ -182,9 +182,13 @@
     <Compile Include="Sourcecode\MapTooltip.cs" />
     <Compile Include="Sourcecode\Markers.cs" />
     <Compile Include="Sourcecode\Ratingprofile.cs" />
+    <Compile Include="Sourcecode\RouteWaypointListItem.xaml.cs">
+      <DependentUpon>RouteWaypointListItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Sourcecode\Routingprofil.cs" />
     <Compile Include="Sourcecode\Startup.cs" />
     <Compile Include="Sourcecode\Tourplanning.cs" />
+    <Compile Include="Sourcecode\Waypoint.cs" />
     <Page Include="Sourcecode\DatabaseFileDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -205,6 +209,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Sourcecode\RouteWaypointListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
