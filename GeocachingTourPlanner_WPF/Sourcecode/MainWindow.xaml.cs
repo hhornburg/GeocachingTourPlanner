@@ -495,10 +495,12 @@ namespace GeocachingTourPlanner.UI
 		public void Routingprofiles_ListChanged(object sender, ListChangedEventArgs e)
 		{
 			EditRoutingprofileCombobox.Items.Clear();
+			SelectRoutingprofileCombobox.Items.Clear();
 
 			foreach (Routingprofile profile in App.Routingprofiles)
 			{
 				EditRoutingprofileCombobox.Items.Add(profile.Name);
+				SelectRoutingprofileCombobox.Items.Add(profile.Name);
 			}
 
 			RoutingprofilesStateLabel.Text = App.Routingprofiles.Count.ToString() + " Routingprofiles loaded";
@@ -754,62 +756,12 @@ namespace GeocachingTourPlanner.UI
 			}
 		}
 
-
 		private void mapControl_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
 		{
 			MapInfo mapInfo = mapControl.GetMapInfo(new Mapsui.Geometries.Point(PointToScreen(e.GetPosition(this)).X, PointToScreen(e.GetPosition(this)).Y));
 			Point Location = new Point(PointToScreen(e.GetPosition(this)).X, PointToScreen(e.GetPosition(this)).Y);
 			MapContextMenu.ShowContextMenu(mapInfo,Location);
 		}
-
-		/*
-		private void Map_OnMarkerClick(GMapMarker item, MouseEventArgs e)
-		{
-			if (e.Button == MouseButtons.Left && item.Tag.ToString() != "Endpoint" && item.Tag.ToString() != "Startpoint")
-			{
-				System.Diagnostics.Process.Start("https://www.coord.info/" + item.Tag);
-			}
-			else if (e.Button == MouseButtons.Right && item.Tag.ToString() != "Endpoint" && item.Tag.ToString() != "Startpoint")
-			{
-				ContextMenu MapContextMenu = new ContextMenu();
-				// initialize the commands
-				MenuItem SetEndpoint = new MenuItem("Set Endpoint here");
-				SetEndpoint.Click += (new_sender, new_e) => this.SetEndpoint(item.Position);
-				MenuItem SetStartpoint = new MenuItem("Set Startpoint here");
-				SetStartpoint.Click += (new_sender, new_e) => this.SetStartpoint(item.Position);
-
-				Geocache geocache = App.Geocaches.First(x => x.GCCODE == item.Tag.ToString());
-				MenuItem SetForceInclude = new MenuItem("ForceInclude");
-				if (geocache.ForceInclude)
-				{
-					SetForceInclude.Checked = true;
-				}
-				SetForceInclude.Click += (new_sender, new_e) => toggleForceInclude(geocache);
-
-				MapContextMenu.MenuItems.Add(SetStartpoint);
-				MapContextMenu.MenuItems.Add(SetEndpoint);
-				MapContextMenu.MenuItems.Add(SetForceInclude);
-				MapContextMenu.Show(Map, e.Location);
-			}
-		}
-
-		private void Map_Click(object sender, MouseEventArgs e)
-		{
-			if (e.Button == MouseButtons.Right && !((GMapControl)sender).IsMouseOverMarker)
-			{
-				ContextMenu MapContextMenu = new ContextMenu();
-				Coordinate Coordinates = Map.Viewport.ScreenToWorld(e.X, e.Y);
-				// initialize the commands
-				MenuItem SetEndpoint = new MenuItem("Set Endpoint here");
-				SetEndpoint.Click += (new_sender, new_e) => this.SetEndpoint(Coordinates);
-				MenuItem SetStartpoint = new MenuItem("Set Startpoint here");
-				SetStartpoint.Click += (new_sender, new_e) => this.SetStartpoint(Coordinates);
-				MapContextMenu.MenuItems.Add(SetStartpoint);
-				MapContextMenu.MenuItems.Add(SetEndpoint);
-				MapContextMenu.Show(Map, e.Location);
-			}
-		}
-		*/
 		#endregion
 
 		#region Methods
@@ -1243,7 +1195,51 @@ else if (App.ImportOfOSMDataRunning)
 
 		#endregion
 
-		#region Lists
+		#region Routes
+		#region Events
+		/// <summary>
+		/// keeps the Comboboxes updated
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		public void Routesprofiles_ListChanged(object sender, ListChangedEventArgs e)
+		{
+			SelectRoute.Items.Clear();
+
+			foreach (Routing.RoutePlanner profile in App.Routes)
+			{
+				EditRoutingprofileCombobox.Items.Add(profile.Name);
+			}
+		}
+
+		private void NewButton_Click(object sender, RoutedEventArgs e)
+		{
+			NewRouteWindow newRouteWindow = new NewRouteWindow();
+			newRouteWindow.ShowDialog();
+			App.ActiveRoute = new Routing.RoutePlanner(newRouteWindow.Name);
+			if (App.ActiveRoute == null)
+			{
+				return;
+			}
+			App.Routes.Add(App.ActiveRoute);
+		}
+
+		public void Waypoints_ListChanged(object sender, ListChangedEventArgs e)
+		{
+			WaypointStackpanel.Children.Clear();
+			foreach(SerializableKeyValuePair<Object, RouterPoint> Item in App.ActiveRoute.CompleteRouteData.Waypoints)
+			{
+				string Name = "Waypoint";
+				string Description = "";
+				if (Item.Key.GetType() == typeof(Geocache))
+				{
+					Name = ((Geocache)Item.Key).Name;
+					Description = "Type: " + ((Geocache)Item.Key).Type + "Size: " + ((Geocache)Item.Key).Size + "\nD: " + ((Geocache)Item.Key).DRating + "T: " + ((Geocache)Item.Key).TRating+ "Points: " + ((Geocache)Item.Key).Rating;
+				}
+				WaypointStackpanel.Children.Add(new RouteWaypointListItem(Item, Name, Description));
+			}
+		}
+		#endregion
 		#endregion
 
 		#region unspecific helpers
@@ -1405,6 +1401,7 @@ else if (App.ImportOfOSMDataRunning)
 
 		#endregion
 
+		
 	}
 	/// <summary>
 	/// Quasi enum for layer names

@@ -468,23 +468,25 @@
                         <!-- Box with info and route selection-->
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <!-- Box Scrollable view for items on route-->
                         <RowDefinition Height="*"/>
                         <!-- Box menu to delete, export and calculate-->
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <ComboBox Grid.Row="0"/>
-                    <TextBlock Grid.Row="1">Info Text comes here</TextBlock>
-                    <ScrollViewer Grid.Row="2">
-                        <ListView>
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                        <ComboBox x:Name="SelectRoute" Grid.Row="0" Grid.Column="0"/>
+                    <Button Grid.Column="1" Click="NewButton_Click">New...</Button>
+                    <TextBlock x:Name="RouteInfo" Grid.Row="1" Grid.ColumnSpan="2">Info Text comes here</TextBlock>
+                    <ComboBox x:Name="SelectRoutingprofileCombobox" Grid.Row="2" Grid.ColumnSpan="2"/>
+                    <ScrollViewer Grid.Row="3" Grid.ColumnSpan="2">
+                        <StackPanel x:Name="WaypointStackpanel"/>
                     </ScrollViewer>
-                    <Menu Grid.Row="3">
+                    <Menu Grid.Row="4" Grid.ColumnSpan="2">
                         <MenuItem Header="Calculate...">
                             <MenuItem Header="Add Geocaches directly on route"/>
                             <MenuItem Header="Add Geocaches close to route"/>

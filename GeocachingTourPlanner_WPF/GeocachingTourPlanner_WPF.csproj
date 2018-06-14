@@ -182,6 +182,9 @@
     <Compile Include="Sourcecode\MapContextMenu.cs" />
     <Compile Include="Sourcecode\MapTooltip.cs" />
     <Compile Include="Sourcecode\Markers.cs" />
+    <Compile Include="Sourcecode\NewRouteWindow.xaml.cs">
+      <DependentUpon>NewRouteWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Sourcecode\Ratingprofile.cs" />
     <Compile Include="Sourcecode\RouteWaypointListItem.xaml.cs">
       <DependentUpon>RouteWaypointListItem.xaml</DependentUpon>
@@ -210,6 +213,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Sourcecode\NewRouteWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Sourcecode\RouteWaypointListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

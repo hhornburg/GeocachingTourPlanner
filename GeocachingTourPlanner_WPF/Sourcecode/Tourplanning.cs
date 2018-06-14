@@ -15,6 +15,11 @@ namespace GeocachingTourPlanner.Routing
 	public class RoutePlanner
 	{
 		public string Name;
+		public override string ToString()
+		{
+			return Name;
+		}
+
 		public RouteData CompleteRouteData = new RouteData();
 
 		/// <summary>
@@ -33,7 +38,7 @@ namespace GeocachingTourPlanner.Routing
 		Router Router1 = null;
 		Router Router2 = null;
 
-		public RoutePlanner(string Name, List<Geocache> AllGeocaches, List<Tuple<Object,RouterPoint>> Waypoints, Routingprofile profile)
+		public RoutePlanner(string Name)
 		{
 			#region Create Routers
 			if (App.RouterDB.IsEmpty)
@@ -46,8 +51,6 @@ namespace GeocachingTourPlanner.Routing
 			Router1 = new Router(App.RouterDB);
 			Router2 = new Router(App.RouterDB);
 			#endregion
-
-			CompleteRouteData.Profile = profile;
 		}
 
 		/// <summary>
@@ -766,13 +769,9 @@ namespace GeocachingTourPlanner.Routing
 				partialRoutes = new List<PartialRoute>();
 				GeocachesOnRoute = new List<Geocache>();
 				Waypoints = new SortableBindingList<SerializableKeyValuePair<Object, RouterPoint>>();
-				Waypoints.ListChanged += Waypoints_ListChanged;
+				Waypoints.ListChanged += App.mainWindow.Waypoints_ListChanged;
 			}
 
-			private void Waypoints_ListChanged(object sender, System.ComponentModel.ListChangedEventArgs e)
-			{
-				
-			}
 
 			/// <summary>
 			/// Creates a copy as deep as needed to have modify the copy without modifing the original route. Does not deep copy the geocaches for example, since this is unnecessary
