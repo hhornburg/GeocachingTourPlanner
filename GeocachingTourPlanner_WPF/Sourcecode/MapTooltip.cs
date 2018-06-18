@@ -7,6 +7,7 @@ namespace GeocachingTourPlanner.UI
     {
 		public static void ShowTooltip(string text, Point Location)
 		{
+			App.mainWindow.TooltipCanvas.Visibility = Visibility.Visible;//Just to make sure it is visible
 			App.mainWindow.TooltipBorder.Visibility = Visibility.Visible;
 
 			if (Location.X > App.mainWindow.mapControl.ActualWidth - 150)

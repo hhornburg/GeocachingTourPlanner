@@ -27,14 +27,14 @@ namespace GeocachingTourPlanner.UI
 
 		private void MoveUp_Click(object sender, RoutedEventArgs e)
 		{
-			int OldIndex=App.ActiveRoute.CompleteRouteData.Waypoints.IndexOf(Item);
-			App.ActiveRoute.CompleteRouteData.Waypoints.Insert(OldIndex-1,Item);
+			int OldIndex=App.DB.ActiveRoute.CompleteRouteData.Waypoints.IndexOf(Item);
+			App.DB.ActiveRoute.CompleteRouteData.Waypoints.Insert(OldIndex-1,Item);
 		}
 
 		private void MoveDown_Click(object sender, RoutedEventArgs e)
 		{
-			int OldIndex = App.ActiveRoute.CompleteRouteData.Waypoints.IndexOf(Item);
-			App.ActiveRoute.CompleteRouteData.Waypoints.Insert(OldIndex + 1, Item);
+			int OldIndex = App.DB.ActiveRoute.CompleteRouteData.Waypoints.IndexOf(Item);
+			App.DB.ActiveRoute.CompleteRouteData.Waypoints.Insert(OldIndex + 1, Item);
 		}
 	}
 }

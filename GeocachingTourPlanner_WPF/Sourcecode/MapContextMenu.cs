@@ -16,19 +16,20 @@ namespace GeocachingTourPlanner.UI
 	{
 		public static void ShowContextMenu(MapInfo mapInfo, Point Location)
 		{
-			if (App.ActiveRoute == null)
+			if (App.DB.ActiveRoute == null)
 			{
 				MessageBox.Show("Please create a route before trying to add waypoints to the route","Error",MessageBoxButton.OK,MessageBoxImage.Error);
 				return;
 			}
 
 			MapTooltip.HideTooltip();
+			App.mainWindow.TooltipCanvas.Visibility = Visibility.Visible;//Just to make sure it is visible
 			App.mainWindow.CustomMenuStackpanel.Visibility = Visibility.Visible;
 
 			if (mapInfo.Feature != null && mapInfo.Layer.Name == Layers.GeocacheLayer)
 			{
 				//Aka the Geocache was already added to the route
-				if (App.ActiveRoute.CompleteRouteData.Waypoints.Where(x => x.Key.GetType() == typeof(Geocache)).Count(x => ((Geocache)x.Key).GCCODE == mapInfo.Feature[Markers.MarkerFields.Label].ToString()) > 0)
+				if (App.DB.ActiveRoute.CompleteRouteData.Waypoints.Where(x => x.Key.GetType() == typeof(Geocache)).Count(x => ((Geocache)x.Key).GCCODE == mapInfo.Feature[Markers.MarkerFields.Label].ToString()) > 0)
 				{
 					App.mainWindow.ToBeginning.Header = "Move " + mapInfo.Feature[Markers.MarkerFields.Label] + "to the beginning";
 					App.mainWindow.ToEnd.Header = "Move " + mapInfo.Feature[Markers.MarkerFields.Label] + "to the beginning";
@@ -64,29 +65,29 @@ namespace GeocachingTourPlanner.UI
 
 		private static void AddGeocacheToBeginning_Click(string Name)
 		{
-			foreach (SerializableKeyValuePair<object, RouterPoint> item in App.ActiveRoute.CompleteRouteData.Waypoints.Where(x => x.Key.GetType() == typeof(Geocache)).Where(x => ((Geocache)x.Key).GCCODE == Name))
+			foreach (SerializableKeyValuePair<object, RouterPoint> item in App.DB.ActiveRoute.CompleteRouteData.Waypoints.Where(x => x.Key.GetType() == typeof(Geocache)).Where(x => ((Geocache)x.Key).GCCODE == Name))
 			{
-				App.ActiveRoute.CompleteRouteData.Waypoints.Remove(item);
+				App.DB.ActiveRoute.CompleteRouteData.Waypoints.Remove(item);
 			}
 
-			App.ActiveRoute.CompleteRouteData.Waypoints.Insert(0, new SerializableKeyValuePair<object, RouterPoint>(App.Geocaches.First(x => x.GCCODE == Name), null));
+			App.DB.ActiveRoute.CompleteRouteData.Waypoints.Insert(0, new SerializableKeyValuePair<object, RouterPoint>(App.Geocaches.First(x => x.GCCODE == Name), null));
 		}
 
 		private static void AddGeocacheToEnd_Click(string Name)
 		{
-			foreach (SerializableKeyValuePair<object, RouterPoint> item in App.ActiveRoute.CompleteRouteData.Waypoints.Where(x => x.Key.GetType() == typeof(Geocache)).Where(x => ((Geocache)x.Key).GCCODE == Name))
+			foreach (SerializableKeyValuePair<object, RouterPoint> item in App.DB.ActiveRoute.CompleteRouteData.Waypoints.Where(x => x.Key.GetType() == typeof(Geocache)).Where(x => ((Geocache)x.Key).GCCODE == Name))
 			{
-				App.ActiveRoute.CompleteRouteData.Waypoints.Remove(item);
+				App.DB.ActiveRoute.CompleteRouteData.Waypoints.Remove(item);
 			}
 
-			App.ActiveRoute.CompleteRouteData.Waypoints.Add(new SerializableKeyValuePair<object, RouterPoint>(App.Geocaches.First(x => x.GCCODE == Name), null));
+			App.DB.ActiveRoute.CompleteRouteData.Waypoints.Add(new SerializableKeyValuePair<object, RouterPoint>(App.Geocaches.First(x => x.GCCODE == Name), null));
 		}
 
 		private static void RemoveGeocache_Click(string Name)
 		{
-			foreach (SerializableKeyValuePair<object, RouterPoint> item in App.ActiveRoute.CompleteRouteData.Waypoints.Where(x => x.Key.GetType() == typeof(Geocache)).Where(x => ((Geocache)x.Key).GCCODE == Name))
+			foreach (SerializableKeyValuePair<object, RouterPoint> item in App.DB.ActiveRoute.CompleteRouteData.Waypoints.Where(x => x.Key.GetType() == typeof(Geocache)).Where(x => ((Geocache)x.Key).GCCODE == Name))
 			{
-				App.ActiveRoute.CompleteRouteData.Waypoints.Remove(item);
+				App.DB.ActiveRoute.CompleteRouteData.Waypoints.Remove(item);
 			}
 		}
 	}

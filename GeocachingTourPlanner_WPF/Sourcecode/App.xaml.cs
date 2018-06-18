@@ -28,10 +28,6 @@ namespace GeocachingTourPlanner
 		public static SortableBindingList<Routingprofile> Routingprofiles { get; set; }
 		public static SortableBindingList<Geocache> Geocaches { get; set; }
 		public static SortableBindingList<RoutePlanner> Routes { get; set; }
-		/// <summary>
-		/// The route that is currently selected in the combobox
-		/// </summary>
-		public static RoutePlanner ActiveRoute;
 
 
 		// Itinero

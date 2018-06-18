@@ -1,4 +1,5 @@
 ﻿using GeocachingTourPlanner.IO;
+using GeocachingTourPlanner.Routing;
 using GeocachingTourPlanner.Types;
 using Itinero;
 using Itinero.LocalGeo;
@@ -504,6 +505,19 @@ namespace GeocachingTourPlanner.UI
 			}
 
 			RoutingprofilesStateLabel.Text = App.Routingprofiles.Count.ToString() + " Routingprofiles loaded";
+		}
+
+
+		/// <summary>
+		/// Selects the specified Routingprofile in the Combobox 
+		/// </summary>
+		/// <param name="RP"></param>
+		public void SetRoutingprofile(Routingprofile RP)
+		{
+			if (EditRoutingprofileCombobox.Items.Cast<ComboBoxItem>().Count(x => x.Content.ToString() == RP.Name) > 0)
+			{
+				EditRoutingprofileCombobox.SelectedItem = EditRoutingprofileCombobox.Items.Cast<ComboBoxItem>().First(x => x.Content.ToString() == RP.Name);
+			}
 		}
 		#endregion
 		#region Methods
@@ -1204,7 +1218,7 @@ else if (App.ImportOfOSMDataRunning)
 		/// <param name="e"></param>
 		public void Routesprofiles_ListChanged(object sender, ListChangedEventArgs e)
 		{
-			SelectRoute.Items.Clear();
+			SelectRoute_Combobox.Items.Clear();
 
 			foreach (Routing.RoutePlanner profile in App.Routes)
 			{
@@ -1216,18 +1230,18 @@ else if (App.ImportOfOSMDataRunning)
 		{
 			NewRouteWindow newRouteWindow = new NewRouteWindow();
 			newRouteWindow.ShowDialog();
-			App.ActiveRoute = new Routing.RoutePlanner(newRouteWindow.Name);
-			if (App.ActiveRoute == null)
+			App.DB.ActiveRoute = new Routing.RoutePlanner(newRouteWindow.Name);
+			if (App.DB.ActiveRoute == null)
 			{
 				return;
 			}
-			App.Routes.Add(App.ActiveRoute);
+			App.Routes.Add(App.DB.ActiveRoute);
 		}
 
 		public void Waypoints_ListChanged(object sender, ListChangedEventArgs e)
 		{
 			WaypointStackpanel.Children.Clear();
-			foreach(SerializableKeyValuePair<Object, RouterPoint> Item in App.ActiveRoute.CompleteRouteData.Waypoints)
+			foreach(SerializableKeyValuePair<Object, RouterPoint> Item in App.DB.ActiveRoute.CompleteRouteData.Waypoints)
 			{
 				string Name = "Waypoint";
 				string Description = "";
@@ -1237,6 +1251,18 @@ else if (App.ImportOfOSMDataRunning)
 					Description = "Type: " + ((Geocache)Item.Key).Type + "Size: " + ((Geocache)Item.Key).Size + "\nD: " + ((Geocache)Item.Key).DRating + "T: " + ((Geocache)Item.Key).TRating+ "Points: " + ((Geocache)Item.Key).Rating;
 				}
 				WaypointStackpanel.Children.Add(new RouteWaypointListItem(Item, Name, Description));
+			}
+		}
+
+		/// <summary>
+		/// Selects the specified Route 
+		/// </summary>
+		/// <param name="RP"></param>
+		public void SetRoute(RoutePlanner RP)
+		{
+			if (SelectRoute_Combobox.Items.Cast<ComboBoxItem>().Count(x => x.Content.ToString() == RP.Name) > 0)
+			{
+				SelectRoute_Combobox.SelectedItem = SelectRoute_Combobox.Items.Cast<ComboBoxItem>().First(x => x.Content.ToString() == RP.Name);
 			}
 		}
 		#endregion

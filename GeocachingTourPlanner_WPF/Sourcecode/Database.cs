@@ -1,4 +1,5 @@
 ﻿using GeocachingTourPlanner.IO;
+using GeocachingTourPlanner.Routing;
 using Itinero.LocalGeo;
 using Microsoft.Win32;
 using System.IO;
@@ -12,10 +13,12 @@ namespace GeocachingTourPlanner.Types
 		private string _ratingprofileDB_Filepath;
 		private string _routingprofileDB_Filepath;
 		private string _routerDB_Filepath;
+		private string _routeDB_Filepath;
 		private double _lastMapResolution;
 		private Coordinate _lastMapPosition;
 		private Ratingprofile _activeRatingprofile;
 		private Routingprofile _activeRoutingprofile;
+		private RoutePlanner _activeRoute;
 		private int _markerSize;
 		private float _minimalRating;
 		private float _maximalRating;
@@ -50,6 +53,10 @@ namespace GeocachingTourPlanner.Types
 		/// </summary>
 		public string RoutingprofileDB_Filepath { get => _routingprofileDB_Filepath; set { _routingprofileDB_Filepath = value; Fileoperations.Backup(null); } }
 		/// <summary>
+		/// Filepath of Route DB
+		/// </summary>
+		public string RouteDB_Filepath { get => _routeDB_Filepath; set { _routeDB_Filepath = value; Fileoperations.Backup(null); } }
+		/// <summary>
 		/// Filepath of loaded RouterDB
 		/// </summary>
 		public string RouterDB_Filepath
@@ -75,6 +82,10 @@ namespace GeocachingTourPlanner.Types
 		/// Routingprofile that is selected
 		/// </summary>
 		public Routingprofile ActiveRoutingprofile { get => _activeRoutingprofile; set { _activeRoutingprofile = value; Fileoperations.Backup(null); } }
+		/// <summary>
+		/// Routingprofile that is selected
+		/// </summary>
+		public RoutePlanner ActiveRoute { get => _activeRoute; set { _activeRoute = value; Fileoperations.Backup(null); } }
 
 		/// <summary>
 		/// Marker size in pixel
@@ -132,6 +143,9 @@ namespace GeocachingTourPlanner.Types
 				case Databases.RouterDB:
 					DatabaseFilepath = RouterDB_Filepath;
 					break;
+				case Databases.Routes:
+					DatabaseFilepath = RouteDB_Filepath;
+					break;
 			}
 			if (DatabaseFilepath == null || !File.Exists(DatabaseFilepath))//"||" So it doesn't run into exception if it is null
 			{
@@ -170,6 +184,10 @@ namespace GeocachingTourPlanner.Types
 				case Databases.RouterDB:
 					StandardFileDialog.Filter = "Routerdb files (*.routerdb)|*.routerdb|All files (*.*)|*.*";
 					break;
+				case Databases.Routes:
+					StandardFileDialog.Filter= "RouteDB files (*.routes)|*.routes|All files (*.*)|*.*";
+					break;
+
 			}
 
 			if (StandardFileDialog.ShowDialog() == true)
@@ -196,6 +214,11 @@ namespace GeocachingTourPlanner.Types
 					RouterDB_Filepath = StandardFileDialog.FileName;
 					return true; //since databasefilepath has been set;
 				}
+				else if (DatabaseName == Databases.Routes)
+				{
+					RouteDB_Filepath = StandardFileDialog.FileName;
+					return true; //since databasefilepath has been set;
+				}
 			}
 
 			return false;//Since Databasefilepath hasn't been set
@@ -210,7 +233,8 @@ namespace GeocachingTourPlanner.Types
 		Geocaches,
 		Ratingprofiles,
 		Routingprofiles,
-		RouterDB
+		RouterDB,
+		Routes
 	}
 	
 }

@@ -25,6 +25,7 @@ namespace GeocachingTourPlanner.IO
 		static XmlSerializer RoutingprofilesSerializer = new XmlSerializer(typeof(SortableBindingList<Routingprofile>));
 		static XmlSerializer RatingprofilesSerializer = new XmlSerializer(typeof(SortableBindingList<Ratingprofile>));
 		static XmlSerializer GeocachesSerializer = new XmlSerializer(typeof(SortableBindingList<Geocache>));
+		static XmlSerializer RouteSerializer = new XmlSerializer(typeof(SortableBindingList<RoutePlanner>));
 
 		public static void ReadMainDatabase()
 		{
@@ -116,6 +117,40 @@ namespace GeocachingTourPlanner.IO
 			App.Ratingprofiles.ResetBindings();
 		}
 
+
+		/// <summary>
+		/// Reads ratingprofiles from file specified in the database. Only checks wether it is set, but takes no action if not
+		/// </summary>
+		public static void ReadRoutes()
+		{
+			StreamReader RouteReader = null;
+			if (App.DB.IsFilepathSet(Databases.Routes))//returns true if the user has set a valid database
+			{
+				try
+				{
+					App.Routes.Clear();
+					RouteReader = new StreamReader(App.DB.RouteDB_Filepath);
+					App.Routes = (SortableBindingList<RoutePlanner>)RouteSerializer.Deserialize(RouteReader);
+					Startup.BindLists();//Binding is lost on deserialization
+					RouteReader.Close();
+
+					App.mainWindow.UpdateStatus("Successfully read routes");
+					App.Ratingprofiles.ResetBindings();
+				}
+				catch (Exception)
+				{
+					MessageBox.Show("Error in Routedatabase!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				}
+				finally
+				{
+					if (RouteReader != null)
+					{
+						RouteReader.Close();
+					}
+				}
+			}
+			App.Routes.ResetBindings();
+		}
 		/// <summary>
 		/// Reads geocaches from database file specified in the main database. Only checks wether it is set, but takes no action if not
 		/// </summary>
@@ -270,7 +305,31 @@ namespace GeocachingTourPlanner.IO
 						}
 					}
 				}
+				else if (ExtraBackup == App.Routes)
+				{
+					if (App.DB.IsFilepathSet(Databases.Routes))
+					{
+						TextWriter RouteDBWriter = null;
+						try
+						{
+							RouteDBWriter = new StreamWriter(App.DB.RouteDB_Filepath);
+							RouteSerializer.Serialize(RouteDBWriter, App.Routes);
+						}
+						catch (IOException)
+						{
+							MessageBox.Show("Fileerror. Is the Route Database used by another App?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+							return false;
+						}
+						finally
+						{
 
+							if (RouteDBWriter != null)
+							{
+								RouteDBWriter.Close();
+							}
+						}
+					}
+				}
 				//Last one, so changes made in the Backup Routine can be saved
 				TextWriter DBWriter = new StreamWriter(App.Database_Filepath);
 				try

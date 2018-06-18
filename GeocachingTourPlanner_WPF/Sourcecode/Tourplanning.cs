@@ -9,17 +9,31 @@ using System.Threading.Tasks;
 using GeocachingTourPlanner.IO;
 using System.Windows;
 using GeocachingTourPlanner.Types;
+using System.Xml.Serialization;
 
 namespace GeocachingTourPlanner.Routing
 {
 	public class RoutePlanner
 	{
+		/// <summary>
+		/// Name of the Route
+		/// </summary>
 		public string Name;
+		/// <summary>
+		/// returns Routeplanner.Name
+		/// </summary>
+		/// <returns>RoutePlanner.Name</returns>
 		public override string ToString()
 		{
 			return Name;
 		}
-
+		/// <summary>
+		/// For serialization only
+		/// </summary>
+		public RoutePlanner() { }
+		/// <summary>
+		/// Holds the actual route Data
+		/// </summary>
 		public RouteData CompleteRouteData = new RouteData();
 
 		/// <summary>
@@ -866,7 +880,7 @@ namespace GeocachingTourPlanner.Routing
 			/// </summary>
 			/// <value>RoutingPoints = geocache.Rating / (1 + EstimatedExtraDistance * DistanceToRoute);</value>
 			public float RoutingPoints { get; private set; }
-
+			[XmlIgnore]
 			public RouterPoint ResolvedCoordinates { get; set; }//Used so coordinates only have to be reoslved once
 
 			public GeocacheRoutingInformation(Geocache geocache, float DistanceToRoute, float EstimatedExtraDistance, RouterPoint ResolvedCoordinates)
@@ -885,7 +899,10 @@ namespace GeocachingTourPlanner.Routing
 				this.EstimatedExtraDistance = EstimatedExtraDistance;
 				this.ResolvedCoordinates = ResolvedCoordinates;
 			}
-
+			/// <summary>
+			/// Copies the attributes of the GeocacheRoutingInformation passed to a new GeocacheRoutingInformation
+			/// </summary>
+			/// <param name="ObjectToCopy"></param>
 			public GeocacheRoutingInformation(GeocacheRoutingInformation ObjectToCopy)
 			{
 				geocache = ObjectToCopy.geocache;
@@ -893,6 +910,10 @@ namespace GeocachingTourPlanner.Routing
 				EstimatedExtraDistance = ObjectToCopy.EstimatedExtraDistance;
 				ResolvedCoordinates = ObjectToCopy.ResolvedCoordinates;
 			}
+			/// <summary>
+			/// For serializtion only
+			/// </summary>
+			public GeocacheRoutingInformation() { }
 
 			public override string ToString()
 			{

@@ -16,6 +16,7 @@ namespace GeocachingTourPlanner
 			App.Ratingprofiles = new SortableBindingList<Ratingprofile>();
 			App.Routingprofiles = new SortableBindingList<Routingprofile>();
 			App.Geocaches = new SortableBindingList<Geocache>();
+			App.Routes = new SortableBindingList<Routing.RoutePlanner>();
 
 			App.mainWindow = new MainWindow();
 			App.mainWindow.UpdateStatus("Started reading databases");
@@ -76,6 +77,8 @@ namespace GeocachingTourPlanner
 			
 			//Routingprofile
 			Fileoperations.ReadRoutingprofiles();
+
+			Fileoperations.ReadRoutes();
 		}
 
 		public static void CheckSettings()
@@ -123,6 +126,14 @@ namespace GeocachingTourPlanner
 			if (App.DB.ActiveRatingprofile!=null)
 			{
 				App.mainWindow.SetRatingprofile(App.DB.ActiveRatingprofile);
+			}
+			if (App.DB.ActiveRoutingprofile != null)
+			{
+				App.mainWindow.SetRoutingprofile(App.DB.ActiveRoutingprofile);
+			}
+			if (App.DB.ActiveRoute != null)
+			{
+				App.mainWindow.SetRoute(App.DB.ActiveRoute);
 			}
 		}
 	}
