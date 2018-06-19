@@ -162,12 +162,10 @@ namespace GeocachingTourPlanner.Routing
 			//TODO Parallel.FOR
 			for(int i=0; i < CompleteRouteData.Waypoints.Count-1; i++)//-1 since always the next is also used
 			{
-				if (CompleteRouteData.Waypoints[i].Value == null)
+				if (CompleteRouteData.Waypoints[i].routerPoint == null)
 				{
-					if (CompleteRouteData.Waypoints[i].Key.GetType() == typeof(Waypoint))
-					{
-						float lat= ((Waypoint)(CompleteRouteData.Waypoints[i].Key)).lat;
-						float lon = ((Waypoint)(CompleteRouteData.Waypoints[i].Key)).lon;
+						float lat= CompleteRouteData.Waypoints[i].lat;
+						float lon = CompleteRouteData.Waypoints[i].lon;
 						Result<RouterPoint> result = Router1.TryResolve(CompleteRouteData.Profile.ItineroProfile.profile, lat, lon, SearchDistanceInMeters);
 						if (result.IsError)
 						{
@@ -176,17 +174,14 @@ namespace GeocachingTourPlanner.Routing
 						}
 						else
 						{
-							CompleteRouteData.Waypoints[i].Value = result.Value;
+							CompleteRouteData.Waypoints[i].routerPoint = result.Value;
 						}
-					}
 				}
 
-				if (CompleteRouteData.Waypoints[i+1].Value == null)
+				if (CompleteRouteData.Waypoints[i+1].routerPoint == null)
 				{
-					if (CompleteRouteData.Waypoints[i+1].Key.GetType() == typeof(Waypoint))
-					{
-						float lat = ((Waypoint)(CompleteRouteData.Waypoints[i+1].Key)).lat;
-						float lon = ((Waypoint)(CompleteRouteData.Waypoints[i+1].Key)).lon;
+						float lat = CompleteRouteData.Waypoints[i+1].lat;
+						float lon = CompleteRouteData.Waypoints[i+1].lon;
 						Result<RouterPoint> result = Router1.TryResolve(CompleteRouteData.Profile.ItineroProfile.profile, lat, lon, SearchDistanceInMeters);
 						if (result.IsError)
 						{
@@ -195,12 +190,11 @@ namespace GeocachingTourPlanner.Routing
 						}
 						else
 						{
-							CompleteRouteData.Waypoints[i+1].Value = result.Value;
+							CompleteRouteData.Waypoints[i+1].routerPoint = result.Value;
 						}
-					}
 				}
 
-				Result<Route> routeResult = Router1.TryCalculate(CompleteRouteData.Profile.ItineroProfile.profile, CompleteRouteData.Waypoints[i].Value, CompleteRouteData.Waypoints[i + 1].Value);
+				Result<Route> routeResult = Router1.TryCalculate(CompleteRouteData.Profile.ItineroProfile.profile, CompleteRouteData.Waypoints[i].routerPoint, CompleteRouteData.Waypoints[i + 1].routerPoint);
 				if (routeResult.IsError)
 				{
 					return false;
@@ -753,7 +747,7 @@ namespace GeocachingTourPlanner.Routing
 		public class RouteData
 		{
 			public List<PartialRoute> partialRoutes { get; set; }
-			public SortableBindingList<SerializableKeyValuePair<Object,RouterPoint>> Waypoints { get; set; }
+			public SortableBindingList<Waypoint> Waypoints { get; set; }
 			/// <summary>
 			/// Holds the geocaches that are on the route. To add a geocache ONLY use AddGeocacheOnRoute, since it adds the points of the geocache to the total points
 			/// </summary>
@@ -782,7 +776,7 @@ namespace GeocachingTourPlanner.Routing
 			{
 				partialRoutes = new List<PartialRoute>();
 				GeocachesOnRoute = new List<Geocache>();
-				Waypoints = new SortableBindingList<SerializableKeyValuePair<Object, RouterPoint>>();
+				Waypoints = new SortableBindingList<Waypoint>();
 				Waypoints.ListChanged += App.mainWindow.Waypoints_ListChanged;
 			}
 
@@ -850,7 +844,7 @@ namespace GeocachingTourPlanner.Routing
 			/// <summary>
 			/// Always use the position of the geocache for the shortest distance calculations
 			/// </summary>
-			public Geocache geocache { get; private set; }
+			public Geocache geocache { get; set; }
 			/// <summary>
 			/// In meters
 			/// </summary>
@@ -879,7 +873,7 @@ namespace GeocachingTourPlanner.Routing
 			/// Points for addition, used in filling up the route.
 			/// </summary>
 			/// <value>RoutingPoints = geocache.Rating / (1 + EstimatedExtraDistance * DistanceToRoute);</value>
-			public float RoutingPoints { get; private set; }
+			public float RoutingPoints { get; set; }
 			[XmlIgnore]
 			public RouterPoint ResolvedCoordinates { get; set; }//Used so coordinates only have to be reoslved once
 

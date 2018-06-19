@@ -1216,13 +1216,13 @@ else if (App.ImportOfOSMDataRunning)
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		public void Routesprofiles_ListChanged(object sender, ListChangedEventArgs e)
+		public void Routes_ListChanged(object sender, ListChangedEventArgs e)
 		{
 			SelectRoute_Combobox.Items.Clear();
 
-			foreach (Routing.RoutePlanner profile in App.Routes)
+			foreach (RoutePlanner profile in App.Routes)
 			{
-				EditRoutingprofileCombobox.Items.Add(profile.Name);
+				SelectRoute_Combobox.Items.Add(profile.Name);
 			}
 		}
 
@@ -1241,14 +1241,14 @@ else if (App.ImportOfOSMDataRunning)
 		public void Waypoints_ListChanged(object sender, ListChangedEventArgs e)
 		{
 			WaypointStackpanel.Children.Clear();
-			foreach(SerializableKeyValuePair<Object, RouterPoint> Item in App.DB.ActiveRoute.CompleteRouteData.Waypoints)
+			foreach(Waypoint Item in App.DB.ActiveRoute.CompleteRouteData.Waypoints)
 			{
 				string Name = "Waypoint";
 				string Description = "";
-				if (Item.Key.GetType() == typeof(Geocache))
+				if (Item.GetType() == typeof(Geocache))
 				{
-					Name = ((Geocache)Item.Key).Name;
-					Description = "Type: " + ((Geocache)Item.Key).Type + "Size: " + ((Geocache)Item.Key).Size + "\nD: " + ((Geocache)Item.Key).DRating + "T: " + ((Geocache)Item.Key).TRating+ "Points: " + ((Geocache)Item.Key).Rating;
+					Name = ((Geocache)Item).Name;
+					Description = "Type: " + ((Geocache)Item).Type + "Size: " + ((Geocache)Item).Size + "\nD: " + ((Geocache)Item).DRating + "T: " + ((Geocache)Item).TRating+ "Points: " + ((Geocache)Item).Rating;
 				}
 				WaypointStackpanel.Children.Add(new RouteWaypointListItem(Item, Name, Description));
 			}

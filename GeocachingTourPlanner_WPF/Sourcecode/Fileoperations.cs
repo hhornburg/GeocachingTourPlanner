@@ -220,7 +220,9 @@ namespace GeocachingTourPlanner.IO
 		}
 
 		/// <summary>
-		/// The main Database gets saved anyways specify which otherList should be saved alongside. Returns true on success. Normally no need to call manually, since the backups are automated
+		/// The main Database gets saved anyways specify which otherList should be saved alongside. Returns true on success. 
+		/// Normally no need to call manually, since the backups are automated on change to the databases.
+		/// Does not backup during startup process, since it could erase user settings
 		/// </summary>
 		/// <param name="ExtraBackup"></param>
 		public static bool Backup(object ExtraBackup)

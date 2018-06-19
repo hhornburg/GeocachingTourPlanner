@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace GeocachingTourPlanner.Types
 {
-    public class Geocache
+    public class Geocache:Waypoint
     {
-        public float lat { get; set; }
-        public float lon { get; set; }
         public string GCCODE { get; set; }
         public string Name { get; set; }
         public float DRating { get; set; }

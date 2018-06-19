@@ -53,7 +53,7 @@ namespace GeocachingTourPlanner.UI
 				GeocacheCategory = Category.Worst_Bad;
 			}
 
-			if (App.MarkerStyleCache.Where(x => x.Value1 == geocache.Type && x.Value2 == (int)GeocacheCategory).Count() > 0)
+			if (App.MarkerStyleCache.Where(x => x.Value1 == geocache.Type && (Category)x.Value2 == GeocacheCategory).Count() > 0)
 			{
 				MarkerStyle = App.MarkerStyleCache.Find(x => x.Value1 == geocache.Type && x.Value2 == (int)GeocacheCategory).Key;
 			}
