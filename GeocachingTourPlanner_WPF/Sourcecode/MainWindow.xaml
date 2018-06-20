@@ -447,7 +447,7 @@
                 <Border x:Name="TooltipBorder" BorderBrush="Black" BorderThickness="1" CornerRadius="5" Background="LightGray" Opacity=".75">
                     <TextBlock x:Name="TooltipText" Margin="5" FontWeight="Bold" TextWrapping="Wrap"/>
                 </Border>
-                <StackPanel x:Name="CustomMenuStackpanel" Background="Gray">
+                <StackPanel x:Name="CustomMenuStackpanel" Background="LightGray">
                     <MenuItem x:Name="ToBeginning"/>
                     <MenuItem x:Name="ToEnd"/>
                     <MenuItem x:Name="Remove"/>

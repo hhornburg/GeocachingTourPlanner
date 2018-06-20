@@ -775,6 +775,7 @@ namespace GeocachingTourPlanner.UI
 			MapInfo mapInfo = mapControl.GetMapInfo(new Mapsui.Geometries.Point(PointToScreen(e.GetPosition(this)).X, PointToScreen(e.GetPosition(this)).Y));
 			Point Location = new Point(PointToScreen(e.GetPosition(this)).X, PointToScreen(e.GetPosition(this)).Y);
 			MapContextMenu.ShowContextMenu(mapInfo,Location);
+			e.Handled = true;
 		}
 		#endregion
 
