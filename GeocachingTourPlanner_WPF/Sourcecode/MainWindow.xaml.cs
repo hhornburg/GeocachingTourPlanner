@@ -7,6 +7,7 @@ using Mapsui;
 using Mapsui.Layers;
 using Mapsui.Projection;
 using Mapsui.UI;
+using Mapsui.UI.Wpf;
 using Mapsui.Utilities;
 using System;
 using System.Collections.Generic;
@@ -385,13 +386,13 @@ namespace GeocachingTourPlanner.UI
 			{
 				GC.Rate(ratingprofile);
 			}
-			App.Geocaches.OrderByDescending(x => x.Rating);
-			//If it still exists..  GeocacheTable.Sort(GeocacheTable.Columns["Rating"], ListSortDirection.Descending);
+			App.Geocaches = new SortableBindingList<Geocache>( App.Geocaches.OrderByDescending(x => x.Rating).ToList());
+			Startup.BindLists();//Since bindiing is lost when new list is created
 			App.DB.MaximalRating = App.Geocaches[0].Rating;//Da sortierte Liste
 			App.DB.MinimalRating = App.Geocaches[App.Geocaches.Count - 1].Rating;
 			Map_RenewGeocacheLayer();
 			UpdateStatus("Geocaches rated");
-			Fileoperations.Backup(App.Geocaches);//Since List doesn't chnage
+			Fileoperations.Backup(App.Geocaches);
 			return true;
 		}
 
@@ -772,9 +773,9 @@ namespace GeocachingTourPlanner.UI
 
 		private void mapControl_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
 		{
-			MapInfo mapInfo = mapControl.GetMapInfo(new Mapsui.Geometries.Point(PointToScreen(e.GetPosition(this)).X, PointToScreen(e.GetPosition(this)).Y));
-			Point Location = new Point(PointToScreen(e.GetPosition(this)).X, PointToScreen(e.GetPosition(this)).Y);
-			MapContextMenu.ShowContextMenu(mapInfo,Location);
+			Mapsui.Geometries.Point Location = e.GetPosition(this).ToMapsui();
+			MapInfo mapInfo = mapControl.GetMapInfo(Location);
+			MapContextMenu.ShowContextMenu(mapInfo);
 			e.Handled = true;
 		}
 		#endregion

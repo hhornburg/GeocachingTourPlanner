@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Reflection;
+using System.Windows;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
@@ -345,41 +347,43 @@ namespace GeocachingTourPlanner
 		}
 	}
 
-	/*
-	public static class CustomExtensions
+	public static class CustomCodeContainerClass
 	{
-		public static object DeepCopy(this object ObjectToClone)
+		/// <summary>
+		/// Removes all event handlers subscribed to the specified routed event from the specified element.
+		/// </summary>
+		/// <see>https://stackoverflow.com/questions/6828054/how-would-it-be-possible-to-remove-all-event-handlers-of-the-click-event-of-a/12618521#12618521</see>
+		/// <param name="element">The UI element on which the routed event is defined.</param>
+		/// <param name="routedEvent">The routed event for which to remove the event handlers.</param>
+		public static void RemoveRoutedEventHandlers(this UIElement element, RoutedEvent routedEvent)
 		{
-			Type ObjectToCloneType = ObjectToClone.GetType();
-			object DeepCopy = Activator.CreateInstance(ObjectToCloneType);
-			PropertyInfo[] properties = ObjectToCloneType.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+			// Get the EventHandlersStore instance which holds event handlers for the specified element.
+			// The EventHandlersStore class is declared as internal.
+			var eventHandlersStoreProperty = typeof(UIElement).GetProperty(
+				"EventHandlersStore", BindingFlags.Instance | BindingFlags.NonPublic);
+			object eventHandlersStore = eventHandlersStoreProperty.GetValue(element, null);
 
-			foreach(PropertyInfo property in properties)
+			// If no event handlers are subscribed, eventHandlersStore will be null.
+			// Credit: https://stackoverflow.com/a/16392387/1149773
+			if (eventHandlersStore == null)
+				return;
+
+			// Invoke the GetRoutedEventHandlers method on the EventHandlersStore instance 
+			// for getting an array of the subscribed event handlers.
+			var getRoutedEventHandlers = eventHandlersStore.GetType().GetMethod(
+				"GetRoutedEventHandlers", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+			var routedEventHandlers = (RoutedEventHandlerInfo[])getRoutedEventHandlers.Invoke(
+				eventHandlersStore, new object[] { routedEvent });
+
+			if (routedEventHandlers == null)
 			{
-				if (property.CanWrite)
-				{
-					//No deeper copy possible
-					if (property.PropertyType.IsValueType || property.PropertyType.IsEnum || property.PropertyType.Equals(typeof(System.String)))
-					{
-						property.SetValue(DeepCopy, property.GetValue(ObjectToClone,null));
-					}
-					else // Deeper Copy possible
-					{
-						object PropertyObject = property.GetValue(ObjectToClone,null);
-						if (PropertyObject == null)
-						{
-							//If it is null no deeper digging is needed and the value can be set to null
-							property.SetValue(DeepCopy, null);
-						}
-						else //call recursively
-						{
-							property.SetValue(DeepCopy, PropertyObject.DeepCopy());
-						}
-					}
-				}
+				return;
 			}
 
-			return DeepCopy;
+			// Iteratively remove all routed event handlers from the element.
+			foreach (var routedEventHandler in routedEventHandlers)
+				element.RemoveHandler(routedEvent, routedEventHandler.Handler);
 		}
-	}*/
+
+	}
 }

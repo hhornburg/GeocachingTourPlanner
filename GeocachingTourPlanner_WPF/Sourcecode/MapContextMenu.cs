@@ -19,13 +19,16 @@ namespace GeocachingTourPlanner.UI
 		/// </summary>
 		/// <param name="mapInfo"></param>
 		/// <param name="Location">Screen coordinates</param>
-		public static void ShowContextMenu(MapInfo mapInfo, Point Location)
+		public static void ShowContextMenu(MapInfo mapInfo)
 		{
 			if (App.DB.ActiveRoute == null)
 			{
 				MessageBox.Show("Please create a route before trying to add waypoints to the route", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 				return;
 			}
+
+			double X = mapInfo.ScreenPosition.X;
+			double Y = mapInfo.ScreenPosition.Y;
 
 			MapTooltip.HideTooltip();
 			App.mainWindow.TooltipCanvas.Visibility = Visibility.Visible;//Just to make sure it is visible
@@ -55,24 +58,29 @@ namespace GeocachingTourPlanner.UI
 				//If the click is not on the feature, it can't be in the route
 				App.mainWindow.ToBeginning.Header = "Add Waypoint to the beginning";
 				App.mainWindow.ToEnd.Header = "Add Waypoint to the end";
-				App.mainWindow.ToBeginning.Click += (s, ev) => AddWaypointToBeginning_Click((float)App.mainWindow.mapControl.ScreenToWorld(new Mapsui.Geometries.Point(Location.X,Location.Y)).Y, (float)App.mainWindow.mapControl.ScreenToWorld(new Mapsui.Geometries.Point(Location.X, Location.Y)).X);
-				App.mainWindow.ToEnd.Click += (s, ev) => AddWaypointToEnd_Click((float)App.mainWindow.mapControl.ScreenToWorld(new Mapsui.Geometries.Point(Location.X, Location.Y)).Y, (float)App.mainWindow.mapControl.ScreenToWorld(new Mapsui.Geometries.Point(Location.X, Location.Y)).X);
+				App.mainWindow.ToBeginning.Click += (s, ev) => AddWaypointToBeginning_Click((float)Y, (float)X);
+				App.mainWindow.ToEnd.Click += (s, ev) => AddWaypointToEnd_Click((float)Y, (float)X);
 			}
 
-			if (Location.X > App.mainWindow.mapControl.ActualWidth - 150)
+			if (X > App.mainWindow.mapControl.ActualWidth - 150)
 			{
-				Location.X = App.mainWindow.mapControl.ActualWidth - 150;
+				X = App.mainWindow.mapControl.ActualWidth - 150;
 			}
-			if (Location.Y > App.mainWindow.mapControl.ActualHeight)
+			if (Y > App.mainWindow.mapControl.ActualHeight)
 			{
-				Location.Y = App.mainWindow.mapControl.ActualHeight;
+				Y = App.mainWindow.mapControl.ActualHeight;
 			}
-			Canvas.SetLeft(App.mainWindow.CustomMenuStackpanel, Location.X);
-			Canvas.SetTop(App.mainWindow.CustomMenuStackpanel, Location.Y);
+			Canvas.SetLeft(App.mainWindow.CustomMenuStackpanel, X);
+			Canvas.SetTop(App.mainWindow.CustomMenuStackpanel, Y);
 		}
 
+		/// <summary>
+		/// Hides the context menu
+		/// </summary>
 		public static void HideContextMenu()
 		{
+			App.mainWindow.ToBeginning.RemoveRoutedEventHandlers(MenuItem.ClickEvent);
+			App.mainWindow.ToEnd.RemoveRoutedEventHandlers(MenuItem.ClickEvent);
 			App.mainWindow.CustomMenuStackpanel.Visibility = Visibility.Collapsed;
 			App.mainWindow.Remove.Visibility = Visibility.Collapsed;
 		}

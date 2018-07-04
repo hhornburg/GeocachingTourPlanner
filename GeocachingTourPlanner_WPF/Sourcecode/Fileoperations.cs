@@ -165,10 +165,9 @@ namespace GeocachingTourPlanner.IO
 					App.Geocaches.Clear();
 					GCReader = new StreamReader(App.DB.GeocacheDB_Filepath);
 					App.Geocaches = (SortableBindingList<Geocache>)GeocachesSerializer.Deserialize(GCReader);
-					Startup.BindLists();//Binding is lost on deserialization
 
-					//So the MinimalRating and MaximalRating property get set and the map displays it correctly (fixes issue #4)
-					App.Geocaches.OrderByDescending(x => x.Rating);
+					App.Geocaches = new SortableBindingList<Geocache>(App.Geocaches.OrderByDescending(x => x.Rating).ToList());
+					Startup.BindLists();//Since binding is lost when new list is created
 					App.DB.MaximalRating = App.Geocaches[0].Rating;//Possible since list is sorted
 					App.DB.MinimalRating = App.Geocaches[App.Geocaches.Count - 1].Rating;
 
