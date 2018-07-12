@@ -212,6 +212,20 @@ namespace GeocachingTourPlanner.UI
 			return EndMarker;
 		}
 
+		/// <summary>
+		/// Returns a Feature to be added to the mapsui map
+		/// </summary>
+		/// <param name="coords"></param>
+		/// <returns></returns>
+		public static Feature GetWPMarker(Coordinate coords)
+		{
+			IStyle MarkerStyle = new SymbolStyle { BitmapId = BitmapRegistry.Instance.Register(Properties.Images.Pin_black), SymbolType = SymbolType.Svg, SymbolScale = App.DB.MarkerSize, SymbolOffset = new Offset(0.0, 0.5, true) };
+
+			Feature WPMarker = new Feature { Geometry = SphericalMercator.FromLonLat(coords.Longitude, coords.Latitude), [MarkerFields.Type] = MarkerTypes.Waypoint, [MarkerFields.Label] = "Start" };
+			WPMarker.Styles.Add(MarkerStyle);
+			return WPMarker;
+		}
+
 		enum Category
 		{
 			Worst_Bad,

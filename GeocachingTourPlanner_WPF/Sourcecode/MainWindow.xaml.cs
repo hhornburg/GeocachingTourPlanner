@@ -4,8 +4,11 @@ using GeocachingTourPlanner.Types;
 using Itinero;
 using Itinero.LocalGeo;
 using Mapsui;
+using Mapsui.Geometries;
 using Mapsui.Layers;
 using Mapsui.Projection;
+using Mapsui.Providers;
+using Mapsui.Styles;
 using Mapsui.UI;
 using Mapsui.UI.Wpf;
 using Mapsui.Utilities;
@@ -767,7 +770,7 @@ namespace GeocachingTourPlanner.UI
 		{
 			if (e.MapInfo.Feature != null)
 			{
-				MapTooltip.ShowTooltip((string)e.MapInfo.Feature[Markers.MarkerFields.TooltipText], new Point(e.MapInfo.ScreenPosition.X, e.MapInfo.ScreenPosition.Y));
+				MapTooltip.ShowTooltip((string)e.MapInfo.Feature[Markers.MarkerFields.TooltipText], new System.Windows.Point(e.MapInfo.ScreenPosition.X, e.MapInfo.ScreenPosition.Y));
 			}
 		}
 
@@ -789,9 +792,9 @@ namespace GeocachingTourPlanner.UI
 		{
 			if (map != null)//Occurs during startup
 			{
-				if (map.Layers.Count(x => x.Name == "Geocaches") > 0)
+				if (map.Layers.Count(x => x.Name == Layers.GeocacheLayer) > 0)
 				{
-					foreach (WritableLayer GClayer in map.Layers.Where(x => x.Name == "Geocaches").ToList())
+					foreach (WritableLayer GClayer in map.Layers.Where(x => x.Name == Layers.GeocacheLayer).ToList())
 					{
 						map.Layers.Remove(GClayer);
 					}
@@ -817,6 +820,64 @@ namespace GeocachingTourPlanner.UI
 			}
 		}
 
+		public void Map_ReplaceRouteLayer(Route route, string Name)
+		{
+			List<Mapsui.Geometries.Point> Route_Points = new List<Mapsui.Geometries.Point>();
+			foreach (Coordinate coordinate in route.Shape)
+			{
+				var spherical = SphericalMercator.FromLonLat(coordinate.Longitude, coordinate.Latitude);
+				Route_Points.Add(new Mapsui.Geometries.Point(spherical.X, spherical.Y));
+			}
+			LineString Route_LineString = new LineString(Route_Points);
+			Feature Route_Feature = new Feature
+			{
+				Geometry = Route_LineString,
+				["Name"] = Name,
+				Styles = new List<IStyle> { new VectorStyle { Line = new Mapsui.Styles.Pen(Mapsui.Styles.Color.Blue, 6) } }
+			};
+
+			WritableLayer RouteLayer = new WritableLayer
+			{
+				Name = Layers.RouteLayer,
+				Style = null
+			};
+
+			RouteLayer.Add(Route_Feature);
+		}
+		/// <summary>
+		/// Renews the Waypointlayer from the list of the waypoints in the active route
+		/// </summary>
+		public void Map_RenewWaypointLayer()
+		{
+			if (map != null)//Occurs during startup
+			{
+				if (map.Layers.Count(x => x.Name == Layers.WaypointLayer) > 0)
+				{
+					foreach (WritableLayer WPLayer in map.Layers.Where(x => x.Name == Layers.WaypointLayer).ToList())
+					{
+						map.Layers.Remove(WPLayer);
+					}
+				}
+				WritableLayer WaypointLayer = new WritableLayer
+				{
+					Name = Layers.WaypointLayer,
+					Style = null
+				};
+
+				foreach (Waypoint WP in App.DB.ActiveRoute.CompleteRouteData.Waypoints.Where(x=>x.GetType()!=typeof(Geocache)))
+				{
+					WaypointLayer.Add(Markers.GetWPMarker(new Coordinate(WP.lat,WP.lon)));
+				}
+				map.Layers.Add(WaypointLayer);
+				map.InfoLayers.Add(WaypointLayer);
+				map.HoverLayers.Add(WaypointLayer);
+				//Set Views
+				if (App.DB.LastMapResolution == 0)
+				{
+					App.DB.LastMapResolution = 5;
+				}
+			}
+		}
 		public void Map_NavigateToLastVisited()
 		{
 			map.NavigateTo(App.DB.LastMapResolution);
@@ -1212,6 +1273,13 @@ else if (App.ImportOfOSMDataRunning)
 		#endregion
 
 		#region Routes
+		#region UI
+		private void CalculateDirectRoute_Click(object sender, RoutedEventArgs e)
+		{
+			App.DB.ActiveRoute.CalculateDirectRoute();
+		}
+		#endregion
+
 		#region Events
 		/// <summary>
 		/// keeps the Comboboxes updated
@@ -1427,9 +1495,9 @@ else if (App.ImportOfOSMDataRunning)
 			}
 		}
 
+
 		#endregion
 
-		
 	}
 	/// <summary>
 	/// Quasi enum for layer names
@@ -1438,5 +1506,6 @@ else if (App.ImportOfOSMDataRunning)
 	{
 		public static readonly string GeocacheLayer = "Geocaches";
 		public static readonly string WaypointLayer = "Waypoints";
+		public static readonly string RouteLayer = "Routes";
 	}
 }

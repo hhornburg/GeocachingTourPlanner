@@ -450,7 +450,7 @@
                 <StackPanel x:Name="CustomMenuStackpanel" Background="LightGray">
                     <MenuItem x:Name="ToBeginning"/>
                     <MenuItem x:Name="ToEnd"/>
-                    <MenuItem x:Name="Remove"/>
+                    <MenuItem x:Name="Remove" Visibility="Collapsed"/>
                 </StackPanel>
             </Canvas>
             <Expander Grid.Column="2" x:Name="Routes" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch" IsExpanded="False" ExpandDirection="Left">
@@ -479,7 +479,7 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     
-                        <ComboBox x:Name="SelectRoute_Combobox" Grid.Row="0" Grid.Column="0"/>
+                    <ComboBox x:Name="SelectRoute_Combobox" Grid.Row="0" Grid.Column="0"/>
                     <Button Grid.Column="1" Click="NewButton_Click">New...</Button>
                     <TextBlock x:Name="RouteInfo" Grid.Row="1" Grid.ColumnSpan="2">Info Text comes here</TextBlock>
                     <ComboBox x:Name="SelectRoutingprofileCombobox" Grid.Row="2" Grid.ColumnSpan="2"/>
@@ -488,6 +488,7 @@
                     </ScrollViewer>
                     <Menu Grid.Row="4" Grid.ColumnSpan="2">
                         <MenuItem Header="Calculate...">
+                            <MenuItem Header="Add Geocaches directly on route" Click="CalculateDirectRoute_Click"/>
                             <MenuItem Header="Add Geocaches directly on route"/>
                             <MenuItem Header="Add Geocaches close to route"/>
                             <MenuItem Header="Find best geocaches to route"/>

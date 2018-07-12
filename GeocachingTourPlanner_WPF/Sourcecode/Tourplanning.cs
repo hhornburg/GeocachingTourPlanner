@@ -108,7 +108,7 @@ namespace GeocachingTourPlanner.Routing
 					//FIX Application.UseWaitCursor = false;
 				}
 
-				DisplayPreliminaryRoute(CompleteRouteData);
+				UpdateDisplayedRoute();
 			}
 
 			#endregion
@@ -204,6 +204,7 @@ namespace GeocachingTourPlanner.Routing
 					CompleteRouteData.partialRoutes.Add(new PartialRoute(routeResult.Value));
 				}
 			}
+			UpdateDisplayedRoute();
 			return true;
 		}
 
@@ -514,7 +515,7 @@ namespace GeocachingTourPlanner.Routing
 							CompleteRouteData = ReplaceRoute(CompleteRouteData, RoutingResult.Value.Item1, RoutingResult.Value.Item2, IndexOfRouteToInsertIn);
 							CompleteRouteData.AddGeocacheOnRoute(GeocacheToAdd.geocache);
 							CompleteRouteData.TotalPoints = NewRoutePoints;//Overwrites the addition automatically made in the lne before, to make sure the 
-							DisplayPreliminaryRoute(CompleteRouteData);
+							UpdateDisplayedRoute();
 						}
 						else
 						{
@@ -534,7 +535,7 @@ namespace GeocachingTourPlanner.Routing
 		}
 		#endregion
 
-		private void DisplayPreliminaryRoute(RouteData CompleteRouteData)
+		private void UpdateDisplayedRoute()
 		{
 			new Thread(new ThreadStart(() =>
 			{
@@ -544,8 +545,8 @@ namespace GeocachingTourPlanner.Routing
 				{
 					PreliminaryRoute = PreliminaryRoute.Concatenate(CompleteRouteData.partialRoutes[i].partialRoute);
 				}
-
-				//FIX App.mainWindow.DisplayPreliminaryRoute(PreliminaryRoute);
+				//FIX add name
+				App.mainWindow.Map_ReplaceRouteLayer(PreliminaryRoute,"Test");
 			})).Start();
 		}
 		#endregion
@@ -778,6 +779,7 @@ namespace GeocachingTourPlanner.Routing
 				GeocachesOnRoute = new List<Geocache>();
 				Waypoints = new SortableBindingList<Waypoint>();
 				Waypoints.ListChanged += App.mainWindow.Waypoints_ListChanged;
+				Waypoints.ListChanged += (sender,e) => App.mainWindow.Map_RenewWaypointLayer();
 			}
 
 
