@@ -186,12 +186,14 @@
       <DependentUpon>NewRouteWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sourcecode\Ratingprofile.cs" />
+    <Compile Include="Sourcecode\RoutePlannerSubFunctions.cs" />
     <Compile Include="Sourcecode\RouteWaypointListItem.xaml.cs">
       <DependentUpon>RouteWaypointListItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Sourcecode\RoutePlannerSubclasses.cs" />
     <Compile Include="Sourcecode\Routingprofil.cs" />
     <Compile Include="Sourcecode\Startup.cs" />
-    <Compile Include="Sourcecode\Tourplanning.cs" />
+    <Compile Include="Sourcecode\RoutePlannerMainFunctions.cs" />
     <Compile Include="Sourcecode\Waypoint.cs" />
     <Page Include="Sourcecode\DatabaseFileDialog.xaml">
       <SubType>Designer</SubType>
