@@ -25,7 +25,7 @@ namespace GeocachingTourPlanner.Routing
 			/// <summary>
 			/// All Geocaches that can somehow be reached in the Distancce limit from the Route.
 			/// </summary>
-			public List<Geocache> ReachableGeocaches { get; set; }
+			public List<GeocacheRoutingInformation> ReachableGeocaches { get; set; }
 			public Routingprofile Profile { get; set; }
 			/// <summary>
 			/// in meters
@@ -53,6 +53,13 @@ namespace GeocachingTourPlanner.Routing
 				GeocachesOnRoute = new List<Geocache>();
 				Waypoints = new SortableBindingList<Waypoint>();
 				Waypoints.ListChanged += App.mainWindow.Waypoints_ListChanged;
+				ReachableGeocaches = new List<GeocacheRoutingInformation>();
+				foreach(Geocache GC in RemoveGeocachesWithNegativePoints(App.Geocaches.ToList()))
+				{
+					GeocacheRoutingInformation GCRI = new GeocacheRoutingInformation();
+					GCRI.geocache = GC;
+					ReachableGeocaches.Add(GCRI);
+				}
 			}
 
 
@@ -130,7 +137,7 @@ namespace GeocachingTourPlanner.Routing
 				set
 				{
 					DistanceToRoute_field = value;
-					EstimatedRoutingPoints = geocache.Rating / (1 + Math.Min(EstimatedExtraDistance_NewRoute, EstimatedExtraDistance_InRoute));
+					RoutingRating = geocache.Rating / (1 + Math.Min(EstimatedExtraDistance_NewRoute, EstimatedExtraDistance_InRoute));
 				}
 			}
 			private float DistanceToRoute_field = -1;
@@ -144,17 +151,17 @@ namespace GeocachingTourPlanner.Routing
 				set
 				{
 					EstimatedExtraDistance_field = value;
-					EstimatedRoutingPoints = geocache.Rating / (1 + Math.Min(EstimatedExtraDistance_NewRoute, EstimatedExtraDistance_InRoute));
+					RoutingRating = geocache.Rating / (1 + Math.Min(EstimatedExtraDistance_NewRoute, EstimatedExtraDistance_InRoute));
 				}
 			}
 			private float EstimatedExtraDistance_field=-1;
 
 
 			/// <summary>
-			/// Points for addition, used in filling up the route.
+			/// Rating how good it is to add the Geocache to the Route.
 			/// </summary>
 			/// <value>RoutingPoints = geocache.Rating / (1 + Min(EstimatedExtraDistance ,DistanceToRoute));</value>
-			public float EstimatedRoutingPoints { get; set; }
+			public float RoutingRating { get; set; }
 			[XmlIgnore]
 			public RouterPoint ResolvedCoordinates { get; set; }//Used so coordinates only have to be reoslved once
 
@@ -165,7 +172,7 @@ namespace GeocachingTourPlanner.Routing
 				this.EstimatedExtraDistance_NewRoute = EstimatedExtraDistance;
 				this.ResolvedCoordinates = ResolvedCoordinates;
 
-				EstimatedRoutingPoints = geocache.Rating / (1 + EstimatedExtraDistance * DistanceToRoute);
+				RoutingRating = geocache.Rating / (1 + EstimatedExtraDistance * DistanceToRoute);
 			}
 
 			public GeocacheRoutingInformation(Geocache geocache, float EstimatedExtraDistance, RouterPoint ResolvedCoordinates)

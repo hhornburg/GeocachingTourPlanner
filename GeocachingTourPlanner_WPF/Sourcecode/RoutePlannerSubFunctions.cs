@@ -13,6 +13,7 @@ namespace GeocachingTourPlanner.Routing
 {
     public partial class RoutePlanner
     {
+		#region Route Operations
 		private bool ResolveAndAddGeocachesToPartialRoutes(List<Geocache> geocaches)
 		{
 			//This way the Geocache can be added to multiple partial routes, but no multiple times to the same one
@@ -44,11 +45,131 @@ namespace GeocachingTourPlanner.Routing
 		}
 
 		/// <summary>
+		/// Calculates minimal distance of geocaches in reach of the old route to the new routes. In a second steps it replaces the old route with the new one and updates the distances
+		/// </summary>
+		/// <param name="CompleteRouteData"></param>
+		/// <param name="NewPart1"></param>
+		/// <param name="NewPart2"></param>
+		/// <param name="IndexOfRouteToReplace"></param>
+		private RouteData ReplaceRoute(Route NewPart1, Route NewPart2, PartialRoute OldRoute)
+		{
+			int IndexOfRouteToReplace = CompleteRouteData.partialRoutes.IndexOf(OldRoute);
+			List<GeocacheRoutingInformation> NewPart1Geocaches = new List<GeocacheRoutingInformation>();
+			List<GeocacheRoutingInformation> OldRouteGeocaches1 = new List<GeocacheRoutingInformation>(CompleteRouteData.partialRoutes[IndexOfRouteToReplace].GeocachesInReach);
+			List<GeocacheRoutingInformation> NewPart2Geocaches = new List<GeocacheRoutingInformation>();
+			List<GeocacheRoutingInformation> OldRouteGeocaches2 = new List<GeocacheRoutingInformation>(CompleteRouteData.partialRoutes[IndexOfRouteToReplace].GeocachesInReach);
+			Coordinate Startingpoint = CompleteRouteData.partialRoutes[IndexOfRouteToReplace].partialRoute.Shape[0];
+			Coordinate Endpoint = CompleteRouteData.partialRoutes[IndexOfRouteToReplace].partialRoute.Shape[0];
+
+			Thread Thread1 = new Thread(new ThreadStart(() =>
+			{
+				foreach (GeocacheRoutingInformation GC_Info in new List<GeocacheRoutingInformation>(OldRouteGeocaches1))
+				{
+					float minDistance = ExtraDistance_InRoute(NewPart1, new Coordinate(GC_Info.geocache.lat, GC_Info.geocache.lon));
+					float estimatedDistance = GetEstimatedExtraDistance_NewRoute(NewPart1, new Coordinate(GC_Info.geocache.lat, GC_Info.geocache.lon));
+					NewPart1Geocaches.Add(new GeocacheRoutingInformation(GC_Info.geocache, minDistance, estimatedDistance, GC_Info.ResolvedCoordinates));//Push the resolved location on
+				}
+			}));
+
+			Thread Thread2 = new Thread(new ThreadStart(() =>
+			{
+				foreach (GeocacheRoutingInformation GC_Info in new List<GeocacheRoutingInformation>(OldRouteGeocaches2))
+				{
+					float minDistance = ExtraDistance_InRoute(NewPart1, new Coordinate(GC_Info.geocache.lat, GC_Info.geocache.lon));
+					float estimatedDistance = GetEstimatedExtraDistance_NewRoute(NewPart2, new Coordinate(GC_Info.geocache.lat, GC_Info.geocache.lon));
+					NewPart2Geocaches.Add(new GeocacheRoutingInformation(GC_Info.geocache, minDistance, estimatedDistance, GC_Info.ResolvedCoordinates));//Push the resolved location on
+				}
+
+			}));
+
+			Thread1.Start();
+			Thread2.Start();
+
+			Thread1.Join();
+			Thread2.Join();
+
+			//Put the new parts in place of the old part
+			Route RouteToReplace = CompleteRouteData.partialRoutes[IndexOfRouteToReplace].partialRoute;
+			CompleteRouteData.partialRoutes.RemoveAt(IndexOfRouteToReplace);
+			CompleteRouteData.partialRoutes.InsertRange(IndexOfRouteToReplace, new List<PartialRoute>()
+			{
+				new PartialRoute(NewPart1, NewPart1Geocaches),
+				new PartialRoute(NewPart2, NewPart2Geocaches)
+			});
+
+			CompleteRouteData.TotalDistance -= RouteToReplace.TotalDistance;
+			CompleteRouteData.TotalDistance += NewPart1.TotalDistance;
+			CompleteRouteData.TotalDistance += NewPart2.TotalDistance;
+
+			CompleteRouteData.TotalTime -= RouteToReplace.TotalTime;
+			CompleteRouteData.TotalTime += NewPart1.TotalTime;
+			CompleteRouteData.TotalTime += NewPart2.TotalTime;
+
+			return CompleteRouteData;
+
+		}
+
+		/// <summary>
+		/// Calculates the routes from the startpoint of the RouteToInsertIn to the ResolvedCoordinates and from there to the Endpoint
+		/// </summary>
+		/// <param name="CompleteRouteData"></param>
+		/// <param name="RouteToInsertIn"></param>
+		/// <param name="ResolvedCoordinates"></param>
+		/// <returns></returns>
+		private Result<Tuple<Route, Route>> GetPartialRoutes(Route RouteToInsertIn, RouterPoint ResolvedCoordinates)
+		{
+			Route NewPart1 = null;
+			Route NewPart2 = null;
+
+			Result<Route> RouteCalculationResult1 = Router1.TryCalculate(CompleteRouteData.Profile.ItineroProfile.profile, Router1.Resolve(CompleteRouteData.Profile.ItineroProfile.profile, RouteToInsertIn.Shape[0]), ResolvedCoordinates);
+			if (!RouteCalculationResult1.IsError)
+			{
+				NewPart1 = RouteCalculationResult1.Value;
+
+				Result<Route> RouteCalculationResult2 = Router2.TryCalculate(CompleteRouteData.Profile.ItineroProfile.profile, ResolvedCoordinates, Router2.Resolve(CompleteRouteData.Profile.ItineroProfile.profile, RouteToInsertIn.Shape[RouteToInsertIn.Shape.Length - 1]));
+				if (!RouteCalculationResult2.IsError)
+				{
+					NewPart2 = RouteCalculationResult2.Value;
+					FailedRouteCalculations--;//To make sure error isn't thrown when x geocaches create error, but only if there are more geocaches in row that cause error than not
+				}
+				//Resolving error of Item on Route shouldn't happen
+				else
+				{
+					FailedRouteCalculations++;
+					return new Result<Tuple<Route, Route>>("RouteCalculationFailed");
+				}
+			}
+			else
+			{
+				FailedRouteCalculations++;
+				return new Result<Tuple<Route, Route>>("RouteCalculationFailed");
+			}
+
+			return new Result<Tuple<Route, Route>>(new Tuple<Route, Route>(NewPart1, NewPart2));
+		}
+
+		private bool CheckIfIsland()
+		{
+			if (FailedRouteCalculations >= FailedRouteCalculationsLimit)
+			{
+				MessageBox.Show("Couldn't properly calculate route due to a probable island. Please select different Start/Endpoints", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		#endregion
+
+		#region Geocache Operations
+
+		/// <summary>
 		/// Returns new list with all geocaches that don't have a negtive rating
 		/// </summary>
 		/// <param name="AllGeocaches"></param>
 		/// <returns></returns>
-		private List<Geocache> RemoveGeocachesWithNegativePoints(List<Geocache> AllGeocaches)
+		private static List<Geocache> RemoveGeocachesWithNegativePoints(List<Geocache> AllGeocaches)
 		{
 			List<Geocache> UsableGeocaches = new List<Geocache>();
 			Parallel.ForEach(AllGeocaches, GC =>
@@ -129,119 +250,41 @@ namespace GeocachingTourPlanner.Routing
 		}
 
 		/// <summary>
-		/// Calculates minimal distance of geocaches in reach of the old route to the new routes. In a second steps it replaces the old route with the new one and updates the distances
+		/// Only needs to check wether the extra distances are calculated, since when these are set, the RoutingRating is recalculated anyway
 		/// </summary>
-		/// <param name="CompleteRouteData"></param>
-		/// <param name="NewPart1"></param>
-		/// <param name="NewPart2"></param>
-		/// <param name="IndexOfRouteToReplace"></param>
-		private RouteData ReplaceRoute(RouteData CompleteRouteData, Route NewPart1, Route NewPart2, int IndexOfRouteToReplace)
+		/// <param name="route"></param>
+		/// <param name="GCRI"></param>
+		private void DoRoutingRating(Route route, GeocacheRoutingInformation GCRI)
 		{
-			List<GeocacheRoutingInformation> NewPart1Geocaches = new List<GeocacheRoutingInformation>();
-			List<GeocacheRoutingInformation> OldRouteGeocaches1 = new List<GeocacheRoutingInformation>(CompleteRouteData.partialRoutes[IndexOfRouteToReplace].GeocachesInReach);
-			List<GeocacheRoutingInformation> NewPart2Geocaches = new List<GeocacheRoutingInformation>();
-			List<GeocacheRoutingInformation> OldRouteGeocaches2 = new List<GeocacheRoutingInformation>(CompleteRouteData.partialRoutes[IndexOfRouteToReplace].GeocachesInReach);
-			Coordinate Startingpoint = CompleteRouteData.partialRoutes[IndexOfRouteToReplace].partialRoute.Shape[0];
-			Coordinate Endpoint = CompleteRouteData.partialRoutes[IndexOfRouteToReplace].partialRoute.Shape[0];
-
-			Thread Thread1 = new Thread(new ThreadStart(() =>
+			if (GCRI.EstimatedExtraDistance_InRoute < 0)
 			{
-				foreach (GeocacheRoutingInformation GC_Info in new List<GeocacheRoutingInformation>(OldRouteGeocaches1))
-				{
-					float minDistance = ExtraDistance_InRoute(NewPart1, new Coordinate(GC_Info.geocache.lat, GC_Info.geocache.lon));
-					float estimatedDistance = GetEstimatedExtraDistance_NewRoute(NewPart1, new Coordinate(GC_Info.geocache.lat, GC_Info.geocache.lon));
-					NewPart1Geocaches.Add(new GeocacheRoutingInformation(GC_Info.geocache, minDistance, estimatedDistance, GC_Info.ResolvedCoordinates));//Push the resolved location on
-				}
-			}));
-
-			Thread Thread2 = new Thread(new ThreadStart(() =>
+				GCRI.EstimatedExtraDistance_InRoute = ExtraDistance_InRoute(route, new Coordinate(GCRI.geocache.lat, GCRI.geocache.lon));
+			}
+			if (GCRI.EstimatedExtraDistance_NewRoute < 0)
 			{
-				foreach (GeocacheRoutingInformation GC_Info in new List<GeocacheRoutingInformation>(OldRouteGeocaches2))
-				{
-					float minDistance = ExtraDistance_InRoute(NewPart1, new Coordinate(GC_Info.geocache.lat, GC_Info.geocache.lon));
-					float estimatedDistance = GetEstimatedExtraDistance_NewRoute(NewPart2, new Coordinate(GC_Info.geocache.lat, GC_Info.geocache.lon));
-					NewPart2Geocaches.Add(new GeocacheRoutingInformation(GC_Info.geocache, minDistance, estimatedDistance, GC_Info.ResolvedCoordinates));//Push the resolved location on
-				}
-
-			}));
-
-			Thread1.Start();
-			Thread2.Start();
-
-			Thread1.Join();
-			Thread2.Join();
-
-			//Put the new parts in place of the old part
-			Route RouteToReplace = CompleteRouteData.partialRoutes[IndexOfRouteToReplace].partialRoute;
-			CompleteRouteData.partialRoutes.RemoveAt(IndexOfRouteToReplace);
-			CompleteRouteData.partialRoutes.InsertRange(IndexOfRouteToReplace, new List<PartialRoute>()
-			{
-				new PartialRoute(NewPart1, NewPart1Geocaches),
-				new PartialRoute(NewPart2, NewPart2Geocaches)
-			});
-
-			CompleteRouteData.TotalDistance -= RouteToReplace.TotalDistance;
-			CompleteRouteData.TotalDistance += NewPart1.TotalDistance;
-			CompleteRouteData.TotalDistance += NewPart2.TotalDistance;
-
-			CompleteRouteData.TotalTime -= RouteToReplace.TotalTime;
-			CompleteRouteData.TotalTime += NewPart1.TotalTime;
-			CompleteRouteData.TotalTime += NewPart2.TotalTime;
-
-			return CompleteRouteData;
-
+				GCRI.EstimatedExtraDistance_NewRoute = GetEstimatedExtraDistance_NewRoute(route, new Coordinate(GCRI.geocache.lat, GCRI.geocache.lon));
+			}
 		}
 
 		/// <summary>
-		/// Calculates the routes from the startpoint of the RouteToInsertIn to the ResolvedCoordinates and from there to the Endpoint
+		/// Retruns a list ordered by RoutingRating of all reachable Geocaches. Updates the ReachableGeocaches List meanwhile
 		/// </summary>
-		/// <param name="CompleteRouteData"></param>
-		/// <param name="RouteToInsertIn"></param>
-		/// <param name="ResolvedCoordinates"></param>
 		/// <returns></returns>
-		private Result<Tuple<Route, Route>> GetPartialRoutes(RouteData CompleteRouteData, Route RouteToInsertIn, RouterPoint ResolvedCoordinates)
+		private void UpdateReachableGeocachesListRoutingRatings()
 		{
-			Route NewPart1 = null;
-			Route NewPart2 = null;
-
-			Result<Route> RouteCalculationResult1 = Router1.TryCalculate(CompleteRouteData.Profile.ItineroProfile.profile, Router1.Resolve(CompleteRouteData.Profile.ItineroProfile.profile, RouteToInsertIn.Shape[0]), ResolvedCoordinates);
-			if (!RouteCalculationResult1.IsError)
+			CompleteRouteData.ReachableGeocaches.Clear();//Since it will be rebuild
+			foreach (PartialRoute PR in CompleteRouteData.partialRoutes)
 			{
-				NewPart1 = RouteCalculationResult1.Value;
-
-				Result<Route> RouteCalculationResult2 = Router2.TryCalculate(CompleteRouteData.Profile.ItineroProfile.profile, ResolvedCoordinates, Router2.Resolve(CompleteRouteData.Profile.ItineroProfile.profile, RouteToInsertIn.Shape[RouteToInsertIn.Shape.Length - 1]));
-				if (!RouteCalculationResult2.IsError)
+				foreach (GeocacheRoutingInformation GC in PR.GeocachesInReach)
 				{
-					NewPart2 = RouteCalculationResult2.Value;
-					FailedRouteCalculations--;//To make sure error isn't thrown when x geocaches create error, but only if there are more geocaches in row that cause error than not
-				}
-				//Resolving error of Item on Route shouldn't happen
-				else
-				{
-					FailedRouteCalculations++;
-					return new Result<Tuple<Route, Route>>("RouteCalculationFailed");
+					if (GC.RoutingRating<0)
+					{
+						DoRoutingRating(PR.partialRoute, GC);
+					}
+					CompleteRouteData.ReachableGeocaches.Add(GC);
 				}
 			}
-			else
-			{
-				FailedRouteCalculations++;
-				return new Result<Tuple<Route, Route>>("RouteCalculationFailed");
-			}
-
-			return new Result<Tuple<Route, Route>>(new Tuple<Route, Route>(NewPart1, NewPart2));
 		}
-
-		private bool CheckIfIsland()
-		{
-			if (FailedRouteCalculations >= FailedRouteCalculationsLimit)
-			{
-				MessageBox.Show("Couldn't properly calculate route due to a probable island. Please select different Start/Endpoints", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
+		#endregion
 	}
 }
