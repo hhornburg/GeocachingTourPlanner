@@ -30,8 +30,6 @@ namespace GeocachingTourPlanner.UI
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		Map map;
-
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -47,10 +45,9 @@ namespace GeocachingTourPlanner.UI
 
 
 			//Map
-			map = mapControl.Map;
-			map.Info += Map_InfoEvent;
-			map.Hover += Map_Hover;
-			map.Layers.Add(OpenStreetMap.CreateTileLayer());
+			mapControl.Info += Map_InfoEvent;
+			//mapControl.Map.Hover += Map_Hover; TODO replace
+			mapControl.Map.Layers.Add(OpenStreetMap.CreateTileLayer());
 			TooltipCanvas.Visibility = Visibility.Collapsed;
 		}
 
@@ -740,7 +737,7 @@ namespace GeocachingTourPlanner.UI
 		#region UI Events
 		private void Map_OnMapDrag(object sender, DragEventArgs e)
 		{
-			App.DB.LastMapPosition = new Coordinate((float)map.Viewport.ScreenToWorld(map.Viewport.Center).X, (float)map.Viewport.ScreenToWorld(map.Viewport.Center).Y);
+			App.DB.LastMapPosition = new Coordinate((float)mapControl.Viewport.ScreenToWorld(mapControl.Viewport.Center).X, (float)mapControl.Viewport.ScreenToWorld(mapControl.Viewport.Center).Y);
 		}
 
 		private void Map_Enter(object sender, EventArgs e)
@@ -750,8 +747,8 @@ namespace GeocachingTourPlanner.UI
 
 		private void Map_OnMapZoomChanged(object sender, ZoomedEventArgs e)
 		{
-			App.DB.LastMapPosition = new Coordinate((float)map.Viewport.ScreenToWorld(map.Viewport.Center).X, (float)map.Viewport.ScreenToWorld(map.Viewport.Center).Y);
-			App.DB.LastMapResolution = map.Viewport.Resolution;
+			App.DB.LastMapPosition = new Coordinate((float)mapControl.Viewport.ScreenToWorld(mapControl.Viewport.Center).X, (float)mapControl.Viewport.ScreenToWorld(mapControl.Viewport.Center).Y);
+			App.DB.LastMapResolution = mapControl.Viewport.Resolution;
 		}
 
 		private void Map_InfoEvent(object sender, MapInfoEventArgs e)
@@ -787,13 +784,13 @@ namespace GeocachingTourPlanner.UI
 		/// </summary>
 		public void Map_RenewGeocacheLayer()
 		{
-			if (map != null)//Occurs during startup
+			if (mapControl != null)//Occurs during startup
 			{
-				if (map.Layers.Count(x => x.Name == "Geocaches") > 0)
+				if (mapControl.Map.Layers.Count(x => x.Name == "Geocaches") > 0)
 				{
-					foreach (WritableLayer GClayer in map.Layers.Where(x => x.Name == "Geocaches").ToList())
+					foreach (WritableLayer GClayer in mapControl.Map.Layers.Where(x => x.Name == "Geocaches").ToList())
 					{
-						map.Layers.Remove(GClayer);
+						mapControl.Map.Layers.Remove(GClayer);
 					}
 				}
 				WritableLayer GeocacheLayer = new WritableLayer
@@ -806,9 +803,9 @@ namespace GeocachingTourPlanner.UI
 				{
 					GeocacheLayer.Add(Markers.GetGeocacheMarker(GC));
 				}
-				map.Layers.Add(GeocacheLayer);
-				map.InfoLayers.Add(GeocacheLayer);
-				map.HoverLayers.Add(GeocacheLayer);
+				mapControl.Map.Layers.Add(GeocacheLayer);
+				//mapControl.Map.InfoLayers.Add(GeocacheLayer); TODO replace
+				//mapControl.Map.HoverLayers.Add(GeocacheLayer); TODO replace
 				//Set Views
 				if (App.DB.LastMapResolution == 0)
 				{
@@ -819,14 +816,14 @@ namespace GeocachingTourPlanner.UI
 
 		public void Map_NavigateToLastVisited()
 		{
-			map.NavigateTo(App.DB.LastMapResolution);
-			map.NavigateTo(SphericalMercator.FromLonLat(App.DB.LastMapPosition.Longitude, App.DB.LastMapPosition.Latitude));
+			mapControl.Navigator.NavigateTo(App.DB.LastMapResolution);
+			mapControl.Navigator.NavigateTo(SphericalMercator.FromLonLat(App.DB.LastMapPosition.Longitude, App.DB.LastMapPosition.Latitude));
 		}
 		private void SetStartpoint(Coordinate coordinates)
 		{
-			if (map.Layers.Count(x => x.Name == "StartEnd") > 0)
+			if (mapControl.Map.Layers.Count(x => x.Name == "StartEnd") > 0)
 			{
-				WritableLayer Overlay = (WritableLayer)map.Layers.First(x => x.Name == "StartEnd");
+				WritableLayer Overlay = (WritableLayer)mapControl.Map.Layers.First(x => x.Name == "StartEnd");
 				if (Overlay.GetFeatures().Count(x => x["Label"].ToString() == "Startpoint") > 0)
 				{
 					Overlay.TryRemove(Overlay.GetFeatures().First(x => x["Label"].ToString() == "Startpoint"));
@@ -841,17 +838,15 @@ namespace GeocachingTourPlanner.UI
 					Style = null
 				};
 				Overlay.Add(Markers.GetStartMarker(coordinates));
-				map.Layers.Add(Overlay);
+				mapControl.Map.Layers.Add(Overlay);
 			}
-
-			//FIX Remove? StartpointTextbox.Text = coordinates.Latitude.ToString(CultureInfo.InvariantCulture) + ";" + coordinates.Longitude.ToString(CultureInfo.InvariantCulture);
-		}
+        }
 
 		private void SetEndpoint(Coordinate coordinates)
 		{
-			if (map.Layers.Count(x => x.Name == "StartEnd") > 0)
+			if (mapControl.Map.Layers.Count(x => x.Name == "StartEnd") > 0)
 			{
-				WritableLayer Overlay = (WritableLayer)map.Layers.First(x => x.Name == "StartEnd");
+				WritableLayer Overlay = (WritableLayer)mapControl.Map.Layers.First(x => x.Name == "StartEnd");
 				if (Overlay.GetFeatures().Count(x => x["Label"].ToString() == "Endpoint") > 0)
 				{
 					Overlay.TryRemove(Overlay.GetFeatures().First(x => x["Label"].ToString() == "Endpoint"));
@@ -866,7 +861,7 @@ namespace GeocachingTourPlanner.UI
 					Style = null
 				};
 				Overlay.Add(Markers.GetEndMarker(coordinates));
-				map.Layers.Add(Overlay);
+				mapControl.Map.Layers.Add(Overlay);
 			}
 
 			//FIX Remove? EndpointTextbox.Text = coordinates.Latitude.ToString(CultureInfo.InvariantCulture) + ";" + coordinates.Longitude.ToString(CultureInfo.InvariantCulture);

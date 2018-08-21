@@ -38,8 +38,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BruTile, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BruTile.2.0.0\lib\net45\BruTile.dll</HintPath>
+    <Reference Include="BruTile, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BruTile.2.0.1\lib\net45\BruTile.dll</HintPath>
     </Reference>
     <Reference Include="ConcurrentCollections, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ConcurrentHashSet.1.0.2\lib\netstandard1.0\ConcurrentCollections.dll</HintPath>
@@ -51,19 +51,19 @@
       <HintPath>..\packages\Itinero.IO.Osm.1.4.0-pre53\lib\net45\Itinero.IO.Osm.dll</HintPath>
     </Reference>
     <Reference Include="Mapsui, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mapsui.2.0.0-beta.3\lib\net461\Mapsui.dll</HintPath>
+      <HintPath>..\packages\Mapsui.2.0.0-beta.8\lib\net461\Mapsui.dll</HintPath>
     </Reference>
     <Reference Include="Mapsui.Geometries, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mapsui.2.0.0-beta.3\lib\net461\Mapsui.Geometries.dll</HintPath>
+      <HintPath>..\packages\Mapsui.2.0.0-beta.8\lib\net461\Mapsui.Geometries.dll</HintPath>
     </Reference>
     <Reference Include="Mapsui.Rendering.Skia, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mapsui.2.0.0-beta.3\lib\net461\Mapsui.Rendering.Skia.dll</HintPath>
+      <HintPath>..\packages\Mapsui.2.0.0-beta.8\lib\net461\Mapsui.Rendering.Skia.dll</HintPath>
     </Reference>
     <Reference Include="Mapsui.Rendering.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mapsui.2.0.0-beta.3\lib\net461\Mapsui.Rendering.Xaml.dll</HintPath>
+      <HintPath>..\packages\Mapsui.2.0.0-beta.8\lib\net461\Mapsui.Rendering.Xaml.dll</HintPath>
     </Reference>
     <Reference Include="Mapsui.UI.Wpf, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mapsui.2.0.0-beta.3\lib\net461\Mapsui.UI.Wpf.dll</HintPath>
+      <HintPath>..\packages\Mapsui.2.0.0-beta.8\lib\net461\Mapsui.UI.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>

@@ -44,22 +44,22 @@ namespace GeocachingTourPlanner.Routing
 			return true;
 		}
 
-		/// <summary>
-		/// Calculates minimal distance of geocaches in reach of the old route to the new routes. In a second steps it replaces the old route with the new one and updates the distances
-		/// </summary>
-		/// <param name="CompleteRouteData"></param>
-		/// <param name="NewPart1"></param>
-		/// <param name="NewPart2"></param>
-		/// <param name="IndexOfRouteToReplace"></param>
-		private RouteData ReplaceRoute(Route NewPart1, Route NewPart2, PartialRoute OldRoute)
+        /// <summary>
+        /// Calculates minimal distance of geocaches in reach of the old route to the new routes. In a second steps it replaces the old route with the new one and updates the distances
+        /// </summary>
+        /// <param name="RouteDataToReplaceIn">As in AddBestReachableGeocaches multiple instances of RouteData exist </param>
+        /// <param name="NewPart1"></param>
+        /// <param name="NewPart2"></param>
+        /// <param name="OldRoute"></param>
+        private RouteData ReplaceRoute(RouteData RouteDataToReplaceIn, Route NewPart1, Route NewPart2, PartialRoute OldRoute)
 		{
-			int IndexOfRouteToReplace = CompleteRouteData.partialRoutes.IndexOf(OldRoute);
+			int IndexOfRouteToReplace = RouteDataToReplaceIn.partialRoutes.IndexOf(OldRoute);
 			List<GeocacheRoutingInformation> NewPart1Geocaches = new List<GeocacheRoutingInformation>();
-			List<GeocacheRoutingInformation> OldRouteGeocaches1 = new List<GeocacheRoutingInformation>(CompleteRouteData.partialRoutes[IndexOfRouteToReplace].GeocachesInReach);
+			List<GeocacheRoutingInformation> OldRouteGeocaches1 = new List<GeocacheRoutingInformation>(RouteDataToReplaceIn.partialRoutes[IndexOfRouteToReplace].GeocachesInReach);
 			List<GeocacheRoutingInformation> NewPart2Geocaches = new List<GeocacheRoutingInformation>();
-			List<GeocacheRoutingInformation> OldRouteGeocaches2 = new List<GeocacheRoutingInformation>(CompleteRouteData.partialRoutes[IndexOfRouteToReplace].GeocachesInReach);
-			Coordinate Startingpoint = CompleteRouteData.partialRoutes[IndexOfRouteToReplace].partialRoute.Shape[0];
-			Coordinate Endpoint = CompleteRouteData.partialRoutes[IndexOfRouteToReplace].partialRoute.Shape[0];
+			List<GeocacheRoutingInformation> OldRouteGeocaches2 = new List<GeocacheRoutingInformation>(RouteDataToReplaceIn.partialRoutes[IndexOfRouteToReplace].GeocachesInReach);
+			Coordinate Startingpoint = RouteDataToReplaceIn.partialRoutes[IndexOfRouteToReplace].partialRoute.Shape[0];
+			Coordinate Endpoint = RouteDataToReplaceIn.partialRoutes[IndexOfRouteToReplace].partialRoute.Shape[0];
 
 			Thread Thread1 = new Thread(new ThreadStart(() =>
 			{
@@ -89,23 +89,23 @@ namespace GeocachingTourPlanner.Routing
 			Thread2.Join();
 
 			//Put the new parts in place of the old part
-			Route RouteToReplace = CompleteRouteData.partialRoutes[IndexOfRouteToReplace].partialRoute;
-			CompleteRouteData.partialRoutes.RemoveAt(IndexOfRouteToReplace);
-			CompleteRouteData.partialRoutes.InsertRange(IndexOfRouteToReplace, new List<PartialRoute>()
+			Route RouteToReplace = RouteDataToReplaceIn.partialRoutes[IndexOfRouteToReplace].partialRoute;
+			RouteDataToReplaceIn.partialRoutes.RemoveAt(IndexOfRouteToReplace);
+			RouteDataToReplaceIn.partialRoutes.InsertRange(IndexOfRouteToReplace, new List<PartialRoute>()
 			{
 				new PartialRoute(NewPart1, NewPart1Geocaches),
 				new PartialRoute(NewPart2, NewPart2Geocaches)
 			});
 
-			CompleteRouteData.TotalDistance -= RouteToReplace.TotalDistance;
-			CompleteRouteData.TotalDistance += NewPart1.TotalDistance;
-			CompleteRouteData.TotalDistance += NewPart2.TotalDistance;
+			RouteDataToReplaceIn.TotalDistance -= RouteToReplace.TotalDistance;
+			RouteDataToReplaceIn.TotalDistance += NewPart1.TotalDistance;
+			RouteDataToReplaceIn.TotalDistance += NewPart2.TotalDistance;
 
-			CompleteRouteData.TotalTime -= RouteToReplace.TotalTime;
-			CompleteRouteData.TotalTime += NewPart1.TotalTime;
-			CompleteRouteData.TotalTime += NewPart2.TotalTime;
+			RouteDataToReplaceIn.TotalTime -= RouteToReplace.TotalTime;
+			RouteDataToReplaceIn.TotalTime += NewPart1.TotalTime;
+			RouteDataToReplaceIn.TotalTime += NewPart2.TotalTime;
 
-			return CompleteRouteData;
+			return RouteDataToReplaceIn;
 
 		}
 
