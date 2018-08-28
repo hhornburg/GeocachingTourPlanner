@@ -290,3 +290,6 @@ __pycache__/
 Images/Thumbs.db
 Images/Thumbs.db
 Images/CGEO_Symbols_Original/Thumbs.db
+
+##My excludes
+CurrentRelease/

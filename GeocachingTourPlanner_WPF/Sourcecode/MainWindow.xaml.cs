@@ -45,8 +45,6 @@ namespace GeocachingTourPlanner.UI
 
 
 			//Map
-			mapControl.Info += Map_InfoEvent;
-			//mapControl.Map.Hover += Map_Hover; TODO replace
 			mapControl.Map.Layers.Add(OpenStreetMap.CreateTileLayer());
 			TooltipCanvas.Visibility = Visibility.Collapsed;
 		}
@@ -751,30 +749,40 @@ namespace GeocachingTourPlanner.UI
 			App.DB.LastMapResolution = mapControl.Viewport.Resolution;
 		}
 
-		private void Map_InfoEvent(object sender, MapInfoEventArgs e)
+		private void mapControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
-			if (e.MapInfo.Layer!=null && e.MapInfo.Layer.Name == Layers.GeocacheLayer)
+            MapContextMenu.HideContextMenu();
+            MapTooltip.HideTooltip();
+
+            MapInfo mapInfo = GetMapInfo(e);
+			if (mapInfo.Layer!=null && mapInfo.Layer.Name == Layers.GeocacheLayer)
 			{
-				Process.Start("http://coord.info/" + e.MapInfo.Feature[Markers.MarkerFields.Label]);
+				Process.Start("http://coord.info/" + mapInfo.Feature[Markers.MarkerFields.Label]);
 			}
 			e.Handled = true;
 		}
 
-		private void Map_Hover(object sender, MapInfoEventArgs e)
+		private void mapControl_MouseMove(object sender, MouseEventArgs e)
 		{
-			if (e.MapInfo.Feature != null)
+            MapInfo mapInfo = GetMapInfo(e);
+            if (mapInfo.Feature != null)
 			{
-				MapTooltip.ShowTooltip((string)e.MapInfo.Feature[Markers.MarkerFields.TooltipText], new Point(e.MapInfo.ScreenPosition.X, e.MapInfo.ScreenPosition.Y));
+				MapTooltip.ShowTooltip((string)mapInfo.Feature[Markers.MarkerFields.TooltipText], new Point(mapInfo.ScreenPosition.X, mapInfo.ScreenPosition.Y));
 			}
 		}
 
-		private void mapControl_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+		private void mapControl_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
 		{
-			Mapsui.Geometries.Point Location = e.GetPosition(this).ToMapsui();
-			MapInfo mapInfo = mapControl.GetMapInfo(Location);
+            MapInfo mapInfo = GetMapInfo(e);
 			MapContextMenu.ShowContextMenu(mapInfo);
 			e.Handled = true;
 		}
+
+        private MapInfo GetMapInfo(MouseEventArgs e)
+        {
+            Mapsui.Geometries.Point Location = e.GetPosition(mapControl).ToMapsui();
+            return mapControl.GetMapInfo(Location);
+        }
 		#endregion
 
 		#region Methods
@@ -803,8 +811,8 @@ namespace GeocachingTourPlanner.UI
 				{
 					GeocacheLayer.Add(Markers.GetGeocacheMarker(GC));
 				}
+                GeocacheLayer.IsMapInfoLayer = true;
 				mapControl.Map.Layers.Add(GeocacheLayer);
-				//mapControl.Map.InfoLayers.Add(GeocacheLayer); TODO replace
 				//mapControl.Map.HoverLayers.Add(GeocacheLayer); TODO replace
 				//Set Views
 				if (App.DB.LastMapResolution == 0)
@@ -1422,14 +1430,13 @@ else if (App.ImportOfOSMDataRunning)
 			}
 		}
 
-		#endregion
 
-		
-	}
-	/// <summary>
-	/// Quasi enum for layer names
-	/// </summary>
-	public static class Layers
+        #endregion
+    }
+    /// <summary>
+    /// Quasi enum for layer names
+    /// </summary>
+    public static class Layers
 	{
 		public static readonly string GeocacheLayer = "Geocaches";
 		public static readonly string WaypointLayer = "Waypoints";

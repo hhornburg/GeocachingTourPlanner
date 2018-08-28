@@ -18,7 +18,6 @@ namespace GeocachingTourPlanner.UI
 		/// Shows context menu at the given point
 		/// </summary>
 		/// <param name="mapInfo"></param>
-		/// <param name="Location">Screen coordinates</param>
 		public static void ShowContextMenu(MapInfo mapInfo)
 		{
 			if (App.DB.ActiveRoute == null)

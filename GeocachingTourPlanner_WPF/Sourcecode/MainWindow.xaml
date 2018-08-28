@@ -442,7 +442,7 @@
                     </TabItem>
                 </TabControl>
             </Expander>
-            <Mapsui:MapControl x:Name="mapControl" Grid.Column="1" MouseRightButtonUp="mapControl_MouseRightButtonUp"/>
+            <Mapsui:MapControl x:Name="mapControl" Grid.Column="1" MouseRightButtonDown="mapControl_MouseRightButtonDown" MouseLeftButtonDown="mapControl_MouseLeftButtonDown" MouseMove="mapControl_MouseMove"/>
             <Canvas x:Name="TooltipCanvas" Grid.Column="1" Width="Auto" Visibility="Visible">
                 <Border x:Name="TooltipBorder" BorderBrush="Black" BorderThickness="1" CornerRadius="5" Background="LightGray" Opacity=".75">
                     <TextBlock x:Name="TooltipText" Margin="5" FontWeight="Bold" TextWrapping="Wrap"/>
