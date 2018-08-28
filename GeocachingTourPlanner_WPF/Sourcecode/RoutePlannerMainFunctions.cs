@@ -73,6 +73,12 @@ namespace GeocachingTourPlanner.Routing
 		/// <returns></returns>
 		public bool CalculateDirectRoute()
 		{
+            if (CompleteRouteData.Profile == null)
+            {
+                MessageBox.Show("Please select a Routingprofile", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
 			CompleteRouteData.partialRoutes.Clear();
 			CompleteRouteData.GeocachesOnRoute.Clear();
 			CompleteRouteData.TotalDistance = 0;

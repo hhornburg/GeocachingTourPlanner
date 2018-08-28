@@ -128,8 +128,12 @@ namespace GeocachingTourPlanner.UI
 
 		public void Geocaches_ListChanged(object sender, ListChangedEventArgs e)
 		{
-			GeocachesStateLabel.Text = App.Geocaches.Count.ToString() + " Geocaches loaded";
-			Map_RenewGeocacheLayer();
+            Application.Current.Dispatcher.BeginInvoke( //You never know from which thread it is called
+                   new Action(() =>
+                   {
+                       GeocachesStateLabel.Text = App.Geocaches.Count.ToString() + " Geocaches loaded";
+                       Map_RenewGeocacheLayer();
+                   }));
 		}
 		#endregion
 		#endregion
@@ -325,7 +329,7 @@ namespace GeocachingTourPlanner.UI
 					Profile.NMPenalty = Value;
 				}
 
-				if (AgeValue.SelectedItem.ToString() == "multiply with")
+				if (AgeValue.SelectedItem.ToString().ToLower().Contains("multiply"))
 				{
 					Profile.Yearmode = Yearmode.multiply;
 				}
@@ -819,6 +823,7 @@ namespace GeocachingTourPlanner.UI
 				{
 					App.DB.LastMapResolution = 5;
 				}
+                mapControl.Refresh();
 			}
 		}
 
@@ -827,401 +832,47 @@ namespace GeocachingTourPlanner.UI
 			mapControl.Navigator.NavigateTo(App.DB.LastMapResolution);
 			mapControl.Navigator.NavigateTo(SphericalMercator.FromLonLat(App.DB.LastMapPosition.Longitude, App.DB.LastMapPosition.Latitude));
 		}
-		private void SetStartpoint(Coordinate coordinates)
-		{
-			if (mapControl.Map.Layers.Count(x => x.Name == "StartEnd") > 0)
-			{
-				WritableLayer Overlay = (WritableLayer)mapControl.Map.Layers.First(x => x.Name == "StartEnd");
-				if (Overlay.GetFeatures().Count(x => x["Label"].ToString() == "Startpoint") > 0)
-				{
-					Overlay.TryRemove(Overlay.GetFeatures().First(x => x["Label"].ToString() == "Startpoint"));
-				}
-				Overlay.Add(Markers.GetStartMarker(coordinates));
-			}
-			else
-			{
-				WritableLayer Overlay = new WritableLayer
-				{
-					Name = "StartEnd",
-					Style = null
-				};
-				Overlay.Add(Markers.GetStartMarker(coordinates));
-				mapControl.Map.Layers.Add(Overlay);
-			}
+
+        #endregion
+        #endregion
+
+        #region Routes
+        #region UI Events
+        private void CalculateDirectRoute_Click(object sender, RoutedEventArgs e)
+        {
+            App.DB.ActiveRoute.CalculateDirectRoute();
+        }
+        private void AddgeocachesDirectlyOnRoute_Click(object sender, RoutedEventArgs e)
+        {
+            App.DB.ActiveRoute.AddGeocachesDirectlyOnRoute();
+        }
+        private void AddGeocachesCloseToRoute_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void FindBestGeocachesToRoute_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
-		private void SetEndpoint(Coordinate coordinates)
-		{
-			if (mapControl.Map.Layers.Count(x => x.Name == "StartEnd") > 0)
-			{
-				WritableLayer Overlay = (WritableLayer)mapControl.Map.Layers.First(x => x.Name == "StartEnd");
-				if (Overlay.GetFeatures().Count(x => x["Label"].ToString() == "Endpoint") > 0)
-				{
-					Overlay.TryRemove(Overlay.GetFeatures().First(x => x["Label"].ToString() == "Endpoint"));
-				}
-				Overlay.Add(Markers.GetEndMarker(coordinates));
-			}
-			else
-			{
-				WritableLayer Overlay = new WritableLayer
-				{
-					Name = "StartEnd",
-					Style = null
-				};
-				Overlay.Add(Markers.GetEndMarker(coordinates));
-				mapControl.Map.Layers.Add(Overlay);
-			}
+        private void ExportRoute_Click(object sender, RoutedEventArgs e)
+        {
+            Fileoperations.ExportGPX(App.DB.ActiveRoute);
+        }
 
-			//FIX Remove? EndpointTextbox.Text = coordinates.Latitude.ToString(CultureInfo.InvariantCulture) + ";" + coordinates.Longitude.ToString(CultureInfo.InvariantCulture);
-		}
-		#endregion
-
-		#region To Rebuild
-
-		#region RouteDisplay
-		/* TODO Has to be redone in some wayy when Layout is fixed
-		delegate void newRouteControlElementDelegate(string OverlayTag);
-		public void newRouteControlElement(string OverlayTag)
-		{
-			
-			GroupBox groupBox = new GroupBox();
-			groupBox.Text = OverlayTag;
-			groupBox.AutoSize = true;
-			groupBox.Dock = DockStyle.Fill;
-
-			TableLayoutPanel Table = new TableLayoutPanel();
-			Table.RowCount = 2;
-			Table.ColumnCount = 2;
-			Table.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
-			Table.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
-			Table.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-			Table.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-			Table.Dock = DockStyle.Fill;
-			Table.AutoSize = true;
-			groupBox.Controls.Add(Table);
-
-			CheckBox RouteControl = new CheckBox();
-			RouteControl.Text = "show";
-			RouteControl.AutoSize = true;
-			RouteControl.Checked = true;
-			RouteControl.CheckedChanged += (sender, e) => RouteControlElement_CheckedChanged(sender, OverlayTag);
-			RouteControl.Dock = DockStyle.Fill;
-			Table.Controls.Add(RouteControl, 0, 0);
-
-			Label Info = new Label();
-			Tourplanning.RouteData ThisRouteData = App.Routes.First(x => x.Key == OverlayTag).Value;
-			List<Geocache> GeocachesOnRoute = ThisRouteData.GeocachesOnRoute();
-			int NumberOfGeocaches = GeocachesOnRoute.Count;
-			float SumOfPoints = 0;
-			foreach (Geocache GC in GeocachesOnRoute)
-			{
-				SumOfPoints += GC.Rating;
-			}
-			float Length = ThisRouteData.TotalDistance / 1000;
-			TimeSpan TimeNeeded = TimeSpan.FromSeconds(ThisRouteData.TotalTime) + TimeSpan.FromMinutes(GeocachesOnRoute.Count * ThisRouteData.Profile.TimePerGeocache);
-			Info.Text = "Geocaches: " + NumberOfGeocaches + "\nPoints: " + SumOfPoints + "\nLength in km: " + Length.ToString("#.##") + "\n Time in min:" + TimeNeeded.TotalMinutes.ToString("#.");
-			Info.Dock = DockStyle.Fill;
-			Info.AutoSize = true;
-			Table.Controls.Add(Info, 1, 0);
-
-			Button DeleteButton = new Button();
-			DeleteButton.Text = "Delete";
-			DeleteButton.Click += (sender, e) => DeleteButton_Click(sender, e, OverlayTag);
-			DeleteButton.Dock = DockStyle.Fill;
-			DeleteButton.Height = 20;
-			Table.Controls.Add(DeleteButton, 0, 1);
-
-			Button ExportButton = new Button();
-			ExportButton.Text = "Export";
-			ExportButton.Click += (sender, e) => Export_Click(OverlayTag);
-			ExportButton.Dock = DockStyle.Fill;
-			ExportButton.Height = 20;
-			Table.Controls.Add(ExportButton, 1, 1);
-
-			MapTab_SideMenu.RowCount++;
-			MapTab_SideMenu.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-			MapTab_SideMenu.Controls.Add(groupBox, 0, MapTab_SideMenu.RowCount);
-			RouteControl.Show();*//*
-		}
-
-		delegate void AddFinalRouteDelegate(Tourplanning.RouteData Result);
-		public void AddFinalRoute(Tourplanning.RouteData Result)
-		{
-			while (Map.Layers.Count(x => x.Name == "PreliminaryRoute") > 0)
-			{
-				Map.Layers.Remove(Map.Layers.First(x => x.Name == "PreliminaryRoute"));//Remove the live displayed routes
-			}
-
-			Route FinalRoute = Result.partialRoutes[0].partialRoute;
-
-			for (int i = 1; i < Result.partialRoutes.Count; i++)
-			{
-				FinalRoute = FinalRoute.Concatenate(Result.partialRoutes[i].partialRoute);
-			}
-
-			List<Geocache> GeocachesOnRoute = Result.GeocachesOnRoute();
-
-			//Name of the route which will be used for all further referencing
-			string Routetag = Result.Profile.Name + " Route " + (Result.Profile.RoutesOfthisType + 1);
-
-			App.Routes.Add(new KeyValuePair<string, Tourplanning.RouteData>(Routetag, Result));
-			List<Coordinate> LatLongPointList = new List<Coordinate>();
-
-			foreach (Coordinate COO in FinalRoute.Shape)
-			{
-				LatLongPointList.Add(new Coordinate(COO.Latitude, COO.Longitude));
-			}
-
-			Result.Profile.RoutesOfthisType++;
-
-			WritableLayer RouteLayer = new WritableLayer
-			{
-				Name = "StartEnd",
-				Style = null
-			};
-
-			foreach (Geocache GC in GeocachesOnRoute)
-			{
-				RouteLayer.Add(Markers.GetGeocacheMarker(GC));
-			}
-
-			Feature Route = new Feature(LatLongPointList, Routetag); //TODO Lookup how lines work
-			RouteLayer.Add(Route);
-
-			Map.Layers.Add(RouteLayer);
-
-			newRouteControlElement(Routetag);
-			App.RouteCalculationRunning = false;
-			//FIX Application.UseWaitCursor = false;
-			LoadMap();
-		}
-
-		delegate void DisplayPreliminaryRouteDelegate(Route PreliminaryRoute);
-		public void DisplayPreliminaryRoute(Route PreliminaryRoute)
-		{
-			if (App.DB.DisplayLiveCalculation && App.RouteCalculationRunning)//If the calculation is not running anymore, the thread was late and no route should be displayed
-			{
-				while (Map.Layers.Count(x => x.Name == "PreliminaryRoute") > 0)
-				{
-					Map.Layers.Remove(Map.Layers.First(x => x.Name == "PreliminaryRoute"));//Remove the live displayed routes
-				}
-
-				List<Coordinate> GMAPRoute = new List<Coordinate>();
-
-				foreach (Coordinate COO in PreliminaryRoute.Shape)
-				{
-					GMAPRoute.Add(new Coordinate(COO.Latitude, COO.Longitude));
-				}
-				WritableLayer PreliminaryRouteLayer = new WritableLayer
-				{
-					Name = "PreliminaryRoute",
-					Style = null
-				};
-				PreliminaryRouteLayer.Add(new Feature(GMAPRoute, "PreliminaryRoute")); //TODO Lookup how routes work
-				Map.Layers.Add(PreliminaryRouteLayer);
-
-				LoadMap();
-			}
-		}
-		*/
-		#endregion
-
-		/// <summary>
-		/// Returns true if geocaches were rated successfully
-		/// </summary>
-		/// <returns></returns>
-		/*
-private void CreateRouteButtonClick(object sender, EventArgs e)
-{
-if (!App.RouteCalculationRunning && !App.ImportOfOSMDataRunning)
-{
-	UpdateStatus("Started Route Calculation");
-	App.RouteCalculationRunning = true;
-	//FIX Application.UseWaitCursor = true;
-
-	#region get values
-	if (App.DB.ActiveRoutingprofile!=null)
-	{
-		MessageBox.Show("No Routingprofile set.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-		App.RouteCalculationRunning = false;
-		//FIX Application.UseWaitCursor = false;
-		return;
-	}
-
-	Routingprofile SelectedProfile = App.DB.ActiveRoutingprofile;
-
-	List<Geocache> GeocachesToInclude = new List<Geocache>();
-	foreach (Geocache GC in App.Geocaches.Where(x => x.ForceInclude))
-	{
-		GeocachesToInclude.Add(GC);
-	}
-
-	float StartLat = 0;
-	float StartLon = 0;
-	float EndLat = 0;
-	float EndLon = 0;
-
-	if (StartpointTextbox.Text.Length == 0)
-	{
-		MessageBox.Show("No Startpoint set. Please type one in or select one with right click on the map", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-		App.RouteCalculationRunning = false;
-		//FIX Application.UseWaitCursor = false;
-		return;
-	}
-
-	if (!float.TryParse(StartpointTextbox.Text.Substring(0, StartpointTextbox.Text.IndexOf(";") - 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out StartLat))
-	{
-		MessageBox.Show("Couldn't parse latitude of Startcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-		App.RouteCalculationRunning = false;
-		//FIX Application.UseWaitCursor = false;
-		return;
-	}
-	if (!float.TryParse(StartpointTextbox.Text.Substring(StartpointTextbox.Text.IndexOf(";") + 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out StartLon))
-	{
-		MessageBox.Show("Couldn't parse longitude Startcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-		App.RouteCalculationRunning = false;
-		//FIX Application.UseWaitCursor = false;
-		return;
-	}
-
-	if (EndpointTextbox.Text.Length == 0)
-	{
-		if (MessageBox.Show("No Endpoint set. Do you want to set Startpoint as Endpoint as well?", "Question", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-		{
-			EndLat = StartLat;
-			EndLon = StartLon;
-			EndpointTextbox.Text = EndLat.ToString(CultureInfo.InvariantCulture) + ";" + EndLon.ToString(CultureInfo.InvariantCulture);
-		}
-		else
-		{
-			App.RouteCalculationRunning = false;
-			//FIX Application.UseWaitCursor = false;
-			return;
-		}
-	}
-	else
-	{
-		if (!float.TryParse(EndpointTextbox.Text.Substring(0, EndpointTextbox.Text.IndexOf(";") - 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out EndLat))
-		{
-
-			MessageBox.Show("Couldn't parse latitude of Endcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-			App.RouteCalculationRunning = false;
-			//FIX Application.UseWaitCursor = false;
-			return;
-
-		}
-		if (!float.TryParse(EndpointTextbox.Text.Substring(EndpointTextbox.Text.IndexOf(";") + 1), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out EndLon))
-		{
-			//Big procedure only once, as the result would be the same
-			MessageBox.Show("Couldn't parse longitude of Endcoordinates. Are the coordinates separated by a \";\"?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-			App.RouteCalculationRunning = false;
-			//FIX Application.UseWaitCursor = false;
-			return;
-		}
-	}
-
-	//Check if Start and Endpoint have been selected
-	if (StartLat == 0 && StartLon == 0 && EndLat == 0 && EndLon == 0)
-	{
-		MessageBox.Show("Please select a Startingpoint and a Finalpoint", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-		App.RouteCalculationRunning = false;
-		//FIX Application.UseWaitCursor = false;
-		return;
-	}
-	#endregion
-
-	new Thread(new ThreadStart(() =>
-	{
-		new Tourplanning().GetRoute_Recursive(SelectedProfile, App.Geocaches.ToList(), new Coordinate(StartLat, StartLon), new Coordinate(EndLat, EndLon), GeocachesToInclude);
-	}
-	)).Start();
-}
-else if (App.ImportOfOSMDataRunning)
-{
-	MessageBox.Show("Please wait until the OSM Data is imported.");
-}
-}
-*/
-
-		#region Startpoint
-		/*
-	private bool StartpointChanged = false;
-	private void StartpointTextbox_TextChanged(object sender, EventArgs e)
-	{
-		StartpointChanged = true;
-	}
-
-	private void StartpointTextbox_Leave(object sender, EventArgs e)
-	{
-		Result<Coordinate> Coordinates = ExtractCoordinates(StartpointTextbox.Text);
-		if (!Coordinates.IsError)
-		{
-			SetStartpoint(Coordinates.Value);
-		}
-	}
-	*/
-		#endregion
-
-		#region Endpoint
-		/*
-	private bool EndpointChanged = false;
-	private void EndpointTextbox_TextChanged(object sender, EventArgs e)
-	{
-		EndpointChanged = true;
-	}
-
-	private void EndpointTextbox_Leave(object sender, EventArgs e)
-	{
-		Result<Coordinate> Coordinates = ExtractCoordinates(EndpointTextbox.Text);
-		if (!Coordinates.IsError)
-		{
-			SetEndpoint(Coordinates.Value);
-		}
-	}
-	*/
-		#endregion
-
-		#region Routes
-		/*
-	private void DeleteButton_Click(object sender, EventArgs e, string OverlayTag)
-	{
-		App.Routes.Remove(App.Routes.First(x => x.Key == OverlayTag));
-		Map.Overlays.Remove(Map.Overlays.First(x => x.Id == OverlayTag));
-		((Button)sender).Parent.Parent.Dispose();//=The Groupbox
-		LoadMap();
-	}
-
-	private void Export_Click(string OverlayTag)
-	{
-		Fileoperations.ExportGPX(OverlayTag);
-	}
-
-	private void RouteControlElement_CheckedChanged(object sender, string Overlaytag)
-	{
-		if (((CheckBox)sender).Checked)
-		{
-			Map.Overlays.First(x => x.Id == Overlaytag).IsVisibile = true;
-		}
-		else
-		{
-			Map.Overlays.First(x => x.Id == Overlaytag).IsVisibile = false;
-		}
-		LoadMap();
-	}
-	*/
-		#endregion
-		#endregion
-
-		#endregion
-
-		#region Routes
-		#region Events
-		/// <summary>
-		/// keeps the Comboboxes updated
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		public void Routes_ListChanged(object sender, ListChangedEventArgs e)
+        private void DeleteRoute_Click(object sender, RoutedEventArgs e)
+        {
+            App.Routes.Remove(App.DB.ActiveRoute);
+            mapControl.Map.Layers.Remove(mapControl.Map.Layers.First(x => x.Name == "Route:"+App.DB.ActiveRoute.Name));
+        }
+        #endregion
+        #region Events
+        /// <summary>
+        /// keeps the Comboboxes updated
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void Routes_ListChanged(object sender, ListChangedEventArgs e)
 		{
 			SelectRoute_Combobox.Items.Clear();
 
@@ -1432,6 +1083,8 @@ else if (App.ImportOfOSMDataRunning)
 
 
         #endregion
+
+        
     }
     /// <summary>
     /// Quasi enum for layer names
