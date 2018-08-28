@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.IO;
+using System.Windows;
 
 namespace GeocachingTourPlanner.UI
 {
@@ -18,6 +20,22 @@ namespace GeocachingTourPlanner.UI
 		public LicenseWindow()
 		{
 			InitializeComponent();
+
+            string License = "";
+            try
+            {   // Open the text file using a stream reader.
+                using (StreamReader sr = new StreamReader("LICENSE"))
+                {
+                    // Read the stream to a string, and write the string to the console.
+                    License = sr.ReadToEnd();
+                    LicenseTextBlock.Text = License;
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Could not find license file. \nPlease check https://github.com/pingurus/GeocachingTourPlanner/blob/master/LICENSE");
+            }
+
 		}
 
 		private void Decline(object sender, RoutedEventArgs e)

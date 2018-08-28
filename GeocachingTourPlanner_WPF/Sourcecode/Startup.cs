@@ -3,6 +3,7 @@ using GeocachingTourPlanner.IO;
 using GeocachingTourPlanner.Types;
 using GeocachingTourPlanner.UI;
 using Itinero.LocalGeo;
+using System;
 using System.ComponentModel;
 using System.IO;
 
@@ -33,10 +34,15 @@ namespace GeocachingTourPlanner
 			App.mainWindow.UpdateSettingsTextBoxes();
 			CheckSettings();
 			BindLists();
-
-			App.mainWindow.Show();
-			App.StartupCompleted = true;
-			App.mainWindow.Map_NavigateToLastVisited();
+            try
+            {
+                App.mainWindow.Show();
+                App.StartupCompleted = true;
+                App.mainWindow.Map_NavigateToLastVisited();
+            }catch(Exception e)
+            {
+                //Happens when declining license
+            }
 		}
 		/// <summary>
 		/// Called on first startup of App

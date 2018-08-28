@@ -6,15 +6,20 @@
         xmlns:local="clr-namespace:GeocachingTourPlanner"
         xmlns:p="clr-namespace:GeocachingTourPlanner.Properties"
         mc:Ignorable="d"
-        Title="Please accept the license" Height="Auto" Width="600">
-    <DockPanel>
-        <ScrollViewer DockPanel.Dock="Top" MinHeight="300" VerticalAlignment="Stretch">
-            <TextBlock Text="Test"/>
+        Title="Please accept the license" Height="Auto" Width="450">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <ScrollViewer Grid.Row="0" MinHeight="300" VerticalAlignment="Stretch" Width="Auto">
+            <TextBlock Name="LicenseTextBlock" Text="You should see a License here"/>
         </ScrollViewer>
         
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Button MinWidth="80" Click="Decline">Decline</Button>
             <Button MinWidth="80" Click="Accept">Accept</Button>
         </StackPanel>
-    </DockPanel>
+    </Grid>
 </Window>
