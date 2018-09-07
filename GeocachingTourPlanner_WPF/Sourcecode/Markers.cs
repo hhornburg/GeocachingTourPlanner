@@ -184,32 +184,16 @@ namespace GeocachingTourPlanner.UI
 		/// <summary>
 		/// Returns a Feature to be added to the mapsui map
 		/// </summary>
-		/// <param name="coords"></param>
 		/// <returns></returns>
-		public static Feature GetStartMarker(Coordinate coords)
+		public static Feature GetWaypointMarker(Waypoint WP)
 		{
 			//TODO new Marker
 
 			IStyle MarkerStyle = new SymbolStyle { BitmapId = BitmapRegistry.Instance.Register(Properties.Images.Pin_black), SymbolType = SymbolType.Svg, SymbolScale = App.DB.MarkerSize, SymbolOffset = new Offset(0.0, 0.5, true) };
 
-			Feature StartMarker = new Feature { Geometry = SphericalMercator.FromLonLat(coords.Longitude, coords.Latitude), [MarkerFields.Type] = MarkerTypes.Waypoint, [MarkerFields.Label] = "Start" };
+			Feature StartMarker = new Feature { Geometry = SphericalMercator.FromLonLat(WP.lon, WP.lat), [MarkerFields.Type] = MarkerTypes.Waypoint, [MarkerFields.Label] = "Start" };
 			StartMarker.Styles.Add(MarkerStyle);
 			return StartMarker;
-		}
-
-		/// <summary>
-		/// Returns a Feature to be added to the mapsui map
-		/// </summary>
-		/// <param name="coords"></param>
-		/// <returns></returns>
-		public static Feature GetEndMarker(Coordinate coords)
-		{
-			//TODO new Marker
-			IStyle MarkerStyle = new SymbolStyle { BitmapId = BitmapRegistry.Instance.Register(Properties.Images.Pin_black), SymbolType = SymbolType.Svg, SymbolScale = App.DB.MarkerSize, SymbolOffset = new Offset(0.0, 0.5, true) };
-
-			Feature EndMarker = new Feature { Geometry = SphericalMercator.FromLonLat(coords.Longitude, coords.Latitude), [MarkerFields.Type]=MarkerTypes.Waypoint ,[MarkerFields.Label] = "End" };
-			EndMarker.Styles.Add(MarkerStyle);
-			return EndMarker;
 		}
 
 		enum Category

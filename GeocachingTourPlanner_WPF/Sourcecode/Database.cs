@@ -6,6 +6,9 @@ using System.IO;
 
 namespace GeocachingTourPlanner.Types
 {
+    /// <summary>
+    /// A change to any element here will result in a backup of the database
+    /// </summary>
 	public class Database
 	{
 		private string _lastUsedFilepath;
@@ -38,88 +41,88 @@ namespace GeocachingTourPlanner.Types
 		/// <summary>
 		/// Letzer Speicherrt der in einem Dateimangaer benutzt wurde
 		/// </summary>
-		public string LastUsedFilepath { get => _lastUsedFilepath; set { _lastUsedFilepath = value; Fileoperations.Backup(null); } }
+		public string LastUsedFilepath { get => _lastUsedFilepath; set { _lastUsedFilepath = value; Fileoperations.Backup(Databases.MainDatabase); } }
 
 		/// <summary>
 		/// Filepath of loaded Geocache DB
 		/// </summary>
-		public string GeocacheDB_Filepath { get => _geocacheDB_Filepath; set { _geocacheDB_Filepath = value; Fileoperations.Backup(null); } }
+		public string GeocacheDB_Filepath { get => _geocacheDB_Filepath; set { _geocacheDB_Filepath = value; Fileoperations.Backup(Databases.MainDatabase); } }
 		/// <summary>
 		/// Filepath of loaded Ratingprofile DB
 		/// </summary>
-		public string RatingprofileDB_Filepath { get => _ratingprofileDB_Filepath; set { _ratingprofileDB_Filepath = value; Fileoperations.Backup(null); } }
+		public string RatingprofileDB_Filepath { get => _ratingprofileDB_Filepath; set { _ratingprofileDB_Filepath = value; Fileoperations.Backup(Databases.MainDatabase); } }
 		/// <summary>
 		/// Filepath of Routingprofile DB
 		/// </summary>
-		public string RoutingprofileDB_Filepath { get => _routingprofileDB_Filepath; set { _routingprofileDB_Filepath = value; Fileoperations.Backup(null); } }
+		public string RoutingprofileDB_Filepath { get => _routingprofileDB_Filepath; set { _routingprofileDB_Filepath = value; Fileoperations.Backup(Databases.MainDatabase); } }
 		/// <summary>
 		/// Filepath of Route DB
 		/// </summary>
-		public string RouteDB_Filepath { get => _routeDB_Filepath; set { _routeDB_Filepath = value; Fileoperations.Backup(null); } }
+		public string RouteDB_Filepath { get => _routeDB_Filepath; set { _routeDB_Filepath = value; Fileoperations.Backup(Databases.MainDatabase); } }
 		/// <summary>
 		/// Filepath of loaded RouterDB
 		/// </summary>
 		public string RouterDB_Filepath
 		{
-			get => _routerDB_Filepath; set { _routerDB_Filepath = value; Fileoperations.Backup(null); }
+			get => _routerDB_Filepath; set { _routerDB_Filepath = value; Fileoperations.Backup(Databases.MainDatabase); }
 		}
 
 		//Mapspecific
 		/// <summary>
 		/// Last used Map resolution
 		/// </summary>
-		public double LastMapResolution { get => _lastMapResolution; set { _lastMapResolution = value; Fileoperations.Backup(null); } }
+		public double LastMapResolution { get => _lastMapResolution; set { _lastMapResolution = value; Fileoperations.Backup(Databases.MainDatabase); } }
 		/// <summary>
 		/// Last map Center
 		/// </summary>
-		public Coordinate LastMapPosition { get => _lastMapPosition; set { _lastMapPosition = value; Fileoperations.Backup(null); } }
+		public Coordinate LastMapPosition { get => _lastMapPosition; set { _lastMapPosition = value; Fileoperations.Backup(Databases.MainDatabase); } }
 
 		/// <summary>
 		/// Ratingprofile that is selected
 		/// </summary>
-		public Ratingprofile ActiveRatingprofile { get => _activeRatingprofile; set { _activeRatingprofile = value; Fileoperations.Backup(null); } }
+		public Ratingprofile ActiveRatingprofile { get => _activeRatingprofile; set { _activeRatingprofile = value; Fileoperations.Backup(Databases.MainDatabase); } }
 		/// <summary>
 		/// Routingprofile that is selected
 		/// </summary>
-		public Routingprofile ActiveRoutingprofile { get => _activeRoutingprofile; set { _activeRoutingprofile = value; Fileoperations.Backup(null); } }
+		public Routingprofile ActiveRoutingprofile { get => _activeRoutingprofile; set { _activeRoutingprofile = value; Fileoperations.Backup(Databases.MainDatabase); } }
 		/// <summary>
 		/// Routingprofile that is selected
 		/// </summary>
-		public RoutePlanner ActiveRoute { get => _activeRoute; set { _activeRoute = value; Fileoperations.Backup(null); } }
+		public RoutePlanner ActiveRoute { get => _activeRoute; set { _activeRoute = value; Fileoperations.Backup(Databases.MainDatabase); } }
 
 		/// <summary>
 		/// Marker size in pixel
 		/// </summary>
-		public int MarkerSize { get => _markerSize; set { _markerSize = value; Fileoperations.Backup(null); } }
+		public int MarkerSize { get => _markerSize; set { _markerSize = value; Fileoperations.Backup(Databases.MainDatabase); } }
 		/// <summary>
 		/// Minimal Rating of all geocaches. Used for the creation of the color coding
 		/// </summary>
-		public float MinimalRating { get => _minimalRating; set { _minimalRating = value; Fileoperations.Backup(null); } }
+		public float MinimalRating { get => _minimalRating; set { _minimalRating = value; Fileoperations.Backup(Databases.MainDatabase); } }
 		/// <summary>
 		/// Maximal Rating of all geocaches. Used for the creation of the color coding
 		/// </summary>
-		public float MaximalRating { get => _maximalRating; set { _maximalRating = value; Fileoperations.Backup(null); } }
+		public float MaximalRating { get => _maximalRating; set { _maximalRating = value; Fileoperations.Backup(Databases.MainDatabase); } }
 
 		/// <summary>
 		/// Wether the routing algorithm should look for geocaches that should be targeted
 		/// </summary>
-		public bool Autotargetselection { get => _autotargetselection; set { _autotargetselection = value; Fileoperations.Backup(null); } }
+		public bool Autotargetselection { get => _autotargetselection; set { _autotargetselection = value; Fileoperations.Backup(Databases.MainDatabase); } }
 		/// <summary>
 		/// How much should be the limit to the distance that the route covers after Autotargetselection
 		/// </summary>
-		public float PercentageOfDistanceInAutoTargetselection_Max { get => _percentageOfDistanceInAutoTargetselection_Max; set { _percentageOfDistanceInAutoTargetselection_Max = value; Fileoperations.Backup(null); } }
+		public float PercentageOfDistanceInAutoTargetselection_Max { get => _percentageOfDistanceInAutoTargetselection_Max; set { _percentageOfDistanceInAutoTargetselection_Max = value; Fileoperations.Backup(Databases.MainDatabase); } }
 		/// <summary>
 		/// How much should be the limit to the distance that the route covers after Autotargetselection
 		/// </summary>
-		public float PercentageOfDistanceInAutoTargetselection_Min { get => _percentageOfDistanceInAutoTargetselection_Min; set { _percentageOfDistanceInAutoTargetselection_Min = value; Fileoperations.Backup(null); } }
+		public float PercentageOfDistanceInAutoTargetselection_Min { get => _percentageOfDistanceInAutoTargetselection_Min; set { _percentageOfDistanceInAutoTargetselection_Min = value; Fileoperations.Backup(Databases.MainDatabase); } }
 		/// <summary>
 		/// How many routes to compare when seleccting targets in Autotargetselection
 		/// </summary>
-		public int RoutefindingWidth { get => _routefindingWidth; set { _routefindingWidth = value; Fileoperations.Backup(null); } }
+		public int RoutefindingWidth { get => _routefindingWidth; set { _routefindingWidth = value; Fileoperations.Backup(Databases.MainDatabase); } }
 		/// <summary>
 		/// Wether the caclulation of the routes should be displayed live
 		/// </summary>
-		public bool DisplayLiveCalculation { get => _displayLiveCalculation; set { _displayLiveCalculation = value; Fileoperations.Backup(null); } }
+		public bool DisplayLiveCalculation { get => _displayLiveCalculation; set { _displayLiveCalculation = value; Fileoperations.Backup(Databases.MainDatabase); } }
 
 		#region Methods
 		/// <summary>
@@ -230,6 +233,7 @@ namespace GeocachingTourPlanner.Types
 
 	public enum Databases
 	{
+        MainDatabase,
 		Geocaches,
 		Ratingprofiles,
 		Routingprofiles,

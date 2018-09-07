@@ -24,7 +24,7 @@ namespace GeocachingTourPlanner
 		/// To make backups faster and minimize damage in loss of compatibility, the Profiles and the Geocaches are put in different Databases
 		/// </summary>
 
-		public static SortableBindingList<Ratingprofile> Ratingprofiles { get; set; } //TODO Check if Bindinglist is needed
+		public static SortableBindingList<Ratingprofile> Ratingprofiles { get; set; }
 		public static SortableBindingList<Routingprofile> Routingprofiles { get; set; }
 		public static SortableBindingList<Geocache> Geocaches { get; set; }
 		public static SortableBindingList<RoutePlanner> Routes { get; set; }

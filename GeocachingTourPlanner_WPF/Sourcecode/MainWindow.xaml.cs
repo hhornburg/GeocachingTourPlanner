@@ -365,6 +365,7 @@ namespace GeocachingTourPlanner.UI
 			}
 			UpdateStatus("Ratingprofile saved");
 			App.Ratingprofiles.Add(Profile);
+            App.DB.ActiveRatingprofile = Profile;
 			EditRatingprofileCombobox.SelectedItem = Profile.Name;
 		}
 
@@ -391,7 +392,7 @@ namespace GeocachingTourPlanner.UI
 			App.DB.MinimalRating = App.Geocaches[App.Geocaches.Count - 1].Rating;
 			Map_RenewGeocacheLayer();
 			UpdateStatus("Geocaches rated");
-			Fileoperations.Backup(App.Geocaches);
+			Fileoperations.Backup(Databases.Geocaches);
 			return true;
 		}
 
@@ -759,7 +760,7 @@ namespace GeocachingTourPlanner.UI
             MapTooltip.HideTooltip();
 
             MapInfo mapInfo = GetMapInfo(e);
-			if (mapInfo.Layer!=null && mapInfo.Layer.Name == Layers.GeocacheLayer)
+			if (mapInfo!=null&&mapInfo.Layer!=null && mapInfo.Layer.Name == Layers.GeocacheLayer)
 			{
 				Process.Start("http://coord.info/" + mapInfo.Feature[Markers.MarkerFields.Label]);
 			}
@@ -769,7 +770,7 @@ namespace GeocachingTourPlanner.UI
 		private void mapControl_MouseMove(object sender, MouseEventArgs e)
 		{
             MapInfo mapInfo = GetMapInfo(e);
-            if (mapInfo.Feature != null)
+            if (mapInfo != null && mapInfo.Feature != null)
 			{
 				MapTooltip.ShowTooltip((string)mapInfo.Feature[Markers.MarkerFields.TooltipText], new Point(mapInfo.ScreenPosition.X, mapInfo.ScreenPosition.Y));
 			}
@@ -778,14 +779,23 @@ namespace GeocachingTourPlanner.UI
 		private void mapControl_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
 		{
             MapInfo mapInfo = GetMapInfo(e);
-			MapContextMenu.ShowContextMenu(mapInfo);
-			e.Handled = true;
+            if (mapInfo != null)
+            {
+                MapContextMenu.ShowContextMenu(mapInfo);
+            }
 		}
 
         private MapInfo GetMapInfo(MouseEventArgs e)
         {
-            Mapsui.Geometries.Point Location = e.GetPosition(mapControl).ToMapsui();
-            return mapControl.GetMapInfo(Location);
+            try
+            {
+                Mapsui.Geometries.Point Location = e.GetPosition(mapControl).ToMapsui();
+                return mapControl.GetMapInfo(Location);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 		#endregion
 
@@ -798,9 +808,10 @@ namespace GeocachingTourPlanner.UI
 		{
 			if (mapControl != null)//Occurs during startup
 			{
-				if (mapControl.Map.Layers.Count(x => x.Name == "Geocaches") > 0)
+                //GeocacheLayer
+				if (mapControl.Map.Layers.Count(x => x.Name == Layers.GeocacheLayer) > 0)
 				{
-					foreach (WritableLayer GClayer in mapControl.Map.Layers.Where(x => x.Name == "Geocaches").ToList())
+					foreach (WritableLayer GClayer in mapControl.Map.Layers.Where(x => x.Name == Layers.GeocacheLayer).ToList())
 					{
 						mapControl.Map.Layers.Remove(GClayer);
 					}
@@ -817,17 +828,47 @@ namespace GeocachingTourPlanner.UI
 				}
                 GeocacheLayer.IsMapInfoLayer = true;
 				mapControl.Map.Layers.Add(GeocacheLayer);
-				//mapControl.Map.HoverLayers.Add(GeocacheLayer); TODO replace
-				//Set Views
-				if (App.DB.LastMapResolution == 0)
-				{
-					App.DB.LastMapResolution = 5;
-				}
-                mapControl.Refresh();
-			}
-		}
 
-		public void Map_NavigateToLastVisited()
+                //Set Views
+                if (App.DB.LastMapResolution == 0)
+                {
+                    App.DB.LastMapResolution = 5;
+                }
+                mapControl.Refresh();
+            }
+		}
+        
+        /// <summary>
+        /// Updates Waypoints shown on Map
+        /// </summary>
+        public void Map_RenewWaypointLayer()
+        {
+            //Waypointlayer
+            if (mapControl.Map.Layers.Count(x => x.Name == Layers.WaypointLayer) > 0)
+            {
+                foreach (WritableLayer WPLayer in mapControl.Map.Layers.Where(x => x.Name == Layers.WaypointLayer).ToList())
+                {
+                    mapControl.Map.Layers.Remove(WPLayer);
+                }
+            }
+            WritableLayer Waypointlayer = new WritableLayer
+            {
+                Name = Layers.WaypointLayer,
+                Style = null
+            };
+
+            foreach (Waypoint WP in App.DB.ActiveRoute.CompleteRouteData.Waypoints)
+            {
+                if (WP.GetType() != typeof(Geocache))
+                {
+                    Waypointlayer.Add(Markers.GetWaypointMarker(WP));
+                }
+            }
+            Waypointlayer.IsMapInfoLayer = true;
+            mapControl.Map.Layers.Add(Waypointlayer);
+        }
+
+        public void Map_NavigateToLastVisited()
 		{
 			mapControl.Navigator.NavigateTo(App.DB.LastMapResolution);
 			mapControl.Navigator.NavigateTo(SphericalMercator.FromLonLat(App.DB.LastMapPosition.Longitude, App.DB.LastMapPosition.Latitude));

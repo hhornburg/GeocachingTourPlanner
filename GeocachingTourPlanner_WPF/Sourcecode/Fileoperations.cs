@@ -224,13 +224,13 @@ namespace GeocachingTourPlanner.IO
 		/// Does not backup during startup process, since it could erase user settings
 		/// </summary>
 		/// <param name="ExtraBackup"></param>
-		public static bool Backup(object ExtraBackup)
+		public static bool Backup(Databases ExtraBackup)
 		{
 			//Don't save anything that is set during initialization and startup, since it is either overriding user settings or redundant
 			if (App.StartupCompleted)
 			{
 				//Aus Performancegrnden nicht alles
-				if (ExtraBackup == App.Geocaches)
+				if (ExtraBackup == Databases.Geocaches)
 				{
 
 					if (App.DB.IsFilepathSet(Databases.Geocaches))
@@ -256,7 +256,7 @@ namespace GeocachingTourPlanner.IO
 					}
 				}
 
-				else if (ExtraBackup == App.Routingprofiles)
+				else if (ExtraBackup == Databases.Routingprofiles)
 				{
 					if (App.DB.IsFilepathSet(Databases.Routingprofiles))
 					{
@@ -281,7 +281,7 @@ namespace GeocachingTourPlanner.IO
 					}
 				}
 
-				else if (ExtraBackup == App.Ratingprofiles)
+				else if (ExtraBackup == Databases.Ratingprofiles)
 				{
 					if (App.DB.IsFilepathSet(Databases.Ratingprofiles))
 					{
@@ -306,7 +306,7 @@ namespace GeocachingTourPlanner.IO
 						}
 					}
 				}
-				else if (ExtraBackup == App.Routes)
+				else if (ExtraBackup == Databases.Routes)
 				{
 					if (App.DB.IsFilepathSet(Databases.Routes))
 					{
@@ -472,7 +472,7 @@ namespace GeocachingTourPlanner.IO
 					if (NewFileDialog.ShowDialog() == true)
 					{
 						//Save the curent geocaches to the current file, so no data is lost. Nothing happens if there are no geocaches. Just to be sure.
-						Backup(App.Geocaches);
+						Backup(Databases.Geocaches);
 
 						//Create new database File
 						File.Create(NewFileDialog.FileName).Close();

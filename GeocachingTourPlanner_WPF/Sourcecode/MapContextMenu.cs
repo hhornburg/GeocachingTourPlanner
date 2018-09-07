@@ -20,7 +20,12 @@ namespace GeocachingTourPlanner.UI
 		/// <param name="mapInfo"></param>
 		public static void ShowContextMenu(MapInfo mapInfo)
 		{
-			if (App.DB.ActiveRoute == null)
+            if (mapInfo == null)
+            {
+                throw new ArgumentNullException(nameof(mapInfo));
+            }
+
+            if (App.DB.ActiveRoute == null)
 			{
 				MessageBox.Show("Please create a route before trying to add waypoints to the route", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 				return;
@@ -147,6 +152,7 @@ namespace GeocachingTourPlanner.UI
 
 			App.DB.ActiveRoute.CompleteRouteData.Waypoints.Insert(0, new Waypoint(lat,lon));
 			HideContextMenu();
+            App.mainWindow.Map_RenewWaypointLayer();
 		}
 
 		private static void AddWaypointToEnd_Click(float lat, float lon)
@@ -164,6 +170,7 @@ namespace GeocachingTourPlanner.UI
 
 			App.DB.ActiveRoute.CompleteRouteData.Waypoints.Add(new Waypoint(lat, lon));
 			HideContextMenu();
-		}
+            App.mainWindow.Map_RenewWaypointLayer();
+        }
 	}
 }
