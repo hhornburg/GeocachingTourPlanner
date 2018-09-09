@@ -414,12 +414,12 @@ namespace GeocachingTourPlanner.UI
 		#region Events
 		private void RoutingprofilesSaveOnly_Click(object sender, RoutedEventArgs e)
 		{
-			CreateRatingprofile();
+			CreateRoutingprofile();
 		}
 
 		private void RoutingprofilesSaveRecaculate_Click(object sender, RoutedEventArgs e)
 		{
-			CreateRatingprofile();
+			CreateRoutingprofile();
 			//TODO recalculate
 		}
 
@@ -866,6 +866,13 @@ namespace GeocachingTourPlanner.UI
             }
             Waypointlayer.IsMapInfoLayer = true;
             mapControl.Map.Layers.Add(Waypointlayer);
+
+            //Set Views
+            if (App.DB.LastMapResolution == 0)
+            {
+                App.DB.LastMapResolution = 5;
+            }
+            mapControl.Refresh();
         }
 
         public void Map_NavigateToLastVisited()
@@ -881,6 +888,12 @@ namespace GeocachingTourPlanner.UI
         #region UI Events
         private void CalculateDirectRoute_Click(object sender, RoutedEventArgs e)
         {
+            if (SelectRoutingprofileCombobox.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a routingprofile");
+                return;
+            }
+            App.DB.ActiveRoute.CompleteRouteData.Profile = App.Routingprofiles.First(x=>x.Name==SelectRoutingprofileCombobox.SelectedItem.ToString());
             App.DB.ActiveRoute.CalculateDirectRoute();
         }
         private void AddgeocachesDirectlyOnRoute_Click(object sender, RoutedEventArgs e)
@@ -938,6 +951,10 @@ namespace GeocachingTourPlanner.UI
 		public void Waypoints_ListChanged(object sender, ListChangedEventArgs e)
 		{
 			WaypointStackpanel.Children.Clear();
+            if (App.DB.ActiveRoute == null)
+            {
+                return; //Occurs during Startup
+            }
 			foreach(Waypoint Item in App.DB.ActiveRoute.CompleteRouteData.Waypoints)
 			{
 				string Name = "Waypoint";

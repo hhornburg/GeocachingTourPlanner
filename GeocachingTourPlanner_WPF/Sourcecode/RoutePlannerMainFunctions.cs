@@ -73,6 +73,13 @@ namespace GeocachingTourPlanner.Routing
 		/// <returns></returns>
 		public bool CalculateDirectRoute()
 		{
+            if(Router1 == null || Router2 == null)
+            {
+                //One for every thread
+                Router1 = new Router(App.RouterDB);
+                Router2 = new Router(App.RouterDB);
+            }
+
             if (CompleteRouteData.Profile == null)
             {
                 MessageBox.Show("Please select a Routingprofile", "Error", MessageBoxButton.OK, MessageBoxImage.Error);

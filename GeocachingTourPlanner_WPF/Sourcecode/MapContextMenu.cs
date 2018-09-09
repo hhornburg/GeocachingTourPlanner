@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using GeocachingTourPlanner.Types;
 using Itinero;
 using Mapsui;
+using Mapsui.Projection;
 using Mapsui.UI;
 
 namespace GeocachingTourPlanner.UI
@@ -31,8 +32,10 @@ namespace GeocachingTourPlanner.UI
 				return;
 			}
 
-			double X = mapInfo.ScreenPosition.X;
-			double Y = mapInfo.ScreenPosition.Y;
+			double ScreenX = mapInfo.ScreenPosition.X;
+			double ScreenY = mapInfo.ScreenPosition.Y;
+
+            Mapsui.Geometries.Point Coordinates = SphericalMercator.ToLonLat(mapInfo.WorldPosition.X, mapInfo.WorldPosition.Y);
 
 			MapTooltip.HideTooltip();
 			App.mainWindow.TooltipCanvas.Visibility = Visibility.Visible;//Just to make sure it is visible
@@ -62,20 +65,20 @@ namespace GeocachingTourPlanner.UI
 				//If the click is not on the feature, it can't be in the route
 				App.mainWindow.ToBeginning.Header = "Add Waypoint to the beginning";
 				App.mainWindow.ToEnd.Header = "Add Waypoint to the end";
-				App.mainWindow.ToBeginning.Click += (s, ev) => AddWaypointToBeginning_Click((float)Y, (float)X);
-				App.mainWindow.ToEnd.Click += (s, ev) => AddWaypointToEnd_Click((float)Y, (float)X);
+				App.mainWindow.ToBeginning.Click += (s, ev) => AddWaypointToBeginning_Click(Coordinates);
+				App.mainWindow.ToEnd.Click += (s, ev) => AddWaypointToEnd_Click(Coordinates);
 			}
 
-			if (X > App.mainWindow.mapControl.ActualWidth - 150)
+			if (ScreenX > App.mainWindow.mapControl.ActualWidth - 150)
 			{
-				X = App.mainWindow.mapControl.ActualWidth - 150;
+				ScreenX = App.mainWindow.mapControl.ActualWidth - 150;
 			}
-			if (Y > App.mainWindow.mapControl.ActualHeight)
+			if (ScreenY > App.mainWindow.mapControl.ActualHeight)
 			{
-				Y = App.mainWindow.mapControl.ActualHeight;
+				ScreenY = App.mainWindow.mapControl.ActualHeight;
 			}
-			Canvas.SetLeft(App.mainWindow.CustomMenuStackpanel, X);
-			Canvas.SetTop(App.mainWindow.CustomMenuStackpanel, Y);
+			Canvas.SetLeft(App.mainWindow.CustomMenuStackpanel, ScreenX);
+			Canvas.SetTop(App.mainWindow.CustomMenuStackpanel, ScreenY);
 		}
 
 		/// <summary>
@@ -137,11 +140,11 @@ namespace GeocachingTourPlanner.UI
 			}
 		}
 
-		private static void AddWaypointToBeginning_Click(float lat, float lon)
+		private static void AddWaypointToBeginning_Click(Mapsui.Geometries.Point Coordinates)
 		{
 			//Since you can't delete items from a list that you are iterating over
 			List<Waypoint> WaypointsToDelete = new List<Waypoint>();
-			foreach (Waypoint item in App.DB.ActiveRoute.CompleteRouteData.Waypoints.Where(x => x.lat == lat && x.lon==lon))
+			foreach (Waypoint item in App.DB.ActiveRoute.CompleteRouteData.Waypoints.Where(x => x.lat == Coordinates.Y && x.lon==Coordinates.X))
 			{
 				WaypointsToDelete.Add(item);
 			}
@@ -150,16 +153,16 @@ namespace GeocachingTourPlanner.UI
 				App.DB.ActiveRoute.CompleteRouteData.Waypoints.Remove(item);
 			}
 
-			App.DB.ActiveRoute.CompleteRouteData.Waypoints.Insert(0, new Waypoint(lat,lon));
+			App.DB.ActiveRoute.CompleteRouteData.Waypoints.Insert(0, new Waypoint((float)Coordinates.Y, (float)Coordinates.X));
 			HideContextMenu();
             App.mainWindow.Map_RenewWaypointLayer();
 		}
 
-		private static void AddWaypointToEnd_Click(float lat, float lon)
+		private static void AddWaypointToEnd_Click(Mapsui.Geometries.Point Coordinates)
 		{
 			//Since you can't delete items from a list that you are iterating over
 			List<Waypoint> WaypointsToDelete = new List<Waypoint>();
-			foreach (Waypoint item in App.DB.ActiveRoute.CompleteRouteData.Waypoints.Where(x => x.lat == lat && x.lon == lon))
+			foreach (Waypoint item in App.DB.ActiveRoute.CompleteRouteData.Waypoints.Where(x => x.lat == Coordinates.Y && x.lon == Coordinates.X))
 			{
 				WaypointsToDelete.Add(item);
 			}
@@ -168,7 +171,7 @@ namespace GeocachingTourPlanner.UI
 				App.DB.ActiveRoute.CompleteRouteData.Waypoints.Remove(item);
 			}
 
-			App.DB.ActiveRoute.CompleteRouteData.Waypoints.Add(new Waypoint(lat, lon));
+			App.DB.ActiveRoute.CompleteRouteData.Waypoints.Add(new Waypoint((float)Coordinates.Y, (float)Coordinates.X));
 			HideContextMenu();
             App.mainWindow.Map_RenewWaypointLayer();
         }

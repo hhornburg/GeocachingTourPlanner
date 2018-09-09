@@ -47,6 +47,7 @@ namespace GeocachingTourPlanner.UI
 		private void Delete_Click(object sender, RoutedEventArgs e)
 		{
 			App.DB.ActiveRoute.CompleteRouteData.Waypoints.Remove(waypoint);
+            App.mainWindow.Map_RenewWaypointLayer();
 		}
 
 		private void CheckClickability()

@@ -187,11 +187,45 @@ namespace GeocachingTourPlanner.UI
 		/// <returns></returns>
 		public static Feature GetWaypointMarker(Waypoint WP)
 		{
-			//TODO new Marker
+            SymbolStyle MarkerStyle = null;
 
-			IStyle MarkerStyle = new SymbolStyle { BitmapId = BitmapRegistry.Instance.Register(Properties.Images.Pin_black), SymbolType = SymbolType.Svg, SymbolScale = App.DB.MarkerSize, SymbolOffset = new Offset(0.0, 0.5, true) };
+            Image OriginalMarker = Properties.Images.Pin_black;
 
-			Feature StartMarker = new Feature { Geometry = SphericalMercator.FromLonLat(WP.lon, WP.lat), [MarkerFields.Type] = MarkerTypes.Waypoint, [MarkerFields.Label] = "Start" };
+            ColorMap[] colorMap = new ColorMap[1];
+            colorMap[0] = new ColorMap();
+            colorMap[0].OldColor = System.Drawing.Color.Black;
+            colorMap[0].NewColor = System.Drawing.Color.Blue; ImageAttributes PinAttributes = new ImageAttributes();
+            PinAttributes.SetRemapTable(colorMap);
+
+            Rectangle PinRect = new Rectangle(0, 0, App.DB.MarkerSize, (int)(1.5 * App.DB.MarkerSize));
+            Rectangle SymbolRect = new Rectangle(0, 0, App.DB.MarkerSize, App.DB.MarkerSize);
+
+            System.Drawing.Bitmap marker_bmp = new System.Drawing.Bitmap(App.DB.MarkerSize, (int)(1.5 * App.DB.MarkerSize));
+            marker_bmp.SetResolution(OriginalMarker.HorizontalResolution, OriginalMarker.VerticalResolution);
+
+            using (Graphics graphics = Graphics.FromImage(marker_bmp))
+            {
+                // see https://stackoverflow.com/questions/1922040/resize-an-image-c-sharp
+                graphics.CompositingMode = CompositingMode.SourceOver;
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                PinAttributes.SetWrapMode(WrapMode.TileFlipXY);
+                graphics.DrawImage(OriginalMarker, PinRect, 0, 0, OriginalMarker.Width, OriginalMarker.Height, GraphicsUnit.Pixel, PinAttributes);
+
+                ImageAttributes SymbolAttribute = new ImageAttributes();
+                SymbolAttribute.SetWrapMode(WrapMode.TileFlipXY);
+            }
+
+            MemoryStream image = new MemoryStream();
+            marker_bmp.Save(image, ImageFormat.Png);
+            image.Position = 0;
+
+            MarkerStyle = new SymbolStyle { BitmapId = BitmapRegistry.Instance.Register(image), SymbolScale = 1.0, SymbolOffset = new Offset(0.0, 0.5) };
+            
+			Feature StartMarker = new Feature { Geometry = SphericalMercator.FromLonLat(WP.lon, WP.lat), [MarkerFields.Type] = MarkerTypes.Waypoint };
 			StartMarker.Styles.Add(MarkerStyle);
 			return StartMarker;
 		}
