@@ -117,7 +117,6 @@ namespace GeocachingTourPlanner.IO
 			App.Ratingprofiles.ResetBindings();
 		}
 
-
 		/// <summary>
 		/// Reads ratingprofiles from file specified in the database. Only checks wether it is set, but takes no action if not
 		/// </summary>
@@ -151,6 +150,7 @@ namespace GeocachingTourPlanner.IO
 			}
 			App.Routes.ResetBindings();
 		}
+
 		/// <summary>
 		/// Reads geocaches from database file specified in the main database. Only checks wether it is set, but takes no action if not
 		/// </summary>
@@ -162,9 +162,12 @@ namespace GeocachingTourPlanner.IO
 			{
 				try
 				{
+                    App.LockGeocacheDB_File = true;
 					App.Geocaches.Clear();
 					GCReader = new StreamReader(App.DB.GeocacheDB_Filepath);
 					App.Geocaches = (SortableBindingList<Geocache>)GeocachesSerializer.Deserialize(GCReader);
+                    GCReader.Close();
+                    App.LockGeocacheDB_File = false;
 
 					App.Geocaches = new SortableBindingList<Geocache>(App.Geocaches.OrderByDescending(x => x.Rating).ToList());
 					Startup.BindLists();//Since binding is lost when new list is created
@@ -175,7 +178,7 @@ namespace GeocachingTourPlanner.IO
 
 				}
 
-				catch (Exception)
+				catch (Exception e)
 				{
 					MessageBox.Show("Error in Geocachedatabase!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 				}
@@ -230,7 +233,7 @@ namespace GeocachingTourPlanner.IO
 			if (App.StartupCompleted)
 			{
 				//Aus Performancegrnden nicht alles
-				if (ExtraBackup == Databases.Geocaches)
+				if (ExtraBackup == Databases.Geocaches && !App.LockGeocacheDB_File)
 				{
 
 					if (App.DB.IsFilepathSet(Databases.Geocaches))
@@ -241,7 +244,7 @@ namespace GeocachingTourPlanner.IO
 							GeocachesWriter = new StreamWriter(App.DB.GeocacheDB_Filepath);
 							GeocachesSerializer.Serialize(GeocachesWriter, App.Geocaches);
 						}
-						catch
+						catch(Exception e)
 						{
 							MessageBox.Show("Fileerror. Is the Geocaches Database used by another App?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 							return false;
@@ -256,7 +259,7 @@ namespace GeocachingTourPlanner.IO
 					}
 				}
 
-				else if (ExtraBackup == Databases.Routingprofiles)
+				else if (ExtraBackup == Databases.Routingprofiles && !App.LockRoutingprofileDB_File)
 				{
 					if (App.DB.IsFilepathSet(Databases.Routingprofiles))
 					{
@@ -281,7 +284,7 @@ namespace GeocachingTourPlanner.IO
 					}
 				}
 
-				else if (ExtraBackup == Databases.Ratingprofiles)
+				else if (ExtraBackup == Databases.Ratingprofiles && !App.LockRatingprofileDB_File)
 				{
 					if (App.DB.IsFilepathSet(Databases.Ratingprofiles))
 					{
