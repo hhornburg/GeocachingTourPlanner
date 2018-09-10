@@ -58,12 +58,14 @@ namespace GeocachingTourPlanner.IO
 			{
 				try
 				{
+                    App.LockRoutingprofileDB_File = true;
 					App.Routingprofiles.Clear();
 					RPReader = new StreamReader(App.DB.RoutingprofileDB_Filepath);
 					App.Routingprofiles = (SortableBindingList<Routingprofile>)RoutingprofilesSerializer.Deserialize(RPReader);
-					Startup.BindLists();//Binding is lost on deserialization
-					RPReader.Close();
+                    RPReader.Close();
+                    App.LockRoutingprofileDB_File = false;
 
+                    Startup.BindLists();//Binding is lost on deserialization
 					App.mainWindow.UpdateStatus("Successfully read routingprofiles");
 					App.Routingprofiles.ResetBindings();
 				}
@@ -93,13 +95,16 @@ namespace GeocachingTourPlanner.IO
 			{
 				try
 				{
+                    App.LockRatingprofileDB_File = true;
 					App.Ratingprofiles.Clear();
 					BPReader = new StreamReader(App.DB.RatingprofileDB_Filepath);
 					App.Ratingprofiles= (SortableBindingList<Ratingprofile>)RatingprofilesSerializer.Deserialize(BPReader);
-					Startup.BindLists();//Binding is lost on deserialization
 					BPReader.Close();
+                    App.LockRatingprofileDB_File = false;
 
-					App.mainWindow.UpdateStatus("Successfully read ratingprofiles");
+                    Startup.BindLists();//Binding is lost on deserialization
+
+                    App.mainWindow.UpdateStatus("Successfully read ratingprofiles");
 					App.Ratingprofiles.ResetBindings();
 				}
 				catch (Exception e)
@@ -127,11 +132,14 @@ namespace GeocachingTourPlanner.IO
 			{
 				try
 				{
+                    App.LockRouteDB_File = true;
 					App.Routes.Clear();
 					RouteReader = new StreamReader(App.DB.RouteDB_Filepath);
 					App.Routes = (SortableBindingList<RoutePlanner>)RouteSerializer.Deserialize(RouteReader);
-					Startup.BindLists();//Binding is lost on deserialization
-					RouteReader.Close();
+                    RouteReader.Close();
+                    App.LockRouteDB_File = false;
+
+                    Startup.BindLists();//Binding is lost on deserialization
 
 					App.mainWindow.UpdateStatus("Successfully read routes");
 					App.Ratingprofiles.ResetBindings();

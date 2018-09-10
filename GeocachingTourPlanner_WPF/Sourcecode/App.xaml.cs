@@ -41,17 +41,21 @@ namespace GeocachingTourPlanner
         public static bool RouteCalculationRunning = false;
         public static bool ImportOfOSMDataRunning = false;
         /// <summary>
-        /// When reading a GeocacheDB from the file, the List is cleared. Thus, the Binding wants to update the hard copy of the list. This causes a Fileerror. Use this variable to prevent this from happening
+        /// When reading a GeocacheDB from the file, the List is cleared. Thus, the Binding wants to update the hard copy of the list. This causes an error since it either interferes or the file to import is empty, since the list was cleared. Use this variable to prevent this from happening
         /// </summary>
         public static bool LockGeocacheDB_File = false;
         /// <summary>
-        /// When reading a GeocacheDB from the file, the List is cleared. Thus, the Binding wants to update the hard copy of the list. This causes a Fileerror. Use this variable to prevent this from happening
+        /// When reading a RatingprofileDB from the file, the List is cleared. Thus, the Binding wants to update the hard copy of the list. This causes an error since it either interferes or the file to import is empty, since the list was cleared. Use this variable to prevent this from happening
         /// </summary>
         public static bool LockRatingprofileDB_File = false;
         /// <summary>
-        /// When reading a GeocacheDB from the file, the List is cleared. Thus, the Binding wants to update the hard copy of the list. This causes a Fileerror. Use this variable to prevent this from happening
+        /// When reading a RoutingprofileDB from the file, the List is cleared. Thus, the Binding wants to update the hard copy of the list. This causes an error since it either interferes or the file to import is empty, since the list was cleared. Use this variable to prevent this from happening
         /// </summary>
         public static bool LockRoutingprofileDB_File = false;
+        /// <summary>
+        /// When reading a RouteDB from the file, the List is cleared. Thus, the Binding wants to update the hard copy of the list. This causes an error since it either interferes or the file to import is empty, since the list was cleared. Use this variable to prevent this from happening
+        /// </summary>
+        public static bool LockRouteDB_File = false;
 
         //Cache
         public static List<KeyValueTriple<SymbolStyle, GeocacheType, int>> MarkerStyleCache = new List<KeyValueTriple<SymbolStyle, GeocacheType, int>>();

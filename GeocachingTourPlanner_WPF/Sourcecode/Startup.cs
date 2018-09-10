@@ -125,7 +125,12 @@ namespace GeocachingTourPlanner
 			App.Routingprofiles.ListChanged += new ListChangedEventHandler(App.mainWindow.Routingprofiles_ListChanged);
 			App.Routingprofiles.ListChanged += new ListChangedEventHandler((s, e) => { Fileoperations.Backup(Databases.Routingprofiles); });
 			App.Routingprofiles.ResetBindings();
-		}
+
+            //To make them show up in the menu
+            App.Routes.ListChanged += new ListChangedEventHandler(App.mainWindow.Routes_ListChanged);
+            App.Routes.ListChanged += new ListChangedEventHandler((s, e) => { Fileoperations.Backup(Databases.Routes); });
+            App.Routes.ResetBindings();
+        }
 
 		private static void SetLastSelections()
 		{
