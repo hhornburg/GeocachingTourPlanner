@@ -468,7 +468,8 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <!-- Box with info and route selection-->
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/><!--Combobox and New Button-->
+                        <RowDefinition Height="Auto"/> <!-- Expanable to insert name-->
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <!-- Box Scrollable view for items on route-->
@@ -481,14 +482,18 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     
-                    <ComboBox x:Name="SelectRoute_Combobox" Grid.Row="0" Grid.Column="0"/>
-                    <Button Grid.Column="1" Click="NewButton_Click">New...</Button>
-                    <TextBlock x:Name="RouteInfo" Grid.Row="1" Grid.ColumnSpan="2">Info Text comes here</TextBlock>
-                    <ComboBox x:Name="SelectRoutingprofileCombobox" Grid.Row="2" Grid.ColumnSpan="2"/>
-                    <ScrollViewer Grid.Row="3" Grid.ColumnSpan="2">
+                    <ComboBox x:Name="SelectRoute_Combobox" Grid.Row="0" Grid.Column="0" SelectionChanged="Route_SelectionChanged"/>
+                    <Button Grid.Column="1" Click="NewRouteButton_Click">New...</Button>
+
+                    <TextBox x:Name="NewRouteNameTextBox" Grid.Row="1" Grid.Column="0" Visibility="Collapsed"/>
+                    <Button x:Name="AddRouteButton" Grid.Row="1" Grid.Column="1" Click="AddRouteButton_Click" Visibility="Collapsed">Add</Button>
+                    
+                    <TextBlock x:Name="RouteInfo" Grid.Row="2" Grid.ColumnSpan="2">Info Text comes here</TextBlock>
+                    <ComboBox x:Name="SelectRoutingprofileCombobox" Grid.Row="3" Grid.ColumnSpan="2"/>
+                    <ScrollViewer Grid.Row="4" Grid.ColumnSpan="2">
                         <StackPanel x:Name="WaypointStackpanel"/>
                     </ScrollViewer>
-                    <Menu Grid.Row="4" Grid.ColumnSpan="2">
+                    <Menu Grid.Row="5" Grid.ColumnSpan="2">
                         <MenuItem Header="Calculate...">
                             <MenuItem Header="Calculate direct Route" Click="CalculateDirectRoute_Click"/>
                             <MenuItem Header="Add Geocaches directly on route" Click="AddgeocachesDirectlyOnRoute_Click"/>

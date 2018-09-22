@@ -58,7 +58,7 @@ namespace GeocachingTourPlanner.Types
 		/// <summary>
 		/// Filepath of Route DB
 		/// </summary>
-		public string RouteDB_Filepath { get => _routeDB_Filepath; set { _routeDB_Filepath = value; Fileoperations.Backup(Databases.MainDatabase); } }
+		public string RoutesDB_Filepath { get => _routeDB_Filepath; set { _routeDB_Filepath = value; Fileoperations.Backup(Databases.MainDatabase); } }
 		/// <summary>
 		/// Filepath of loaded RouterDB
 		/// </summary>
@@ -147,7 +147,7 @@ namespace GeocachingTourPlanner.Types
 					DatabaseFilepath = RouterDB_Filepath;
 					break;
 				case Databases.Routes:
-					DatabaseFilepath = RouteDB_Filepath;
+					DatabaseFilepath = RoutesDB_Filepath;
 					break;
 			}
 			if (DatabaseFilepath == null || !File.Exists(DatabaseFilepath))//"||" So it doesn't run into exception if it is null
@@ -219,7 +219,7 @@ namespace GeocachingTourPlanner.Types
 				}
 				else if (DatabaseName == Databases.Routes)
 				{
-					RouteDB_Filepath = StandardFileDialog.FileName;
+					RoutesDB_Filepath = StandardFileDialog.FileName;
 					return true; //since databasefilepath has been set;
 				}
 			}

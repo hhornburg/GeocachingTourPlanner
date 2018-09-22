@@ -54,7 +54,8 @@ namespace GeocachingTourPlanner.Routing
 
 		public RoutePlanner(string Name)
 		{
-			#region Create Routers
+            #region Create Routers
+            this.Name = Name;
 			if (App.RouterDB.IsEmpty)
 			{
 				MessageBox.Show("Import or set RouterDB before creating route!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);

@@ -179,21 +179,21 @@
     <Compile Include="Sourcecode\Database.cs" />
     <Compile Include="Sourcecode\Fileoperations.cs" />
     <Compile Include="Sourcecode\Geocache.cs" />
+    <Compile Include="Sourcecode\MainWindow_RatingprofileUIMethods.cs" />
+    <Compile Include="Sourcecode\MainWindow_RouteUIMethods.cs" />
+    <Compile Include="Sourcecode\MainWindow_RoutingProfilesUIMethods.cs" />
     <Compile Include="Sourcecode\MapContextMenu.cs" />
     <Compile Include="Sourcecode\MapTooltip.cs" />
     <Compile Include="Sourcecode\Markers.cs" />
-    <Compile Include="Sourcecode\NewRouteWindow.xaml.cs">
-      <DependentUpon>NewRouteWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Sourcecode\Ratingprofile.cs" />
-    <Compile Include="Sourcecode\RoutePlannerSubFunctions.cs" />
+    <Compile Include="Sourcecode\RoutePlanner_SubFunctions.cs" />
     <Compile Include="Sourcecode\RouteWaypointListItem.xaml.cs">
       <DependentUpon>RouteWaypointListItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sourcecode\RoutePlannerSubclasses.cs" />
+    <Compile Include="Sourcecode\RoutePlanner_Subclasses.cs" />
     <Compile Include="Sourcecode\Routingprofil.cs" />
     <Compile Include="Sourcecode\Startup.cs" />
-    <Compile Include="Sourcecode\RoutePlannerMainFunctions.cs" />
+    <Compile Include="Sourcecode\RoutePlanner_MainFunctions.cs" />
     <Compile Include="Sourcecode\Waypoint.cs" />
     <Page Include="Sourcecode\DatabaseFileDialog.xaml">
       <SubType>Designer</SubType>
@@ -215,10 +215,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Sourcecode\NewRouteWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Sourcecode\RouteWaypointListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

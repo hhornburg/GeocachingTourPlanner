@@ -134,7 +134,7 @@ namespace GeocachingTourPlanner.IO
 				{
                     App.LockRouteDB_File = true;
 					App.Routes.Clear();
-					RouteReader = new StreamReader(App.DB.RouteDB_Filepath);
+					RouteReader = new StreamReader(App.DB.RoutesDB_Filepath);
 					App.Routes = (SortableBindingList<RoutePlanner>)RouteSerializer.Deserialize(RouteReader);
                     RouteReader.Close();
                     App.LockRouteDB_File = false;
@@ -324,7 +324,7 @@ namespace GeocachingTourPlanner.IO
 						TextWriter RouteDBWriter = null;
 						try
 						{
-							RouteDBWriter = new StreamWriter(App.DB.RouteDB_Filepath);
+							RouteDBWriter = new StreamWriter(App.DB.RoutesDB_Filepath);
 							RouteSerializer.Serialize(RouteDBWriter, App.Routes);
 						}
 						catch (IOException)
@@ -736,9 +736,36 @@ namespace GeocachingTourPlanner.IO
 				}
 			} while (retry);
 
-			App.mainWindow.UpdateStatus("Created new Routingprofledatabase");
+			App.mainWindow.UpdateStatus("Created new Routingprofiledatabase");
 			App.Ratingprofiles.ResetBindings();
 		}
+
+        public static void NewRouteDatabase()
+        {
+            SaveFileDialog StandardFileDialog = new SaveFileDialog
+            {
+                InitialDirectory = App.DB.LastUsedFilepath,
+                Filter = "route files (*.route)|*.route|All files (*.*)|*.*",
+                FilterIndex = 0,
+                RestoreDirectory = true,
+                Title = "Select name for Route Database"
+            };
+
+            bool retry = false;
+            do
+            {
+                retry = false;
+                if (StandardFileDialog.ShowDialog() == true)
+                {
+                    File.Create(StandardFileDialog.FileName);
+                    App.Routes.Clear();
+                    App.DB.RoutesDB_Filepath = StandardFileDialog.FileName;
+                }
+            } while (retry);
+
+            App.mainWindow.UpdateStatus("Created new Route Database");
+            App.Ratingprofiles.ResetBindings();
+        }
 
 		public static class Routerlog
 		{
