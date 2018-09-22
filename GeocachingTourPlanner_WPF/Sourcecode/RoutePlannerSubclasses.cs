@@ -2,6 +2,7 @@
 using Itinero;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace GeocachingTourPlanner.Routing
 		/// </summary>
 		public class RouteData
 		{
-			public List<PartialRoute> partialRoutes { get; set; }
+			public SortableBindingList<PartialRoute> partialRoutes { get; set; } 
 			public SortableBindingList<Waypoint> Waypoints { get; set; }
 			/// <summary>
 			/// Holds the geocaches that are on the route. To add a geocache ONLY use AddGeocacheOnRoute, since it adds the points of the geocache to the total points
@@ -49,8 +50,9 @@ namespace GeocachingTourPlanner.Routing
 
 			public RouteData()
 			{
-				partialRoutes = new List<PartialRoute>();
-				GeocachesOnRoute = new List<Geocache>();
+				partialRoutes = new SortableBindingList<PartialRoute>();
+                partialRoutes.ListChanged += new ListChangedEventHandler(App.mainWindow.Map_RenewCurrentRoute);
+                GeocachesOnRoute = new List<Geocache>();
 				Waypoints = new SortableBindingList<Waypoint>();
 				Waypoints.ListChanged += App.mainWindow.Waypoints_ListChanged;
 				ReachableGeocaches = new List<GeocacheRoutingInformation>();

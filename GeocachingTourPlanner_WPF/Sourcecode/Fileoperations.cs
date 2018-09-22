@@ -317,7 +317,7 @@ namespace GeocachingTourPlanner.IO
 						}
 					}
 				}
-				else if (ExtraBackup == Databases.Routes)
+				else if (ExtraBackup == Databases.Routes && !App.LockRouteDB_File)
 				{
 					if (App.DB.IsFilepathSet(Databases.Routes))
 					{

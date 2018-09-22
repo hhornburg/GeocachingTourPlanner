@@ -4,6 +4,7 @@ using GeocachingTourPlanner.Types;
 using Itinero;
 using Itinero.LocalGeo;
 using Mapsui;
+using Mapsui.Geometries;
 using Mapsui.Layers;
 using Mapsui.Projection;
 using Mapsui.UI;
@@ -21,6 +22,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Navigation;
+using static GeocachingTourPlanner.Routing.RoutePlanner;
 
 namespace GeocachingTourPlanner.UI
 {
@@ -420,7 +422,7 @@ namespace GeocachingTourPlanner.UI
 		private void RoutingprofilesSaveRecaculate_Click(object sender, RoutedEventArgs e)
 		{
 			CreateRoutingprofile();
-			//TODO recalculate
+            App.DB.ActiveRoute.CalculateDirectRoute();
 		}
 
 		private void Routingprofile_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -772,7 +774,7 @@ namespace GeocachingTourPlanner.UI
             MapInfo mapInfo = GetMapInfo(e);
             if (mapInfo != null && mapInfo.Feature != null)
 			{
-				MapTooltip.ShowTooltip((string)mapInfo.Feature[Markers.MarkerFields.TooltipText], new Point(mapInfo.ScreenPosition.X, mapInfo.ScreenPosition.Y));
+				MapTooltip.ShowTooltip((string)mapInfo.Feature[Markers.MarkerFields.TooltipText], new System.Windows.Point(mapInfo.ScreenPosition.X, mapInfo.ScreenPosition.Y));
 			}
 		}
 
@@ -880,6 +882,52 @@ namespace GeocachingTourPlanner.UI
 			mapControl.Navigator.NavigateTo(App.DB.LastMapResolution);
 			mapControl.Navigator.NavigateTo(SphericalMercator.FromLonLat(App.DB.LastMapPosition.Longitude, App.DB.LastMapPosition.Latitude));
 		}
+
+        /// <summary>
+        /// Updates the Route on the map
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="listChangedEventArgs"></param>
+        /// <returns></returns>
+        public void Map_RenewCurrentRoute(object sender, ListChangedEventArgs listChangedEventArgs)
+        {
+            if (mapControl != null)//Occurs during startup
+            {
+                //GeocacheLayer
+                if (mapControl.Map.Layers.Count(x => x.Name == Layers.CurrentRouteLayer) > 0)
+                {
+                    foreach (WritableLayer GClayer in mapControl.Map.Layers.Where(x => x.Name == Layers.CurrentRouteLayer).ToList())
+                    {
+                        mapControl.Map.Layers.Remove(GClayer);
+                    }
+                }
+                WritableLayer RouteLayer = new WritableLayer
+                {
+                    Name = Layers.CurrentRouteLayer,
+                    Style = null
+                };
+
+                LineString Route = new LineString();
+                for (int i = 0;i<App.DB.ActiveRoute.CompleteRouteData.partialRoutes.Count;i++)
+                {
+                    PartialRoute CurrentPartialRoute = App.DB.ActiveRoute.CompleteRouteData.partialRoutes[i];
+                    for (int j = 0; j < CurrentPartialRoute.partialRoute.Shape.Count(); j++)
+                    {
+                        Coordinate point = CurrentPartialRoute.partialRoute.Shape[j];
+                        Route.Vertices.Add(SphericalMercator.FromLonLat((double)point.Longitude, (double)point.Latitude));
+                    }
+                }
+                RouteLayer.IsMapInfoLayer = true;
+                mapControl.Map.Layers.Add(RouteLayer);
+
+                //Set Views
+                if (App.DB.LastMapResolution == 0)
+                {
+                    App.DB.LastMapResolution = 5;
+                }
+                mapControl.Refresh();
+            }
+        }
 
         #endregion
         #endregion
@@ -1151,5 +1199,6 @@ namespace GeocachingTourPlanner.UI
 	{
 		public static readonly string GeocacheLayer = "Geocaches";
 		public static readonly string WaypointLayer = "Waypoints";
-	}
+        public static readonly string CurrentRouteLayer = "CurrentRoute";
+    }
 }

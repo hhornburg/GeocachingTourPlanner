@@ -50,7 +50,9 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock x:Name="GeocachesStateLabel" Grid.Column="0" Grid.Row="0" VerticalAlignment="Stretch" TextWrapping="Wrap" TextAlignment="Center">0 Geocaches loaded</TextBlock>
+                            <TextBlock x:Name="GeocachesStateLabel" Grid.Column="0" Grid.Row="0" VerticalAlignment="Stretch" TextWrapping="Wrap" TextAlignment="Center">
+                                0 Geocaches loaded
+                            </TextBlock>
                             <TextBlock Grid.Column="0" Grid.Row="1">           
                                 <Hyperlink NavigateUri="https://www.geocaching.com/pocket/" RequestNavigate="OpenInBrowser">
                                     Get Pocket Query
