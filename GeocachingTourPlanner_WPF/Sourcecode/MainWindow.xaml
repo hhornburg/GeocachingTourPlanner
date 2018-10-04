@@ -344,7 +344,7 @@
                                     <TextBlock Grid.Row="0">Routingprofile description</TextBlock>
                                     <DockPanel Grid.Row="1">
                                         <TextBlock DockPanel.Dock="Left">Select Routingprofile</TextBlock>
-                                        <ComboBox x:Name="EditRoutingprofileCombobox" DockPanel.Dock="Right" SelectionChanged="Routingprofile_SelectionChanged"></ComboBox>
+                                        <ComboBox x:Name="EditRoutingprofileCombobox" DockPanel.Dock="Right" SelectionChanged="EditRoutingprofileCombobox_SelectionChanged"></ComboBox>
                                     </DockPanel>
                                     <GroupBox Grid.Row="3" Header="RoutingCore">
                                         <Grid>
@@ -489,7 +489,7 @@
                     <Button x:Name="AddRouteButton" Grid.Row="1" Grid.Column="1" Click="AddRouteButton_Click" Visibility="Collapsed">Add</Button>
                     
                     <TextBlock x:Name="RouteInfo" Grid.Row="2" Grid.ColumnSpan="2">Info Text comes here</TextBlock>
-                    <ComboBox x:Name="SelectRoutingprofileCombobox" Grid.Row="3" Grid.ColumnSpan="2"/>
+                    <ComboBox x:Name="SelectRoutingprofileCombobox" Grid.Row="3" Grid.ColumnSpan="2" SelectionChanged="SelectRoutingprofileCombobox_SelectionChanged"/>
                     <ScrollViewer Grid.Row="4" Grid.ColumnSpan="2">
                         <StackPanel x:Name="WaypointStackpanel"/>
                     </ScrollViewer>

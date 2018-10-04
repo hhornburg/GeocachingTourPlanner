@@ -26,61 +26,14 @@ namespace GeocachingTourPlanner.UI
             App.DB.ActiveRoute.CalculateDirectRoute();
         }
 
-        private void Routingprofile_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void EditRoutingprofileCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Routingprofile SelectedRoutingprofile = null;
+            SetRoutingprofile(App.Routingprofiles.First(x => x.Name == EditRoutingprofileCombobox.SelectedItem.ToString()));
+        }
 
-            if (EditRoutingprofileCombobox.SelectedItem == null)
-            {
-                if (App.DB.ActiveRoutingprofile != null)
-                {
-                    EditRoutingprofileCombobox.SelectedItem = App.DB.ActiveRoutingprofile.Name;
-                }
-            }
-            else
-            {
-                SelectedRoutingprofile = App.Routingprofiles.First(x => x.Name == EditRoutingprofileCombobox.SelectedItem.ToString());
-                App.DB.ActiveRoutingprofile = SelectedRoutingprofile;
-                try
-                {
-                    RoutingprofileName.Text = SelectedRoutingprofile.Name;
-
-                    //Distance
-                    DistanceValue.Text = SelectedRoutingprofile.MaxDistance.ToString();
-
-                    //Time
-                    TimeValue.Text = SelectedRoutingprofile.MaxTime.ToString();
-                    GeocacheTimeValue.Text = SelectedRoutingprofile.TimePerGeocache.ToString();
-
-                    //Profile
-
-                    //Workaround Issue #161 @ Itinero
-                    if (SelectedRoutingprofile.ItineroProfile.profile.FullName.Contains("."))
-                    {
-                        VehicleValue.SelectedItem = SelectedRoutingprofile.ItineroProfile.profile.FullName.Remove(SelectedRoutingprofile.ItineroProfile.profile.FullName.IndexOf("."));//gets the parent of the profile (thus the vehicle)
-
-                    }
-                    else
-                    {
-                        VehicleValue.SelectedItem = SelectedRoutingprofile.ItineroProfile.profile.FullName;
-                    }
-                    switch (SelectedRoutingprofile.ItineroProfile.profile.Metric)
-                    {
-                        case Itinero.Profiles.ProfileMetric.DistanceInMeters:
-
-                            MetricValue.SelectedItem = "Shortest";
-                            break;
-
-                        case Itinero.Profiles.ProfileMetric.TimeInSeconds:
-                            MetricValue.SelectedItem = "Fastest";
-                            break;
-                    }
-                }
-                catch (NullReferenceException)
-                {
-                    MessageBox.Show("Couldn't load the complete profile.", "Warning");
-                }
-            }
+        private void SelectRoutingprofileCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SetRoutingprofile(App.Routingprofiles.First(x => x.Name == SelectRoutingprofileCombobox.SelectedItem.ToString()));
         }
 
         private void DeleteRoutingprofileButton_Click(object sender, RoutedEventArgs e)
@@ -120,19 +73,6 @@ namespace GeocachingTourPlanner.UI
             }
 
             RoutingprofilesStateLabel.Text = App.Routingprofiles.Count.ToString() + " Routingprofiles loaded";
-        }
-
-
-        /// <summary>
-        /// Selects the specified Routingprofile in the Combobox 
-        /// </summary>
-        /// <param name="RP"></param>
-        public void SetRoutingprofile(Routingprofile RP)
-        {
-            if (EditRoutingprofileCombobox.Items.Cast<ComboBoxItem>().Count(x => x.Content.ToString() == RP.Name) > 0)
-            {
-                EditRoutingprofileCombobox.SelectedItem = EditRoutingprofileCombobox.Items.Cast<ComboBoxItem>().First(x => x.Content.ToString() == RP.Name);
-            }
         }
         #endregion
         #region Methods
@@ -183,6 +123,66 @@ namespace GeocachingTourPlanner.UI
             App.Routingprofiles.Add(Profile);
             EditRoutingprofileCombobox.SelectedItem = Profile.Name; //Eventhandler takes care of same selection in comboboxes
 
+        }
+
+        /// <summary>
+        /// Selects the specified Routingprofile in the Comboboxes
+        /// </summary>
+        /// <param name="SelectedRoutingprofile"></param>
+        public void SetRoutingprofile(Routingprofile SelectedRoutingprofile)
+        {
+            App.DB.ActiveRoutingprofile = SelectedRoutingprofile;
+            if (App.DB.ActiveRoute != null)
+            {
+                App.DB.ActiveRoute.CompleteRouteData.Profile = SelectedRoutingprofile;
+            }
+            if (SelectRoutingprofileCombobox.SelectedItem != SelectedRoutingprofile.Name&&SelectRoutingprofileCombobox.Items.Contains(EditRoutingprofileCombobox.SelectedItem))
+            {
+                SelectRoutingprofileCombobox.SelectedItem = SelectedRoutingprofile.Name;
+            }
+            if (EditRoutingprofileCombobox.SelectedItem != SelectedRoutingprofile.Name&&EditRoutingprofileCombobox.Items.Contains(SelectRoutingprofileCombobox.SelectedItem))
+            {
+                EditRoutingprofileCombobox.SelectedItem = SelectedRoutingprofile.Name;
+            }
+
+            try
+            {
+                RoutingprofileName.Text = SelectedRoutingprofile.Name;
+
+                //Distance
+                DistanceValue.Text = SelectedRoutingprofile.MaxDistance.ToString();
+
+                //Time
+                TimeValue.Text = SelectedRoutingprofile.MaxTime.ToString();
+                GeocacheTimeValue.Text = SelectedRoutingprofile.TimePerGeocache.ToString();
+
+                //Profile
+
+                //Workaround Issue #161 @ Itinero
+                if (SelectedRoutingprofile.ItineroProfile.profile.FullName.Contains("."))
+                {
+                    VehicleValue.SelectedItem = SelectedRoutingprofile.ItineroProfile.profile.FullName.Remove(SelectedRoutingprofile.ItineroProfile.profile.FullName.IndexOf("."));//gets the parent of the profile (thus the vehicle)
+                }
+                else
+                {
+                    VehicleValue.SelectedItem = SelectedRoutingprofile.ItineroProfile.profile.FullName;
+                }
+                switch (SelectedRoutingprofile.ItineroProfile.profile.Metric)
+                {
+                    case Itinero.Profiles.ProfileMetric.DistanceInMeters:
+
+                        MetricValue.SelectedItem = "Shortest";
+                        break;
+
+                    case Itinero.Profiles.ProfileMetric.TimeInSeconds:
+                        MetricValue.SelectedItem = "Fastest";
+                        break;
+                }
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Couldn't load the complete profile.", "Warning");
+            }
         }
         #endregion
     }

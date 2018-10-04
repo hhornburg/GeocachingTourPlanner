@@ -27,6 +27,11 @@ namespace GeocachingTourPlanner.UI
             else
             {
                 App.DB.ActiveRoute = App.Routes.First(x => x.Name == SelectRoute_Combobox.SelectedItem.ToString());
+                App.DB.ActiveRoutingprofile = App.DB.ActiveRoute.CompleteRouteData.Profile;
+                if (App.DB.ActiveRoutingprofile != null)
+                {
+                    SetRoutingprofile(App.DB.ActiveRoutingprofile);
+                }
                 Waypoints_ListChanged(null, null);
             }
         }
@@ -41,14 +46,17 @@ namespace GeocachingTourPlanner.UI
             App.DB.ActiveRoute.CompleteRouteData.Profile = App.Routingprofiles.First(x => x.Name == SelectRoutingprofileCombobox.SelectedItem.ToString());
             App.DB.ActiveRoute.CalculateDirectRoute();
         }
+
         private void AddgeocachesDirectlyOnRoute_Click(object sender, RoutedEventArgs e)
         {
             App.DB.ActiveRoute.AddGeocachesDirectlyOnRoute();
         }
+
         private void AddGeocachesCloseToRoute_Click(object sender, RoutedEventArgs e)
         {
 
         }
+
         private void FindBestGeocachesToRoute_Click(object sender, RoutedEventArgs e)
         {
 
