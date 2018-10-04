@@ -6,19 +6,56 @@ using System.Threading.Tasks;
 
 namespace GeocachingTourPlanner.Types
 {
+    /// <summary>
+    /// Geocache Class. Inherits its location from Waypoint
+    /// </summary>
     public class Geocache:Waypoint
     {
+        /// <summary>
+        /// GC-Code (Unique ID)
+        /// </summary>
         public string GCCODE { get; set; }
+        /// <summary>
+        /// Name of the Geocache
+        /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// Difficulty Rating
+        /// </summary>
         public float DRating { get; set; }
+        /// <summary>
+        /// Terrain Rating
+        /// </summary>
         public float TRating { get; set; }
+        /// <summary>
+        /// Hidden Date
+        /// </summary>
         public DateTime DateHidden { get; set; }
+        /// <summary>
+        /// Wether "Needs Maintenance" Atrribute is set
+        /// </summary>
         public bool NeedsMaintenance { get; set; }
+        /// <summary>
+        /// Geocache Type
+        /// </summary>
         public GeocacheType Type { get; set; }
+        /// <summary>
+        /// Geocache Size
+        /// </summary>
         public GeocacheSize Size { get; set; }
+        /// <summary>
+        /// The Rating calculates with the Rating profile the user created
+        /// </summary>
         public float Rating { get; set; }
+        /// <summary>
+        /// Shouldn't be used anymore, since the user now has a list to which he can add geocaches. Remove if seen.
+        /// </summary>
 		public bool ForceInclude { get; set; }
 
+        /// <summary>
+        /// Returns GCCODE
+        /// </summary>
+        /// <returns></returns>
 		public override string ToString()
 		{
 			return GCCODE;

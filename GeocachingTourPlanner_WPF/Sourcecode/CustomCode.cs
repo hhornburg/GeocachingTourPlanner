@@ -30,7 +30,12 @@ namespace GeocachingTourPlanner
         }
 
     }
-
+    /// <summary>
+    /// Use like KeyValuePair
+    /// </summary>
+    /// <typeparam name="K"></typeparam>
+    /// <typeparam name="V1"></typeparam>
+    /// <typeparam name="V2"></typeparam>
     public class KeyValueTriple<K, V1, V2>
     {
         public K Key { get; set; }

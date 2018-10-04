@@ -7,6 +7,8 @@ using Mapsui;
 using Mapsui.Geometries;
 using Mapsui.Layers;
 using Mapsui.Projection;
+using Mapsui.Providers;
+using Mapsui.Styles;
 using Mapsui.UI;
 using Mapsui.UI.Wpf;
 using Mapsui.Utilities;
@@ -469,8 +471,13 @@ namespace GeocachingTourPlanner.UI
                 WritableLayer RouteLayer = new WritableLayer
                 {
                     Name = Layers.CurrentRouteLayer,
-                    Style = null
-                };
+                    Style = new VectorStyle
+                    {
+                        Fill = null,
+                        Outline = null,
+                        Line = { Color = Mapsui.Styles.Color.FromString("YellowGreen"), Width = 4 }
+                    }
+            };
 
                 LineString Route = new LineString();
                 for (int i = 0; i < App.DB.ActiveRoute.CompleteRouteData.partialRoutes.Count; i++)
@@ -482,6 +489,7 @@ namespace GeocachingTourPlanner.UI
                         Route.Vertices.Add(SphericalMercator.FromLonLat((double)point.Longitude, (double)point.Latitude));
                     }
                 }
+                RouteLayer.Add(new Feature { Geometry = Route });
                 RouteLayer.IsMapInfoLayer = true;
                 mapControl.Map.Layers.Add(RouteLayer);
 

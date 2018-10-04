@@ -231,6 +231,9 @@ namespace GeocachingTourPlanner.Types
 
 	}
 
+    /// <summary>
+    /// List of all Database types. Used as parameter to determine which Database is meant
+    /// </summary>
 	public enum Databases
 	{
         MainDatabase,

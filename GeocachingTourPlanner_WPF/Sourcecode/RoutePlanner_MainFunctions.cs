@@ -94,7 +94,7 @@ namespace GeocachingTourPlanner.Routing
 			CompleteRouteData.TotalTime = 0; ;
 
 			//TODO Parallel.FOR
-			for(int i=0; i < CompleteRouteData.Waypoints.Count; i++)
+			for(int i=0; i < CompleteRouteData.Waypoints.Count-1; i++)//minus one, since No route needs to be calculated from last point
 			{
 				if (CompleteRouteData.Waypoints[i].routerPoint == null)
 				{

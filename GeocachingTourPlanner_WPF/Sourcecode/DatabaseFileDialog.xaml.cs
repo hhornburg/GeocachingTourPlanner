@@ -31,6 +31,7 @@ namespace GeocachingTourPlanner.UI
 		public DatabaseFileDialog(Databases Database, bool AllowImport = true)
 		{
 			InitializeComponent();
+            ThisDB = Database;
 
 			switch (Database)
 			{

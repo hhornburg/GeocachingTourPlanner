@@ -18,6 +18,9 @@ namespace GeocachingTourPlanner
         /// Database in which all relevant data is saved to the disk
         /// </summary>
         public static Database DB = new Database();
+        /// <summary>
+        /// Relative Filepath to the main Database
+        /// </summary>
         public static string Database_Filepath = "Database";
 
         /// <summary>
