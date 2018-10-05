@@ -169,6 +169,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Properties\FileDialogFilters.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FileDialogFilters.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\FileOperations.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FileOperations.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\General.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>General.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Questions.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Questions.resx</DependentUpon>
+    </Compile>
     <Compile Include="Sourcecode\UI\DatabaseFileDialog.xaml.cs">
       <DependentUpon>DatabaseFileDialog.xaml</DependentUpon>
     </Compile>
@@ -240,13 +260,29 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Properties\FileDialogFilters.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>FileDialogFilters.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\General.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>General.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Images.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Images.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Questions.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Questions.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\FileOperations.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>FileOperations.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

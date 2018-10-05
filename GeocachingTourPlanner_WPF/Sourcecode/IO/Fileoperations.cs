@@ -382,10 +382,10 @@ namespace GeocachingTourPlanner.IO
 			SaveFileDialog StandardFileDialog = new SaveFileDialog
 			{
 				InitialDirectory = App.DB.LastUsedFilepath,
-				Filter = "gpx files (*.gpx)|*.gpx|All files (*.*)|*.*",
+				Filter = Properties.FileDialogFilters.GPX,
 				FilterIndex = 0,
 				RestoreDirectory = true,
-				Title = "Export route as track"
+				Title = Properties.FileOperations.ExportRouteAsTrack
 			};
 			if (StandardFileDialog.ShowDialog() == true)
 			{
@@ -477,25 +477,25 @@ namespace GeocachingTourPlanner.IO
 			OpenFileDialog SelectGPXFileDialog = new OpenFileDialog
 			{
 				InitialDirectory = App.DB.LastUsedFilepath,
-				Filter = "gpx files (*.gpx)|*.gpx|All files (*.*)|*.*",
+				Filter = Properties.FileDialogFilters.GPX,
 				FilterIndex = 0,
 				RestoreDirectory = true,
-				Title = "Import geocaches"
+				Title = Properties.FileOperations.ImportGeocaches
 			};
 
 			if (SelectGPXFileDialog.ShowDialog() == true)
 			{
-				MessageBoxResult Importmodus = MessageBox.Show("Should the Geocaches be loaded into a new Database?", "Import", MessageBoxButton.YesNoCancel);
+				MessageBoxResult Importmodus = MessageBox.Show(Properties.Questions.GeocachesIntoNewDatabase, "Import", MessageBoxButton.YesNoCancel);
 				if (Importmodus == MessageBoxResult.Yes)
 				{
 					//Create a new File
 					SaveFileDialog NewFileDialog = new SaveFileDialog
 					{
 						InitialDirectory = App.DB.LastUsedFilepath,
-						Filter = "gcdb files (*.gcdb)|*.gcdb|All files (*.*)|*.*",
+						Filter = Properties.FileDialogFilters.Geocaches,
 						FilterIndex = 0,
 						RestoreDirectory = true,
-						Title = "Create new, empty geocachedatabase"
+						Title = Properties.FileOperations.NewGeocacheDatabase
 					};
 
 					if (NewFileDialog.ShowDialog() == true)
@@ -522,7 +522,7 @@ namespace GeocachingTourPlanner.IO
                 {
                     try
                     {
-                        App.mainWindow.UpdateStatus("Started importing Geocaches");
+                        App.mainWindow.UpdateStatus(Properties.FileOperations.ImportingGeocachesStarted);
                         GPXDatei = SelectGPXFileDialog.FileName;
                         App.DB.LastUsedFilepath = SelectGPXFileDialog.FileName;
                         XElement RootElement = XElement.Load(GPXDatei);
@@ -616,17 +616,17 @@ namespace GeocachingTourPlanner.IO
 
                                 if (i % 10 == 0)
                                 {
-                                    App.mainWindow.UpdateStatus("Importing Geocaches..", 100 * i / possibleGeocaches.Length);
+                                    App.mainWindow.UpdateStatus(Properties.FileOperations.ImportingGeocaches, 100 * i / possibleGeocaches.Length);
                                 }
                             }
                         }
                         App.Geocaches.AddList(GeocachesToAdd);//So changed event is only called once
-                        App.mainWindow.UpdateStatus("Successfully imported geocaches");
+                        App.mainWindow.UpdateStatus(Properties.FileOperations.ImportingGeocachesSuccessful);
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
-                        App.mainWindow.UpdateStatus("Import of geocaches failed");
+                        App.mainWindow.UpdateStatus(Properties.FileOperations.ImportingGeocachesSuccessful);
                     }
                     App.Geocaches.ResetBindings();
                 })).Start();
@@ -638,11 +638,11 @@ namespace GeocachingTourPlanner.IO
 			OpenFileDialog StandardFileDialog = new OpenFileDialog
 			{
 				InitialDirectory = App.DB.LastUsedFilepath,
-				Filter = "pbf files (*.pbf)|*.pbf|All files (*.*)|*.*",
+				Filter = Properties.FileDialogFilters.PBF,
 				FilterIndex = 0,
 				RestoreDirectory = true,
-				Title = "Import OSM Data"
-			};
+				Title = Properties.FileOperations.ImportOSMData
+            };
 
 			if (StandardFileDialog.ShowDialog() == true)
 			{
@@ -650,10 +650,10 @@ namespace GeocachingTourPlanner.IO
 				SaveFileDialog NewFileDialog = new SaveFileDialog
 				{
 					InitialDirectory = App.DB.LastUsedFilepath,
-					Filter = "Routerdb files (*.routerdb)|*.routerdb|All files (*.*)|*.*",
+					Filter = Properties.FileDialogFilters.RouterDB,
 					FilterIndex = 0,
 					RestoreDirectory = true,
-					Title = "Create new Routerdb file"
+					Title = Properties.FileOperations.NewRouterDBFile
 				};
 
 				if (NewFileDialog.ShowDialog() == true)
@@ -717,10 +717,10 @@ namespace GeocachingTourPlanner.IO
 			SaveFileDialog StandardFileDialog = new SaveFileDialog
 			{
 				InitialDirectory = App.DB.LastUsedFilepath,
-				Filter = "routingprofile files (*.routingprf)|*.routingprf|All files (*.*)|*.*",
+				Filter = Properties.FileDialogFilters.Routingprofiles,
 				FilterIndex = 0,
 				RestoreDirectory = true,
-				Title = "Create new, empty routingprofilesdatabase"
+				Title = Properties.FileOperations.NewRoutingprofileDatabase
 			};
 
             if (StandardFileDialog.ShowDialog() == true)
@@ -729,7 +729,7 @@ namespace GeocachingTourPlanner.IO
                 App.Routingprofiles.Clear();
                 App.DB.RoutingprofileDB_Filepath = StandardFileDialog.FileName;
 
-                App.mainWindow.UpdateStatus("Created new Routingprofiledatabase");
+                App.mainWindow.UpdateStatus(Properties.FileOperations.CreatedNewRoutingprofileDatabase);
                 App.Routingprofiles.ResetBindings();
             }
 		}
@@ -741,12 +741,12 @@ namespace GeocachingTourPlanner.IO
 		{
 			SaveFileDialog StandardFileDialog = new SaveFileDialog
 			{
-				InitialDirectory = App.DB.LastUsedFilepath,
-				Filter = "ratingprofiles files (*.ratingprf)|*.ratingprf|All files (*.*)|*.*",
-				FilterIndex = 0,
-				RestoreDirectory = true,
-				Title = "Create new, empty ratingprofilesdatabase"
-			};
+                InitialDirectory = App.DB.LastUsedFilepath,
+                Filter = Properties.FileDialogFilters.Ratingprofiles,
+                FilterIndex = 0,
+                RestoreDirectory = true,
+                Title = Properties.FileOperations.NewRatingprofileDatabase
+            };
 
             if (StandardFileDialog.ShowDialog() == true)
             {
@@ -755,7 +755,7 @@ namespace GeocachingTourPlanner.IO
                 App.DB.RatingprofileDB_Filepath = StandardFileDialog.FileName;
 
 
-                App.mainWindow.UpdateStatus("Created new Routingprofiledatabase");
+                App.mainWindow.UpdateStatus(Properties.FileOperations.CreatedNewRatingprofileDatabase);
                 App.Ratingprofiles.ResetBindings();
             }
 		}
@@ -768,10 +768,10 @@ namespace GeocachingTourPlanner.IO
             SaveFileDialog StandardFileDialog = new SaveFileDialog
             {
                 InitialDirectory = App.DB.LastUsedFilepath,
-                Filter = "Route files (*.route)|*.route|All files (*.*)|*.*",
+                Filter = Properties.FileDialogFilters.Routes,
                 FilterIndex = 0,
                 RestoreDirectory = true,
-                Title = "Select name for Route Database"
+                Title = Properties.FileOperations.NewRouteDatabase
             };
 
             if (StandardFileDialog.ShowDialog() == true)
@@ -781,7 +781,7 @@ namespace GeocachingTourPlanner.IO
                 App.DB.RoutesDB_Filepath = StandardFileDialog.FileName;
 
 
-                App.mainWindow.UpdateStatus("Created new Route Database");
+                App.mainWindow.UpdateStatus(Properties.FileOperations.CreatedNewRouteDatabase);
                 App.Ratingprofiles.ResetBindings();
             }
         }

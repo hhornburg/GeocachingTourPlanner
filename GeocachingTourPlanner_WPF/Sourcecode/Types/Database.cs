@@ -176,19 +176,19 @@ namespace GeocachingTourPlanner.Types
 			switch (DatabaseName)
 			{
 				case Databases.Geocaches:
-					StandardFileDialog.Filter = "Geocache Database files (*.gcdb)|*.gcdb|All files (*.*)|*.*";
+					StandardFileDialog.Filter = Properties.FileDialogFilters.Geocaches;
 					break;
 				case Databases.Ratingprofiles:
-					StandardFileDialog.Filter = "Ratingprofiles files (*.ratingprf)|*.ratingprf|All files (*.*)|*.*";
+					StandardFileDialog.Filter = Properties.FileDialogFilters.Ratingprofiles;
 					break;
 				case Databases.Routingprofiles:
-					StandardFileDialog.Filter = "Routingprofile files (*.routingprf)|*.routingprf|All files (*.*)|*.*";
+					StandardFileDialog.Filter = Properties.FileDialogFilters.Routingprofiles;
 					break;
 				case Databases.RouterDB:
-					StandardFileDialog.Filter = "RouterDB files (*.routerdb)|*.routerdb|All files (*.*)|*.*";
+					StandardFileDialog.Filter = Properties.FileDialogFilters.RouterDB;
 					break;
 				case Databases.Routes:
-					StandardFileDialog.Filter= "Route files (*.routes)|*.routes|All files (*.*)|*.*";
+					StandardFileDialog.Filter= Properties.FileDialogFilters.Routes;
 					break;
 
 			}
