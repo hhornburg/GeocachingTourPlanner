@@ -49,7 +49,7 @@ namespace GeocachingTourPlanner.IO
 		}
 
 		/// <summary>
-		/// Reads routingprofiles from the filepath specified in the database. Only checks wether it is set, but takes no action if not
+		/// Reads routingprofiles from the filepath specified in the database. Only checks wether the filepath is set, but takes no action if not
 		/// </summary>
 		public static void ReadRoutingprofiles()
 		{
@@ -86,7 +86,7 @@ namespace GeocachingTourPlanner.IO
 		}
 
 		/// <summary>
-		/// Reads ratingprofiles from file specified in the database. Only checks wether it is set, but takes no action if not
+		/// Reads ratingprofiles from file specified in the database. Only checks wether the filepath is set, but takes no action if not
 		/// </summary>
 		public static void ReadRatingprofiles()
 		{
@@ -123,7 +123,7 @@ namespace GeocachingTourPlanner.IO
 		}
 
 		/// <summary>
-		/// Reads ratingprofiles from file specified in the database. Only checks wether it is set, but takes no action if not
+		/// Reads ratingprofiles from file specified in the database. Only checks wether the filepath is set, but takes no action if not
 		/// </summary>
 		public static void ReadRoutes()
 		{
@@ -160,7 +160,7 @@ namespace GeocachingTourPlanner.IO
 		}
 
 		/// <summary>
-		/// Reads geocaches from database file specified in the main database. Only checks wether it is set, but takes no action if not
+		/// Reads geocaches from database file specified in the main database. Only checks wether the filepath is set, but takes no action if not
 		/// </summary>
 		public static void ReadGeocaches()
 		{
