@@ -1,19 +1,9 @@
 ﻿using GeocachingTourPlanner.IO;
-using GeocachingTourPlanner.Routing;
 using GeocachingTourPlanner.Types;
 using Itinero;
 using Itinero.LocalGeo;
-using Mapsui;
-using Mapsui.Geometries;
-using Mapsui.Layers;
-using Mapsui.Projection;
-using Mapsui.Providers;
-using Mapsui.Styles;
-using Mapsui.UI;
-using Mapsui.UI.Wpf;
 using Mapsui.Utilities;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -21,10 +11,8 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Navigation;
-using static GeocachingTourPlanner.Routing.RoutePlanner;
 
 namespace GeocachingTourPlanner.UI
 {
@@ -34,6 +22,9 @@ namespace GeocachingTourPlanner.UI
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// The Wndow in which the user operates
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();

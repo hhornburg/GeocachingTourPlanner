@@ -65,10 +65,15 @@ namespace GeocachingTourPlanner.UI
 						NewImportButton.Visibility = Visibility.Collapsed;
 					}
 					break;
-			}
+                case Databases.Routes:
+                    MessageText.Text = "Couldn't find a route database.";
+                    NewImportButtonText.Text = "Create new File";
+                    break;
+
+            }
 		}
 
-		private void OpenButton_Click(object sender, EventArgs e)
+		private void OpenButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (App.DB.OpenExistingDBFile(ThisDB))
 			{
@@ -78,9 +83,10 @@ namespace GeocachingTourPlanner.UI
 			{
 				DialogResult = false;
 			}
+            Close();
 		}
 
-		private void NewImport_Button_Click(object sender, EventArgs e)
+		private void NewImport_Button_Click(object sender, RoutedEventArgs e)
 		{
 			switch (ThisDB)
 			{
@@ -96,8 +102,18 @@ namespace GeocachingTourPlanner.UI
 				case Databases.RouterDB:
 					Fileoperations.ImportOSMData();
 					break;
+                case Databases.Routes:
+                    Fileoperations.NewRouteDatabase();
+                    break;
 			}
 			DialogResult = true;
+            Close();
 		}
-	}
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+            Close();
+        }
+    }
 }

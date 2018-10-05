@@ -1,5 +1,6 @@
 ﻿using GeocachingTourPlanner.Routing;
 using GeocachingTourPlanner.Types;
+using GeocachingTourPlanner.UI;
 using Itinero;
 using Itinero.IO.Osm;
 using Itinero.LocalGeo;
@@ -240,11 +241,14 @@ namespace GeocachingTourPlanner.IO
 			//Don't save anything that is set during initialization and startup, since it is either overriding user settings or redundant
 			if (App.StartupCompleted)
 			{
-				//Aus Performancegrnden nicht alles
 				if (ExtraBackup == Databases.Geocaches && !App.LockGeocacheDB_File)
 				{
+                    if (!App.DB.IsFilepathSet(Databases.Geocaches))
+                    {
+                        new DatabaseFileDialog(Databases.Geocaches, false).ShowDialog();
+                    }
 
-					if (App.DB.IsFilepathSet(Databases.Geocaches))
+                        if (App.DB.IsFilepathSet(Databases.Geocaches))
 					{
 						TextWriter GeocachesWriter = null;
 						try
@@ -269,7 +273,12 @@ namespace GeocachingTourPlanner.IO
 
 				else if (ExtraBackup == Databases.Routingprofiles && !App.LockRoutingprofileDB_File)
 				{
-					if (App.DB.IsFilepathSet(Databases.Routingprofiles))
+                    if (!App.DB.IsFilepathSet(Databases.Routingprofiles))
+                    {
+                        new DatabaseFileDialog(Databases.Routingprofiles, false).ShowDialog();
+                    }
+
+                    if (App.DB.IsFilepathSet(Databases.Routingprofiles))
 					{
 						TextWriter RoutingprofileWriter = null;
 						try
@@ -294,7 +303,12 @@ namespace GeocachingTourPlanner.IO
 
 				else if (ExtraBackup == Databases.Ratingprofiles && !App.LockRatingprofileDB_File)
 				{
-					if (App.DB.IsFilepathSet(Databases.Ratingprofiles))
+                    if (!App.DB.IsFilepathSet(Databases.Ratingprofiles))
+                    {
+                        new DatabaseFileDialog(Databases.Ratingprofiles, false).ShowDialog();
+                    }
+
+                    if (App.DB.IsFilepathSet(Databases.Ratingprofiles))
 					{
 						TextWriter RatingprofileWriter = null;
 						try
@@ -309,7 +323,6 @@ namespace GeocachingTourPlanner.IO
 						}
 						finally
 						{
-
 							if (RatingprofileWriter != null)
 							{
 								RatingprofileWriter.Close();
@@ -319,7 +332,12 @@ namespace GeocachingTourPlanner.IO
 				}
 				else if (ExtraBackup == Databases.Routes && !App.LockRouteDB_File)
 				{
-					if (App.DB.IsFilepathSet(Databases.Routes))
+                    if (!App.DB.IsFilepathSet(Databases.Routes))
+                    {
+                        new DatabaseFileDialog(Databases.Routes, false).ShowDialog();
+                    }
+
+                    if (App.DB.IsFilepathSet(Databases.Routes))
 					{
 						TextWriter RouteDBWriter = null;
 						try
@@ -691,6 +709,9 @@ namespace GeocachingTourPlanner.IO
 			}
 		}
 
+        /// <summary>
+        /// Creates new Database and sets Filepath
+        /// </summary>
 		public static void NewRoutingprofileDatabase()
 		{
 			SaveFileDialog StandardFileDialog = new SaveFileDialog
@@ -702,17 +723,20 @@ namespace GeocachingTourPlanner.IO
 				Title = "Create new, empty routingprofilesdatabase"
 			};
 
-			if (StandardFileDialog.ShowDialog() == true)
-			{
-				File.Create(StandardFileDialog.FileName);
-				App.Routingprofiles.Clear();
-				App.DB.RoutingprofileDB_Filepath = StandardFileDialog.FileName;
-			}
+            if (StandardFileDialog.ShowDialog() == true)
+            {
+                File.Create(StandardFileDialog.FileName);
+                App.Routingprofiles.Clear();
+                App.DB.RoutingprofileDB_Filepath = StandardFileDialog.FileName;
 
-			App.mainWindow.UpdateStatus("Created new Routingprofiledatabase");
-			App.Routingprofiles.ResetBindings();
+                App.mainWindow.UpdateStatus("Created new Routingprofiledatabase");
+                App.Routingprofiles.ResetBindings();
+            }
 		}
 
+        /// <summary>
+        /// Creates new Database and sets Filepath
+        /// </summary>
 		public static void NewRatingprofileDatabase()
 		{
 			SaveFileDialog StandardFileDialog = new SaveFileDialog
@@ -724,47 +748,42 @@ namespace GeocachingTourPlanner.IO
 				Title = "Create new, empty ratingprofilesdatabase"
 			};
 
-			bool retry = false;
-			do
-			{
-				retry = false;
-				if (StandardFileDialog.ShowDialog() == true)
-				{
-					File.Create(StandardFileDialog.FileName);
-					App.Ratingprofiles.Clear();
-					App.DB.RatingprofileDB_Filepath = StandardFileDialog.FileName;
-				}
-			} while (retry);
+            if (StandardFileDialog.ShowDialog() == true)
+            {
+                File.Create(StandardFileDialog.FileName);
+                App.Ratingprofiles.Clear();
+                App.DB.RatingprofileDB_Filepath = StandardFileDialog.FileName;
 
-			App.mainWindow.UpdateStatus("Created new Routingprofiledatabase");
-			App.Ratingprofiles.ResetBindings();
+
+                App.mainWindow.UpdateStatus("Created new Routingprofiledatabase");
+                App.Ratingprofiles.ResetBindings();
+            }
 		}
 
+        /// <summary>
+        /// Creates new Database and sets Filepath
+        /// </summary>
         public static void NewRouteDatabase()
         {
             SaveFileDialog StandardFileDialog = new SaveFileDialog
             {
                 InitialDirectory = App.DB.LastUsedFilepath,
-                Filter = "route files (*.route)|*.route|All files (*.*)|*.*",
+                Filter = "Route files (*.route)|*.route|All files (*.*)|*.*",
                 FilterIndex = 0,
                 RestoreDirectory = true,
                 Title = "Select name for Route Database"
             };
 
-            bool retry = false;
-            do
+            if (StandardFileDialog.ShowDialog() == true)
             {
-                retry = false;
-                if (StandardFileDialog.ShowDialog() == true)
-                {
-                    File.Create(StandardFileDialog.FileName);
-                    App.Routes.Clear();
-                    App.DB.RoutesDB_Filepath = StandardFileDialog.FileName;
-                }
-            } while (retry);
+                File.Create(StandardFileDialog.FileName);
+                App.Routes.Clear();
+                App.DB.RoutesDB_Filepath = StandardFileDialog.FileName;
 
-            App.mainWindow.UpdateStatus("Created new Route Database");
-            App.Ratingprofiles.ResetBindings();
+
+                App.mainWindow.UpdateStatus("Created new Route Database");
+                App.Ratingprofiles.ResetBindings();
+            }
         }
 
 		public static class Routerlog

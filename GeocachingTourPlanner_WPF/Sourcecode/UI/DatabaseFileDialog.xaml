@@ -5,13 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GeocachingTourPlanner"
         mc:Ignorable="d"
-        Title="DatabaseFileDialog" Height="150" Width="300">
-    <DockPanel LastChildFill="False">
-        <TextBlock Name="MessageText" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center">Sample Message</TextBlock>
-        <Button Name="CancelButton" DockPanel.Dock="Right" VerticalAlignment="Bottom" Height="25" IsCancel="True">Cancel</Button>
-        <Button Name="NewImportButton" DockPanel.Dock="Right" VerticalAlignment="Bottom" Height="25">
-            <TextBlock Name="NewImportButtonText">New/Import</TextBlock>
-        </Button>
-        <Button Name="OpenButton" DockPanel.Dock="Right"  VerticalAlignment="Bottom" Height="25">Open</Button>
-    </DockPanel>
+        Title="DatabaseFileDialog" Height="100" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Name="MessageText" HorizontalAlignment="Center" VerticalAlignment="Center">Sample Message</TextBlock>
+        <DockPanel Grid.Row="1" LastChildFill="False">
+            <Button Name="CancelButton" DockPanel.Dock="Right" VerticalAlignment="Bottom" Height="25" IsCancel="True" Click="CancelButton_Click">Cancel</Button>
+            <Button Name="NewImportButton" DockPanel.Dock="Right" VerticalAlignment="Bottom" Height="25" Click="NewImport_Button_Click">
+                <TextBlock Name="NewImportButtonText">New/Import</TextBlock>
+            </Button>
+            <Button Name="OpenButton" DockPanel.Dock="Right"  VerticalAlignment="Bottom" Height="25" Click="OpenButton_Click">Open</Button>
+        </DockPanel>
+    </Grid>
 </Window>

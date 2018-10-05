@@ -92,8 +92,15 @@ namespace GeocachingTourPlanner.UI
 
         private void NewRouteButton_Click(object sender, RoutedEventArgs e)
         {
-            NewRouteNameTextBox.Visibility = Visibility.Visible;
-            AddRouteButton.Visibility = Visibility.Visible;
+            if (!App.DB.IsFilepathSet(Databases.Routes))
+            {
+                new DatabaseFileDialog(Databases.Routes).ShowDialog();
+            }
+            if (App.DB.IsFilepathSet(Databases.Routes))
+            {
+                NewRouteNameTextBox.Visibility = Visibility.Visible;
+                AddRouteButton.Visibility = Visibility.Visible;
+            }
         }
 
         private void AddRouteButton_Click(object sender, RoutedEventArgs e)
