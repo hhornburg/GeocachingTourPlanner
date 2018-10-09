@@ -40,7 +40,9 @@ namespace GeocachingTourPlanner
                 App.mainWindow.Show();
                 App.StartupCompleted = true;
                 App.mainWindow.Map_NavigateToLastVisited();
-            }catch(Exception e)
+                SetLastSelections();
+            }
+            catch(Exception e)
             {
                 //Happens when declining license
             }

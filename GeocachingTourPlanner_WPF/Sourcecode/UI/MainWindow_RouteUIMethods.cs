@@ -180,9 +180,9 @@ namespace GeocachingTourPlanner.UI
         /// <param name="RP"></param>
         public void SetRoute(RoutePlanner RP)
         {
-            if (SelectRoute_Combobox.Items.Cast<ComboBoxItem>().Count(x => x.Content.ToString() == RP.Name) > 0)
+            if (SelectRoute_Combobox.Items.Contains(RP.Name))
             {
-                SelectRoute_Combobox.SelectedItem = SelectRoute_Combobox.Items.Cast<ComboBoxItem>().First(x => x.Content.ToString() == RP.Name);
+                SelectRoute_Combobox.SelectedItem = RP.Name;
             }
         }
         #endregion

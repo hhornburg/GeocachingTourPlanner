@@ -280,9 +280,9 @@ namespace GeocachingTourPlanner.UI
         /// <param name="RP"></param>
         public void SetRatingprofile(Ratingprofile RP)
         {
-            if (EditRatingprofileCombobox.Items.Cast<ComboBoxItem>().Count(x => x.Content.ToString() == RP.Name) > 0)
+            if (EditRatingprofileCombobox.Items.Contains(RP.Name))
             {
-                EditRatingprofileCombobox.SelectedItem = EditRatingprofileCombobox.Items.Cast<ComboBoxItem>().First(x => x.Content.ToString() == RP.Name);
+                EditRatingprofileCombobox.SelectedItem = RP.Name;
             }
         }
         #endregion

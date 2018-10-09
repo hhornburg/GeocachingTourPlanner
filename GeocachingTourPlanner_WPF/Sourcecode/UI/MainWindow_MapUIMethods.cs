@@ -25,22 +25,11 @@ namespace GeocachingTourPlanner.UI
     public partial class MainWindow : Window
     {
         #region UI Events
-        private void Map_OnMapDrag(object sender, DragEventArgs e)
-        {
-            App.DB.LastMapPosition = new Coordinate((float)mapControl.Viewport.ScreenToWorld(mapControl.Viewport.Center).X, (float)mapControl.Viewport.ScreenToWorld(mapControl.Viewport.Center).Y);
-        }
-
         private void Map_Enter(object sender, EventArgs e)
         {
             Map_RenewGeocacheLayer();
         }
-
-        private void Map_OnMapZoomChanged(object sender, ZoomedEventArgs e)
-        {
-            App.DB.LastMapPosition = new Coordinate((float)mapControl.Viewport.ScreenToWorld(mapControl.Viewport.Center).X, (float)mapControl.Viewport.ScreenToWorld(mapControl.Viewport.Center).Y);
-            App.DB.LastMapResolution = mapControl.Viewport.Resolution;
-        }
-
+        
         private void mapControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             MapContextMenu.HideContextMenu();
@@ -51,6 +40,10 @@ namespace GeocachingTourPlanner.UI
             {
                 Process.Start("http://coord.info/" + mapInfo.Feature[Markers.MarkerFields.Label]);
             }
+
+            Mapsui.Geometries.Point Coordinates = SphericalMercator.ToLonLat(mapInfo.WorldPosition.X, mapInfo.WorldPosition.Y);
+            App.DB.LastMapResolution = mapControl.Viewport.Resolution;
+            App.DB.LastMapPosition = new Coordinate((float)Coordinates.X, (float)Coordinates.Y);
             e.Handled = true;
         }
 
@@ -164,7 +157,7 @@ namespace GeocachingTourPlanner.UI
 
         public void Map_NavigateToLastVisited()
         {
-            mapControl.Navigator.NavigateTo(App.DB.LastMapResolution);
+            mapControl.Viewport.Resolution=App.DB.LastMapResolution;
             mapControl.Navigator.NavigateTo(SphericalMercator.FromLonLat(App.DB.LastMapPosition.Longitude, App.DB.LastMapPosition.Latitude));
         }
 
