@@ -189,6 +189,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Questions.resx</DependentUpon>
     </Compile>
+    <Compile Include="Sourcecode\Routing\GeocacheRoutingInformation.cs" />
+    <Compile Include="Sourcecode\Routing\PartialRoute.cs" />
+    <Compile Include="Sourcecode\Routing\RouteData.cs" />
     <Compile Include="Sourcecode\UI\DatabaseFileDialog.xaml.cs">
       <DependentUpon>DatabaseFileDialog.xaml</DependentUpon>
     </Compile>
@@ -211,7 +214,6 @@
     <Compile Include="Sourcecode\UI\RouteWaypointListItem.xaml.cs">
       <DependentUpon>RouteWaypointListItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sourcecode\Routing\RoutePlanner_Subclasses.cs" />
     <Compile Include="Sourcecode\Types\Routingprofil.cs" />
     <Compile Include="Sourcecode\Startup.cs" />
     <Compile Include="Sourcecode\Routing\RoutePlanner_MainFunctions.cs" />

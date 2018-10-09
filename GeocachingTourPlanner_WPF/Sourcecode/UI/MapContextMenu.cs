@@ -94,86 +94,31 @@ namespace GeocachingTourPlanner.UI
 
 		private static void AddGeocacheToBeginning_Click(string Name)
 		{
-			//Since you can't delete items from a list that you are iterating over
-			List<Waypoint> WaypointsToDelete = new List<Waypoint>();
-			foreach (Waypoint item in App.DB.ActiveRoute.CompleteRouteData.Waypoints.Where(x => x.GetType() == typeof(Geocache)).Where(x => ((Geocache)x).GCCODE == Name))
-			{
-				WaypointsToDelete.Add(item);
-			}
-			foreach (Waypoint item in WaypointsToDelete)
-			{
-				App.DB.ActiveRoute.CompleteRouteData.Waypoints.Remove(item);
-			}
-
-			App.DB.ActiveRoute.CompleteRouteData.Waypoints.Insert(0, App.Geocaches.First(x => x.GCCODE == Name));
+			App.DB.ActiveRoute.CompleteRouteData.AddWaypointToBeginning(App.Geocaches.First(x => x.GCCODE == Name));
 			HideContextMenu();
 		}
 
 		private static void AddGeocacheToEnd_Click(string Name)
 		{
-			//Since you can't delete items from a list that you are iterating over
-			List<Waypoint> WaypointsToDelete = new List<Waypoint>();
-			foreach (Waypoint item in App.DB.ActiveRoute.CompleteRouteData.Waypoints.Where(x => x.GetType() == typeof(Geocache)).Where(x => ((Geocache)x).GCCODE == Name))
-			{
-				WaypointsToDelete.Add(item);
-			}
-			foreach (Waypoint item in WaypointsToDelete)
-			{
-				App.DB.ActiveRoute.CompleteRouteData.Waypoints.Remove(item);
-			}
-
-			App.DB.ActiveRoute.CompleteRouteData.Waypoints.Add(App.Geocaches.First(x => x.GCCODE == Name));
+            App.DB.ActiveRoute.CompleteRouteData.AddWaypointToEnd(App.Geocaches.First(x => x.GCCODE == Name));
 			HideContextMenu();
 		}
 
 		private static void RemoveGeocache_Click(string Name)
 		{
-			//Since you can't delete items from a list that you are iterating over
-			List<Waypoint> WaypointsToDelete = new List<Waypoint>();
-			foreach (Waypoint item in App.DB.ActiveRoute.CompleteRouteData.Waypoints.Where(x => x.GetType() == typeof(Geocache)).Where(x => ((Geocache)x).GCCODE == Name))
-			{
-				WaypointsToDelete.Add(item);
-			}
-			foreach (Waypoint item in WaypointsToDelete)
-			{
-				App.DB.ActiveRoute.CompleteRouteData.Waypoints.Remove(item);
-			}
-		}
+            App.DB.ActiveRoute.CompleteRouteData.RemoveWaypoint(App.Geocaches.First(x => x.GCCODE == Name));
+        }
 
 		private static void AddWaypointToBeginning_Click(Mapsui.Geometries.Point Coordinates)
 		{
-			//Since you can't delete items from a list that you are iterating over
-			List<Waypoint> WaypointsToDelete = new List<Waypoint>();
-			foreach (Waypoint item in App.DB.ActiveRoute.CompleteRouteData.Waypoints.Where(x => x.lat == Coordinates.Y && x.lon==Coordinates.X))
-			{
-				WaypointsToDelete.Add(item);
-			}
-			foreach (Waypoint item in WaypointsToDelete)
-			{
-				App.DB.ActiveRoute.CompleteRouteData.Waypoints.Remove(item);
-			}
-
-			App.DB.ActiveRoute.CompleteRouteData.Waypoints.Insert(0, new Waypoint((float)Coordinates.Y, (float)Coordinates.X));
+            App.DB.ActiveRoute.CompleteRouteData.AddWaypointToBeginning(new Waypoint((float)Coordinates.Y, (float)Coordinates.X));
 			HideContextMenu();
-            App.mainWindow.Map_RenewWaypointLayer();
 		}
 
 		private static void AddWaypointToEnd_Click(Mapsui.Geometries.Point Coordinates)
 		{
-			//Since you can't delete items from a list that you are iterating over
-			List<Waypoint> WaypointsToDelete = new List<Waypoint>();
-			foreach (Waypoint item in App.DB.ActiveRoute.CompleteRouteData.Waypoints.Where(x => x.lat == Coordinates.Y && x.lon == Coordinates.X))
-			{
-				WaypointsToDelete.Add(item);
-			}
-			foreach (Waypoint item in WaypointsToDelete)
-			{
-				App.DB.ActiveRoute.CompleteRouteData.Waypoints.Remove(item);
-			}
-
-			App.DB.ActiveRoute.CompleteRouteData.Waypoints.Add(new Waypoint((float)Coordinates.Y, (float)Coordinates.X));
+            App.DB.ActiveRoute.CompleteRouteData.AddWaypointToBeginning(new Waypoint((float)Coordinates.Y, (float)Coordinates.X));
 			HideContextMenu();
-            App.mainWindow.Map_RenewWaypointLayer();
         }
 	}
 }

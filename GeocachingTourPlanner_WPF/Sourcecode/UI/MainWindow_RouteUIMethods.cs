@@ -72,23 +72,6 @@ namespace GeocachingTourPlanner.UI
             App.Routes.Remove(App.DB.ActiveRoute);
             mapControl.Map.Layers.Remove(mapControl.Map.Layers.First(x => x.Name == "Route:" + App.DB.ActiveRoute.Name));
         }
-        #endregion
-
-        #region Events
-        /// <summary>
-        /// keeps the Comboboxes updated
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void Routes_ListChanged(object sender, ListChangedEventArgs e)
-        {
-            SelectRoute_Combobox.Items.Clear();
-
-            foreach (RoutePlanner profile in App.Routes)
-            {
-                SelectRoute_Combobox.Items.Add(profile.Name);
-            }
-        }
 
         private void NewRouteButton_Click(object sender, RoutedEventArgs e)
         {
@@ -125,8 +108,32 @@ namespace GeocachingTourPlanner.UI
                 AddRouteButton.Visibility = Visibility.Collapsed;
             }
         }
+        #endregion
 
-        public void Waypoints_ListChanged(object sender, ListChangedEventArgs e)
+        #region List changed Events
+        /// <summary>
+        /// keeps the Comboboxes updated
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void Routes_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            SelectRoute_Combobox.Items.Clear();
+
+            foreach (RoutePlanner profile in App.Routes)
+            {
+                SelectRoute_Combobox.Items.Add(profile.Name);
+            }
+
+            RoutesStateLabel.Text = App.Routingprofiles.Count.ToString() + " Routes loaded";
+        }
+        
+        /// <summary>
+        /// Makes sure the List of waypoints is kept synched
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void Waypoints_ListChanged(object sender, EventArgs e)
         {
             WaypointStackpanel.Children.Clear();
             if (App.DB.ActiveRoute == null)
@@ -146,6 +153,25 @@ namespace GeocachingTourPlanner.UI
             }
         }
 
+        /// <summary>
+        /// Renews the Information displayed to the user
+        /// </summary>
+        public void RenewRouteInfo(object sender, EventArgs e)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append(Properties.General.Length);
+            stringBuilder.Append((App.DB.ActiveRoute.CompleteRouteData.TotalDistance / 1000).ToString("F"));
+            stringBuilder.AppendLine("km");
+            stringBuilder.Append(Properties.General.TimeNeeded);
+            stringBuilder.Append((App.DB.ActiveRoute.CompleteRouteData.TotalTime / 60).ToString("F0"));
+            stringBuilder.AppendLine("min");
+            stringBuilder.Append(Properties.General.TotalPoints);
+            stringBuilder.Append(App.DB.ActiveRoute.CompleteRouteData.TotalPoints.ToString("F0"));
+            RouteInfo.Text = stringBuilder.ToString();
+        }
+        #endregion
+
+        #region Methods
         /// <summary>
         /// Selects the specified Route 
         /// </summary>

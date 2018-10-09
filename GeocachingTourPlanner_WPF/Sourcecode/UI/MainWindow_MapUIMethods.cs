@@ -174,11 +174,11 @@ namespace GeocachingTourPlanner.UI
         /// <param name="sender"></param>
         /// <param name="listChangedEventArgs"></param>
         /// <returns></returns>
-        public void Map_RenewCurrentRoute(object sender, ListChangedEventArgs listChangedEventArgs)
+        public void Map_RenewCurrentRoute(object sender, EventArgs listChangedEventArgs)
         {
             if (mapControl != null)//Occurs during startup
             {
-                //GeocacheLayer
+                //RouteLayer
                 if (mapControl.Map.Layers.Count(x => x.Name == Layers.CurrentRouteLayer) > 0)
                 {
                     foreach (WritableLayer GClayer in mapControl.Map.Layers.Where(x => x.Name == Layers.CurrentRouteLayer).ToList())
@@ -198,9 +198,9 @@ namespace GeocachingTourPlanner.UI
                 };
 
                 LineString Route = new LineString();
-                for (int i = 0; i < App.DB.ActiveRoute.CompleteRouteData.partialRoutes.Count; i++)
+                for (int i = 0; i < App.DB.ActiveRoute.CompleteRouteData.PartialRoutes.Count; i++)
                 {
-                    RoutePlanner.PartialRoute CurrentPartialRoute = App.DB.ActiveRoute.CompleteRouteData.partialRoutes[i];
+                    PartialRoute CurrentPartialRoute = App.DB.ActiveRoute.CompleteRouteData.PartialRoutes[i];
                     for (int j = 0; j < CurrentPartialRoute.partialRoute.Shape.Count(); j++)
                     {
                         Coordinate point = CurrentPartialRoute.partialRoute.Shape[j];

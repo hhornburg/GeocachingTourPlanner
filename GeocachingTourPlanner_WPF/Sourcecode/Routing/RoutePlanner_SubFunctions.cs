@@ -17,11 +17,11 @@ namespace GeocachingTourPlanner.Routing
 		private bool ResolveAndAddGeocachesToPartialRoutes(List<Geocache> geocaches)
 		{
 			//This way the Geocache can be added to multiple partial routes, but no multiple times to the same one
-			for (int CurrentPartialrouteIndex = 0; CurrentPartialrouteIndex < CompleteRouteData.partialRoutes.Count; CurrentPartialrouteIndex++)
+			for (int CurrentPartialrouteIndex = 0; CurrentPartialrouteIndex < CompleteRouteData.PartialRoutes.Count; CurrentPartialrouteIndex++)
 			{
 				Parallel.ForEach(geocaches, GC =>
 				{
-					float ExtraDistance = GetEstimatedExtraDistance_NewRoute(CompleteRouteData.partialRoutes[CurrentPartialrouteIndex].partialRoute, new Coordinate(GC.lat, GC.lon));
+					float ExtraDistance = GetEstimatedExtraDistance_NewRoute(CompleteRouteData.PartialRoutes[CurrentPartialrouteIndex].partialRoute, new Coordinate(GC.lat, GC.lon));
 
 					//Only exclude those that definitely can't be reached
 					if (ExtraDistance < CompleteRouteData.Profile.MaxDistance * 1000 - CompleteRouteData.TotalDistance)
@@ -31,11 +31,11 @@ namespace GeocachingTourPlanner.Routing
 						Result<RouterPoint> ResolveResult = Router1.TryResolve(CompleteRouteData.Profile.ItineroProfile.profile, GC.lat, GC.lon, SearchDistanceInMeters);
 						if (!ResolveResult.IsError)
 						{
-							float DistanceToRoute = ExtraDistance_InRoute(CompleteRouteData.partialRoutes[CurrentPartialrouteIndex].partialRoute, new Coordinate(GC.lat, GC.lon));
+							float DistanceToRoute = ExtraDistance_InRoute(CompleteRouteData.PartialRoutes[CurrentPartialrouteIndex].partialRoute, new Coordinate(GC.lat, GC.lon));
 							RouterPointOfGeocache = ResolveResult.Value;
-							lock (CompleteRouteData.partialRoutes)
+							lock (CompleteRouteData.PartialRoutes)
 							{
-								CompleteRouteData.partialRoutes[CurrentPartialrouteIndex].GeocachesInReach.Add(new GeocacheRoutingInformation(GC, DistanceToRoute, ExtraDistance, RouterPointOfGeocache));//Push the resoved location on
+								CompleteRouteData.PartialRoutes[CurrentPartialrouteIndex].GeocachesInReach.Add(new GeocacheRoutingInformation(GC, DistanceToRoute, ExtraDistance, RouterPointOfGeocache));//Push the resoved location on
 							}
 						}
 					}
@@ -47,19 +47,19 @@ namespace GeocachingTourPlanner.Routing
         /// <summary>
         /// Calculates minimal distance of geocaches in reach of the old route to the new routes. In a second steps it replaces the old route with the new one and updates the distances
         /// </summary>
-        /// <param name="RouteDataToReplaceIn">As in AddBestReachableGeocaches multiple instances of RouteData exist </param>
+        /// <param name="RouteDataToReplaceIn">To decide which Option is the best, sometimes multiple RouteData Objects exist</param>
         /// <param name="NewPart1"></param>
         /// <param name="NewPart2"></param>
         /// <param name="OldRoute"></param>
         private RouteData ReplaceRoute(RouteData RouteDataToReplaceIn, Route NewPart1, Route NewPart2, PartialRoute OldRoute)
 		{
-			int IndexOfRouteToReplace = RouteDataToReplaceIn.partialRoutes.IndexOf(OldRoute);
+			int IndexOfRouteToReplace = RouteDataToReplaceIn.PartialRoutes.IndexOf(OldRoute);
 			List<GeocacheRoutingInformation> NewPart1Geocaches = new List<GeocacheRoutingInformation>();
-			List<GeocacheRoutingInformation> OldRouteGeocaches1 = new List<GeocacheRoutingInformation>(RouteDataToReplaceIn.partialRoutes[IndexOfRouteToReplace].GeocachesInReach);
+			List<GeocacheRoutingInformation> OldRouteGeocaches1 = new List<GeocacheRoutingInformation>(RouteDataToReplaceIn.PartialRoutes[IndexOfRouteToReplace].GeocachesInReach);
 			List<GeocacheRoutingInformation> NewPart2Geocaches = new List<GeocacheRoutingInformation>();
-			List<GeocacheRoutingInformation> OldRouteGeocaches2 = new List<GeocacheRoutingInformation>(RouteDataToReplaceIn.partialRoutes[IndexOfRouteToReplace].GeocachesInReach);
-			Coordinate Startingpoint = RouteDataToReplaceIn.partialRoutes[IndexOfRouteToReplace].partialRoute.Shape[0];
-			Coordinate Endpoint = RouteDataToReplaceIn.partialRoutes[IndexOfRouteToReplace].partialRoute.Shape[0];
+			List<GeocacheRoutingInformation> OldRouteGeocaches2 = new List<GeocacheRoutingInformation>(RouteDataToReplaceIn.PartialRoutes[IndexOfRouteToReplace].GeocachesInReach);
+			Coordinate Startingpoint = RouteDataToReplaceIn.PartialRoutes[IndexOfRouteToReplace].partialRoute.Shape[0];
+			Coordinate Endpoint = RouteDataToReplaceIn.PartialRoutes[IndexOfRouteToReplace].partialRoute.Shape[0];
 
 			Thread Thread1 = new Thread(new ThreadStart(() =>
 			{
@@ -89,21 +89,11 @@ namespace GeocachingTourPlanner.Routing
 			Thread2.Join();
 
 			//Put the new parts in place of the old part
-			Route RouteToReplace = RouteDataToReplaceIn.partialRoutes[IndexOfRouteToReplace].partialRoute;
-			RouteDataToReplaceIn.partialRoutes.RemoveAt(IndexOfRouteToReplace);
-			RouteDataToReplaceIn.partialRoutes.InsertRange(IndexOfRouteToReplace, new List<PartialRoute>()
+			RouteDataToReplaceIn.ReplaceRoute(OldRoute, new List<PartialRoute>()
 			{
 				new PartialRoute(NewPart1, NewPart1Geocaches),
 				new PartialRoute(NewPart2, NewPart2Geocaches)
 			});
-
-			RouteDataToReplaceIn.TotalDistance -= RouteToReplace.TotalDistance;
-			RouteDataToReplaceIn.TotalDistance += NewPart1.TotalDistance;
-			RouteDataToReplaceIn.TotalDistance += NewPart2.TotalDistance;
-
-			RouteDataToReplaceIn.TotalTime -= RouteToReplace.TotalTime;
-			RouteDataToReplaceIn.TotalTime += NewPart1.TotalTime;
-			RouteDataToReplaceIn.TotalTime += NewPart2.TotalTime;
 
 			return RouteDataToReplaceIn;
 
@@ -163,29 +153,7 @@ namespace GeocachingTourPlanner.Routing
 		#endregion
 
 		#region Geocache Operations
-
-		/// <summary>
-		/// Returns new list with all geocaches that don't have a negtive rating
-		/// </summary>
-		/// <param name="AllGeocaches"></param>
-		/// <returns></returns>
-		private static List<Geocache> RemoveGeocachesWithNegativePoints(List<Geocache> AllGeocaches)
-		{
-			List<Geocache> UsableGeocaches = new List<Geocache>();
-			Parallel.ForEach(AllGeocaches, GC =>
-			{
-				if (GC.Rating > 0)
-				{
-					lock (UsableGeocaches)
-					{
-						UsableGeocaches.Add(GC);
-					}
-				}
-			});
-			return UsableGeocaches;
-		}
-
-		/// <summary>
+        /// <summary>
 		/// Returns the shortest triangulated extra distance to the route if the coordinates are added in between the closest shapepoint and it's neighbor where the coordinate is closer to.
 		/// </summary>
 		/// <param name="route"></param>
@@ -273,7 +241,7 @@ namespace GeocachingTourPlanner.Routing
 		private void UpdateReachableGeocachesListRoutingRatings()
 		{
 			CompleteRouteData.ReachableGeocaches.Clear();//Since it will be rebuild
-			foreach (PartialRoute PR in CompleteRouteData.partialRoutes)
+			foreach (PartialRoute PR in CompleteRouteData.PartialRoutes)
 			{
 				foreach (GeocacheRoutingInformation GC in PR.GeocachesInReach)
 				{

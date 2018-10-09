@@ -68,5 +68,32 @@ namespace GeocachingTourPlanner.Properties {
                 return ResourceManager.GetString("Error", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Length:  ähnelt.
+        /// </summary>
+        internal static string Length {
+            get {
+                return ResourceManager.GetString("Length", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Time needed:  ähnelt.
+        /// </summary>
+        internal static string TimeNeeded {
+            get {
+                return ResourceManager.GetString("TimeNeeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Total Points:  ähnelt.
+        /// </summary>
+        internal static string TotalPoints {
+            get {
+                return ResourceManager.GetString("TotalPoints", resourceCulture);
+            }
+        }
     }
 }

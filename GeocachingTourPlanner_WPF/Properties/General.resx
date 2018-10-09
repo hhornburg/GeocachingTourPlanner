@@ -120,4 +120,13 @@
   <data name="Error" xml:space="preserve">
     <value>Error</value>
   </data>
+  <data name="Length" xml:space="preserve">
+    <value>Length: </value>
+  </data>
+  <data name="TimeNeeded" xml:space="preserve">
+    <value>Time needed: </value>
+  </data>
+  <data name="TotalPoints" xml:space="preserve">
+    <value>Total Points: </value>
+  </data>
 </root>
