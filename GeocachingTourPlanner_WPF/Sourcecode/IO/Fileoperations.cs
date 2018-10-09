@@ -408,7 +408,7 @@ namespace GeocachingTourPlanner.IO
 				creator.Value = "GeocachingTourPlanner";
 				root.Attributes.Append(creator);
 
-				foreach (Geocache GC in RouteToExport.CompleteRouteData.GeocachesOnRoute)
+                foreach (Geocache GC in RouteToExport.CompleteRouteData.Waypoints.Where(x => x.GetType() == typeof(Geocache)))
 				{
 					XmlElement wpt = GPX.CreateElement("wpt");
 					//Coordinates

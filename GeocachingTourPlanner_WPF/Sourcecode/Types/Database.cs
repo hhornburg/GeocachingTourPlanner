@@ -3,9 +3,11 @@ using GeocachingTourPlanner.Routing;
 using Itinero.LocalGeo;
 using Microsoft.Win32;
 using System.IO;
+using System.Linq;
 
 namespace GeocachingTourPlanner.Types
 {
+    //TODO Saves Routes and Ratingprofiles as a whole to the file, but will always only use a string to reference them. Use IXmlSerializable to optimize
     /// <summary>
     /// A change to any element here will result in a backup of the database
     /// </summary>
@@ -19,9 +21,9 @@ namespace GeocachingTourPlanner.Types
 		private string _routeDB_Filepath;
 		private double _lastMapResolution;
 		private Coordinate _lastMapPosition;
-		private Ratingprofile _activeRatingprofile;
-		private Routingprofile _activeRoutingprofile;
-		private RoutePlanner _activeRoute;
+		private string _activeRatingprofile;
+		private string _activeRoutingprofile;
+		private string _activeRoute;
 		private int _markerSize;
 		private float _minimalRating;
 		private float _maximalRating;
@@ -80,15 +82,15 @@ namespace GeocachingTourPlanner.Types
 		/// <summary>
 		/// Ratingprofile that is selected
 		/// </summary>
-		public Ratingprofile ActiveRatingprofile { get => _activeRatingprofile; set { _activeRatingprofile = value; Fileoperations.Backup(Databases.MainDatabase); } }
+		public Ratingprofile ActiveRatingprofile { get => GetRatingprofile(_activeRatingprofile); set { _activeRatingprofile = value.Name; Fileoperations.Backup(Databases.MainDatabase); } }
 		/// <summary>
 		/// Routingprofile that is selected
 		/// </summary>
-		public Routingprofile ActiveRoutingprofile { get => _activeRoutingprofile; set { _activeRoutingprofile = value; Fileoperations.Backup(Databases.MainDatabase); } }
+		public Routingprofile ActiveRoutingprofile { get => GetRoutingprofile(_activeRoutingprofile); set { _activeRoutingprofile = value.Name; Fileoperations.Backup(Databases.MainDatabase); } }
 		/// <summary>
 		/// Routingprofile that is selected
 		/// </summary>
-		public RoutePlanner ActiveRoute { get => _activeRoute; set { _activeRoute = value; Fileoperations.Backup(Databases.MainDatabase); } }
+		public RoutePlanner ActiveRoute { get => GetRoute(_activeRoute); set { _activeRoute = value.Name; Fileoperations.Backup(Databases.MainDatabase); } }
 
 		/// <summary>
 		/// Marker size in pixel
@@ -226,10 +228,46 @@ namespace GeocachingTourPlanner.Types
 
 			return false;//Since Databasefilepath hasn't been set
 		}
-		#endregion
+
+        private Ratingprofile GetRatingprofile(string RP_Name)
+        {
+            if (App.Ratingprofiles.Count(x => x.Name == RP_Name) > 0)
+            {
+                return App.Ratingprofiles.First(x => x.Name == RP_Name);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private Routingprofile GetRoutingprofile(string RP_Name)
+        {
+            if (App.Routingprofiles.Count(x => x.Name == RP_Name) > 0)
+            {
+                return App.Routingprofiles.First(x => x.Name == RP_Name);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private RoutePlanner GetRoute(string RP_Name)
+        {
+            if (App.Routes.Count(x => x.Name == RP_Name) > 0)
+            {
+                return App.Routes.First(x => x.Name == RP_Name);
+            }
+            else
+            {
+                return null;
+            }
+        }
+        #endregion
 
 
-	}
+    }
 
     /// <summary>
     /// List of all Database types. Used as parameter to determine which Database is meant

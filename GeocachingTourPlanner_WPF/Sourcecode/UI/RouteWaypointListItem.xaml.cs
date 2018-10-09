@@ -13,7 +13,7 @@ namespace GeocachingTourPlanner.UI
 	{
 		Waypoint waypoint = new Waypoint();
 		/// <summary>
-		/// Initializes a new item to be dispayed in the list of waypoints
+		/// Initializes a new item to be dispayed in the list of Waypoints
 		/// </summary>
 		/// <param name="waypoint"></param>
 		/// <param name="Name"></param>
@@ -29,30 +29,26 @@ namespace GeocachingTourPlanner.UI
 		}
 
 		private void MoveUp_Click(object sender, RoutedEventArgs e)
-		{
-			int OldIndex=App.DB.ActiveRoute.CompleteRouteData.Waypoints.IndexOf(waypoint);
-			App.DB.ActiveRoute.CompleteRouteData.Waypoints.RemoveAt(OldIndex);
-			App.DB.ActiveRoute.CompleteRouteData.Waypoints.Insert(OldIndex-1,waypoint);
-			CheckClickability();
+        {
+            App.DB.ActiveRoute.CompleteRouteData.MoveWaypointUp(waypoint);
+            CheckClickability();
 		}
 
 		private void MoveDown_Click(object sender, RoutedEventArgs e)
 		{
-			int OldIndex = App.DB.ActiveRoute.CompleteRouteData.Waypoints.IndexOf(waypoint);
-			App.DB.ActiveRoute.CompleteRouteData.Waypoints.RemoveAt(OldIndex);
-			App.DB.ActiveRoute.CompleteRouteData.Waypoints.Insert(OldIndex + 1, waypoint);
+            App.DB.ActiveRoute.CompleteRouteData.MoveWaypointDown(waypoint);
 			CheckClickability();
 		}
 
 		private void Delete_Click(object sender, RoutedEventArgs e)
 		{
-			App.DB.ActiveRoute.CompleteRouteData.Waypoints.Remove(waypoint);
+			App.DB.ActiveRoute.CompleteRouteData.RemoveWaypoint(waypoint);
             App.mainWindow.Map_RenewWaypointLayer();
 		}
 
 		private void CheckClickability()
 		{
-			if (App.DB.ActiveRoute.CompleteRouteData.Waypoints.IndexOf(waypoint) == 0)
+			if (App.DB.ActiveRoute.CompleteRouteData.IndexOfWaypoint(waypoint) == 0)
 			{
 				MoveUp.IsEnabled = false;
 			}
@@ -61,7 +57,7 @@ namespace GeocachingTourPlanner.UI
 				MoveUp.IsEnabled = true;
 			}
 
-			if (App.DB.ActiveRoute.CompleteRouteData.Waypoints.IndexOf(waypoint) == App.DB.ActiveRoute.CompleteRouteData.Waypoints.Count - 1)
+			if (App.DB.ActiveRoute.CompleteRouteData.IndexOfWaypoint(waypoint) == App.DB.ActiveRoute.CompleteRouteData.Waypoints.Count - 1)
 			{
 				MoveDown.IsEnabled = false;
 			}

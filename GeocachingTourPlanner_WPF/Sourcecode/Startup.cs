@@ -1,5 +1,6 @@
 ﻿using GeocachingTourPlanner;
 using GeocachingTourPlanner.IO;
+using GeocachingTourPlanner.Routing;
 using GeocachingTourPlanner.Types;
 using GeocachingTourPlanner.UI;
 using Itinero.LocalGeo;
@@ -17,7 +18,7 @@ namespace GeocachingTourPlanner
 			App.Ratingprofiles = new SortableBindingList<Ratingprofile>();
 			App.Routingprofiles = new SortableBindingList<Routingprofile>();
 			App.Geocaches = new SortableBindingList<Geocache>();
-			App.Routes = new SortableBindingList<Routing.RoutePlanner>();
+			App.Routes = new SortableBindingList<RoutePlanner>();
 
 			App.mainWindow = new MainWindow();
 			App.mainWindow.UpdateStatus("Started reading databases");
@@ -85,6 +86,14 @@ namespace GeocachingTourPlanner
 			Fileoperations.ReadRoutingprofiles();
 
 			Fileoperations.ReadRoutes();
+            //Rebuilds all Routes
+            foreach(RoutePlanner RP in App.Routes)
+            {
+                if (RP.CompleteRouteData.Profile != null)
+                {
+                    RP.CalculateDirectRoute();
+                }
+            }
 		}
 
 		public static void CheckSettings()

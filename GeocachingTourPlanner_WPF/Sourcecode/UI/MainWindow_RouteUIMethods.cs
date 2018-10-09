@@ -27,7 +27,10 @@ namespace GeocachingTourPlanner.UI
             else
             {
                 App.DB.ActiveRoute = App.Routes.First(x => x.Name == SelectRoute_Combobox.SelectedItem.ToString());
-                App.DB.ActiveRoutingprofile = App.DB.ActiveRoute.CompleteRouteData.Profile;
+                if (App.DB.ActiveRoute.CompleteRouteData.Profile != null)
+                {
+                    App.DB.ActiveRoutingprofile = App.DB.ActiveRoute.CompleteRouteData.Profile;
+                }
                 if (App.DB.ActiveRoutingprofile != null)
                 {
                     SetRoutingprofile(App.DB.ActiveRoutingprofile);
@@ -38,12 +41,11 @@ namespace GeocachingTourPlanner.UI
 
         private void CalculateDirectRoute_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectRoutingprofileCombobox.SelectedItem == null)
+            if (App.DB.ActiveRoute.CompleteRouteData.Profile == null)
             {
                 MessageBox.Show("Please select a routingprofile");
                 return;
             }
-            App.DB.ActiveRoute.CompleteRouteData.Profile = App.Routingprofiles.First(x => x.Name == SelectRoutingprofileCombobox.SelectedItem.ToString());
             App.DB.ActiveRoute.CalculateDirectRoute();
         }
 
@@ -94,13 +96,13 @@ namespace GeocachingTourPlanner.UI
             }
             else
             {
-
-                App.DB.ActiveRoute = new RoutePlanner(NewRouteNameTextBox.Text);
+                RoutePlanner NewRoute = new RoutePlanner(NewRouteNameTextBox.Text);
+                App.Routes.Add(NewRoute);
+                App.DB.ActiveRoute = NewRoute;
                 if (App.DB.ActiveRoute == null)
                 {
                     return;
                 }
-                App.Routes.Add(App.DB.ActiveRoute);
                 SelectRoute_Combobox.SelectedItem = NewRouteNameTextBox.Text;
 
                 NewRouteNameTextBox.Text = "";
@@ -129,7 +131,7 @@ namespace GeocachingTourPlanner.UI
         }
         
         /// <summary>
-        /// Makes sure the List of waypoints is kept synched
+        /// Makes sure the List of Waypoints is kept synched
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

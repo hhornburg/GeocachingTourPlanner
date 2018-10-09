@@ -53,13 +53,12 @@ namespace GeocachingTourPlanner.Routing
         /// <param name="OldRoute"></param>
         private RouteData ReplaceRoute(RouteData RouteDataToReplaceIn, Route NewPart1, Route NewPart2, PartialRoute OldRoute)
 		{
-			int IndexOfRouteToReplace = RouteDataToReplaceIn.PartialRoutes.IndexOf(OldRoute);
 			List<GeocacheRoutingInformation> NewPart1Geocaches = new List<GeocacheRoutingInformation>();
-			List<GeocacheRoutingInformation> OldRouteGeocaches1 = new List<GeocacheRoutingInformation>(RouteDataToReplaceIn.PartialRoutes[IndexOfRouteToReplace].GeocachesInReach);
+			List<GeocacheRoutingInformation> OldRouteGeocaches1 = new List<GeocacheRoutingInformation>(OldRoute.GeocachesInReach);
 			List<GeocacheRoutingInformation> NewPart2Geocaches = new List<GeocacheRoutingInformation>();
-			List<GeocacheRoutingInformation> OldRouteGeocaches2 = new List<GeocacheRoutingInformation>(RouteDataToReplaceIn.PartialRoutes[IndexOfRouteToReplace].GeocachesInReach);
-			Coordinate Startingpoint = RouteDataToReplaceIn.PartialRoutes[IndexOfRouteToReplace].partialRoute.Shape[0];
-			Coordinate Endpoint = RouteDataToReplaceIn.PartialRoutes[IndexOfRouteToReplace].partialRoute.Shape[0];
+			List<GeocacheRoutingInformation> OldRouteGeocaches2 = new List<GeocacheRoutingInformation>(OldRoute.GeocachesInReach);
+			Coordinate Startingpoint =OldRoute.partialRoute.Shape[0];
+			Coordinate Endpoint = OldRoute.partialRoute.Shape[0];
 
 			Thread Thread1 = new Thread(new ThreadStart(() =>
 			{

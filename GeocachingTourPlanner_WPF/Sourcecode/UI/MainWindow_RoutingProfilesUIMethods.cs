@@ -1,12 +1,7 @@
-﻿using GeocachingTourPlanner.IO;
-using GeocachingTourPlanner.Routing;
-using GeocachingTourPlanner.Types;
+﻿using GeocachingTourPlanner.Types;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -136,11 +131,11 @@ namespace GeocachingTourPlanner.UI
             {
                 App.DB.ActiveRoute.CompleteRouteData.Profile = SelectedRoutingprofile;
             }
-            if (SelectRoutingprofileCombobox.SelectedItem != SelectedRoutingprofile.Name&&SelectRoutingprofileCombobox.Items.Contains(EditRoutingprofileCombobox.SelectedItem))
+            if (SelectRoutingprofileCombobox.Items.Contains(SelectedRoutingprofile.Name))
             {
                 SelectRoutingprofileCombobox.SelectedItem = SelectedRoutingprofile.Name;
             }
-            if (EditRoutingprofileCombobox.SelectedItem != SelectedRoutingprofile.Name&&EditRoutingprofileCombobox.Items.Contains(SelectRoutingprofileCombobox.SelectedItem))
+            if (EditRoutingprofileCombobox.Items.Contains(SelectedRoutingprofile.Name))
             {
                 EditRoutingprofileCombobox.SelectedItem = SelectedRoutingprofile.Name;
             }

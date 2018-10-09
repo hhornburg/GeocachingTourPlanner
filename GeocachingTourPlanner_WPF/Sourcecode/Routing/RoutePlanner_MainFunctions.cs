@@ -97,7 +97,7 @@ namespace GeocachingTourPlanner.Routing
 						Result<RouterPoint> result = Router1.TryResolve(CompleteRouteData.Profile.ItineroProfile.profile, lat, lon, SearchDistanceInMeters);
 						if (result.IsError)
 						{
-							//TODO Messagebox informing about geocache
+                        MessageBox.Show("Couldn't resolve: " + CompleteRouteData.Waypoints[i].ToString());
 							return false;
 						}
 						else
@@ -113,8 +113,8 @@ namespace GeocachingTourPlanner.Routing
 						Result<RouterPoint> result = Router1.TryResolve(CompleteRouteData.Profile.ItineroProfile.profile, lat, lon, SearchDistanceInMeters);
 						if (result.IsError)
 						{
-							//TODO Messagebox informing about geocache
-							return false;
+                        MessageBox.Show("Couldn't resolve: " + CompleteRouteData.Waypoints[i+1].ToString());
+                        return false;
 						}
 						else
 						{
@@ -125,7 +125,8 @@ namespace GeocachingTourPlanner.Routing
 				Result<Route> routeResult = Router1.TryCalculate(CompleteRouteData.Profile.ItineroProfile.profile, CompleteRouteData.Waypoints[i].routerPoint, CompleteRouteData.Waypoints[i + 1].routerPoint);
 				if (routeResult.IsError)
 				{
-					return false;
+                    MessageBox.Show("Couldn't route between: " + CompleteRouteData.Waypoints[i].ToString() + CompleteRouteData.Waypoints[i+1].ToString());
+                    return false;
 				}
 				else
 				{
@@ -159,7 +160,7 @@ namespace GeocachingTourPlanner.Routing
 						if (!RoutingResult.IsError)
 						{
 							float NewDistance = CompleteRouteData.TotalDistance - RouteToInsertIn.TotalDistance + RoutingResult.Value.Item1.TotalDistance + RoutingResult.Value.Item2.TotalDistance;
-							float NewTimeWithGeocaches = CompleteRouteData.TotalTime - RouteToInsertIn.TotalTime + RoutingResult.Value.Item1.TotalTime + RoutingResult.Value.Item2.TotalTime + (CompleteRouteData.GeocachesOnRoute.Count + 1) * CompleteRouteData.Profile.TimePerGeocache * 60;
+							float NewTimeWithGeocaches = CompleteRouteData.TotalTime - RouteToInsertIn.TotalTime + RoutingResult.Value.Item1.TotalTime + RoutingResult.Value.Item2.TotalTime + (CompleteRouteData.Waypoints.Count(x=>x.GetType()==typeof(Geocache)) + 1) * CompleteRouteData.Profile.TimePerGeocache * 60;
 
 							//calculate in meters, since the geocache may not lie on the route in the end
 							if (/*NewDistance < CompleteRouteData.Profile.MaxDistance * 1000 &&*/ NewTimeWithGeocaches < CompleteRouteData.Profile.MaxTime * 60)
@@ -373,7 +374,7 @@ namespace GeocachingTourPlanner.Routing
 						 {
 							 GeocachesToRemove.Add(CurrentGeocache);
 						 }
-						 else if (CompleteRouteData.GeocachesOnRoute.Contains(CurrentGeocache.geocache))
+						 else if (CompleteRouteData.Waypoints.Contains(CurrentGeocache.geocache))
 						 {
 							 GeocachesToRemove.Add(CurrentGeocache);
 						 }
@@ -418,7 +419,7 @@ namespace GeocachingTourPlanner.Routing
 					if (!RoutingResult.IsError)
 					{
 						float NewDistance = CompleteRouteData.TotalDistance - RouteToInsertIn.TotalDistance + RoutingResult.Value.Item1.TotalDistance + RoutingResult.Value.Item2.TotalDistance;
-						float NewTimeWithGeocaches = CompleteRouteData.TotalTime - RouteToInsertIn.TotalTime + RoutingResult.Value.Item1.TotalTime + RoutingResult.Value.Item2.TotalTime + (CompleteRouteData.GeocachesOnRoute.Count + 1) * CompleteRouteData.Profile.TimePerGeocache * 60;
+						float NewTimeWithGeocaches = CompleteRouteData.TotalTime - RouteToInsertIn.TotalTime + RoutingResult.Value.Item1.TotalTime + RoutingResult.Value.Item2.TotalTime + (CompleteRouteData.Waypoints.Count(x=>x.GetType()==typeof(Geocache)) + 1) * CompleteRouteData.Profile.TimePerGeocache * 60;
 
 						//calculate in meters
 						if (NewDistance < CompleteRouteData.Profile.MaxDistance * 1000 && NewTimeWithGeocaches < CompleteRouteData.Profile.MaxTime * 60)
