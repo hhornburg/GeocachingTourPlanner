@@ -87,6 +87,8 @@ namespace GeocachingTourPlanner.Routing
                 return false;
             }
 
+            CompleteRouteData.ClearPartialRoutes();
+
 			//TODO Parallel.FOR
 			for(int i=0; i < CompleteRouteData.Waypoints.Count-1; i++)//minus one, since No route needs to be calculated from last point
 			{

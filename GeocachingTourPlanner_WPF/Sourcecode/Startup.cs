@@ -7,6 +7,7 @@ using Itinero.LocalGeo;
 using System;
 using System.ComponentModel;
 using System.IO;
+using System.Threading;
 
 namespace GeocachingTourPlanner
 {
@@ -76,7 +77,7 @@ namespace GeocachingTourPlanner
 		/// </summary>
 		public static void ReadRemainingDatabases()
 		{
-			Fileoperations.ReadRouterDB();
+			Thread RouterDBThread = Fileoperations.ReadRouterDB();
 
 			//Load Ratingprofiles from the File specified in the Database
 			Fileoperations.ReadRatingprofiles();
@@ -89,12 +90,22 @@ namespace GeocachingTourPlanner
 
 			Fileoperations.ReadRoutes();
             //Rebuilds all Routes
-            foreach(RoutePlanner RP in App.Routes)
+            if (RouterDBThread != null)
             {
-                if (RP.CompleteRouteData.Profile != null)
+                new Thread(new ThreadStart(() =>
                 {
-                    RP.CalculateDirectRoute();
-                }
+                    RouterDBThread.Join();
+                    for (int i = 0; i<App.Routes.Count;i++)
+                    {
+                        App.mainWindow.UpdateStatus("Recalculating Routes", i/App.Routes.Count * 100);
+                        if (App.Routes[i].CompleteRouteData.Profile != null)
+                        {
+                            App.Routes[i].CalculateDirectRoute();
+                        }
+                    }
+
+                    App.mainWindow.UpdateStatus("Done Recalculating Routes", 100);
+                })).Start();
             }
 		}
 

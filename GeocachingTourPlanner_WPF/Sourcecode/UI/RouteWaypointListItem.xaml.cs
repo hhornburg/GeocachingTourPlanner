@@ -31,18 +31,21 @@ namespace GeocachingTourPlanner.UI
 		private void MoveUp_Click(object sender, RoutedEventArgs e)
         {
             App.DB.ActiveRoute.CompleteRouteData.MoveWaypointUp(waypoint);
+            App.DB.ActiveRoute.CalculateDirectRoute();
             CheckClickability();
 		}
 
 		private void MoveDown_Click(object sender, RoutedEventArgs e)
 		{
             App.DB.ActiveRoute.CompleteRouteData.MoveWaypointDown(waypoint);
-			CheckClickability();
+            App.DB.ActiveRoute.CalculateDirectRoute();
+            CheckClickability();
 		}
 
 		private void Delete_Click(object sender, RoutedEventArgs e)
 		{
 			App.DB.ActiveRoute.CompleteRouteData.RemoveWaypoint(waypoint);
+            App.DB.ActiveRoute.CalculateDirectRoute();
             App.mainWindow.Map_RenewWaypointLayer();
 		}
 

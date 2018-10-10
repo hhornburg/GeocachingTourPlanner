@@ -23,12 +23,18 @@ namespace GeocachingTourPlanner.UI
 
         private void EditRoutingprofileCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SetRoutingprofile(App.Routingprofiles.First(x => x.Name == EditRoutingprofileCombobox.SelectedItem.ToString()));
+            if (EditRoutingprofileCombobox.SelectedItem != null)
+            {
+                SetRoutingprofile(App.Routingprofiles.First(x => x.Name == EditRoutingprofileCombobox.SelectedItem.ToString()));
+            }
         }
 
         private void SelectRoutingprofileCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SetRoutingprofile(App.Routingprofiles.First(x => x.Name == SelectRoutingprofileCombobox.SelectedItem.ToString()));
+            if (SelectRoutingprofileCombobox.SelectedItem != null)
+            {
+                SetRoutingprofile(App.Routingprofiles.First(x => x.Name == SelectRoutingprofileCombobox.SelectedItem.ToString()));
+            }
         }
 
         private void DeleteRoutingprofileButton_Click(object sender, RoutedEventArgs e)
@@ -68,6 +74,7 @@ namespace GeocachingTourPlanner.UI
             }
 
             RoutingprofilesStateLabel.Text = App.Routingprofiles.Count.ToString() + " Routingprofiles loaded";
+            SetRoutingprofile(App.DB.ActiveRoutingprofile);
         }
         #endregion
         #region Methods
@@ -126,6 +133,8 @@ namespace GeocachingTourPlanner.UI
         /// <param name="SelectedRoutingprofile"></param>
         public void SetRoutingprofile(Routingprofile SelectedRoutingprofile)
         {
+            if (SelectedRoutingprofile == null) { return; }
+
             App.DB.ActiveRoutingprofile = SelectedRoutingprofile;
             if (App.DB.ActiveRoute != null)
             {

@@ -43,7 +43,7 @@ namespace GeocachingTourPlanner.UI
 
             Mapsui.Geometries.Point Coordinates = SphericalMercator.ToLonLat(mapInfo.WorldPosition.X, mapInfo.WorldPosition.Y);
             App.DB.LastMapResolution = mapControl.Viewport.Resolution;
-            App.DB.LastMapPosition = new Coordinate((float)Coordinates.X, (float)Coordinates.Y);
+            App.DB.LastMapPosition = new Coordinate((float)Coordinates.Y, (float)Coordinates.X);
             e.Handled = true;
         }
 
@@ -186,7 +186,7 @@ namespace GeocachingTourPlanner.UI
                     {
                         Fill = null,
                         Outline = null,
-                        Line = { Color = Mapsui.Styles.Color.FromString("YellowGreen"), Width = 4 }
+                        Line = { Color = Color.FromString("Blue"), Width = 4 }
                     }
                 };
 

@@ -1,4 +1,5 @@
-﻿using GeocachingTourPlanner.Types;
+﻿using GeocachingTourPlanner.IO;
+using GeocachingTourPlanner.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -181,8 +182,11 @@ namespace GeocachingTourPlanner.Routing
             if (WP.GetType() == typeof(Geocache))
             {
                 //GeocachesOnRoute.Add((Geocache)WP);
-                TotalPoints += ((Geocache)WP).Rating;
-                TotalTime += Profile.TimePerGeocache;
+                TotalPoints -= ((Geocache)WP).Rating;
+                if (Profile != null)
+                {
+                    TotalTime -= Profile.TimePerGeocache;
+                }
             }
             WaypointsChangedEvent(this, null);
         }
@@ -196,6 +200,7 @@ namespace GeocachingTourPlanner.Routing
             int OldIndex = waypoints.IndexOf(WP);
             waypoints.RemoveAt(OldIndex);
             waypoints.Insert(OldIndex - 1, WP);
+            WaypointsChangedEvent(this, null);
         }
 
         /// <summary>
@@ -207,6 +212,7 @@ namespace GeocachingTourPlanner.Routing
             int OldIndex = waypoints.IndexOf(WP);
             waypoints.RemoveAt(OldIndex);
             waypoints.Insert(OldIndex + 1, WP);
+            WaypointsChangedEvent(this, null);
         }
 
         /// <summary>
@@ -279,12 +285,12 @@ namespace GeocachingTourPlanner.Routing
                             {
                                 if (App.Geocaches.Count(x => x.GCCODE == reader.GetAttribute("GCCODE"))>0)
                                 {
-                                    waypoints.Add(App.Geocaches.First(x => x.GCCODE == reader.GetAttribute("GCCODE")));
+                                    AddWaypointToEnd(App.Geocaches.First(x => x.GCCODE == reader.GetAttribute("GCCODE")));
                                 }
                             }
                             else
                             {
-                                waypoints.Add(new Waypoint(float.Parse(reader.GetAttribute("lat")), float.Parse(reader.GetAttribute("lon"))));
+                                AddWaypointToEnd(new Waypoint(float.Parse(reader.GetAttribute("lat")), float.Parse(reader.GetAttribute("lon"))));
                             }
                             reader.ReadStartElement();
                         }
@@ -294,6 +300,7 @@ namespace GeocachingTourPlanner.Routing
                 reader.ReadEndElement();//Only read it if RouteData is not empty
             }
         }
+
         /// <summary>
         /// Structure that holds all routing Data
         /// </summary>
@@ -304,6 +311,7 @@ namespace GeocachingTourPlanner.Routing
             PartialRoutesChangedEvent += App.mainWindow.RenewRouteInfo;
             WaypointsChangedEvent += App.mainWindow.Waypoints_ListChanged;
             WaypointsChangedEvent += App.mainWindow.RenewRouteInfo;
+            WaypointsChangedEvent += (s, e) => { Fileoperations.Backup(Databases.Routes); };
 
             ReachableGeocaches = new List<GeocacheRoutingInformation>();
 
@@ -326,6 +334,29 @@ namespace GeocachingTourPlanner.Routing
             TotalDistance = 0;
             TotalPoints = 0;
             TotalTime = 0; ;
+        }
+
+        /// <summary>
+        /// Recalculates TotalDistance, TotalTime and TotalPoints
+        /// </summary>
+        public void RecalculateRouteDataStatistics()
+        {
+            ResetRouteData();
+
+            foreach(Geocache GC in waypoints.Where(x => x.GetType() == typeof(Geocache)))
+            {
+                TotalPoints += GC.Rating;
+                if (Profile != null)
+                {
+                    TotalTime += Profile.TimePerGeocache;
+                }
+            }
+
+            foreach(PartialRoute PR in partialRoutes)
+            {
+                TotalDistance += PR.partialRoute.TotalDistance;
+                TotalTime += PR.partialRoute.TotalTime;
+            }
         }
 
         /// <summary>

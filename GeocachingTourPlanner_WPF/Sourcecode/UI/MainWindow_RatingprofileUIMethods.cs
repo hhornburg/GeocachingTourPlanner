@@ -138,6 +138,7 @@ namespace GeocachingTourPlanner.UI
                 EditRatingprofileCombobox.Items.Add(profile.Name);
             }
             RatingprofilesStateLabel.Text = App.Ratingprofiles.Count.ToString() + " Ratingprofiles loaded";
+            EditRoutingprofileCombobox.SelectedItem = App.DB.ActiveRatingprofile;
         }
 
         #endregion

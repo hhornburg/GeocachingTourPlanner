@@ -160,16 +160,23 @@ namespace GeocachingTourPlanner.UI
         /// </summary>
         public void RenewRouteInfo(object sender, EventArgs e)
         {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append(Properties.General.Length);
-            stringBuilder.Append((App.DB.ActiveRoute.CompleteRouteData.TotalDistance / 1000).ToString("F"));
-            stringBuilder.AppendLine("km");
-            stringBuilder.Append(Properties.General.TimeNeeded);
-            stringBuilder.Append((App.DB.ActiveRoute.CompleteRouteData.TotalTime / 60).ToString("F0"));
-            stringBuilder.AppendLine("min");
-            stringBuilder.Append(Properties.General.TotalPoints);
-            stringBuilder.Append(App.DB.ActiveRoute.CompleteRouteData.TotalPoints.ToString("F0"));
-            RouteInfo.Text = stringBuilder.ToString();
+            if (App.DB.ActiveRoute != null)
+            {
+                Application.Current.Dispatcher.BeginInvoke(
+                 new Action(() =>
+                 {
+                     StringBuilder stringBuilder = new StringBuilder();
+                     stringBuilder.Append(Properties.General.Length);
+                     stringBuilder.Append((App.DB.ActiveRoute.CompleteRouteData.TotalDistance / 1000).ToString("F"));
+                     stringBuilder.AppendLine("km");
+                     stringBuilder.Append(Properties.General.TimeNeeded);
+                     stringBuilder.Append((App.DB.ActiveRoute.CompleteRouteData.TotalTime / 60).ToString("F0"));
+                     stringBuilder.AppendLine("min");
+                     stringBuilder.Append(Properties.General.TotalPoints);
+                     stringBuilder.Append(App.DB.ActiveRoute.CompleteRouteData.TotalPoints.ToString("F0"));
+                     RouteInfo.Text = stringBuilder.ToString();
+                 }));
+            }
         }
         #endregion
 

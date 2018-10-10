@@ -202,13 +202,13 @@ namespace GeocachingTourPlanner.IO
 		}
 
 		/// <summary>
-		/// Reads the set RouterDB in a new thread
+		/// Reads the set RouterDB in a new thread and returns Thread
 		/// </summary>
-		public static void ReadRouterDB()
+		public static Thread ReadRouterDB()
 		{
 			if (App.DB.IsFilepathSet(Databases.RouterDB))//returns true if the user has set a valid database
 			{
-				new Thread(new ThreadStart(() =>
+				Thread thread = new Thread(new ThreadStart(() =>
 				{
 					try
 					{
@@ -226,8 +226,16 @@ namespace GeocachingTourPlanner.IO
 						MessageBox.Show("Failed to read RouterDB", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 						App.mainWindow.UpdateStatus("failed loading RouterDB", 100);
 					}
-				})).Start();
-			}
+				}));
+
+                thread.Start();
+
+                return thread;
+            }
+            else
+            {
+                return null;
+            }
 		}
 
 		/// <summary>

@@ -96,13 +96,15 @@ namespace GeocachingTourPlanner.UI
 		{
 			App.DB.ActiveRoute.CompleteRouteData.AddWaypointToBeginning(App.Geocaches.First(x => x.GCCODE == Name));
 			HideContextMenu();
+            App.DB.ActiveRoute.CalculateDirectRoute();
 		}
 
 		private static void AddGeocacheToEnd_Click(string Name)
 		{
             App.DB.ActiveRoute.CompleteRouteData.AddWaypointToEnd(App.Geocaches.First(x => x.GCCODE == Name));
 			HideContextMenu();
-		}
+            App.DB.ActiveRoute.CalculateDirectRoute();
+        }
 
 		private static void RemoveGeocache_Click(string Name)
 		{
@@ -113,12 +115,16 @@ namespace GeocachingTourPlanner.UI
 		{
             App.DB.ActiveRoute.CompleteRouteData.AddWaypointToBeginning(new Waypoint((float)Coordinates.Y, (float)Coordinates.X));
 			HideContextMenu();
-		}
+            App.DB.ActiveRoute.CalculateDirectRoute();
+            App.mainWindow.Map_RenewWaypointLayer();
+        }
 
 		private static void AddWaypointToEnd_Click(Mapsui.Geometries.Point Coordinates)
 		{
-            App.DB.ActiveRoute.CompleteRouteData.AddWaypointToBeginning(new Waypoint((float)Coordinates.Y, (float)Coordinates.X));
+            App.DB.ActiveRoute.CompleteRouteData.AddWaypointToEnd(new Waypoint((float)Coordinates.Y, (float)Coordinates.X));
 			HideContextMenu();
+            App.DB.ActiveRoute.CalculateDirectRoute();
+            App.mainWindow.Map_RenewWaypointLayer();
         }
 	}
 }

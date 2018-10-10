@@ -82,15 +82,15 @@ namespace GeocachingTourPlanner.Types
 		/// <summary>
 		/// Ratingprofile that is selected
 		/// </summary>
-		public Ratingprofile ActiveRatingprofile { get => GetRatingprofile(_activeRatingprofile); set { _activeRatingprofile = value.Name; Fileoperations.Backup(Databases.MainDatabase); } }
+		public Ratingprofile ActiveRatingprofile { get => GetRatingprofile(_activeRatingprofile); set { if(value!=null) _activeRatingprofile = value.Name; Fileoperations.Backup(Databases.MainDatabase); } }
 		/// <summary>
 		/// Routingprofile that is selected
 		/// </summary>
-		public Routingprofile ActiveRoutingprofile { get => GetRoutingprofile(_activeRoutingprofile); set { _activeRoutingprofile = value.Name; Fileoperations.Backup(Databases.MainDatabase); } }
+		public Routingprofile ActiveRoutingprofile { get => GetRoutingprofile(_activeRoutingprofile); set { if (value != null) _activeRoutingprofile = value.Name; Fileoperations.Backup(Databases.MainDatabase); } }
 		/// <summary>
 		/// Routingprofile that is selected
 		/// </summary>
-		public RoutePlanner ActiveRoute { get => GetRoute(_activeRoute); set { _activeRoute = value.Name; Fileoperations.Backup(Databases.MainDatabase); } }
+		public RoutePlanner ActiveRoute { get => GetRoute(_activeRoute); set { if (value != null) _activeRoute = value.Name; Fileoperations.Backup(Databases.MainDatabase); } }
 
 		/// <summary>
 		/// Marker size in pixel
