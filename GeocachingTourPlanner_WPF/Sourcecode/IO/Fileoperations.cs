@@ -177,12 +177,7 @@ namespace GeocachingTourPlanner.IO
 					App.Geocaches = (SortableBindingList<Geocache>)GeocachesSerializer.Deserialize(GCReader);
                     GCReader.Close();
                     App.LockGeocacheDB_File = false;
-
-					App.Geocaches = new SortableBindingList<Geocache>(App.Geocaches.OrderByDescending(x => x.Rating).ToList());
-					Startup.BindLists();//Since binding is lost when new list is created
-					App.DB.MaximalRating = App.Geocaches[0].Rating;//Possible since list is sorted
-					App.DB.MinimalRating = App.Geocaches[App.Geocaches.Count - 1].Rating;
-
+                    App.DB.RecalculateRatingLimits();
 					App.mainWindow.UpdateStatus("Successfully read geocaches");
 
 				}

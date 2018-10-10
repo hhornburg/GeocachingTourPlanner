@@ -152,6 +152,9 @@ namespace GeocachingTourPlanner
             App.Routes.ListChanged += new ListChangedEventHandler(App.mainWindow.Routes_ListChanged);
             App.Routes.ListChanged += new ListChangedEventHandler((s, e) => { Fileoperations.Backup(Databases.Routes); });
             App.Routes.ResetBindings();
+
+
+            App.DB.MaximalRatingsChangedEvent += App.mainWindow.UpdateSliderMinMax;
         }
 
 		private static void SetLastSelections()

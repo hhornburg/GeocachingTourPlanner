@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using GeocachingTourPlanner.Types;
-using Itinero;
-using Mapsui;
 using Mapsui.Projection;
 using Mapsui.UI;
 
 namespace GeocachingTourPlanner.UI
 {
-	public static class MapContextMenu
+    public static class MapContextMenu
 	{
 		/// <summary>
 		/// Shows context menu at the given point

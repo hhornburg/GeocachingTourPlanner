@@ -265,10 +265,8 @@ namespace GeocachingTourPlanner.UI
             {
                 GC.Rate(ratingprofile);
             }
-            App.Geocaches = new SortableBindingList<Geocache>(App.Geocaches.OrderByDescending(x => x.Rating).ToList());
-            Startup.BindLists();//Since bindiing is lost when new list is created
-            App.DB.MaximalRating = App.Geocaches[0].Rating;//Da sortierte Liste
-            App.DB.MinimalRating = App.Geocaches[App.Geocaches.Count - 1].Rating;
+
+            App.DB.RecalculateRatingLimits();
             Map_RenewGeocacheLayer();
             UpdateStatus("Geocaches rated");
             Fileoperations.Backup(Databases.Geocaches);

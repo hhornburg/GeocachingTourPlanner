@@ -255,7 +255,7 @@ namespace GeocachingTourPlanner.Routing
                 {
                     writer.WriteStartElement("Waypoint");
                     writer.WriteAttributeString("lat", WP.lat.ToString("G"));
-                    writer.WriteAttributeString("lat", WP.lat.ToString("G"));
+                    writer.WriteAttributeString("lon", WP.lon.ToString("G"));
                     writer.WriteEndElement();
                 }
             }

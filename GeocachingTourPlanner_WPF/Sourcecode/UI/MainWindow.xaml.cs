@@ -42,6 +42,11 @@ namespace GeocachingTourPlanner.UI
             //Map
             mapControl.Map.Layers.Add(OpenStreetMap.CreateTileLayer());
             TooltipCanvas.Visibility = Visibility.Collapsed;
+
+            //Slider
+            MinRatingSlider.Minimum = App.DB.MinimalRating;
+            MinRatingSlider.Maximum = App.DB.MaximalRating;
+            MinRatingSlider.Value = App.DB.MinAllowedRating;
         }
 
         #region Overview
@@ -451,8 +456,8 @@ namespace GeocachingTourPlanner.UI
         }
 
 
-        #endregion
 
+        #endregion
 
     }
     /// <summary>

@@ -65,6 +65,15 @@ namespace GeocachingTourPlanner.UI
             }
         }
 
+        private void MinRatingSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            App.DB.MinAllowedRating = MinRatingSlider.Value;
+            MinAllowedRatingTextBlock.Text = MinRatingSlider.Value.ToString("F0");
+            Map_RenewGeocacheLayer();
+        }
+        #endregion
+
+        #region Methods
         private MapInfo GetMapInfo(MouseEventArgs e)
         {
             try
@@ -77,10 +86,7 @@ namespace GeocachingTourPlanner.UI
                 return null;
             }
         }
-        #endregion
-
-        #region Methods
-
+        
         /// <summary>
         /// Updates Map
         /// </summary>
@@ -102,7 +108,7 @@ namespace GeocachingTourPlanner.UI
                     Style = null
                 };
 
-                foreach (Geocache GC in App.Geocaches)
+                foreach (Geocache GC in App.Geocaches.Where(x=>x.Rating>=App.DB.MinAllowedRating))
                 {
                     GeocacheLayer.Add(Markers.GetGeocacheMarker(GC));
                 }
@@ -213,6 +219,17 @@ namespace GeocachingTourPlanner.UI
             }
         }
 
+        /// <summary>
+        /// Sets the correct values for the slider from the DB
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        public void UpdateSliderMinMax(object sender, EventArgs args)
+        {
+            MinRatingSlider.Minimum = App.DB.MinimalRating;
+            MinRatingSlider.Maximum = App.DB.MaximalRating;
+            MinRatingSlider.Value = App.DB.MinAllowedRating;
+        }
         #endregion
     }
 }

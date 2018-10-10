@@ -2,6 +2,7 @@
 using GeocachingTourPlanner.Routing;
 using Itinero.LocalGeo;
 using Microsoft.Win32;
+using System;
 using System.IO;
 using System.Linq;
 
@@ -27,6 +28,7 @@ namespace GeocachingTourPlanner.Types
 		private int _markerSize;
 		private float _minimalRating;
 		private float _maximalRating;
+        private double _minAllowedRating;
 		private bool _autotargetselection;
 		private float _percentageOfDistanceInAutoTargetselection_Max;
 		private float _percentageOfDistanceInAutoTargetselection_Min;
@@ -104,11 +106,15 @@ namespace GeocachingTourPlanner.Types
 		/// Maximal Rating of all geocaches. Used for the creation of the color coding
 		/// </summary>
 		public float MaximalRating { get => _maximalRating; set { _maximalRating = value; Fileoperations.Backup(Databases.MainDatabase); } }
-
-		/// <summary>
-		/// Wether the routing algorithm should look for geocaches that should be targeted
+        /// <summary>
+		/// Maximal Rating of all geocaches. Used for the creation of the color coding
 		/// </summary>
-		public bool Autotargetselection { get => _autotargetselection; set { _autotargetselection = value; Fileoperations.Backup(Databases.MainDatabase); } }
+		public double MinAllowedRating { get => _minAllowedRating; set { _minAllowedRating = value; Fileoperations.Backup(Databases.MainDatabase); } }
+
+        /// <summary>
+        /// Wether the routing algorithm should look for geocaches that should be targeted
+        /// </summary>
+        public bool Autotargetselection { get => _autotargetselection; set { _autotargetselection = value; Fileoperations.Backup(Databases.MainDatabase); } }
 		/// <summary>
 		/// How much should be the limit to the distance that the route covers after Autotargetselection
 		/// </summary>
@@ -125,6 +131,11 @@ namespace GeocachingTourPlanner.Types
 		/// Wether the caclulation of the routes should be displayed live
 		/// </summary>
 		public bool DisplayLiveCalculation { get => _displayLiveCalculation; set { _displayLiveCalculation = value; Fileoperations.Backup(Databases.MainDatabase); } }
+
+        /// <summary>
+        /// Fires when the Maximal or the minimal rating of the geocaches was changed
+        /// </summary>
+        public event EventHandler MaximalRatingsChangedEvent;
 
 		#region Methods
 		/// <summary>
@@ -228,6 +239,21 @@ namespace GeocachingTourPlanner.Types
 
 			return false;//Since Databasefilepath hasn't been set
 		}
+
+        /// <summary>
+        /// Recalculates the Maximal and the minimal ratings and triggers the appropriate event
+        /// </summary>
+        public void RecalculateRatingLimits()
+        {
+            App.Geocaches = new SortableBindingList<Geocache>(App.Geocaches.OrderByDescending(x => x.Rating).ToList());
+            Startup.BindLists();//Since binding is lost when new list is created
+            MaximalRating = App.Geocaches[0].Rating;//Possible since list is sorted
+            MinimalRating = App.Geocaches[App.Geocaches.Count - 1].Rating;
+            if (MaximalRatingsChangedEvent != null)
+            {
+                MaximalRatingsChangedEvent(this, null);
+            }
+        }
 
         private Ratingprofile GetRatingprofile(string RP_Name)
         {
