@@ -96,12 +96,12 @@
                             </Button>
 
                             <TextBlock x:Name="RoutesStateLabel" Grid.Column="0" Grid.Row="4" TextWrapping="Wrap" TextAlignment="Center">0 Routes loaded</TextBlock>
-                            <Button Grid.Column="1" Grid.Row="4" Click="setRoutingprofiledatabaseButton_Click">
+                            <Button Grid.Column="1" Grid.Row="4" Click="setRoutesdatabaseButton_Click">
                                 <TextBlock TextWrapping="Wrap" TextAlignment="Center">
                                     Set Routes Database
                                 </TextBlock>
                             </Button>
-                            <Button Grid.Column="2" Grid.Row="4" Click="NewRoutingprofilesDatabaseButton_Click">
+                            <Button Grid.Column="2" Grid.Row="4" Click="NewRouteDatabaseButton_Click">
                                 <TextBlock TextWrapping="Wrap" TextAlignment="Center">
                                     New, empty Database
                                 </TextBlock>

@@ -36,6 +36,7 @@ namespace GeocachingTourPlanner.UI
                     SetRoutingprofile(App.DB.ActiveRoutingprofile);
                 }
                 Waypoints_ListChanged(null, null);
+                RenewRouteInfo(null, null);
             }
         }
 
@@ -71,8 +72,11 @@ namespace GeocachingTourPlanner.UI
 
         private void DeleteRoute_Click(object sender, RoutedEventArgs e)
         {
-            App.Routes.Remove(App.DB.ActiveRoute);
-            mapControl.Map.Layers.Remove(mapControl.Map.Layers.First(x => x.Name == "Route:" + App.DB.ActiveRoute.Name));
+            if (App.DB.ActiveRoute != null)
+            {
+                mapControl.Map.Layers.Remove(mapControl.Map.Layers.First(x => x.Name == "Route:" + App.DB.ActiveRoute.Name));
+                App.Routes.Remove(App.DB.ActiveRoute);
+            }
         }
 
         private void NewRouteButton_Click(object sender, RoutedEventArgs e)

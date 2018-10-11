@@ -432,8 +432,12 @@ namespace GeocachingTourPlanner.IO
 					linkattribute.Value = "https://www.coord.info/" + GC.GCCODE;
 					link.Attributes.Append(linkattribute);
 					wpt.AppendChild(link);
+                    //type
+                    XmlElement type = GPX.CreateElement("type");
+                    type.InnerText = "geocache";
+                    wpt.AppendChild(type);
 
-					root.AppendChild(wpt);
+                    root.AppendChild(wpt);
 				}
 
 				XmlNode track = GPX.CreateElement("trk");
@@ -468,8 +472,29 @@ namespace GeocachingTourPlanner.IO
 					tracksegment.AppendChild(trackpoint);
 				}
 				track.AppendChild(tracksegment);
+                /* TODO Import in Basecamp fails
+                //Route
+                XmlNode route = GPX.CreateElement("rte");
+                root.AppendChild(route);
 
-				GPX.InsertBefore(xmldecl, root);
+                route.AppendChild(name);
+
+                foreach (Waypoint WP in RouteToExport.CompleteRouteData.Waypoints)
+                {
+                    XmlElement routepoint = GPX.CreateElement("rtept");
+
+                    //Coordinates
+                    XmlAttribute latitude = GPX.CreateAttribute("lat");
+                    latitude.Value = WP.lat.ToString(CultureInfo.InvariantCulture);
+                    XmlAttribute longitude = GPX.CreateAttribute("lon");
+                    longitude.Value = WP.lon.ToString(CultureInfo.InvariantCulture);
+                    routepoint.Attributes.Append(latitude);
+                    routepoint.Attributes.Append(longitude);
+
+                    route.AppendChild(routepoint);
+                }
+                */
+                GPX.InsertBefore(xmldecl, root);
 				GPX.Save(StandardFileDialog.FileName);
 			}
 		}

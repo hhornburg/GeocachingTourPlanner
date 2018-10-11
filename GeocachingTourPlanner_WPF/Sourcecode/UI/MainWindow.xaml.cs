@@ -64,6 +64,10 @@ namespace GeocachingTourPlanner.UI
         private void ImportGeocachesButton_Click(object sender, RoutedEventArgs e)
         {
             Fileoperations.ImportGeocaches();
+            if (App.DB.ActiveRatingprofile != null)
+            {
+                RateGeocaches();
+            }
             Map_RenewGeocacheLayer();
         }
 
@@ -92,6 +96,14 @@ namespace GeocachingTourPlanner.UI
             }
         }
 
+        private void setRoutesdatabaseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (App.DB.OpenExistingDBFile(Databases.Routes))
+            {
+                Fileoperations.ReadRoutes();
+            }
+        }
+
         private void setRouterDBButton_Click(object sender, RoutedEventArgs e)
         {
             if (App.DB.OpenExistingDBFile(Databases.RouterDB))
@@ -114,6 +126,11 @@ namespace GeocachingTourPlanner.UI
         private void NewRoutingprofilesDatabaseButton_Click(object sender, RoutedEventArgs e)
         {
             Fileoperations.NewRoutingprofileDatabase();
+        }
+
+        private void NewRouteDatabaseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Fileoperations.NewRouteDatabase();
         }
         #endregion
         #region Accessors

@@ -245,13 +245,16 @@ namespace GeocachingTourPlanner.Types
         /// </summary>
         public void RecalculateRatingLimits()
         {
-            App.Geocaches = new SortableBindingList<Geocache>(App.Geocaches.OrderByDescending(x => x.Rating).ToList());
-            Startup.BindLists();//Since binding is lost when new list is created
-            MaximalRating = App.Geocaches[0].Rating;//Possible since list is sorted
-            MinimalRating = App.Geocaches[App.Geocaches.Count - 1].Rating;
-            if (MaximalRatingsChangedEvent != null)
+            if (App.Geocaches.Count > 0)
             {
-                MaximalRatingsChangedEvent(this, null);
+                App.Geocaches = new SortableBindingList<Geocache>(App.Geocaches.OrderByDescending(x => x.Rating).ToList());
+                Startup.BindLists();//Since binding is lost when new list is created
+                MaximalRating = App.Geocaches[0].Rating;//Possible since list is sorted
+                MinimalRating = App.Geocaches[App.Geocaches.Count - 1].Rating;
+                if (MaximalRatingsChangedEvent != null)
+                {
+                    MaximalRatingsChangedEvent(this, null);
+                }
             }
         }
 

@@ -196,19 +196,23 @@ namespace GeocachingTourPlanner.UI
                     }
                 };
 
-                LineString Route = new LineString();
-                for (int i = 0; i < App.DB.ActiveRoute.CompleteRouteData.PartialRoutes.Count; i++)
+                //Workaround for Mapsui issue #525
+                if (App.DB.ActiveRoute != null && App.DB.ActiveRoute.CompleteRouteData.PartialRoutes.Count>0)
                 {
-                    PartialRoute CurrentPartialRoute = App.DB.ActiveRoute.CompleteRouteData.PartialRoutes[i];
-                    for (int j = 0; j < CurrentPartialRoute.partialRoute.Shape.Count(); j++)
+                    LineString Route = new LineString();
+                    for (int i = 0; i < App.DB.ActiveRoute.CompleteRouteData.PartialRoutes.Count; i++)
                     {
-                        Coordinate point = CurrentPartialRoute.partialRoute.Shape[j];
-                        Route.Vertices.Add(SphericalMercator.FromLonLat((double)point.Longitude, (double)point.Latitude));
+                        PartialRoute CurrentPartialRoute = App.DB.ActiveRoute.CompleteRouteData.PartialRoutes[i];
+                        for (int j = 0; j < CurrentPartialRoute.partialRoute.Shape.Count(); j++)
+                        {
+                            Coordinate point = CurrentPartialRoute.partialRoute.Shape[j];
+                            Route.Vertices.Add(SphericalMercator.FromLonLat((double)point.Longitude, (double)point.Latitude));
+                        }
                     }
+                    RouteLayer.Add(new Feature { Geometry = Route });
+                    RouteLayer.IsMapInfoLayer = true;
+                    mapControl.Map.Layers.Add(RouteLayer);
                 }
-                RouteLayer.Add(new Feature { Geometry = Route });
-                RouteLayer.IsMapInfoLayer = true;
-                mapControl.Map.Layers.Add(RouteLayer);
 
                 //Set Views
                 if (App.DB.LastMapResolution == 0)
