@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" HorizontalAlignment="Stretch">
+    <Border BorderThickness="1">
     <Grid HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -23,4 +24,5 @@
         <Button x:Name="MoveDown" Grid.Column="1" Grid.Row="1" Click="MoveDown_Click">▼</Button>
         <Button x:Name="Delete" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Click="Delete_Click">X</Button>
     </Grid>
+    </Border>
 </UserControl>

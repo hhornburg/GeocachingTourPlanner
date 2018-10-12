@@ -4,6 +4,44 @@
              xmlns:local="clr-namespace:GeocachingTourPlanner"
              Startup="Application_Startup">
     <Application.Resources>
-         
+            <Style TargetType="Expander">
+                <Setter Property="Background" Value="#d1b894"/>
+            </Style>
+            <Style TargetType="TabControl">
+            <Setter Property="Background" Value="#d1b894"/>
+        </Style>
+        <Style TargetType="TabItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Grid Name="Panel">
+                            <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                              Margin="2"
+                                        ContentSource="Header"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Panel" Property="Background" Value="#94d194" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="Panel" Property="Background" Value="LightGray" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="1"/>
+        </Style>
+        <Style TargetType="Border">
+            <Setter Property="CornerRadius" Value="2"/>
+            <Setter Property="BorderBrush" Value="#7d5f36"/>
+        </Style>
+        <Style TargetType="DockPanel">
+            <Setter Property="Background" Value="#d1b894"/>
+        </Style>
     </Application.Resources>
 </Application>
