@@ -244,13 +244,13 @@ namespace GeocachingTourPlanner.UI
         }
         #endregion
 
-        private void RoutefindingWidth_Textbox_TextChanged(object sender, TextChangedEventArgs e)
+        private void OnRouteDistanceLimit_Textbox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (int.TryParse(RouteFindingWidthValue.Text, out int Value))
+            if (int.TryParse(OnRouteDistanceLimitValue.Text, out int Value))
             {
-                App.DB.RoutefindingWidth = Value;
+                App.DB.OnRouteDistanceLimit = Value;
             }
-            else if (RouteFindingWidthValue.Text.Length != 0)
+            else if (OnRouteDistanceLimitValue.Text.Length != 0)
             {
                 MessageBox.Show("Enter valid integers only.");
             }
@@ -278,7 +278,7 @@ namespace GeocachingTourPlanner.UI
         /// </summary>
         public void UpdateSettingsTextBoxes()
         {
-            RouteFindingWidthValue.Text = App.DB.RoutefindingWidth.ToString();
+            OnRouteDistanceLimitValue.Text = App.DB.OnRouteDistanceLimit.ToString();
             MarkerSizeValue.Value = App.DB.MarkerSize;
             AutotargetselectionMinValue.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Min * 100).ToString();
             AutotargetselectionMaxValue.Text = (App.DB.PercentageOfDistanceInAutoTargetselection_Max * 100).ToString();

@@ -63,7 +63,7 @@ namespace GeocachingTourPlanner
 			//Set default settings
 			App.DB.PercentageOfDistanceInAutoTargetselection_Max = 0.9f;
 			App.DB.PercentageOfDistanceInAutoTargetselection_Min = 0.75f;
-			App.DB.RoutefindingWidth = 4;
+			App.DB.OnRouteDistanceLimit = 100F;
 			App.DB.DisplayLiveCalculation = true;
 
 			//Mapspecific
@@ -119,9 +119,9 @@ namespace GeocachingTourPlanner
 			{
 				App.DB.PercentageOfDistanceInAutoTargetselection_Min = 0.75f;
 			}
-			if (App.DB.RoutefindingWidth == 0)
+			if (App.DB.OnRouteDistanceLimit == 0)
 			{
-				App.DB.RoutefindingWidth = 3;
+				App.DB.OnRouteDistanceLimit = 100F;
 			}
 			if (App.DB.MarkerSize == 0)
 			{

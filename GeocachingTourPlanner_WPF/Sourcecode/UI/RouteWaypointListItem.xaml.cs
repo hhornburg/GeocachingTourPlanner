@@ -44,7 +44,7 @@ namespace GeocachingTourPlanner.UI
         {
             App.DB.ActiveRoute.CompleteRouteData.RemoveWaypoint(waypoint);
             App.DB.ActiveRoute.CalculateDirectRoute();
-            App.mainWindow.Map_RenewWaypointLayer();
+            App.mainWindow.Map_RenewWaypointLayer(this,null);
         }
 
         private void CheckClickability()

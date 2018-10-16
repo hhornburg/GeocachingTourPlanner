@@ -1,5 +1,4 @@
-﻿using GeocachingTourPlanner.IO;
-using GeocachingTourPlanner.Routing;
+﻿using GeocachingTourPlanner.Routing;
 using GeocachingTourPlanner.Types;
 using Itinero.LocalGeo;
 using Mapsui.Geometries;
@@ -10,14 +9,9 @@ using Mapsui.Styles;
 using Mapsui.UI;
 using Mapsui.UI.Wpf;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace GeocachingTourPlanner.UI
@@ -29,7 +23,7 @@ namespace GeocachingTourPlanner.UI
         {
             Map_RenewGeocacheLayer();
         }
-        
+
         private void mapControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             MapContextMenu.HideContextMenu();
@@ -86,7 +80,7 @@ namespace GeocachingTourPlanner.UI
                 return null;
             }
         }
-        
+
         /// <summary>
         /// Updates Map
         /// </summary>
@@ -108,7 +102,7 @@ namespace GeocachingTourPlanner.UI
                     Style = null
                 };
 
-                foreach (Geocache GC in App.Geocaches.Where(x=>x.Rating>=App.DB.MinAllowedRating))
+                foreach (Geocache GC in App.Geocaches.Where(x => x.Rating >= App.DB.MinAllowedRating))
                 {
                     GeocacheLayer.Add(Markers.GetGeocacheMarker(GC));
                 }
@@ -124,49 +118,55 @@ namespace GeocachingTourPlanner.UI
             }
         }
 
+        private object Map_WaypointLocker = new object();
         /// <summary>
         /// Updates Waypoints shown on Map
         /// </summary>
-        public void Map_RenewWaypointLayer()
+        public void Map_RenewWaypointLayer(object sender, EventArgs eventArgs)
         {
-            //Waypointlayer
-            if (mapControl.Map.Layers.Count(x => x.Name == Layers.WaypointLayer) > 0)
+            if (App.DB.ActiveRoute != null)
             {
-                foreach (WritableLayer WPLayer in mapControl.Map.Layers.Where(x => x.Name == Layers.WaypointLayer).ToList())
+                lock (Map_WaypointLocker)
                 {
-                    mapControl.Map.Layers.Remove(WPLayer);
+                    //Waypointlayer
+                    if (mapControl.Map.Layers.Count(x => x.Name == Layers.WaypointLayer) > 0)
+                    {
+                        foreach (WritableLayer WPLayer in mapControl.Map.Layers.Where(x => x.Name == Layers.WaypointLayer).ToList())
+                        {
+                            mapControl.Map.Layers.Remove(WPLayer);
+                        }
+                    }
+                    WritableLayer Waypointlayer = new WritableLayer
+                    {
+                        Name = Layers.WaypointLayer,
+                        Style = null
+                    };
+
+                    foreach (Waypoint WP in App.DB.ActiveRoute.CompleteRouteData.Waypoints)
+                    {
+                        if (WP.GetType() != typeof(Geocache))
+                        {
+                            Waypointlayer.Add(Markers.GetWaypointMarker(WP));
+                        }
+                        else
+                        {
+                            Waypointlayer.Add(Markers.GetGeocacheMarker((Geocache)WP));
+                        }
+                    }
+                    Waypointlayer.IsMapInfoLayer = true;
+                    mapControl.Map.Layers.Add(Waypointlayer);
+                    mapControl.Refresh();
                 }
             }
-            WritableLayer Waypointlayer = new WritableLayer
-            {
-                Name = Layers.WaypointLayer,
-                Style = null
-            };
-
-            foreach (Waypoint WP in App.DB.ActiveRoute.CompleteRouteData.Waypoints)
-            {
-                if (WP.GetType() != typeof(Geocache))
-                {
-                    Waypointlayer.Add(Markers.GetWaypointMarker(WP));
-                }
-            }
-            Waypointlayer.IsMapInfoLayer = true;
-            mapControl.Map.Layers.Add(Waypointlayer);
-
-            //Set Views
-            if (App.DB.LastMapResolution == 0)
-            {
-                App.DB.LastMapResolution = 5;
-            }
-            mapControl.Refresh();
         }
 
         public void Map_NavigateToLastVisited()
         {
-            mapControl.Viewport.Resolution=App.DB.LastMapResolution;
+            mapControl.Viewport.Resolution = App.DB.LastMapResolution;
             mapControl.Navigator.NavigateTo(SphericalMercator.FromLonLat(App.DB.LastMapPosition.Longitude, App.DB.LastMapPosition.Latitude));
         }
 
+        private object Map_RouteLocker = new object();
         /// <summary>
         /// Updates the Route on the map
         /// </summary>
@@ -175,51 +175,62 @@ namespace GeocachingTourPlanner.UI
         /// <returns></returns>
         public void Map_RenewCurrentRoute(object sender, EventArgs listChangedEventArgs)
         {
-            if (mapControl != null)//Occurs during startup
+            if (mapControl != null)//1. Occurs during startup
             {
-                //RouteLayer
-                if (mapControl.Map.Layers.Count(x => x.Name == Layers.CurrentRouteLayer) > 0)
+                //This long lock needed, to prevent multiple parallel additions to the map
+                lock (Map_RouteLocker)
                 {
-                    foreach (WritableLayer GClayer in mapControl.Map.Layers.Where(x => x.Name == Layers.CurrentRouteLayer).ToList())
+                    //Remove Current Route in any case
+                    if (mapControl.Map.Layers.Count(x => x.Name == Layers.CurrentRouteLayer) > 0)
                     {
-                        mapControl.Map.Layers.Remove(GClayer);
-                    }
-                }
-                WritableLayer RouteLayer = new WritableLayer
-                {
-                    Name = Layers.CurrentRouteLayer,
-                    Style = new VectorStyle
-                    {
-                        Fill = null,
-                        Outline = null,
-                        Line = { Color = Color.FromString("Blue"), Width = 4 }
-                    }
-                };
-
-                //Workaround for Mapsui issue #525
-                if (App.DB.ActiveRoute != null && App.DB.ActiveRoute.CompleteRouteData.PartialRoutes.Count>0)
-                {
-                    LineString Route = new LineString();
-                    for (int i = 0; i < App.DB.ActiveRoute.CompleteRouteData.PartialRoutes.Count; i++)
-                    {
-                        PartialRoute CurrentPartialRoute = App.DB.ActiveRoute.CompleteRouteData.PartialRoutes[i];
-                        for (int j = 0; j < CurrentPartialRoute.partialRoute.Shape.Count(); j++)
+                        foreach (WritableLayer GClayer in mapControl.Map.Layers.Where(x => x.Name == Layers.CurrentRouteLayer).ToList())
                         {
-                            Coordinate point = CurrentPartialRoute.partialRoute.Shape[j];
-                            Route.Vertices.Add(SphericalMercator.FromLonLat((double)point.Longitude, (double)point.Latitude));
+                            mapControl.Map.Layers.Remove(GClayer);
                         }
                     }
-                    RouteLayer.Add(new Feature { Geometry = Route });
-                    RouteLayer.IsMapInfoLayer = true;
-                    mapControl.Map.Layers.Add(RouteLayer);
-                }
 
-                //Set Views
-                if (App.DB.LastMapResolution == 0)
-                {
-                    App.DB.LastMapResolution = 5;
+
+                    //Workaround for Mapsui issue #525
+                    if (App.DB.ActiveRoute != null && App.DB.ActiveRoute.CompleteRouteData.PartialRoutes.Count > 0)
+                    {
+                        WritableLayer RouteLayer = new WritableLayer
+                        {
+                            Name = Layers.CurrentRouteLayer,
+                            Style = new VectorStyle
+                            {
+                                Fill = null,
+                                Outline = null,
+                                Line = { Color = Color.FromString("Blue"), Width = 4 }
+                            }
+                        };
+
+                        LineString Route = new LineString();
+                        lock (App.DB.ActiveRoute.CompleteRouteData.PartialRouteLocker)
+                        {
+                            for (int i = 0; i < App.DB.ActiveRoute.CompleteRouteData.PartialRoutes.Count; i++)
+                            {
+                                PartialRoute CurrentPartialRoute = App.DB.ActiveRoute.CompleteRouteData.PartialRoutes[i];
+                                Route.Vertices.Add(SphericalMercator.FromLonLat(CurrentPartialRoute.From.lon, CurrentPartialRoute.From.lat));
+                                for (int j = 0; j < CurrentPartialRoute.Route.Shape.Count(); j++)
+                                {
+                                    Coordinate point = CurrentPartialRoute.Route.Shape[j];
+                                    Route.Vertices.Add(SphericalMercator.FromLonLat(point.Longitude, point.Latitude));
+                                }
+                                Route.Vertices.Add(SphericalMercator.FromLonLat(CurrentPartialRoute.To.lon, CurrentPartialRoute.To.lat));
+                            }
+                        }
+                        RouteLayer.Add(new Feature { Geometry = Route });
+                        RouteLayer.IsMapInfoLayer = true;
+                        mapControl.Map.Layers.Add(RouteLayer);
+                    }
+
+                    //Set Views
+                    if (App.DB.LastMapResolution == 0)
+                    {
+                        App.DB.LastMapResolution = 5;
+                    }
+                    mapControl.Refresh();
                 }
-                mapControl.Refresh();
             }
         }
 

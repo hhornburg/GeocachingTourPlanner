@@ -3,8 +3,8 @@ using GeocachingTourPlanner.Types;
 using GeocachingTourPlanner.UI;
 using Itinero;
 using Mapsui.Styles;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Windows;
 
 namespace GeocachingTourPlanner
@@ -61,7 +61,14 @@ namespace GeocachingTourPlanner
         public static bool LockRouteDB_File = false;
 
         //Cache
+        /// <summary>
+        /// Cahces the Symbols for Geocaches on the Map
+        /// </summary>
         public static List<KeyValueTriple<SymbolStyle, GeocacheType, int>> MarkerStyleCache = new List<KeyValueTriple<SymbolStyle, GeocacheType, int>>();
+        /// <summary>
+        /// Caches the Routes calculated from a waypoint for a specific Routingprofile
+        /// </summary>
+        public static ConcurrentDictionary<Itinero.Profiles.Profile, ConcurrentDictionary<Waypoint, WaypointRoutingInformation>> RoutingCache = new ConcurrentDictionary<Itinero.Profiles.Profile,ConcurrentDictionary<Waypoint,WaypointRoutingInformation>>();
 
         //Mainwindow
         public static MainWindow mainWindow = new MainWindow();

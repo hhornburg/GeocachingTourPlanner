@@ -4,11 +4,12 @@
              xmlns:local="clr-namespace:GeocachingTourPlanner"
              Startup="Application_Startup">
     <Application.Resources>
-            <Style TargetType="Expander">
-                <Setter Property="Background" Value="#d1b894"/>
-            </Style>
-            <Style TargetType="TabControl">
-            <Setter Property="Background" Value="#d1b894"/>
+        <SolidColorBrush  x:Key="BackgroundColor" Color="#d1b894"/>
+        <Style TargetType="Expander">
+            <Setter Property="Background" Value="{StaticResource BackgroundColor}"/>
+        </Style>
+        <Style TargetType="TabControl">
+            <Setter Property="Background" Value="{StaticResource BackgroundColor}"/>
         </Style>
         <Style TargetType="TabItem">
             <Setter Property="Template">
@@ -41,7 +42,10 @@
             <Setter Property="BorderBrush" Value="#7d5f36"/>
         </Style>
         <Style TargetType="DockPanel">
-            <Setter Property="Background" Value="#d1b894"/>
+            <Setter Property="Background" Value="{StaticResource BackgroundColor}"/>
+        </Style>
+        <Style TargetType="GroupBox">
+            <Setter Property="Background" Value="{StaticResource BackgroundColor}"/>
         </Style>
     </Application.Resources>
 </Application>

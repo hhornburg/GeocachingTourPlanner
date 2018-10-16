@@ -17,15 +17,16 @@ namespace GeocachingTourPlanner.Types
 			return Name;
 		}
 		/// <summary>
-		/// maximal distace of trip in km
+		/// maximal distace of trip in m
 		/// </summary>
 		public int MaxDistance { get; set; }
-		public int PenaltyPerExtraKM { get; set; }
 		/// <summary>
-		/// Maximal available time in minutes
+		/// Maximal available time in seconds
 		/// </summary>
 		public int MaxTime { get; set; }
-		public int PenaltyPerExtra10min { get; set; }
+        /// <summary>
+        /// in seconds
+        /// </summary>
 		public int TimePerGeocache { get; set; }
 
 		public SerializableItineroProfile ItineroProfile { get; set; }

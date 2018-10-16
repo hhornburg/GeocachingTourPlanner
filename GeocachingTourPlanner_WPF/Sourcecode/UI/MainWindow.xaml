@@ -441,11 +441,11 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     <CheckBox x:Name="LiveDisplayRouteCalculationValue" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Checked="LiveDisplayRouteCalculationCheckbox_Checked" Unchecked="LiveDisplayRouteCalculationCheckbox_Unchecked">Live Display of route Calculation</CheckBox>
-                                    <TextBlock Grid.Column="0" Grid.Row="1" TextWrapping="Wrap">Number of basic routes to compare in automatic selection of target geocaches (Default 4)</TextBlock>
-                                    <TextBox x:Name="RouteFindingWidthValue" Grid.Column="1" Grid.Row="1" MinWidth="40" TextChanged="RoutefindingWidth_Textbox_TextChanged"></TextBox>
-                                    <TextBox Grid.Column="0" Grid.Row="2" TextWrapping="Wrap">What percentage of the maximal distance should be used up at most in the automatic selection of target geocaches</TextBox>
+                                    <TextBlock Grid.Column="0" Grid.Row="1" TextWrapping="Wrap">Distance in m to which a Geocache is considered to be on the route (Default 100)</TextBlock>
+                                    <TextBox x:Name="OnRouteDistanceLimitValue" Grid.Column="1" Grid.Row="1" MinWidth="40" TextChanged="OnRouteDistanceLimit_Textbox_TextChanged"></TextBox>
+                                    <TextBlock Grid.Column="0" Grid.Row="2" TextWrapping="Wrap">What percentage of the maximal distance should be used up at most in the automatic selection of target geocaches</TextBlock>
                                     <TextBox x:Name="AutotargetselectionMaxValue" Grid.Column="1" Grid.Row="2" MinWidth="40" TextChanged="AutotargetselectionMaxTextbox_TextChanged" LostFocus="AutotargetselectionMaxTextBox_Leave"></TextBox>
-                                    <TextBox Grid.Column="0" Grid.Row="3" TextWrapping="Wrap">What percentage of the maximal distance should be used up at least in the automatic selection of target geocaches</TextBox>
+                                    <TextBlock Grid.Column="0" Grid.Row="3" TextWrapping="Wrap">What percentage of the maximal distance should be used up at least in the automatic selection of target geocaches</TextBlock>
                                     <TextBox x:Name="AutotargetselectionMinValue" Grid.Column="1" Grid.Row="3" MinWidth="40" TextChanged="AutotargetselectionMinTextBox_TextChanged" LostFocus="AutotargetselectionMinTextBox_Leave"></TextBox>
                                 </Grid>
                             </GroupBox>

@@ -32,7 +32,7 @@ namespace GeocachingTourPlanner.Types
 		private bool _autotargetselection;
 		private float _percentageOfDistanceInAutoTargetselection_Max;
 		private float _percentageOfDistanceInAutoTargetselection_Min;
-		private int _routefindingWidth;
+		private float _onRouteDistanceLimit;
 		private bool _displayLiveCalculation;
 
 		/// <summary>
@@ -126,7 +126,7 @@ namespace GeocachingTourPlanner.Types
 		/// <summary>
 		/// How many routes to compare when seleccting targets in Autotargetselection
 		/// </summary>
-		public int RoutefindingWidth { get => _routefindingWidth; set { _routefindingWidth = value; Fileoperations.Backup(Databases.MainDatabase); } }
+		public float OnRouteDistanceLimit { get => _onRouteDistanceLimit; set { _onRouteDistanceLimit = value; Fileoperations.Backup(Databases.MainDatabase); } }
 		/// <summary>
 		/// Wether the caclulation of the routes should be displayed live
 		/// </summary>

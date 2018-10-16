@@ -2,11 +2,9 @@
 using GeocachingTourPlanner.Routing;
 using GeocachingTourPlanner.Types;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -37,6 +35,7 @@ namespace GeocachingTourPlanner.UI
                 }
                 Waypoints_ListChanged(null, null);
                 RenewRouteInfo(null, null);
+                Map_RenewCurrentRoute(this, null);
             }
         }
 
@@ -74,8 +73,14 @@ namespace GeocachingTourPlanner.UI
         {
             if (App.DB.ActiveRoute != null)
             {
-                mapControl.Map.Layers.Remove(mapControl.Map.Layers.First(x => x.Name == "Route:" + App.DB.ActiveRoute.Name));
+                if (mapControl.Map.Layers.Count(x => x.Name == "Route:" + App.DB.ActiveRoute.Name)>0)
+                {
+                    mapControl.Map.Layers.Remove(mapControl.Map.Layers.First(x => x.Name == "Route:" + App.DB.ActiveRoute.Name));
+                }
                 App.Routes.Remove(App.DB.ActiveRoute);
+                Waypoints_ListChanged(this, null);
+                RenewRouteInfo(this, null);
+                Map_RenewCurrentRoute(this, null);
             }
         }
 
@@ -133,7 +138,7 @@ namespace GeocachingTourPlanner.UI
 
             RoutesStateLabel.Text = App.Routingprofiles.Count.ToString() + " Routes loaded";
         }
-        
+
         /// <summary>
         /// Makes sure the List of Waypoints is kept synched
         /// </summary>
@@ -141,22 +146,29 @@ namespace GeocachingTourPlanner.UI
         /// <param name="e"></param>
         public void Waypoints_ListChanged(object sender, EventArgs e)
         {
-            WaypointStackpanel.Children.Clear();
-            if (App.DB.ActiveRoute == null)
-            {
-                return; //Occurs during Startup
-            }
-            foreach (Waypoint Item in App.DB.ActiveRoute.CompleteRouteData.Waypoints)
-            {
-                string Name = "Waypoint";
-                string Description = "";
-                if (Item.GetType() == typeof(Geocache))
-                {
-                    Name = ((Geocache)Item).Name;
-                    Description = "Type: " + ((Geocache)Item).Type + "Size: " + ((Geocache)Item).Size + "\nD: " + ((Geocache)Item).DRating + "T: " + ((Geocache)Item).TRating + "Points: " + ((Geocache)Item).Rating;
-                }
-                WaypointStackpanel.Children.Add(new RouteWaypointListItem(Item, Name, Description));
-            }
+            Application.Current.Dispatcher.BeginInvoke(
+                 new Action(() =>
+                 {
+                     WaypointStackpanel.Children.Clear();
+                     if (App.DB.ActiveRoute == null)
+                     {
+                         return; //Occurs during Startup
+                     }
+                     lock (App.DB.ActiveRoute.CompleteRouteData.WaypointsLocker)
+                     {
+                         foreach (Waypoint Item in App.DB.ActiveRoute.CompleteRouteData.Waypoints)
+                         {
+                             string Name = "Waypoint";
+                             string Description = "";
+                             if (Item.GetType() == typeof(Geocache))
+                             {
+                                 Name = ((Geocache)Item).Name;
+                                 Description = "Type: " + ((Geocache)Item).Type + "Size: " + ((Geocache)Item).Size + "\nD: " + ((Geocache)Item).DRating + "T: " + ((Geocache)Item).TRating + "Points: " + ((Geocache)Item).Rating;
+                             }
+                             WaypointStackpanel.Children.Add(new RouteWaypointListItem(Item, Name, Description));
+                         }
+                     }
+                 }));
         }
 
         /// <summary>

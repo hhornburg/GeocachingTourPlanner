@@ -199,6 +199,7 @@
     <Compile Include="Sourcecode\Routing\GeocacheRoutingInformation.cs" />
     <Compile Include="Sourcecode\Routing\PartialRoute.cs" />
     <Compile Include="Sourcecode\Routing\RouteData.cs" />
+    <Compile Include="Sourcecode\Routing\WaypointRoutingInformation.cs" />
     <Compile Include="Sourcecode\UI\DatabaseFileDialog.xaml.cs">
       <DependentUpon>DatabaseFileDialog.xaml</DependentUpon>
     </Compile>

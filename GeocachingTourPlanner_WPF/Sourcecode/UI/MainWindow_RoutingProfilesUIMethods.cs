@@ -92,10 +92,10 @@ namespace GeocachingTourPlanner.UI
             {
                 Profile.Name = RoutingprofileName.Text;
 
-                Profile.MaxDistance = int.Parse(DistanceValue.Text);
+                Profile.MaxDistance = int.Parse(DistanceValue.Text) * 1000;
 
-                Profile.MaxTime = int.Parse(TimeValue.Text);
-                Profile.TimePerGeocache = int.Parse(GeocacheTimeValue.Text);
+                Profile.MaxTime = int.Parse(TimeValue.Text) * 60;
+                Profile.TimePerGeocache = int.Parse(GeocacheTimeValue.Text) * 60;
 
                 Profile.ItineroProfile = new SerializableItineroProfile(VehicleValue.Text, MetricValue.Text);
                 if (Profile.ItineroProfile.profile == null)
@@ -154,11 +154,11 @@ namespace GeocachingTourPlanner.UI
                 RoutingprofileName.Text = SelectedRoutingprofile.Name;
 
                 //Distance
-                DistanceValue.Text = SelectedRoutingprofile.MaxDistance.ToString();
+                DistanceValue.Text = (SelectedRoutingprofile.MaxDistance / 1000).ToString("F2");
 
                 //Time
-                TimeValue.Text = SelectedRoutingprofile.MaxTime.ToString();
-                GeocacheTimeValue.Text = SelectedRoutingprofile.TimePerGeocache.ToString();
+                TimeValue.Text = (SelectedRoutingprofile.MaxTime/60).ToString("F0");
+                GeocacheTimeValue.Text = (SelectedRoutingprofile.TimePerGeocache/60).ToString("F0");
 
                 //Profile
 

@@ -450,11 +450,11 @@ namespace GeocachingTourPlanner.IO
 
 				XmlNode tracksegment = GPX.CreateElement("trkseg");
 
-				Route FinalRoute = RouteToExport.CompleteRouteData.PartialRoutes[0].partialRoute;
+				Route FinalRoute = RouteToExport.CompleteRouteData.PartialRoutes[0].Route;
 
 				for (int i = 1; i < RouteToExport.CompleteRouteData.PartialRoutes.Count; i++)
 				{
-					FinalRoute = FinalRoute.Concatenate(RouteToExport.CompleteRouteData.PartialRoutes[i].partialRoute);
+					FinalRoute = FinalRoute.Concatenate(RouteToExport.CompleteRouteData.PartialRoutes[i].Route);
 				}
 
 				foreach (Coordinate COO in FinalRoute.Shape)

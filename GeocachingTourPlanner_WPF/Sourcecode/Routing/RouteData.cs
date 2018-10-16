@@ -1,9 +1,10 @@
 ﻿using GeocachingTourPlanner.IO;
 using GeocachingTourPlanner.Types;
+using Itinero;
+using Itinero.LocalGeo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -28,10 +29,6 @@ namespace GeocachingTourPlanner.Routing
         /// </summary>
         public event EventHandler WaypointsChangedEvent;
 
-        /// <summary>
-        /// All Geocaches that can somehow be reached in the Distancce limit from the Route.
-        /// </summary>
-        public List<GeocacheRoutingInformation> ReachableGeocaches { get; set; }
         /// <summary>
         /// The Active Routingprofile for this Route
         /// </summary>
@@ -64,18 +61,37 @@ namespace GeocachingTourPlanner.Routing
 
         #region PartialRoute
         /// <summary>
+        /// Lock for the List of PartialRoutes
+        /// </summary>
+        public readonly object PartialRouteLocker = new object();
+        /// <summary>
         /// Returns a readonly List of partial Routes
         /// </summary>
         public IReadOnlyList<PartialRoute> PartialRoutes { get { return partialRoutes.AsReadOnly(); } }
         /// <summary>
         /// Adds a partial Route to the List of Partial Routes
         /// </summary>
-        /// <param name="PR"></param>
-        public void AddPartialRoute(PartialRoute PR)
+        /// <param name="partialRoute"></param>
+        public void AddPartialRouteToEnd(PartialRoute partialRoute)
         {
-            TotalDistance += PR.partialRoute.TotalDistance;
-            TotalTime += PR.partialRoute.TotalTime;
-            partialRoutes.Add(PR);
+            TotalDistance += partialRoute.Route.TotalDistance;
+            TotalTime += partialRoute.Route.TotalTime;
+            lock (PartialRouteLocker)
+            {
+                partialRoutes.Add(partialRoute);
+
+                //Syncing Route From/To and Waypoints
+                int indexOfpartialRoute = partialRoutes.IndexOf(partialRoute);
+                if (waypoints[indexOfpartialRoute] != partialRoute.From)
+                {
+                    throw new Exception("Waypoint in List and partialRoute.From don't match");
+                }
+                if (waypoints[indexOfpartialRoute + 1] != partialRoute.To)
+                {
+                    InsertWaypoint(indexOfpartialRoute + 1, partialRoute.To);
+                }
+            }
+            UpdateReachableGeocaches(partialRoute);
             PartialRoutesChangedEvent(this, null);
         }
         /// <summary>
@@ -85,15 +101,34 @@ namespace GeocachingTourPlanner.Routing
         /// <param name="PartialRoutesToInsert"></param>
         public void ReplaceRoute(PartialRoute partialRouteToReplace, List<PartialRoute> PartialRoutesToInsert)
         {
-            TotalDistance -= partialRouteToReplace.partialRoute.TotalDistance;
-            TotalTime -= partialRouteToReplace.partialRoute.TotalTime;
+            TotalDistance -= partialRouteToReplace.Route.TotalDistance;
+            TotalTime -= partialRouteToReplace.Route.TotalTime;
             foreach (PartialRoute PR in PartialRoutesToInsert)
             {
-                TotalDistance += PR.partialRoute.TotalDistance;
-                TotalTime += PR.partialRoute.TotalTime;
+                TotalDistance += PR.Route.TotalDistance;
+                TotalTime += PR.Route.TotalTime;
             }
-            partialRoutes.InsertRange(partialRoutes.IndexOf(partialRouteToReplace), PartialRoutesToInsert);
-            partialRoutes.Remove(partialRouteToReplace);
+            lock (PartialRouteLocker)
+            {
+                partialRoutes.InsertRange(partialRoutes.IndexOf(partialRouteToReplace), PartialRoutesToInsert);
+                partialRoutes.Remove(partialRouteToReplace);
+                foreach (PartialRoute partialRoute in PartialRoutesToInsert)
+                {
+                    int indexOfpartialRoute = partialRoutes.IndexOf(partialRoute);
+                    if (waypoints[indexOfpartialRoute] != partialRoute.From)
+                    {
+                        throw new Exception("Waypoint in List and partialRoute.From don't match");
+                    }
+                    if (partialRoute != PartialRoutesToInsert.Last())
+                    {
+                        InsertWaypoint(indexOfpartialRoute + 1, partialRoute.To);
+                    }
+                }
+            }
+            foreach (PartialRoute partialRoute in PartialRoutesToInsert)
+            {
+                UpdateReachableGeocaches(partialRoute);
+            }
             PartialRoutesChangedEvent(this, null);
         }
         /// <summary>
@@ -102,9 +137,12 @@ namespace GeocachingTourPlanner.Routing
         /// <param name="PR"></param>
         public void RemovePartialRoute(PartialRoute PR)
         {
-            TotalDistance -= PR.partialRoute.TotalDistance;
-            TotalTime -= PR.partialRoute.TotalTime;
-            partialRoutes.Remove(PR);
+            TotalDistance -= PR.Route.TotalDistance;
+            TotalTime -= PR.Route.TotalTime;
+            lock (PartialRouteLocker)
+            {
+                partialRoutes.Remove(PR);
+            }
             PartialRoutesChangedEvent(this, null);
         }
 
@@ -113,24 +151,21 @@ namespace GeocachingTourPlanner.Routing
         /// </summary>
         public void ClearPartialRoutes()
         {
-            TotalDistance = 0;
             partialRoutes.Clear();
+            RecalculateRouteDataStatistics();
             PartialRoutesChangedEvent(this, null);
         }
         #endregion
 
         #region Waypoints
         /// <summary>
+        /// Lock for the List of Waypoints
+        /// </summary>
+        public readonly object WaypointsLocker = new object();
+        /// <summary>
         /// All Waypoints on the Route. ONLY USE METHODS TO CHANGE LIST!
         /// </summary>
         public IReadOnlyList<Waypoint> Waypoints { get { return waypoints.AsReadOnly(); } }
-
-        //TODO reevaluate if necessary, since Geocaches are contained in Waypoints 
-        /*/// <summary>
-        /// All Geocaches on the Route ONLY USE METHODS TO CHANGE LIST! TODO reevaluate if necessary, since contained in Waypoints 
-        /// </summary>
-        public List<Geocache> GeocachesOnRoute { get; set; }
-        */
 
         /// <summary>
         /// Adds a Waypoint to the list of Waypoints and to the List of Geocaches if it is a Geocache. Takes care of statistics
@@ -138,8 +173,10 @@ namespace GeocachingTourPlanner.Routing
         /// <param name="WP"></param>
         public void AddWaypointToEnd(Waypoint WP)
         {
-            waypoints.Remove(WP);
-            waypoints.Add(WP);
+            lock (WaypointsLocker)
+            {
+                waypoints.Add(WP);
+            }
             if (WP.GetType() == typeof(Geocache))
             {
                 //GeocachesOnRoute.Add((Geocache)WP);
@@ -148,6 +185,10 @@ namespace GeocachingTourPlanner.Routing
                 {
                     TotalTime += Profile.TimePerGeocache;
                 }
+            }
+            if (WP.GetType() == typeof(Geocache))
+            {
+                RemoveGeocacheFromAllReachableGeocaches((Geocache)WP);
             }
             WaypointsChangedEvent(this, null);
         }
@@ -158,8 +199,10 @@ namespace GeocachingTourPlanner.Routing
         /// <param name="WP"></param>
         public void AddWaypointToBeginning(Waypoint WP)
         {
-            waypoints.Remove(WP);
-            waypoints.Insert(0, WP);
+            lock (WaypointsLocker)
+            {
+                waypoints.Insert(0, WP);
+            }
             if (WP.GetType() == typeof(Geocache))
             {
                 //GeocachesOnRoute.Add((Geocache)WP);
@@ -168,6 +211,10 @@ namespace GeocachingTourPlanner.Routing
                 {
                     TotalTime += Profile.TimePerGeocache;
                 }
+            }
+            if (WP.GetType() == typeof(Geocache))
+            {
+                RemoveGeocacheFromAllReachableGeocaches((Geocache)WP);
             }
             WaypointsChangedEvent(this, null);
         }
@@ -178,7 +225,10 @@ namespace GeocachingTourPlanner.Routing
         /// <param name="WP"></param>
         public void RemoveWaypoint(Waypoint WP)
         {
-            waypoints.Remove(WP);
+            lock (WaypointsLocker)
+            {
+                waypoints.Remove(WP);
+            }
             if (WP.GetType() == typeof(Geocache))
             {
                 //GeocachesOnRoute.Add((Geocache)WP);
@@ -197,9 +247,12 @@ namespace GeocachingTourPlanner.Routing
         /// <param name="WP"></param>
         public void MoveWaypointUp(Waypoint WP)
         {
-            int OldIndex = waypoints.IndexOf(WP);
-            waypoints.RemoveAt(OldIndex);
-            waypoints.Insert(OldIndex - 1, WP);
+            lock (WaypointsLocker)
+            {
+                int OldIndex = waypoints.IndexOf(WP);
+                waypoints.RemoveAt(OldIndex);
+                waypoints.Insert(OldIndex - 1, WP);
+            }
             WaypointsChangedEvent(this, null);
         }
 
@@ -209,9 +262,12 @@ namespace GeocachingTourPlanner.Routing
         /// <param name="WP"></param>
         public void MoveWaypointDown(Waypoint WP)
         {
-            int OldIndex = waypoints.IndexOf(WP);
-            waypoints.RemoveAt(OldIndex);
-            waypoints.Insert(OldIndex + 1, WP);
+            lock (WaypointsLocker)
+            {
+                int OldIndex = waypoints.IndexOf(WP);
+                waypoints.RemoveAt(OldIndex);
+                waypoints.Insert(OldIndex + 1, WP);
+            }
             WaypointsChangedEvent(this, null);
         }
 
@@ -223,6 +279,33 @@ namespace GeocachingTourPlanner.Routing
         public int IndexOfWaypoint(Waypoint WP)
         {
             return waypoints.IndexOf(WP);
+        }
+
+        /// <summary>
+        /// Inserts Waypoint at the given Index
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="WP"></param>
+        public void InsertWaypoint(int index, Waypoint WP)
+        {
+            lock (WaypointsLocker)
+            {
+                waypoints.Insert(index, WP);
+            }
+            if (WP.GetType() == typeof(Geocache))
+            {
+                //GeocachesOnRoute.Add((Geocache)WP);
+                TotalPoints += ((Geocache)WP).Rating;
+                if (Profile != null)
+                {
+                    TotalTime += Profile.TimePerGeocache;
+                }
+            }
+            if (WP.GetType() == typeof(Geocache))
+            {
+                RemoveGeocacheFromAllReachableGeocaches((Geocache)WP);
+            }
+            WaypointsChangedEvent(this, null);
         }
         #endregion
 
@@ -283,7 +366,7 @@ namespace GeocachingTourPlanner.Routing
                         {
                             if (reader.LocalName == "Geocache")
                             {
-                                if (App.Geocaches.Count(x => x.GCCODE == reader.GetAttribute("GCCODE"))>0)
+                                if (App.Geocaches.Count(x => x.GCCODE == reader.GetAttribute("GCCODE")) > 0)
                                 {
                                     AddWaypointToEnd(App.Geocaches.First(x => x.GCCODE == reader.GetAttribute("GCCODE")));
                                 }
@@ -311,16 +394,8 @@ namespace GeocachingTourPlanner.Routing
             PartialRoutesChangedEvent += App.mainWindow.RenewRouteInfo;
             WaypointsChangedEvent += App.mainWindow.Waypoints_ListChanged;
             WaypointsChangedEvent += App.mainWindow.RenewRouteInfo;
+            WaypointsChangedEvent += App.mainWindow.Map_RenewWaypointLayer;
             WaypointsChangedEvent += (s, e) => { Fileoperations.Backup(Databases.Routes); };
-
-            ReachableGeocaches = new List<GeocacheRoutingInformation>();
-
-            foreach (Geocache GC in RemoveGeocachesWithNegativePoints(App.Geocaches.ToList()))
-            {
-                GeocacheRoutingInformation GCRI = new GeocacheRoutingInformation();
-                GCRI.geocache = GC;
-                ReachableGeocaches.Add(GCRI);
-            }
         }
 
         /// <summary>
@@ -343,7 +418,7 @@ namespace GeocachingTourPlanner.Routing
         {
             ResetRouteData();
 
-            foreach(Geocache GC in waypoints.Where(x => x.GetType() == typeof(Geocache)))
+            foreach (Geocache GC in waypoints.Where(x => x.GetType() == typeof(Geocache)))
             {
                 TotalPoints += GC.Rating;
                 if (Profile != null)
@@ -352,10 +427,10 @@ namespace GeocachingTourPlanner.Routing
                 }
             }
 
-            foreach(PartialRoute PR in partialRoutes)
+            foreach (PartialRoute PR in partialRoutes)
             {
-                TotalDistance += PR.partialRoute.TotalDistance;
-                TotalTime += PR.partialRoute.TotalTime;
+                TotalDistance += PR.Route.TotalDistance;
+                TotalTime += PR.Route.TotalTime;
             }
         }
 
@@ -384,24 +459,90 @@ namespace GeocachingTourPlanner.Routing
         }
 
         /// <summary>
-		/// Returns new list with all geocaches that don't have a negtive rating
-		/// </summary>
-		/// <param name="AllGeocaches"></param>
-		/// <returns></returns>
-		private static List<Geocache> RemoveGeocachesWithNegativePoints(List<Geocache> AllGeocaches)
+        /// Updates the reachable Geocaches in all partial routes
+        /// </summary>
+        public void UpdateReachableGeocaches()
         {
-            List<Geocache> UsableGeocaches = new List<Geocache>();
-            Parallel.ForEach(AllGeocaches, GC =>
+            List<Geocache> WellEnoughRatedGeocaches = App.Geocaches.Where(x => (x.Rating > App.DB.MinAllowedRating && x.Rating > 0)).ToList();
+
+            foreach (PartialRoute partialRoute in partialRoutes)
             {
-                if (GC.Rating > 0)
+                UpdateReachableGeocaches(partialRoute);
+            }
+        }
+
+        /// <summary>
+        /// Updates the reachable Geocaches in this specific partial route.
+        /// </summary>
+        public void UpdateReachableGeocaches(PartialRoute partialRoute)
+        {
+            List<Geocache> WellEnoughRatedGeocaches = App.Geocaches.Where(x => (x.Rating > App.DB.MinAllowedRating && x.Rating > 0)).ToList();
+            partialRoute.ReachableGeocaches.Clear();
+
+            foreach (Geocache GC in WellEnoughRatedGeocaches)
+            {
+                if (!waypoints.Contains(GC))
                 {
-                    lock (UsableGeocaches)
+                    //First, all Geocaches are added, that are reachable from the End and Beginning when the Route is replaced.
+                    if (Coordinate.DistanceEstimateInMeter(new Coordinate(partialRoute.From.lat, partialRoute.From.lon), new Coordinate(GC.lat, GC.lon)) < (Profile.MaxDistance - TotalDistance + partialRoute.Route.TotalDistance) / 2)
                     {
-                        UsableGeocaches.Add(GC);
+                        partialRoute.ReachableGeocaches.Add(GC);
+                    }
+                    else if (Coordinate.DistanceEstimateInMeter(new Coordinate(partialRoute.To.lat, partialRoute.To.lon), new Coordinate(GC.lat, GC.lon)) < (Profile.MaxDistance - TotalDistance + partialRoute.Route.TotalDistance) / 2)
+                    {
+                        partialRoute.ReachableGeocaches.Add(GC);
+                    }
+                    else
+                    {
+                        //In a second step, all Geocaches are added, that are reachable, when added to the route. Here only Geocaches should be added, when a large detour is made by the route
+                        float MinDistance = GetMinDistanceToRoute(partialRoute.Route, GC);
+
+                        if (MinDistance < (Profile.MaxDistance - TotalDistance) / 2)
+                        {
+                            partialRoute.ReachableGeocaches.Add(GC);
+                        }
                     }
                 }
-            });
-            return UsableGeocaches;
+            }
+        }
+
+        /// <summary>
+        /// Removes the given Geocache from all ReachableGeocache Lists 
+        /// </summary>
+        /// <param name="geocache"></param>
+        public void RemoveGeocacheFromAllReachableGeocaches(Geocache geocache)
+        {
+            lock (PartialRouteLocker)
+            {
+                foreach(PartialRoute partialRoute in partialRoutes)
+                {
+                    partialRoute.ReachableGeocaches.Remove(geocache);
+                }
+            }
+        }
+        /// <summary>
+        /// Returns minimal Distance of the Waypoint to the any ShapePoint of the Route
+        /// </summary>
+        /// <param name="route"></param>
+        /// <param name="waypoint"></param>
+        /// <returns></returns>
+        public static float GetMinDistanceToRoute(Route route, Waypoint waypoint)
+        {
+            float MinDistance = -1;//-1, so it is known if no "highscore" has been set
+            int ClosestShapePoint = -1;
+
+            //TODO Evaluate CPU cost
+            for (int k = 0; k < route.Shape.Length; k++)
+            {
+                float Distance = Coordinate.DistanceEstimateInMeter(route.Shape[k], new Coordinate(waypoint.lat, waypoint.lon));
+                if (MinDistance < 0 || Distance < MinDistance)
+                {
+                    MinDistance = Distance;
+                    ClosestShapePoint = k;
+                }
+            }
+
+            return MinDistance;
         }
     }
 }

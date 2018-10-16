@@ -1,4 +1,5 @@
-﻿using Itinero;
+﻿using GeocachingTourPlanner.Types;
+using Itinero;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,38 +8,54 @@ using System.Threading.Tasks;
 
 namespace GeocachingTourPlanner.Routing
 {
+    /// <summary>
+    /// Wraps around a actual Route to provide Reachable Geocaches
+    /// </summary>
     public class PartialRoute
     {
-        public Route partialRoute { get; set; }
+        /// <summary>
+        /// The actual Route of the partialRoute
+        /// </summary>
+        public Route Route { get; }
         /// <summary>
         /// geocaches that are in reach from this partial route. NOT THOSE ON THE ROUTE
         /// </summary>
-        public List<GeocacheRoutingInformation> GeocachesInReach { get; set; }
+        public List<Geocache> ReachableGeocaches { get; set; }
+        /// <summary>
+        /// Startpoint of partialRoute
+        /// </summary>
+        public Waypoint From { get; }
+        /// <summary>
+        /// Endpoint of partialRoute
+        /// </summary>
+        public Waypoint To { get; }
 
-        public PartialRoute(Route partialRoute, List<GeocacheRoutingInformation> GeocachesInReach)
+        /// <summary>
+        /// Creates a partialRoute
+        /// </summary>
+        /// <param name="partialRoute"></param>
+        /// <param name="From"></param>
+        /// <param name="To"></param>
+        public PartialRoute(Route partialRoute, Waypoint From, Waypoint To)
         {
-            this.partialRoute = partialRoute;
-            this.GeocachesInReach = GeocachesInReach;
+            this.Route = partialRoute;
+            this.From = From;
+            this.To = To;
+            ReachableGeocaches = new List<Geocache>();
         }
 
-        public PartialRoute(Route partialRoute)
-        {
-            this.partialRoute = partialRoute;
-        }
-
-        public PartialRoute()
-        {
-            GeocachesInReach = new List<GeocacheRoutingInformation>();
-        }
+        /// <summary>
+        /// Returns a copy, that created an independent List of reachable Geocaches
+        /// </summary>
+        /// <returns></returns>
         public PartialRoute DeepCopy()
         {
-            PartialRoute _DeepCopy = new PartialRoute();
-            _DeepCopy.partialRoute = partialRoute;//No deeper copy needed since partial route won't be changed
-            foreach (GeocacheRoutingInformation geocacheRoutingInfo in GeocachesInReach)
+            PartialRoute partialRoute = new PartialRoute(this.Route, From, To);
+            foreach(Geocache GC in ReachableGeocaches)
             {
-                _DeepCopy.GeocachesInReach.Add(new GeocacheRoutingInformation(geocacheRoutingInfo));
+                partialRoute.ReachableGeocaches.Add(GC);
             }
-            return _DeepCopy;
+            return partialRoute;
         }
     }
 }

@@ -111,7 +111,6 @@ namespace GeocachingTourPlanner.UI
             App.DB.ActiveRoute.CompleteRouteData.AddWaypointToBeginning(new Waypoint((float)Coordinates.Y, (float)Coordinates.X));
 			HideContextMenu();
             App.DB.ActiveRoute.CalculateDirectRoute();
-            App.mainWindow.Map_RenewWaypointLayer();
         }
 
 		private static void AddWaypointToEnd_Click(Mapsui.Geometries.Point Coordinates)
@@ -119,7 +118,6 @@ namespace GeocachingTourPlanner.UI
             App.DB.ActiveRoute.CompleteRouteData.AddWaypointToEnd(new Waypoint((float)Coordinates.Y, (float)Coordinates.X));
 			HideContextMenu();
             App.DB.ActiveRoute.CalculateDirectRoute();
-            App.mainWindow.Map_RenewWaypointLayer();
         }
 	}
 }

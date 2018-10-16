@@ -12,8 +12,6 @@ namespace GeocachingTourPlanner.Types
 	{
 		public float lat { get; set; }
 		public float lon { get; set; }
-		[XmlIgnore]
-		public RouterPoint routerPoint { get; set; }
 
 		public Waypoint(float lat, float lon)
 		{
