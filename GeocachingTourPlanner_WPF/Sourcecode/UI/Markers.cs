@@ -168,7 +168,7 @@ namespace GeocachingTourPlanner.UI
 				marker_bmp.Save(image, ImageFormat.Png);
 				image.Position = 0;
 
-				MarkerStyle = new SymbolStyle { BitmapId=BitmapRegistry.Instance.Register(image), SymbolScale = 1.0, SymbolOffset = new Offset(0.0, 0.5) };
+				MarkerStyle = new SymbolStyle { BitmapId=BitmapRegistry.Instance.Register(image), SymbolScale = 1.0, SymbolOffset = new Offset(0.0, 0.75*App.DB.MarkerSize) };
 
 				App.MarkerStyleCache.Add(new KeyValueTriple<SymbolStyle, GeocacheType, int>(MarkerStyle, geocache.Type, (int)GeocacheCategory));
 			}
@@ -223,7 +223,7 @@ namespace GeocachingTourPlanner.UI
             marker_bmp.Save(image, ImageFormat.Png);
             image.Position = 0;
 
-            MarkerStyle = new SymbolStyle { BitmapId = BitmapRegistry.Instance.Register(image), SymbolScale = 1.0, SymbolOffset = new Offset(0.0, 0.5) };
+            MarkerStyle = new SymbolStyle { BitmapId = BitmapRegistry.Instance.Register(image), SymbolScale = 1.0, SymbolOffset = new Offset(0, 0.75 * App.DB.MarkerSize) };
             
 			Feature StartMarker = new Feature { Geometry = SphericalMercator.FromLonLat(WP.lon, WP.lat), [MarkerFields.Type] = MarkerTypes.Waypoint };
 			StartMarker.Styles.Add(MarkerStyle);

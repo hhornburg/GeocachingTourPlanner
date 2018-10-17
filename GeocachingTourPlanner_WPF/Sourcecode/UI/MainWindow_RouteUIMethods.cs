@@ -33,10 +33,11 @@ namespace GeocachingTourPlanner.UI
                 {
                     SetRoutingprofile(App.DB.ActiveRoutingprofile);
                 }
-                Waypoints_ListChanged(null, null);
-                RenewRouteInfo(null, null);
-                Map_RenewCurrentRoute(this, null);
             }
+            Waypoints_ListChanged(this, null);
+            RenewRouteInfo(this, null);
+            Map_RenewCurrentRoute(this, null);
+            Map_RenewWaypointLayer(this, null);
         }
 
         private void CalculateDirectRoute_Click(object sender, RoutedEventArgs e)

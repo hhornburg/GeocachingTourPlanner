@@ -404,7 +404,6 @@ namespace GeocachingTourPlanner.Routing
         public void ResetRouteData()
         {
             partialRoutes.Clear();
-            //GeocachesOnRoute.Clear();
             waypoints.Clear();
             TotalDistance = 0;
             TotalPoints = 0;
@@ -416,7 +415,9 @@ namespace GeocachingTourPlanner.Routing
         /// </summary>
         public void RecalculateRouteDataStatistics()
         {
-            ResetRouteData();
+            TotalDistance = 0;
+            TotalPoints = 0;
+            TotalTime = 0;
 
             foreach (Geocache GC in waypoints.Where(x => x.GetType() == typeof(Geocache)))
             {

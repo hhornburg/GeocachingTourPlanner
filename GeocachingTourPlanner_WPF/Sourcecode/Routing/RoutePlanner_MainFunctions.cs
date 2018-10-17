@@ -1,14 +1,8 @@
-﻿using GeocachingTourPlanner.IO;
-using GeocachingTourPlanner.Types;
+﻿using GeocachingTourPlanner.Types;
 using Itinero;
-using Itinero.LocalGeo;
-using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace GeocachingTourPlanner.Routing
@@ -97,84 +91,25 @@ namespace GeocachingTourPlanner.Routing
             CompleteRouteData.ClearPartialRoutes();
 
             //TODO Parallel.FOR
-            for (int i = 0; i < CompleteRouteData.Waypoints.Count - 1; i++)//minus one, since No route needs to be calculated from last point
+            lock (CompleteRouteData.WaypointsLocker)
             {
-                WaypointRoutingInformation waypointRoutingInformation_Start;
-                if (!RoutingCache.ContainsKey(CompleteRouteData.Waypoints[i]))
+                for (int i = 0; i < CompleteRouteData.Waypoints.Count - 1; i++)//minus one, since No route needs to be calculated from last point
                 {
-                    waypointRoutingInformation_Start = new WaypointRoutingInformation(CompleteRouteData.Waypoints[i]);
-                    RoutingCache[CompleteRouteData.Waypoints[i]] = waypointRoutingInformation_Start;
-                }
-                else
-                {
-                    waypointRoutingInformation_Start = RoutingCache[CompleteRouteData.Waypoints[i]];
-                }
-
-                WaypointRoutingInformation waypointRoutingInformation_End;
-                if (!RoutingCache.ContainsKey(CompleteRouteData.Waypoints[i + 1]))
-                {
-                    waypointRoutingInformation_End = new WaypointRoutingInformation(CompleteRouteData.Waypoints[i + 1]);
-                    RoutingCache[CompleteRouteData.Waypoints[i + 1]] = waypointRoutingInformation_End;
-                }
-                else
-                {
-                    waypointRoutingInformation_End = RoutingCache[CompleteRouteData.Waypoints[i + 1]];
-                }
-
-                if (waypointRoutingInformation_Start.RoutesToWaypoints.ContainsKey(CompleteRouteData.Waypoints[i + 1]))
-                {
-                    CompleteRouteData.AddPartialRouteToEnd(new PartialRoute(waypointRoutingInformation_Start.RoutesToWaypoints[CompleteRouteData.Waypoints[i + 1]],waypointRoutingInformation_Start.Waypoint,waypointRoutingInformation_End.Waypoint));
-                }
-                else
-                {
-                    if (waypointRoutingInformation_Start.ResolvedCoordinates == null)
-                    {
-                        float lat = CompleteRouteData.Waypoints[i].lat;
-                        float lon = CompleteRouteData.Waypoints[i].lon;
-                        Result<RouterPoint> result = router.TryResolve(CompleteRouteData.Profile.ItineroProfile.profile, lat, lon, SearchDistanceInMeters);
-                        if (result.IsError)
-                        {
-                            MessageBox.Show("Couldn't resolve: " + CompleteRouteData.Waypoints[i].ToString());
-                            return false;
-                        }
-                        else
-                        {
-                            waypointRoutingInformation_Start.ResolvedCoordinates = result.Value;
-                        }
-                    }
-
-                    if (waypointRoutingInformation_End.ResolvedCoordinates == null)
-                    {
-                        float lat = CompleteRouteData.Waypoints[i + 1].lat;
-                        float lon = CompleteRouteData.Waypoints[i + 1].lon;
-                        Result<RouterPoint> result = router.TryResolve(CompleteRouteData.Profile.ItineroProfile.profile, lat, lon, SearchDistanceInMeters);
-                        if (result.IsError)
-                        {
-                            MessageBox.Show("Couldn't resolve: " + CompleteRouteData.Waypoints[i + 1].ToString());
-                            return false;
-                        }
-                        else
-                        {
-                            waypointRoutingInformation_End.ResolvedCoordinates = result.Value;
-                        }
-                    }
-
-                    Result<Route> routeResult = router.TryCalculate(CompleteRouteData.Profile.ItineroProfile.profile, waypointRoutingInformation_Start.ResolvedCoordinates, waypointRoutingInformation_End.ResolvedCoordinates);
+                    Result<PartialRoute> routeResult = CalculateRoute(CompleteRouteData.Waypoints[i], CompleteRouteData.Waypoints[i + 1]);
                     if (routeResult.IsError)
                     {
-                        MessageBox.Show("Couldn't route between: " + CompleteRouteData.Waypoints[i].ToString() + CompleteRouteData.Waypoints[i + 1].ToString());
+                        MessageBox.Show(routeResult.ErrorMessage);
                         return false;
                     }
                     else
                     {
-                        waypointRoutingInformation_Start.RoutesToWaypoints[CompleteRouteData.Waypoints[i + 1]] = routeResult.Value;
-                        CompleteRouteData.AddPartialRouteToEnd(new PartialRoute(routeResult.Value,waypointRoutingInformation_Start.Waypoint,waypointRoutingInformation_End.Waypoint));
+                        CompleteRouteData.AddPartialRouteToEnd(routeResult.Value);
                     }
                 }
             }
             return true;
         }
-    
+
         /// <summary>
         /// Adds Geocaches that lie directly on the Route, calls overloaded Method recursively for all partial Routes
         /// </summary>
@@ -199,7 +134,7 @@ namespace GeocachingTourPlanner.Routing
         /// <param name="partialRoute"></param>
         public void AddGeocachesDirectlyOnRoute(PartialRoute partialRoute)
         {
-            foreach(Geocache Geocache in partialRoute.ReachableGeocaches)
+            foreach (Geocache Geocache in partialRoute.ReachableGeocaches)
             {
                 if (RouteData.GetMinDistanceToRoute(partialRoute.Route, Geocache) < App.DB.OnRouteDistanceLimit)
                 {
@@ -228,7 +163,7 @@ namespace GeocachingTourPlanner.Routing
                         })).Start();
                         break;//Since the current partialRoute is removed
                     }
-                } 
+                }
             }
         }
 
@@ -244,7 +179,7 @@ namespace GeocachingTourPlanner.Routing
 
         private void AddBestReachableGeocaches(List<Geocache> GeocachesToConsider)
         {
-            
+
         }
     }
 }

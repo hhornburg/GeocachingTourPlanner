@@ -30,14 +30,23 @@ namespace GeocachingTourPlanner.Routing
                 }
                 else
                 {
-                    From_ResolvedCoordinates = router.Resolve(CompleteRouteData.Profile.ItineroProfile.profile, new Coordinate(From.lat, From.lon));
-                    if (RoutingCache.ContainsKey(To))
+                    Result<RouterPoint> ResolveResult = router.TryResolve(CompleteRouteData.Profile.ItineroProfile.profile, new Coordinate(From.lat, From.lon), SearchDistanceInMeters);
+                    if (ResolveResult.IsError)
                     {
-                        RoutingCache[From].ResolvedCoordinates = From_ResolvedCoordinates;
+                        CompleteRouteData.RemoveWaypoint(From);
+                        return new Result<PartialRoute>("Resolving failed on:" + From.ToString() + "\nRemoved waypoint.");
                     }
                     else
                     {
-                        RoutingCache[From] = new WaypointRoutingInformation(From) { ResolvedCoordinates = From_ResolvedCoordinates };
+                        From_ResolvedCoordinates = ResolveResult.Value;
+                        if (RoutingCache.ContainsKey(From))
+                        {
+                            RoutingCache[From].ResolvedCoordinates = From_ResolvedCoordinates;
+                        }
+                        else
+                        {
+                            RoutingCache[From] = new WaypointRoutingInformation(From) { ResolvedCoordinates = From_ResolvedCoordinates };
+                        }
                     }
                 }
 
@@ -47,23 +56,32 @@ namespace GeocachingTourPlanner.Routing
                 }
                 else
                 {
-                    To_ResolvedCoordinates = router.Resolve(CompleteRouteData.Profile.ItineroProfile.profile, new Coordinate(To.lat, To.lon));
-                    if (RoutingCache.ContainsKey(To))
+                    Result<RouterPoint> ResolveResult = router.TryResolve(CompleteRouteData.Profile.ItineroProfile.profile, new Coordinate(To.lat, To.lon),SearchDistanceInMeters);
+                    if (ResolveResult.IsError)
                     {
-                        RoutingCache[To].ResolvedCoordinates = To_ResolvedCoordinates;
+                        CompleteRouteData.RemoveWaypoint(To);
+                        return new Result<PartialRoute>("Resolving failed on:" + To.ToString() + "\nRemoved waypoint.");
                     }
                     else
                     {
-                        RoutingCache[To] = new WaypointRoutingInformation(From) { ResolvedCoordinates = To_ResolvedCoordinates };
+                        To_ResolvedCoordinates = ResolveResult.Value;
+                        if (RoutingCache.ContainsKey(To))
+                        {
+                            RoutingCache[To].ResolvedCoordinates = To_ResolvedCoordinates;
+                        }
+                        else
+                        {
+                            RoutingCache[To] = new WaypointRoutingInformation(From) { ResolvedCoordinates = To_ResolvedCoordinates };
+                        }
                     }
                 }
 
                 Result<Route> RouteCalculationResult1 = router.TryCalculate(CompleteRouteData.Profile.ItineroProfile.profile, From_ResolvedCoordinates, To_ResolvedCoordinates);
                 if (RouteCalculationResult1.IsError)
                 {
-
+                    CompleteRouteData.RemoveWaypoint(To); //Since navigating to the start worked in all cases except if it is the first one
                     FailedRouteCalculations++;
-                    return new Result<PartialRoute>("RouteCalculationFailed");
+                    return new Result<PartialRoute>("Route calculation failed between " + From.ToString() + " and " + To.ToString() + "\nRemoved waypoint at the end.");
                 }
                 else
                 {

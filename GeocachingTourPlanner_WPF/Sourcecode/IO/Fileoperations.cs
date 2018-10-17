@@ -143,7 +143,6 @@ namespace GeocachingTourPlanner.IO
                     Startup.BindLists();//Binding is lost on deserialization
 
 					App.mainWindow.UpdateStatus("Successfully read routes");
-					App.Ratingprofiles.ResetBindings();
 				}
 				catch (Exception)
 				{
